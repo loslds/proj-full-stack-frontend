@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2021 (64 Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="63.6986mm" height="63.6356mm" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 735.72 734.99"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#B8B4B6;stroke-width:48.89;stroke-miterlimit:22.9256}
+    .str2 {stroke:#AFB3B0;stroke-width:78.23;stroke-miterlimit:22.9256}
+    .str5 {stroke:#919191;stroke-width:2.93;stroke-miterlimit:22.9256}
+    .str1 {stroke:black;stroke-width:0.88;stroke-miterlimit:22.9256}
+    .str6 {stroke:#C7C5C5;stroke-width:0.88;stroke-miterlimit:22.9256}
+    .str8 {stroke:#5E5E5E;stroke-width:19.56;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str4 {stroke:black;stroke-width:48.89;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str7 {stroke:black;stroke-width:24.45;stroke-linecap:round;stroke-miterlimit:22.9256}
+    .str3 {stroke:black;stroke-width:48.89;stroke-linecap:square;stroke-miterlimit:22.9256}
+    .fil0 {fill:none}
+    .fil2 {fill:#E6E7E8}
+    .fil1 {fill:#99FFFF}
+   ]]>
+  </style>
+ </defs>
+ <g id="Camada_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2536648028112">
+   <path class="fil0 str0" d="M55.29 24.45l625.87 0c16.63,-0 30.11,15.39 30.11,34.36l0 617.36c0,18.98 -13.48,34.36 -30.11,34.36l-625.87 0c-16.62,-0 -30.1,-15.39 -30.1,-34.37 0,-74.16 -1.09,-597.93 -0.61,-624.81 0.27,-14.85 18.3,-26.91 30.72,-26.91z"/>
+   <g>
+    <polygon class="fil1 str1" points="334.86,530.84 233.65,530.61 233.65,204.15 502.06,204.15 333.28,289.59 "/>
+    <polyline class="fil0 str2" points="212.51,531.37 212.42,184.46 523.55,184.46 "/>
+    <polyline class="fil0 str3" points="230.78,519.6 230.78,198.86 511.88,198.86 "/>
+    <polygon class="fil0 str4" points="511.88,209.11 339.06,293.33 339.06,613.33 512.06,501.96 "/>
+    <polygon class="fil2 str5" points="501.69,494.85 500.67,226.37 351.62,299.87 351.62,588.77 "/>
+    <line class="fil0 str6" x1="350.35" y1="323.63" x2="500.74" y2= "245.9" />
+    <line class="fil0 str6" x1="350.35" y1="558.35" x2="501.59" y2= "469.99" />
+    <line class="fil0 str6" x1="350.35" y1="534.88" x2="501.5" y2= "446.58" />
+    <line class="fil0 str6" x1="350.35" y1="511.41" x2="501.41" y2= "422.13" />
+    <line class="fil0 str6" x1="350.35" y1="487.93" x2="501.32" y2= "399.24" />
+    <line class="fil0 str6" x1="350.35" y1="464.46" x2="501.23" y2= "375.63" />
+    <line class="fil0 str6" x1="350.35" y1="440.99" x2="501.14" y2= "352.41" />
+    <line class="fil0 str6" x1="350.35" y1="417.52" x2="501.06" y2= "331.5" />
+    <line class="fil0 str6" x1="350.35" y1="394.05" x2="500.98" y2= "308.71" />
+    <line class="fil0 str6" x1="350.35" y1="370.58" x2="500.9" y2= "288.05" />
+    <line class="fil0 str6" x1="350.35" y1="347.1" x2="500.82" y2= "266.63" />
+    <line class="fil0 str7" x1="366.46" y1="465.78" x2="365.8" y2= "431.91" />
+    <line class="fil0 str8" x1="366.13" y1="448.85" x2="391.15" y2= "436.39" />
+   </g>
+  </g>
+ </g>
+</svg>
