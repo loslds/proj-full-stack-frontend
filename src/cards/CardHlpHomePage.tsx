@@ -18,7 +18,7 @@ export const CardHlpHomePage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'80px'}
+          pminheight={'110px'}
           pwidth={'220px'}
           img={imgcardpage}
         />

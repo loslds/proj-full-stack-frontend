@@ -29,27 +29,30 @@ import light from "../../themes/light";
 import dark from "../../themes/dark";
 import { useNavigate } from "react-router-dom";
 import LayoutResgatar from "../layouts/LayoutResgatar";
-import useEmpresas from "../../api/acess/useEmpresas";
+
 import lg_resgate from "../../assets/svgs/lg_resgate.svg";
-import bt_help from "../../assets/svgs/bt_help.svg";
+import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 import bt_close from "../../assets/svgs/bt_close.svg";
-import bt_setaesq from "../../assets/svgs/bt_setaesq.svg";
+import bt_voltar from "../../assets/pngs/bt_voltar.png";
 import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 import { CardHlpResgateLogo } from "../../cards/CardHlpResgateLogo";
 import { CardHlpResgatePage } from "../../cards/CardHlpResgatePage";
 import { CardModalErro } from "../../cards/CardModalErro";
 
+//import useEmpresas from "../../api/acess/useEmpresas";
+
 import {
   isCpfValid,
   isExistsCPF,
   isValidarEmail,
-  MasckedEmail,
+  // MasckedEmail,
   isFoneCValid,
-  MasckedFoneC,
-  VerPergResp,
-  isValidarCpf,
+  //MasckedFoneC,
+  //VerPergResp,
+  //isValidarCpf,
 } from "../../funcs/ErroEdicao";
+
 import { ContentCardPageMain } from "../ContentCardPageMain";
 import { ContentCardPage } from "../ContentCardPage";
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
@@ -68,10 +71,10 @@ const Resgatar: React.FC = () => {
   const [boolcell, setBoolCell] = useState(false);
   const [boolresp, setBoolResp] = useState(false);
 
-  const { empresas, loading, error } = useEmpresas();
-  const [selectedEmpresa, setSelectedEmpresa] = React.useState<number | null>(
-    null
-  );
+  //const { empresas, loading, error } = useEmpresas();
+  // const [selectedEmpresa, setSelectedEmpresa] = React.useState<number | null>(
+  //   null
+  // );
 
   const [idempr, setIdEmpr] = useState(0);
   const [boolempr, setBoolEmpr] = useState(false);
@@ -158,11 +161,11 @@ const Resgatar: React.FC = () => {
     setHelpPageRes((oldState) => !oldState);
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      setMsgErroEmp("Erro ao carregar empresas. Por favor, tente novamente.");
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     setMsgErroEmp("Erro ao carregar empresas. Por favor, tente novamente.");
+  //   }
+  // }, [error]);
 
   useEffect(() => {
     setMsgErroMd("");
@@ -375,7 +378,7 @@ const Resgatar: React.FC = () => {
         titbtnsys="Home Sistema..."
         onclicksys={handlerLogoRes}
         titlepg="Resgatar"
-        imgbtnhlppg={bt_help}
+        imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerHelpPageRes}
         imgbtnaborta={bt_abortar}
@@ -384,7 +387,7 @@ const Resgatar: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        {loading ? (
+        {/* {loading ? (
           <div>
             <p>Carregando empresas...</p>)
           </div>
@@ -392,7 +395,8 @@ const Resgatar: React.FC = () => {
           <Pg.ContainerDivManRed>
             <p>{msgerroemp}</p>
           </Pg.ContainerDivManRed>
-        ) : boolstart ? (
+        ) : boolstart ? ( */}
+        {boolstart ? (
           <ContentCardPageMain open={boolstart}>
             <ContentCardBoxDialogo>
               <ContentCardDialogoTitle>
@@ -439,11 +443,11 @@ const Resgatar: React.FC = () => {
                     onChange={handleEmpresaChange}
                   >
                     <Pg.StyledOption value={0}>Selecione:</Pg.StyledOption>
-                    {empresas.map((empresa) => (
+                    {/* {empresas.map((empresa) => (
                       <Pg.StyledOption key={empresa.id} value={empresa.id}>
                         {empresa.nome}
                       </Pg.StyledOption>
-                    ))}
+                    ))} */}
                   </Pg.StyledSelect>
                   <div>{msgerroemp}</div>
                 </Pg.SelectContainer>
@@ -598,7 +602,7 @@ const Resgatar: React.FC = () => {
           <ContentSidePageBottonLabel istitl={true} title={"Voltar.: "}>
             <ContentSidePageBottonButton
               pxheight={"40px"}
-              img={bt_setaesq}
+              img={bt_voltar}
               titbtn={"Volta..."}
               onclick={goto("/")}
             />

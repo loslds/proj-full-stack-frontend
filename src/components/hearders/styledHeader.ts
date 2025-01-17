@@ -120,7 +120,7 @@ export const ContainerHeaderItensBar = styled.div`
 
 // Conteiner de botões das paginas Header Right
 export const ContainerHeaderButton = styled.div`
-  border: 2px;
+  border: none;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;

@@ -7,9 +7,9 @@ import { ContentHeaderTitle } from './ContentHeaderTitle';
 import { ContentHearderRight } from './ContentHearderRight';
 import { ContentHearderItensBar } from './ContentHearderItensBar';
 import { ContentHeaderButtonHelp } from './ContentHeaderButtonHelp';
-import { ContentHeaderButtonLogin } from './ContentHeaderButtonLogin';
-import { ContentHeaderButtonResgate } from './ContentHeaderButtonResgate';
-interface PropsHearderHome {
+import { ContentHeaderButtonAbortar } from './ContentHeaderButtonAbortar';
+
+interface PropsHearderConfig {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -20,19 +20,15 @@ interface PropsHearderHome {
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
 
-  imgbtnlogin?: string;
-  titbtnlogin?: string;
-  onclicklogin?: () => void;
-
-  imgbtnresg?: string;
-  titbtnresg?: string;
-  onclickresg?: () => void;
+  imgbtnaborta?: string;
+  titbtnaborta?: string;
+  onclickaborta?: () => void;
 
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderHome = ({
+const HearderConfig = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -43,17 +39,14 @@ const HearderHome = ({
   titbtnhlppg,
   onclickhlppg,
 
-  imgbtnlogin,
-  titbtnlogin,
-  onclicklogin,
+  imgbtnaborta,
+  titbtnaborta,
+  onclickaborta,
 
-  imgbtnresg,
-  titbtnresg,
-  onclickresg,
-  
+
   onchange,
   ischeck,
-}: PropsHearderHome) => {
+}: PropsHearderConfig) => {
   return (
     <ContentHearderMain>
       {/** Panel da ESquerda com Imagem LOGO ->Emp/SYS da pagina */}
@@ -76,16 +69,12 @@ const HearderHome = ({
             titbtnhlp={titbtnhlppg}
             onClickhlp={onclickhlppg}
           />
-          <ContentHeaderButtonLogin
-            imgbtnlogin={imgbtnlogin}
-            titbtnlogin={titbtnlogin}
-            onClicklogin={onclicklogin}
+          <ContentHeaderButtonAbortar
+            imgbtnaborta={imgbtnaborta}
+            titbtnaborta={titbtnaborta}
+            onClickaborta={onclickaborta}
           />
-          <ContentHeaderButtonResgate
-            imgbtnresg={imgbtnresg}
-            titbtnresg={titbtnresg}
-            onClickresg={onclickresg}
-          />
+          
           <H.ContainerHeaderButton>
             <Switch
               onChange={onchange}
@@ -108,4 +97,4 @@ const HearderHome = ({
   );
 };
 
-export default HearderHome;
+export default HearderConfig;

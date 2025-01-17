@@ -3,10 +3,12 @@ import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 import { useNavigate } from 'react-router-dom';
+
 import LayoutHome from '../layouts/LayoutHome';
+
 import lg_sys from '../../assets/svgs/lg_sys.svg';
-import bt_help from '../../assets/svgs/bt_help.svg';
-import bt_avatar from '../../assets/svgs/bt_avatar.svg';
+import bt_helppg from '../../assets/svgs/bt_helppg.svg';
+import bt_avatar from '../../assets/pngs/bt_avatar.png';
 import bt_resgate from '../../assets/svgs/bt_resgate.svg';
 
 import bt_close from '../../assets/svgs/bt_close.svg';
@@ -17,8 +19,8 @@ import { CardHlpHomePage } from '@/cards/CardHlpHomePage';
 
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
-import bt_visitante from '../../assets/svgs/bt_visitante.svg';
-
+import pn_config from '../../assets/svgs/pn_config.svg';
+import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import { PageModal } from './PageModal';
 
 const Home: React.FC = () => {
@@ -45,9 +47,9 @@ const Home: React.FC = () => {
     setCardLogo((oldState) => !oldState);
   }, []);
 
-  const [cardpage, setCardPage] = React.useState(false);
-  const handlerCardPage = React.useCallback(() => {
-    setCardPage((oldState) => !oldState);
+  const [cardhplpage, setCardHlpPage] = React.useState(false);
+  const handlerCardHlpPage = React.useCallback(() => {
+    setCardHlpPage((oldState) => !oldState);
   }, []);
 
   return (
@@ -56,16 +58,21 @@ const Home: React.FC = () => {
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={handlerCardLogo}
+        
         titlepg="Home"
-        imgbtnhlppg={bt_help}
+
+        imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
-        onclickhlppg={handlerCardPage}
+        onclickhlppg={handlerCardHlpPage}
+
         imgbtnlogin={bt_avatar}
+
         titbtnlogin="Login..."
         onclicklogin={() => {}}
+
         imgbtnresg={bt_resgate}
         titbtnresg="Resgatar Acesso..."
-        onclickresg={goto('/resgatar')}
+        onclickresg={goto('/resgate')}
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
@@ -75,9 +82,19 @@ const Home: React.FC = () => {
             pxheight={'165px'}
             pheight={'165px'}
             pwidth={'165px'}
-            imgbtn={bt_visitante}
-            titlebtn={'Visitante...'}
-            onclick={() => {}}
+            imgbtn={pn_config}
+            titlebtn={'Cadastros Config...'}
+            onclick={goto('/config')}
+            //onclick={ logado ? (goto('/visitante')) : (() => setMainHelp(true))}
+          />
+          <ContentCustonImgPage
+            open={true}
+            pxheight={'165px'}
+            pheight={'165px'}
+            pwidth={'165px'}
+            imgbtn={pn_recepcao}
+            titlebtn={'Cadastros Config...'}
+            onclick={goto('/config')}
             //onclick={ logado ? (goto('/visitante')) : (() => setMainHelp(true))}
           />
         </ContentItensBody>
@@ -98,7 +115,7 @@ const Home: React.FC = () => {
             />
           </PageModal>
         ) : null}
-        {cardpage ? (
+        {cardhplpage ? (
           <PageModal
             ptop={'1%'}
             pwidth={'80%'}
@@ -106,11 +123,11 @@ const Home: React.FC = () => {
             imgbm={bt_close}
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
-            onclose={() => setCardPage(false)}
+            onclose={() => setCardHlpPage(false)}
           >
             <CardHlpHomePage
               imgcardpage={lg_sys}
-              onclosesair={() => setCardPage(false)}
+              onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>
         ) : null}

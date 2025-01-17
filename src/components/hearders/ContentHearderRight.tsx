@@ -4,7 +4,7 @@ interface PropsContentHearderRight {
 }
 export const ContentHearderRight = ({ children }: PropsContentHearderRight) => {
   return (
-    <H.ContainerHeaderRight>
+    <H.ContainerHeaderRight >
       <H.ContainerHearderRightFlex>{children}</H.ContainerHearderRightFlex>
     </H.ContainerHeaderRight>
   );

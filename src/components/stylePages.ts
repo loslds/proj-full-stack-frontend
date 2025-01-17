@@ -656,7 +656,7 @@ type TypeButtonDefaulImgPage = {
   img?: string;
 };
 export const ButtonDefaulImgPage = styled.button<TypeButtonDefaulImgPage>`
-  border: 2px;
+  border: none;
   border-radius: 3px;
   margin: 2px 5px 2px 5px;
   color: ${(props) => props.theme.colors.textColor};

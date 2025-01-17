@@ -13,13 +13,17 @@ interface PropsHearderResgatar {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
+
   titlepg?: string;
+
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
+
   imgbtnaborta?: string;
   titbtnaborta?: string;
   onclickaborta?: () => void;
+  
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
@@ -28,13 +32,17 @@ const HearderResgatar = ({
   imgsys,
   titbtnsys,
   onclicksys,
+
   titlepg,
+
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
+
   imgbtnaborta,
   titbtnaborta,
   onclickaborta,
+
   onchange,
   ischeck,
 }: PropsHearderResgatar) => {
