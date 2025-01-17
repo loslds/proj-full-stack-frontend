@@ -5,7 +5,6 @@ import dark from '../../themes/dark';
 import { useNavigate } from 'react-router-dom';
 
 import LayoutHome from '../layouts/LayoutHome';
-
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_avatar from '../../assets/pngs/bt_avatar.png';
@@ -16,6 +15,7 @@ import bt_close from '../../assets/svgs/bt_close.svg';
 
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '@/cards/CardHlpHomePage';
+
 
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -66,9 +66,8 @@ const Home: React.FC = () => {
         onclickhlppg={handlerCardHlpPage}
 
         imgbtnlogin={bt_avatar}
-
         titbtnlogin="Login..."
-        onclicklogin={() => {}}
+        onclicklogin={goto('/login')}
 
         imgbtnresg={bt_resgate}
         titbtnresg="Resgatar Acesso..."

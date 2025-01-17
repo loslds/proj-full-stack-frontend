@@ -1,5 +1,5 @@
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-
+import { ContentHeaderButtonHelp } from '../components/hearders/ContentHeaderButtonHelp';
 interface PropsCardHlpFooter {
   imghlpsair?: string;
   label?: string;
@@ -8,28 +8,36 @@ interface PropsCardHlpFooter {
   children?: React.ReactNode | JSX.Element;
 }
 export const CardHlpFooter = ({
+  imghlpsair,
   label,
   texto,
-  onclosesair
-  
+  onclosesair,
+  children
+    
 }: PropsCardHlpFooter) => {
   return (
     <CardModalTextoColumn>
+      {}
       <p>
         ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
       </p>
       <label>{label}</label>
       <p>
-        &emsp;&emsp; - {texto} &emsp;&emsp;&emsp;
+      <br/>
+        {/* &emsp;&emsp; - {texto} &emsp;&emsp;&emsp;
         <a href="#" onClick={onclosesair}>
           Fechar...
-        </a>
+        </a> */}
       </p>
+
       <p>
         ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
       </p>
-      <br />
-      <br />
+      <ContentHeaderButtonHelp
+        imgbtnhlp={imghlpsair}
+        titbtnhlp={'FECHAR...'}
+        onClickhlp={onclosesair}
+      />
     </CardModalTextoColumn>
   );
 };

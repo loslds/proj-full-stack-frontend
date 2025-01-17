@@ -4,16 +4,16 @@ import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { CardHlpFooter } from './CardHlpFooter';
 
-interface PropsCardHlpHomePage {
+interface PropsCardHlpLoginPage {
   imgcardpage?: string;
   pminheight?: string;
   pwidth?: string;
   onclosesair?: () => void;
 }
-export const CardHlpHomePage = ({
+export const CardHlpLoginPage = ({
   imgcardpage,
   onclosesair,
-}: PropsCardHlpHomePage) => {
+}: PropsCardHlpLoginPage) => {
   return (
     <CardModalCenter>
       <CardModalAround>
@@ -24,7 +24,7 @@ export const CardHlpHomePage = ({
         />
       </CardModalAround>
       <CardModalTextoColumn>
-        <h2>Sintase do Sistema.</h2>
+        <h2>Sintase do Login.</h2>
         <p>
           &emsp;&emsp;&emsp; O Acesso somente permitira aos cadastrados conforme
           o Setor e a Herarquia de sua Área de Trabalho.
@@ -123,7 +123,7 @@ export const CardHlpHomePage = ({
           Sistema irá redirecionar você para Atividades do Sistema.
         </p>
         <CardHlpFooter
-          label=" HELP PÁGINA -> HOME."
+          label="PÁGINA-> LOGIN."
           texto="Assim que Logado for, Sistema retorna a Pagina HOME onde poderá clicar
           na imagem de sua atividade e usufluir do Sistema."
           onclosesair={onclosesair}

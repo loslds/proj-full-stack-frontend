@@ -155,10 +155,33 @@ export const ContainerCardFlex = styled.div`
   background-color: transparent; //* black;*/
   display: flex;
   flex-flow: wrap;
+  flex-wrap: wrap;
+  justify-content: space-between; /*space-around;*/
+  align-content: center;
+  //align-items: center;
+  color: black;
+`;
+interface PropsContainerCardFlexWidth {
+  pwidth?: string;
+}
+export const ContainerCardFlexWidth = styled.div<PropsContainerCardFlexWidth>`
+  border: 3px silver groove ;
+  height: 100%;
+  width: ${({ pwidth }) => pwidth || '100%'};
+  width: 80%;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background-color: transparent; //* black;*/
+  display: flex;
+  flex-flow: wrap;
   justify-content: center; /*space-around;*/
   align-content: center;
   align-items: center;
   color: black;
+  font-size: 18px;
+  font-style: normal;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: normal;
 `;
 //*
 interface PropsContainerModalImg {
