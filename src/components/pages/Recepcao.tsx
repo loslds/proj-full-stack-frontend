@@ -7,21 +7,25 @@ import light from "../../themes/light";
 import dark from "../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutConfig from "../layouts/LayoutConfig";
+import LayoutRecepcao from "../layouts/LayoutRecepcao";
 
 import { PageModal } from './PageModal';
-import { CardHlpConfigPage } from '../../cards/CardHlpConfigPage';
 
-import lg_config from "../../assets/svgs/lg_config.svg";
+
+import lg_recepcao from "../../assets/svgs/lg_recepcao.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
+import { CardHlpRecepcaoPage } from "@/cards/CardHlpRecepcaoPage";
+
 import bt_close from "../../assets/svgs/bt_close.svg";
+import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
+
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const Config : React.FC = () => {
+const Recepcao : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -49,12 +53,12 @@ const Config : React.FC = () => {
   
   return (
     <ThemeProvider theme={theme}>
-      <LayoutConfig
-        imgsys={lg_config}
-        titbtnsys="Modulo Config..."
+      <LayoutRecepcao
+        imgsys={lg_recepcao}
+        titbtnsys="Modulo Recepção..."
         onclicksys={ () => {} }
 
-        titlepg="Cadastros"
+        titlepg="Recepção"
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -67,7 +71,8 @@ const Config : React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>Página Config</h1>
+        <BarSideMenuRecep />
+        <h1>Página Recepção</h1>
   
 
         {cardhplpage ? (
@@ -80,15 +85,15 @@ const Config : React.FC = () => {
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}
           >
-            <CardHlpConfigPage
-              imgcardpage={lg_config}
+            <CardHlpRecepcaoPage
+              imgcardpage={lg_recepcao}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>
         ) : null}
-      </LayoutConfig>
+      </LayoutRecepcao>
     </ThemeProvider>
   );
 };
 
-export default Config;
+export default Recepcao;

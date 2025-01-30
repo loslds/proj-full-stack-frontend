@@ -21,6 +21,7 @@ import React from 'react';
 //import PageModal from "../Modal/PageModal";
 //import { CardModuloRecep } from "../contentHelp/CardModuloRecep";
 
+
 export const BarSideMenuRecep = () => {
   const [isitensmenu, setIsItensMenu] = React.useState(false);
 

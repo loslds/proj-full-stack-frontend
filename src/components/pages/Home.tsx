@@ -84,7 +84,6 @@ const Home: React.FC = () => {
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
             onclick={goto('/config')}
-            //onclick={ logado ? (goto('/visitante')) : (() => setMainHelp(true))}
           />
           <ContentCustonImgPage
             open={true}
@@ -92,9 +91,8 @@ const Home: React.FC = () => {
             pheight={'165px'}
             pwidth={'165px'}
             imgbtn={pn_recepcao}
-            titlebtn={'Cadastros Config...'}
-            onclick={goto('/config')}
-            //onclick={ logado ? (goto('/visitante')) : (() => setMainHelp(true))}
+            titlebtn={'Setor Recepção...'}
+            onclick={goto('/recepcao')}
           />
         </ContentItensBody>
 
