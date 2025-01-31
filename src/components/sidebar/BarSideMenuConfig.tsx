@@ -1,30 +1,56 @@
 import * as S from './stylesSidebar';
 
 //import semimg from "../../assets/svgs/semimg.svg";
-import bt_menu from '../../assets/svgs/bt_menu.svg';
-//import bt_tabprc from '../../assets/svgs/bt_tabprc.svg';
-//import bt_tabcor from '../../assets/svgs/bt_tabcor.svg';
-
-//import producao from "../../assets/svgs/producao.svg";
-//import acabamento from "../../assets/svgs/acabamento.svg";
-//import expedicao from "../../assets/svgs/expedicao.svg";
-//import administracao from "../../assets/svgs/administracao.svg";
-//import master from "../../assets/svgs/master.svg";
-//import config from "../../assets/svgs/config.svg";
-
+import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContainerSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 
-//import { ContainerSBItensModMn } from './ContainerSBItensModMn';
-//import { ContentSBButtonTitleMenu } from './ContentSBButtonTitleMenu';
 
 import React from 'react';
-//import PageModal from "../Modal/PageModal";
-//import { CardModuloRecep } from "../contentHelp/CardModuloRecep";
+import { Dropdown } from './Dropdown';
 
-
-export const BarSideMenuRecep = () => {
+export const BarSideMenuConfig = () => {
   const [isitensmenu, setIsItensMenu] = React.useState(false);
+  
+  const handlerClickItensMenu = React.useCallback(() => {
+    setIsItensMenu((oldState) => !oldState);
+  }, []);
+
+  // Função para lidar com a seleção de opções do Dropdown
+  const handleSelectOption = (value: string) => {
+    console.log("Opção selecionada:", value);
+  };
+
+  return (
+    <ContainerSBMain>
+      <S.ContainerButtonSRigth>
+        <ContainerSBButton
+          img={bt_menucirc}
+          titbtn={"Menu..."}
+          onClick={handlerClickItensMenu}
+        />
+      </S.ContainerButtonSRigth>
+
+      {/* Sidebar */}
+      <S.ContainerMenuSB open={isitensmenu}>
+        <Dropdown
+          pxheigth={"30px"}
+          pxwidth="160px"
+          labelbtn="Coluna-1"
+          options={[
+            { label: "1ª opção", value: "opcao1" },
+            { label: "2ª opção", value: "opcao2" },
+            { label: "3ª opção", value: "opcao3" },
+          ]}
+          onSelect={handleSelectOption}
+        />
+      </S.ContainerMenuSB>
+    </ContainerSBMain>
+  );
+};
+      
+        
+{/* 
   
   // const [ismntab, setIsMnTab] = React.useState(false);
   // const [istabprc, setIsTabPrc] = React.useState(false);
@@ -46,10 +72,26 @@ export const BarSideMenuRecep = () => {
   //const [ismdmaste, setIsMdMaste] = React.useState(false);
   //const [ismdconfi, setIsMdConfi] = React.useState(false);
 
-  const handlerClickItensMenu = React.useCallback(() => {
-    setIsItensMenu((oldState) => !oldState);
-  }, []);
+//import semimg from "../../assets/svgs/semimg.svg";
+//import bt_tabprc from '../../assets/svgs/bt_tabprc.svg';
+//import bt_tabcor from '../../assets/svgs/bt_tabcor.svg';
 
+//import producao from "../../assets/svgs/producao.svg";
+//import acabamento from "../../assets/svgs/acabamento.svg";
+//import expedicao from "../../assets/svgs/expedicao.svg";
+//import administracao from "../../assets/svgs/administracao.svg";
+//import master from "../../assets/svgs/master.svg";
+//import config from "../../assets/svgs/config.svg";
+
+//import { ContainerSBItensModMn } from './ContainerSBItensModMn';
+//import { ContentSBButtonTitleMenu } from './ContentSBButtonTitleMenu';
+
+//import PageModal from "../Modal/PageModal";
+//import { CardModuloRecep } from "../contentHelp/CardModuloRecep";
+
+
+
+apos return
   // const handlerClickMnTab = React.useCallback(() => {
   //   setIsMnTab((oldState) => !oldState);
   // }, []);
@@ -62,18 +104,6 @@ export const BarSideMenuRecep = () => {
   //   setIsMnSetor((oldState) => !oldState);
   // }, []);
 
-  return (
-    <ContainerSBMain>
-      <S.ContainerButtonSRigth>
-        <ContainerSBButton
-          img={bt_menu}
-          titbtn={'Menu...'}
-          onClick={handlerClickItensMenu}
-        />
-      </S.ContainerButtonSRigth>
-      <S.ContainerMenuSide open={isitensmenu}>
-        
-{/* 
         Tabelas
         <S.ContainerButtonSLeft>
           <ContainerSBItensModMn onoff={ismntab}>
@@ -177,7 +207,4 @@ export const BarSideMenuRecep = () => {
           </S.ContainerButtonMnItens>
         </S.ContainerButtonSLeft>
  */}        
-      </S.ContainerMenuSide>
-    </ContainerSBMain>
-  );
-};
+ 

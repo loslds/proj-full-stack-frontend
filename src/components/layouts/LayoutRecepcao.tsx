@@ -2,7 +2,10 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
+import { ContentCardPage } from '../ContentCardPage';
 import HeaderRecepcao from '../hearders/HearderRecepcao';
+import { BarSideMenuRecep } from '../sidebar/BarSideMenuRecep';
+
 //import { FooterPage } from '../../footers/FooterPage';
 
 interface PropsLayoutRecepcao {
@@ -22,6 +25,7 @@ interface PropsLayoutRecepcao {
   
   onchange: () => void;
   ischeck?: boolean;
+
   children?: React.ReactNode | JSX.Element;
 
   //open?: boolean;
@@ -43,6 +47,7 @@ const LayoutRecepcao = ({
 
   onchange,
   ischeck,
+
   children
 
   //open
@@ -62,12 +67,16 @@ const LayoutRecepcao = ({
         onclickaborta={onclickaborta}
         onchange={onchange}
         ischeck={ischeck}
-                
+          
       />
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
+          <ContentCardPage pwidth={'100%'}>
+            <BarSideMenuRecep />
+          </ContentCardPage>
           <Pg.DivisionPgHztal />
+          
           {children}
         </Pg.ContainerPage>
       </Pg.ContainerBody>

@@ -16,9 +16,9 @@ import config from '../../assets/svgs/config.svg';
 import { ContainerSBMain } from './ContainerSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 import { ContainerSBItensMenu } from './ContainerSBItensMenu';
-import { PageModal } from '../Modal/PageModal';
-import { CardSBHlpRecep } from '../contentHelp/CardSBHlpRecep';
-import { CardDesemvolver } from '../contentHelp/CardDesenvolver';
+import { PageModal } from '../pages/PageModal';
+import { CardHlpRecepcaoPage } from '../../cards/CardHlpRecepcaoPage';
+import { CardDesemvolver } from '../../cards/CardDesenvolver';
 
 export const BarSideMenuHome = () => {
   const [isitensmenu, setIsItensMenu] = React.useState(false);
@@ -116,7 +116,12 @@ export const BarSideMenuHome = () => {
             setIsMdRecep(false);
           }}
         >
-          <CardSBHlpRecep imgcard={servicos} />
+          <CardHlpRecepcaoPage 
+            imgcardpage={servicos}
+            onclosesair={() => {
+              setIsMdRecep(false);
+            }}
+          />
         </PageModal>
       ) : null}
       {ismddesig ? (
@@ -131,7 +136,7 @@ export const BarSideMenuHome = () => {
             setIsMdDesig(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdprodu ? (
@@ -146,7 +151,7 @@ export const BarSideMenuHome = () => {
             setIsMdProdu(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdacaba ? (
@@ -161,7 +166,7 @@ export const BarSideMenuHome = () => {
             setIsMdAcaba(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdexped ? (
@@ -176,7 +181,7 @@ export const BarSideMenuHome = () => {
             setIsMdExped(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdadmin ? (
@@ -191,7 +196,7 @@ export const BarSideMenuHome = () => {
             setIsMdAdmin(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdmaste ? (
@@ -206,7 +211,7 @@ export const BarSideMenuHome = () => {
             setIsMdMaste(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
       {ismdconfi ? (
@@ -221,7 +226,7 @@ export const BarSideMenuHome = () => {
             setIsMdConfi(false);
           }}
         >
-          <CardDesemvolver imgcard={negado} />
+          <CardDesemvolver imgcarddes={negado} />
         </PageModal>
       ) : null}
     </ContainerSBMain>

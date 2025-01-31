@@ -761,7 +761,7 @@ interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageFlex = styled.div<PropsContainerCardMainFlex>`
-  border: 3px double;
+  border: none; /*  3px double; */
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
@@ -866,36 +866,9 @@ export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage
   justify-content: center;
   align-content: center;
 `;
+//////////////////////////////////////
 
-interface PropsContainerDivManRed {
-  pxheight?: string;
-  pxwidth?: string;
-  label?: string;
-  statedata?: string;
-}
-export const ContainerDivManRed = styled.div<PropsContainerDivManRed>`
-  border: 2px solid;
-  border-radius: 10px;
-  border-color: ${(props) => props.theme.colors.textColor};
-  padding: 0px 0px 0px 0px;
-  margin: 5px 0px 5px 0px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
-  display: flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-  justify-content: left;
-  align-items: center;
-  align-content: center;
-  color: ${(props) => props.theme.colors.textColor};
-  background: transparent;
-  &:hover {
-    border-color: #fc0303;
-  }
-  p {
-    color: #fc0303;
-  }
-`;
+
 
 interface PropsContainerDivMainOffRed {
   pxheight?: string;

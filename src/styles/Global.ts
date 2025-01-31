@@ -26,10 +26,29 @@ export default createGlobalStyle`
     font-family: Courier, monospace;
   }
   ul {
-    display: flex;
+    position: absolute;
+    top: "100%";
+    left: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     list-style: none;
-    gap: 30px;
+    padding: 0;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    
+    li {
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      list-style: none;
+      gap: 30px;
+
+    }
   }
+
   label,
   input,
   select {
@@ -61,4 +80,14 @@ export default createGlobalStyle`
     width: 16px;
     height: 16px; /* Tamanho da imagem */
   }
+
+  button {
+    background-color: "#007bff";
+    color: "white";
+    padding: "8px 16px";
+    border-radius: "5px";
+    border: "none";
+    cursor: "pointer";
+  }
+
 `;

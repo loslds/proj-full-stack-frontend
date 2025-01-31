@@ -19,7 +19,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 import { CardHlpRecepcaoPage } from "@/cards/CardHlpRecepcaoPage";
 
 import bt_close from "../../assets/svgs/bt_close.svg";
-import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
+//import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
 
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
@@ -70,8 +70,9 @@ const Recepcao : React.FC = () => {
 
         onchange={ToggleTheme}
         ischeck={ischeck}
+
       >
-        <BarSideMenuRecep />
+        
         <h1>Página Recepção</h1>
   
 

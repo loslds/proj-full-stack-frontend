@@ -2,7 +2,9 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
+import {ContentCardPage} from '../ContentCardPage';
 import HeaderConfig from '../hearders/HearderConfig';
+import {BarSideMenuConfig} from '../sidebar/BarSideMenuConfig';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
@@ -65,8 +67,9 @@ const LayoutConfig = ({
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
-          {/*<BarSideMenuPage />
-           <BarSideMenuDados open={open} />  */}
+          <ContentCardPage pwidth={'100%'}>
+            <BarSideMenuConfig />
+          </ContentCardPage>
           <Pg.DivisionPgHztal />
           {children}
         </Pg.ContainerPage>

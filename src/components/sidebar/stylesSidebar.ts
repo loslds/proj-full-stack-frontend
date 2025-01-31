@@ -4,7 +4,9 @@ import semimg from "../../assets/svgs/semimg.svg"
 
 // ContainerBarSideMain
 export const ContainerSPanelMain = styled.div`
-  /*border: 2px solid;*/
+  border: none;
+  /* border: 2px solid red; */
+  border-color: ${props => props.theme.colors.textColor};
   margin: 2px 0px 2px 8px;
   padding: 0px 0px 0px 0px;
   min-height: 50px;
@@ -13,7 +15,7 @@ export const ContainerSPanelMain = styled.div`
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  border-color: ${props => props.theme.colors.textColor};
+  
   font-size: 12px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
@@ -136,7 +138,8 @@ export const ContainerSideButton = styled.div`
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   background: transparent;
-  min-height: 45px;
+  width: 40px;
+  height: 37px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -158,12 +161,12 @@ export const ButtonSideBarImg = styled.button<{ img?: string }>`
   background-color: transparent;
   background-image: url(${({ img }) => img || semimg});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   cursor: pointer;
   outline: none;
-  min-height: 45px;
-  width: 45px;
+  width: 40px;
+  min-height: 37px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;
@@ -379,6 +382,117 @@ export const ContainerSideButtonSpanLeft = styled.div`
    }
 `;
 
+/////////////////////////////////////////////
+interface PropsContainerMainDropdownUl {
+  pxheight?: string;
+  pxwidth?: string;
+  label?: string;
+}
+export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: ${(props) => props.theme.colors.textColor};
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  min-height: ${({ pxheight }) => pxheight || '30px'};
+  width: ${({ pxwidth }) => pxwidth || '100%'};
+  position: relative;
+  display: inline-flex;
+  //display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color: ${(props) => props.theme.colors.textColor};
+  background-color: #007bff;
+  
+  ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    min-width: 150px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+`;
+
+interface PropsContainerButtonDropdown {
+  pxheight?: string;
+}
+export const ContainerButtonDropdown = styled.div<PropsContainerButtonDropdown>`
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: ${({ pxheight }) => pxheight || '30px'};
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  &:hover, &:active {
+    border-color: #fc0303;
+  }
+`;
+
+export const ButtonDropdown = styled.button`
+  border: none;
+  border-radius: 5px;
+  margin: 2px 5px 2px 5px;
+  color: ${(props) => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #007bff;
+  cursor: pointer;
+  outline: none;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  &:hover,
+  &:active {
+    border-color: #fc0303;
+  }
+`;
+
+interface PropsMenuSB {
+  open: boolean;
+}
+
+export const ContainerMenuSB = styled.div<PropsMenuSB>`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 200px;
+  height: 100vh;
+  background-color: white;
+  border-left: 2px solid #ccc;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  transition: transform 0.3s ease-in-out;
+
+  transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
+  display: ${(props) => (props.open ? "block" : "none")};
+`;
+
+/////////////////////////////////////
+
+
+
 
 
 // type PropsImgSys = {
@@ -439,3 +553,4 @@ export const ButtonSItenModulo = styled.button<PropsBtn>`
   align-items: center;
 `;
 
+/////////////////////////////////////////////
