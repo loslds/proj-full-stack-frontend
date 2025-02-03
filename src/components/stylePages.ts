@@ -761,11 +761,11 @@ interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageFlex = styled.div<PropsContainerCardMainFlex>`
-  border: none; /*  3px double; */
+  border: none;  /* 3px double;  */
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
-  margin: 5px 0px 5px 0px;
+  margin: 2px 0px 2px 0px;
   width: ${({ pwidth }) => pwidth || '65%'};
   display: flex;
   flex-flow: row;

@@ -1,10 +1,8 @@
 import * as Pg from '../stylePages';
-
-///
 import { ContentPages } from '../ContentPages';
 import {ContentCardPage} from '../ContentCardPage';
 import HeaderConfig from '../hearders/HearderConfig';
-import {BarSideMenuConfig} from '../sidebar/BarSideMenuConfig';
+import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
@@ -28,6 +26,7 @@ interface PropsLayoutConfig {
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
   open?: boolean;
+
 }
 const LayoutConfig = ({
   imgsys,
@@ -47,8 +46,12 @@ const LayoutConfig = ({
   onchange,
   ischeck,
   children,
+
+  
 }: PropsLayoutConfig) => {
+
   return (
+  
     <ContentPages>
       <HeaderConfig
         imgsys={imgsys}
@@ -68,7 +71,8 @@ const LayoutConfig = ({
       <Pg.ContainerBody>
         <Pg.ContainerPage>
           <ContentCardPage pwidth={'100%'}>
-            <BarSideMenuConfig />
+            <BarSideMenuConfig>
+            </BarSideMenuConfig>
           </ContentCardPage>
           <Pg.DivisionPgHztal />
           {children}
@@ -77,6 +81,7 @@ const LayoutConfig = ({
       <Pg.DivisionPgHztal />
       {/* <FooterPage /> */}
     </ContentPages>
+  
   );
 };
 

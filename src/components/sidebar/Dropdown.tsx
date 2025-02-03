@@ -1,21 +1,27 @@
-
 import React from "react";
-import { ButtonDropdown } from "./stylesSidebar";
 import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
+import { ButtonDropdown } from "./stylesSidebar";
 
-interface PropsDropdown {
-  pxheigth?: string;
-  pxwidth?: string;
-  labelbtn?: string; // Texto do botão principal
-  options: { label: string; value: string }[]; // Lista de opções do dropdown
-  onSelect: (value: string) => void; // Callback ao selecionar um item
+interface DropdownOption {
+  label: string;
+  value: string;
+  subOptions?: DropdownOption[];
 }
 
-export const Dropdown = ({pxheigth, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
+interface PropsDropdown {
+  pxheight?: string;
+  pxwidth?: string;
+  labelbtn?: string;
+  options: DropdownOption[];
+  onSelect: (value: string) => void;
+}
+
+export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
 
   return (
-    <ContentMainDropdownUl pxheigth={pxheigth} pxwidth={pxwidth}>
+    <ContentMainDropdownUl pxheigth={pxheight} pxwidth={pxwidth}>
       <ButtonDropdown onClick={() => setIsOpen(!isOpen)}>
         {labelbtn}
       </ButtonDropdown>
@@ -26,13 +32,28 @@ export const Dropdown = ({pxheigth, pxwidth, labelbtn, options, onSelect }: Prop
             <li
               key={option.value}
               onClick={() => {
-                onSelect(option.value);
-                setIsOpen(false);
+                if (!option.subOptions) {
+                  onSelect(option.value);
+                  setIsOpen(false);
+                }
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#f5f5f5")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "white")}
+              onMouseEnter={() => setOpenSubmenu(option.value)}
+              onMouseLeave={() => setOpenSubmenu(null)}
             >
               {option.label}
+
+              {option.subOptions && openSubmenu === option.value && (
+                <ul>
+                  {option.subOptions.map((subOption) => (
+                    <li
+                      key={subOption.value}
+                      onClick={() => onSelect(subOption.value)}
+                    >
+                      {subOption.label}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ul>

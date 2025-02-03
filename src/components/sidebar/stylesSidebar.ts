@@ -16,7 +16,8 @@ export const ContainerSPanelMain = styled.div`
   align-content: center;
   justify-content: space-between;
   
-  font-size: 12px;
+  font-size: 18px;
+  line-height: 20px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
   color:  ${props => props.theme.colors.textColor};
@@ -30,7 +31,7 @@ export const ContainerButtonSRigth = styled.div`
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 2px 2px 2px 2px;
+  margin: 0px 2px 0px 2px;
   background: transparent;
   display: flex;
   flex-flow: row wrap;
@@ -87,7 +88,6 @@ export const ContainerItensModulo = styled.div<TypeSBItensModulo>`
   background: transparent;
   max-height: fit-content;
   display: ${({open}) => open ? 'flex' : 'none' };
-  //  display: ${({open}) => open ? 'flex' : 'none' };
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
@@ -136,7 +136,7 @@ export const ContainerSideButton = styled.div`
   border-color: red;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 2px 2px 2px 2px;
+  margin: 0px 2px 0px 2px;
   background: transparent;
   width: 40px;
   height: 37px;
@@ -388,17 +388,17 @@ interface PropsContainerMainDropdownUl {
   pxwidth?: string;
   label?: string;
 }
+
 export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   border: 2px solid;
   border-radius: 10px;
   border-color: ${(props) => props.theme.colors.textColor};
-  padding: 0px 0px 0px 0px;
-  margin: 5px 0px 5px 0px;
+  padding: 0px;
+  margin: 5px 0px;
   min-height: ${({ pxheight }) => pxheight || '30px'};
   width: ${({ pxwidth }) => pxwidth || '100%'};
   position: relative;
   display: inline-flex;
-  //display: flex;
   flex-wrap: wrap;
   flex-flow: row;
   justify-content: left;
@@ -406,7 +406,10 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   align-content: center;
   color: ${(props) => props.theme.colors.textColor};
   background-color: #007bff;
-  
+  font-size: 20px;
+  line-height: 22px;
+  font-family: 'Courier New', Courier, monospace;
+
   ul {
     position: absolute;
     top: 100%;
@@ -418,16 +421,49 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     list-style: none;
     padding: 0;
     min-width: 150px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
-
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+    font-size: 20px;
+    line-height: 22px;
+    font-family: 'Courier New', Courier, monospace;
     li {
       padding: 10px;
       cursor: pointer;
       border-bottom: 1px solid #ddd;
+      position: relative;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      ul {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        margin-left: 5px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        list-style: none;
+        padding: 0;
+        min-width: 150px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        pointer-events: none;
+        z-index: 2000;
+      }
+
+      &:hover > ul {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
     }
   }
 `;
-
 interface PropsContainerButtonDropdown {
   pxheight?: string;
 }
@@ -441,6 +477,9 @@ export const ContainerButtonDropdown = styled.div<PropsContainerButtonDropdown>`
   justify-content: center;
   align-content: center;
   align-items: center;
+  font-size: 20px;
+  line-height: 22px;
+  font-family: 'Courier New', Courier, monospace;
   &:hover, &:active {
     border-color: #fc0303;
   }
@@ -451,7 +490,7 @@ export const ButtonDropdown = styled.button`
   border-radius: 5px;
   margin: 2px 5px 2px 5px;
   color: ${(props) => props.theme.colors.textColor};
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: #007bff;
@@ -474,16 +513,18 @@ interface PropsMenuSB {
 }
 
 export const ContainerMenuSB = styled.div<PropsMenuSB>`
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 200px;
-  height: 100vh;
+  //position: fixed;
+  //top: 0;
+  //right: 0;
+  //width: 180px;
+  min-height: 50px;
   background-color: white;
   border-left: 2px solid #ccc;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  padding: 10px 2x 10px 2px;
   transition: transform 0.3s ease-in-out;
+  font-size: 20px;
+  line-height: 22px;
 
   transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
   display: ${(props) => (props.open ? "block" : "none")};
