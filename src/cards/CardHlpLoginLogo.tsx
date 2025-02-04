@@ -5,11 +5,11 @@ import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { CardHlpFooter } from './CardHlpFooter';
 
 interface PropsCardHlpLoginPage {
-  imgcardpage?: string;
+  imgcardlogin?: string;
   onclosesair?: () => void;
 }
 export const CardHlpLoginLogo = ({
-  imgcardpage,
+  imgcardlogin,
   onclosesair,
 }: PropsCardHlpLoginPage) => {
   return (
@@ -18,7 +18,7 @@ export const CardHlpLoginLogo = ({
       <M.ContainerModalImg
           pminheight={'110px'}
           pwidth={'220px'}
-          img={imgcardpage}
+          img={imgcardlogin}
         />
       </CardModalAround>
       <CardModalTextoColumn>
