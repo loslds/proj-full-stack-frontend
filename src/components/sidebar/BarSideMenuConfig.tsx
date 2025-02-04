@@ -1,6 +1,6 @@
 
 import * as S from './stylesSidebar';
-import { useNavigate } from "react-router-dom";
+
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContainerSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
@@ -12,13 +12,6 @@ interface BarSideMenuConfigProps {
 }
 export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveComponent }) => {
   
-  const navigate = useNavigate();
-  const goto = (path: string) => {
-    return () => {
-      navigate(path);
-    };
-  };
-
   const [isitensmenu, setIsItensMenu] = React.useState(false);
   const handlerClickItensMenu = React.useCallback(() => {
     setIsItensMenu((oldState) => !oldState);

@@ -1,6 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
-import { useMySQL } from '../contexts/MySQLContext';
+import React, { useEffect, useState } from "react";
 
 interface MySQLConfig {
   host: string;
@@ -14,34 +13,40 @@ interface CheckMySQLStatusProps {
 }
 
 const CheckMySQLStatus: React.FC<CheckMySQLStatusProps> = ({ config }) => {
-  const { setIsConnected } = useMySQL();
-  const [status, setStatus] = useState<{ isInstalled: boolean; isConnected: boolean } | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/api/db/check-mysql", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(config),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setStatus(data);
-        setIsConnected(data.isConnected); // Atualiza o contexto!
-      })
-      .catch(() => setStatus({ isInstalled: false, isConnected: false }));
+    const checkStatus = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/check-mysql-status", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(config),
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          setStatus("Conectado ao MySQL ✅");
+        } else {
+          setStatus("Erro ao conectar ❌");
+          setError(data.message || "Falha desconhecida");
+        }
+      } catch (err) {
+        setStatus("Erro ao conectar ❌");
+        setError("Não foi possível verificar o status do MySQL.");
+      }
+    };
+
+    checkStatus();
   }, [config]);
 
   return (
     <div>
       <h3>Status do MySQL</h3>
-      {status ? (
-        <ul>
-          <li>MySQL Instalado: {status.isInstalled ? "Sim ✅" : "Não ❌"}</li>
-          <li>Conectado ao MySQL: {status.isConnected ? "Sim ✅" : "Não ❌"}</li>
-        </ul>
-      ) : (
-        <p>Verificando...</p>
-      )}
+      {status ? <p>{status}</p> : <p>Verificando...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 };

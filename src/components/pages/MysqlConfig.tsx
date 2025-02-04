@@ -1,57 +1,42 @@
+import React from 'react';
+import { useMySQL } from '../contexts/MySQLContext'; // Use o hook do contexto
 
-import React from "react";
-import CheckMySQLStatus from "./CheckMySQLStatus";
+const MysqlConfig: React.FC = () => {
+  const { dbConfig, setDbConfig } = useMySQL(); // Acesse a configuração diretamente
 
-
-const MysqlConfig = () => {
-  const [config, setConfig] = React.useState({
-    host: "",
-    user: "",
-    password: "",
-    database: "", // ✅ Adicionando campo database
-  });
-
-  const [submitted, setSubmitted] = React.useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfig({ ...config, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true); // ✅ Agora a submissão será corretamente marcada
+  const handleSubmit = () => {
+    // A configuração será salva automaticamente no contexto
+    // Não precisa mais passar `onConfigSubmit`
   };
 
   return (
     <div>
-      <h2>Configuração do MySQL</h2>
-      {!submitted ? (
-        <form onSubmit={handleSubmit}>
-          <label>
-            Host:
-            <input type="text" name="host" value={config.host} onChange={handleChange} required />
-          </label>
-          <br />
-          <label>
-            Usuário:
-            <input type="text" name="user" value={config.user} onChange={handleChange} required />
-          </label>
-          <br />
-          <label>
-            Senha:
-            <input type="password" name="password" value={config.password} onChange={handleChange} required />
-          </label>
-          <br />
-          <label>
-            Banco de Dados:
-            <input type="text" name="database" value={config.database} onChange={handleChange} required />
-          </label>
-          <br />
-          <button type="submit">Verificar MySQL</button>
-        </form>
-      ) : (
-        <CheckMySQLStatus config={config} /> // ✅ Exibir CheckMySQLStatus apenas após envio
-      )}
+      <h2>Configuração do Banco de Dados</h2>
+      <input 
+        type="text" 
+        placeholder="Host" 
+        value={dbConfig.host} 
+        onChange={(e) => setDbConfig({ ...dbConfig, host: e.target.value })} 
+      />
+      <input 
+        type="text" 
+        placeholder="Usuário" 
+        value={dbConfig.user} 
+        onChange={(e) => setDbConfig({ ...dbConfig, user: e.target.value })} 
+      />
+      <input 
+        type="password" 
+        placeholder="Senha" 
+        value={dbConfig.password} 
+        onChange={(e) => setDbConfig({ ...dbConfig, password: e.target.value })} 
+      />
+      <input 
+        type="text" 
+        placeholder="Database" 
+        value={dbConfig.database} 
+        onChange={(e) => setDbConfig({ ...dbConfig, database: e.target.value })} 
+      />
+      <button onClick={handleSubmit}>Salvar Configuração</button>
     </div>
   );
 };
