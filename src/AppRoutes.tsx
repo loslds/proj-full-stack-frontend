@@ -8,7 +8,7 @@ import Login from './components/pages/Login';
 import Resgate from './components/pages/Resgate';
 import Config from './components/pages/Config';
 import MysqlConfig from './components/pages/MysqlConfig';
-import CheckDB from './components/pages/CheckDB';
+//import CheckDB from './components/pages/CheckDB';
 import BackupDB from './components/pages/BackupDB';
 import RestoreDB from './components/pages/RestoreDB';
 import ExplorerDB from './components/pages/ExplorerDB';
@@ -32,7 +32,7 @@ const AppRoutes = () => {
       <Route path="/resgate" element={<Resgate />} />
       <Route path="/config" element={<Config />} />
       <Route path="/config/by-mysql" element={<MysqlConfig />} />
-      <Route path="/checkdb"  element={<CheckDB  config={defaultConfig} />} />
+      {/* <Route path="/checkdb"  element={<CheckDB  config={defaultConfig} />} /> */}
       <Route path="/backupdb" element={<BackupDB />} />  
       <Route path="/restoredb" element={<RestoreDB />} />  
       <Route path="/explorerdb" element={<ExplorerDB />} />  

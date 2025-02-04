@@ -1,8 +1,8 @@
 import * as Pg from '../stylePages';
 import { ContentPages } from '../ContentPages';
-import {ContentCardPage} from '../ContentCardPage';
+//import {ContentCardPage} from '../ContentCardPage';
 import HeaderConfig from '../hearders/HearderConfig';
-import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig';
+//import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
@@ -70,11 +70,12 @@ const LayoutConfig = ({
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
-          <ContentCardPage pwidth={'100%'}>
-            <BarSideMenuConfig setActiveComponent={setActiveComponent} />
-          </ContentCardPage>
-          <Pg.DivisionPgHztal />
-          {children}
+          <Pg.ContainerPage>
+            {/* <BarSideMenuPage /> */}
+            {/* <BarSideMenuDados open={open} />  
+            <Pg.DivisionPgHztal />*/}
+            {children}
+          </Pg.ContainerPage>
         </Pg.ContainerPage>
       </Pg.ContainerBody>
       <Pg.DivisionPgHztal />

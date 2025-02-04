@@ -9,12 +9,15 @@ import { useMySQL } from '../contexts/MySQLContext';
 import LayoutConfig from '../layouts/LayoutConfig';
 import { PageModal } from './PageModal';
 import { CardHlpConfigPage } from '../../cards/CardHlpConfigPage';
+import { ContentCardPage } from '../ContentCardPage.tsx';
+import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig.tsx';
+import { DivisionPgHztal } from '../stylePages.ts';
 import lg_config from '../../assets/svgs/lg_config.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_abortar from '../../assets/svgs/bt_abortar.svg';
 import bt_close from '../../assets/svgs/bt_close.svg';
 
-import CheckDB from './CheckDB.tsx';
+//import CheckDB from './CheckDB.tsx';
 import BackupDB from './BackupDB.tsx';
 import RestoreDB from './RestoreDB.tsx';
 import ExplorerDB from './ExplorerDB.tsx';
@@ -56,50 +59,52 @@ const Config : React.FC = () => {
   }, [isConnected]);
   return (
     <ThemeProvider theme={theme}>
-        <LayoutConfig
-          imgsys={lg_config}
-          titbtnsys="Modulo Config..."
-          onclicksys={ () => {} }
+      <LayoutConfig
+        imgsys={lg_config}
+        titbtnsys="Modulo Config..."
+        onclicksys={ () => {} }
 
-          titlepg="Data-Baser."
+        titlepg="Database."
 
-          imgbtnhlppg={bt_helppg}
-          titbtnhlppg="Help Page..."
-          onclickhlppg={ handlerCardHlpPage }
+        imgbtnhlppg={bt_helppg}
+        titbtnhlppg="Help Page..."
+        onclickhlppg={ handlerCardHlpPage }
 
-          imgbtnaborta={bt_abortar}
-          titbtnaborta="Abortar..."
-          onclickaborta={ goto('/') }
+        imgbtnaborta={bt_abortar}
+        titbtnaborta="Abortar..."
+        onclickaborta={ goto('/') }
 
-          onchange={ToggleTheme}
-          ischeck={ischeck}
-        >
-          
+        onchange={ToggleTheme}
+        ischeck={ischeck}
+      >
+        <ContentCardPage pwidth={'100%'}>
           <BarSideMenuConfig setActiveComponent={setActiveComponent} />
+        </ContentCardPage>
+        <DivisionPgHztal />
 
-        {/* 🔹 Exibição dinâmica do componente selecionado */}
-        {activeComponent === "CheckDB" && <CheckDB />}
+        {/* 🔹 Exibição dinâmica do componente selecionado
+        //{activeComponent === "CheckDB" && <CheckDB />} */}
         {activeComponent === "BackupDB" && <BackupDB />}
         {activeComponent === "RestoreDB" && <RestoreDB />}
         {activeComponent === "ExplorerDB" && <ExplorerDB />}
-          
-          {cardhplpage ? (
-            <PageModal
-              ptop={'1%'}
-              pwidth={'80%'}
-              pheight={'95%'}
-              imgbm={bt_close}
-              titbm="Fechar..."
-              titulo={'Help Conteúdo Home.'}
-              onclose={() => setCardHlpPage(false)}
-            >
-              <CardHlpConfigPage
-                imgcardpage={lg_config}
-                onclosesair={() => setCardHlpPage(false)}
-              />
-            </PageModal>
-          ) : null}
-        </LayoutConfig>
+
+        {cardhplpage ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Help Conteúdo Home.'}
+            onclose={() => setCardHlpPage(false)}
+          >
+            <CardHlpConfigPage
+              imgcardpage={lg_config}
+              onclosesair={() => setCardHlpPage(false)}
+            />
+          </PageModal>
+        ) : null}
+      </LayoutConfig>
     </ThemeProvider>
   );
 };

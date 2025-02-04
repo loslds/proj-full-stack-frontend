@@ -13,7 +13,7 @@ import { PageModal } from './PageModal';
 import { CardHlpLoginLogo } from '../../cards/CardHlpLoginLogo';
 import { CardHlpLoginPage } from '../../cards/CardHlpLoginPage';
 
-import lg_config from "../../assets/svgs/lg_config.svg";
+import lg_login from "../../assets/svgs/lg_login.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
@@ -71,7 +71,7 @@ export const Login = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutLogin
-        imgsys={lg_config}
+        imgsys={lg_login}
         titbtnsys="Acesso Sistema..."
         onclicksys={handlerCardHlpLoginLogo}
 
@@ -101,7 +101,7 @@ export const Login = () => {
             onclose={() => setCardHlpLoginPage(false)}
           >
             <CardHlpLoginPage
-              imgcardpage={lg_config}
+              imgcardpage={lg_login}
               onclosesair={() => setCardHlpLoginPage(false)}
             />
           </PageModal>
@@ -117,7 +117,7 @@ export const Login = () => {
             onclose={() => setCardHlpLoginLogo(false)}
           >
             <CardHlpLoginLogo
-              imgcardlogo={lg_config}
+              imgcardlogin={lg_login}
               onclosesair={() => setCardHlpLoginLogo(false)}
             />
           </PageModal>

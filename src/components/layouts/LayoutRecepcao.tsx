@@ -2,9 +2,9 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
-import { ContentCardPage } from '../ContentCardPage';
+//import { ContentCardPage } from '../ContentCardPage';
 import HeaderRecepcao from '../hearders/HearderRecepcao';
-import { BarSideMenuRecep } from '../sidebar/BarSideMenuRecep';
+//import { BarSideMenuRecep } from '../sidebar/BarSideMenuRecep';
 
 //import { FooterPage } from '../../footers/FooterPage';
 
@@ -72,10 +72,10 @@ const LayoutRecepcao = ({
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
-          <ContentCardPage pwidth={'100%'}>
+          {/* <ContentCardPage pwidth={'100%'}>
             <BarSideMenuRecep />
           </ContentCardPage>
-          <Pg.DivisionPgHztal />
+          <Pg.DivisionPgHztal /> */}
           
           {children}
         </Pg.ContainerPage>

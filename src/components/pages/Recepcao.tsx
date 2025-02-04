@@ -1,6 +1,6 @@
 import React from "react";
 
-//import * as Pg from "../stylePages";
+import * as Pg from "../stylePages";
 
 import { ThemeProvider } from "styled-components";
 import light from "../../themes/light";
@@ -8,6 +8,7 @@ import dark from "../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
 import LayoutRecepcao from "../layouts/LayoutRecepcao";
+import { ContentCardPage } from "../ContentCardPage";
 
 import { PageModal } from './PageModal';
 
@@ -17,6 +18,7 @@ import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
 import { CardHlpRecepcaoPage } from "@/cards/CardHlpRecepcaoPage";
+import { BarSideMenuRecep } from "../sidebar/BarSideMenuRecep";
 
 import bt_close from "../../assets/svgs/bt_close.svg";
 //import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
@@ -72,9 +74,12 @@ const Recepcao : React.FC = () => {
         ischeck={ischeck}
 
       >
-        
+        <ContentCardPage pwidth={'100%'}>
+          <BarSideMenuRecep />
+        </ContentCardPage>
+        <Pg.DivisionPgHztal />
+
         <h1>Página Recepção</h1>
-  
 
         {cardhplpage ? (
           <PageModal
