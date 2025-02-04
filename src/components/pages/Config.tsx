@@ -1,24 +1,31 @@
 
 
-import React from "react";
-import { ThemeProvider } from "styled-components";
+import React from 'react';
+import { ThemeProvider } from 'styled-components';
 import light from "../../themes/light";
 import dark from "../../themes/dark";
-import { useNavigate } from "react-router-dom";
-import { useMySQL } from "../contexts/MySQLContext";
-import LayoutConfig from "../layouts/LayoutConfig";
+import { useNavigate } from 'react-router-dom';
+import { useMySQL } from '../contexts/MySQLContext';
+import LayoutConfig from '../layouts/LayoutConfig';
 import { PageModal } from './PageModal';
 import { CardHlpConfigPage } from '../../cards/CardHlpConfigPage';
-import lg_config from "../../assets/svgs/lg_config.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
-import bt_close from "../../assets/svgs/bt_close.svg";
+import lg_config from '../../assets/svgs/lg_config.svg';
+import bt_helppg from '../../assets/svgs/bt_helppg.svg';
+import bt_abortar from '../../assets/svgs/bt_abortar.svg';
+import bt_close from '../../assets/svgs/bt_close.svg';
+
+import CheckDB from './CheckDB.tsx';
+import BackupDB from './BackupDB.tsx';
+import RestoreDB from './RestoreDB.tsx';
+import ExplorerDB from './ExplorerDB.tsx';
 
 const Config : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
   const [ischeckdb, setIscheckdb] = React.useState(false);
   const { isConnected } = useMySQL();
+  // 🔹 Estado para armazenar o componente ativo
+  const [activeComponent, setActiveComponent] = React.useState<string | null>(null);
 
   const ToggleTheme = () => {
     if (theme.name === "dark") {
@@ -47,8 +54,6 @@ const Config : React.FC = () => {
       setIscheckdb(isConnected);
     }
   }, [isConnected]);
-
-
   return (
     <ThemeProvider theme={theme}>
         <LayoutConfig
@@ -70,9 +75,13 @@ const Config : React.FC = () => {
           ischeck={ischeck}
         >
           
-          <h1>Página Config</h1>
-          
-          
+          <BarSideMenuConfig setActiveComponent={setActiveComponent} />
+
+        {/* 🔹 Exibição dinâmica do componente selecionado */}
+        {activeComponent === "CheckDB" && <CheckDB />}
+        {activeComponent === "BackupDB" && <BackupDB />}
+        {activeComponent === "RestoreDB" && <RestoreDB />}
+        {activeComponent === "ExplorerDB" && <ExplorerDB />}
           
           {cardhplpage ? (
             <PageModal
@@ -94,5 +103,5 @@ const Config : React.FC = () => {
     </ThemeProvider>
   );
 };
-
 export default Config;
+

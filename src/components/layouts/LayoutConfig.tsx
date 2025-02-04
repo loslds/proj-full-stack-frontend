@@ -71,8 +71,7 @@ const LayoutConfig = ({
       <Pg.ContainerBody>
         <Pg.ContainerPage>
           <ContentCardPage pwidth={'100%'}>
-            <BarSideMenuConfig>
-            </BarSideMenuConfig>
+            <BarSideMenuConfig setActiveComponent={setActiveComponent} />
           </ContentCardPage>
           <Pg.DivisionPgHztal />
           {children}

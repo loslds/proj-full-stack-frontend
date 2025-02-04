@@ -1,3 +1,4 @@
+
 import React from "react";
 import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
 import { ButtonDropdown } from "./stylesSidebar";
@@ -6,6 +7,7 @@ interface DropdownOption {
   label: string;
   value: string;
   subOptions?: DropdownOption[];
+  onClick?: () => void;
 }
 
 interface PropsDropdown {
@@ -14,8 +16,8 @@ interface PropsDropdown {
   labelbtn?: string;
   options: DropdownOption[];
   onSelect: (value: string) => void;
+  
 }
-
 export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
@@ -35,6 +37,7 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
                 if (!option.subOptions) {
                   onSelect(option.value);
                   setIsOpen(false);
+  
                 }
               }}
               onMouseEnter={() => setOpenSubmenu(option.value)}
@@ -61,3 +64,5 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
     </ContentMainDropdownUl>
   );
 };
+
+

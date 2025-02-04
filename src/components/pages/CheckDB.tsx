@@ -8,11 +8,11 @@ interface MySQLConfig {
   database: string;
 }
 
-interface CheckMySQLStatusProps {
+interface PropsCheckDB {
   config: MySQLConfig;
 }
 
-const CheckMysql: React.FC<CheckMySQLStatusProps> = ({ config }) => {
+const CheckDB: React.FC<PropsCheckDB> = ({ config }) => {
   const { setIsConnected } = useMySQL();
   const [status, setStatus] = React.useState<{ isInstalled: boolean; isConnected: boolean } | null>(null);
 
@@ -38,12 +38,12 @@ const CheckMysql: React.FC<CheckMySQLStatusProps> = ({ config }) => {
 
   return (
     <div>
-      <h3>Status do MySQL</h3>
+      <h3>Status da Conexão</h3>
       {loading ? <p>Verificando...</p> : null}
       {status ? (
         <ul>
-          <li>MySQL Instalado: {status.isInstalled ? "Sim ✅" : "Não ❌"}</li>
-          <li>Conectado ao MySQL: {status.isConnected ? "Sim ✅" : "Não ❌"}</li>
+          <li>Database Instalado: {status.isInstalled ? "Sim ✅" : "Não ❌"}</li>
+          <li>Conectado ao Database: {status.isConnected ? "Sim ✅" : "Não ❌"}</li>
         </ul>
       ) : null}
 
@@ -51,4 +51,4 @@ const CheckMysql: React.FC<CheckMySQLStatusProps> = ({ config }) => {
   );
 };
 
-export default CheckMysql;
+export default CheckDB;
