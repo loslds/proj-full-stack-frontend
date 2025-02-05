@@ -3,31 +3,31 @@ import { ThemeProvider } from 'styled-components';
 import light from "../../themes/light";
 import dark from "../../themes/dark";
 import { useNavigate } from 'react-router-dom';
-import { useMySQL } from '../contexts/MySQLContext'; // Use o hook do contexto
+// Use o hook do contexto
+//import { useMySQLContext, MysqlUseActions } from '../contexts/MySQLContext'; 
 
 import LayoutConfig from '../layouts/LayoutConfig';
 import { PageModal } from './PageModal';
 import { CardHlpConfigPage } from '../../cards/CardHlpConfigPage';
 import { ContentCardPage } from '../ContentCardPage.tsx';
-import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig.tsx';
+import { BarMenuConfig } from '../sidebar/BarMenuConfig.tsx'
+
+//import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig.tsx';
 import { DivisionPgHztal } from '../stylePages.ts';
 import lg_config from '../../assets/svgs/lg_config.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_abortar from '../../assets/svgs/bt_abortar.svg';
 import bt_close from '../../assets/svgs/bt_close.svg';
 
-import MysqlConfig from './MysqlConfig'; // Importando MysqlConfig
-import CheckDB from './CheckDB.tsx';
-import BackupDB from './BackupDB.tsx';
-import RestoreDB from './RestoreDB.tsx';
-import ExplorerDB from './ExplorerDB.tsx';
+//import MysqlConfig from './MysqlConfig'; // Importando MysqlConfig
+// import CheckDB from './CheckDB.tsx';
+// import BackupDB from './BackupDB.tsx';
+// import RestoreDB from './RestoreDB.tsx';
+// import ExplorerDB from './ExplorerDB.tsx';
 
 const Config: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
-  const { isConnected, dbConfig, setDbConfig } = useMySQL(); // Acesse o estado do MySQL diretamente
-
-  const [activeComponent, setActiveComponent] = React.useState<string | null>(null);
   
   const navigate = useNavigate();
   const goto = (path: string) => () => navigate(path);
@@ -42,10 +42,6 @@ const Config: React.FC = () => {
     setIscheck(theme.name === "dark");
   };
 
-  // Se não estiver conectado, mostrar a tela de configuração
-  if (!isConnected) {
-    return <MysqlConfig />;
-  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -64,15 +60,17 @@ const Config: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarSideMenuConfig setActiveComponent={setActiveComponent} />
+          <BarMenuConfig />
+          {/* <BarSideMenuConfig setActiveComponent={setActiveComponent} /> */}
         </ContentCardPage>
         <DivisionPgHztal />
-
+        <h1>Page Config</h1>
         {/* Exibição dinâmica do componente selecionado */}
-        {activeComponent === "CheckDB" && <CheckDB />}
+        
+        {/* {activeComponent === "CheckDB" && <CheckDB />}
         {activeComponent === "BackupDB" && <BackupDB />}
         {activeComponent === "RestoreDB" && <RestoreDB />}
-        {activeComponent === "ExplorerDB" && <ExplorerDB />}
+        {activeComponent === "ExplorerDB" && <ExplorerDB />} */}
 
         {cardhplpage && (
           <PageModal

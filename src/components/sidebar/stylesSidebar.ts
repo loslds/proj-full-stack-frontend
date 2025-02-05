@@ -5,7 +5,6 @@ import semimg from "../../assets/svgs/semimg.svg"
 // ContainerBarSideMain
 export const ContainerSPanelMain = styled.div`
   border: none;
-  /* border: 2px solid red; */
   border-color: ${props => props.theme.colors.textColor};
   margin: 2px 0px 2px 8px;
   padding: 0px 0px 0px 0px;
@@ -15,17 +14,14 @@ export const ContainerSPanelMain = styled.div`
   align-items: center;
   align-content: center;
   justify-content: space-between;
-  
   font-size: 18px;
   line-height: 20px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
   color:  ${props => props.theme.colors.textColor};
-
-
 `;
-//container Butto Side lado direito
 
+//container Butto Side lado direito
 export const ContainerButtonSRigth = styled.div`
   border: 2px solid;
   border-color: ${props => props.theme.colors.textColor};
@@ -43,6 +39,99 @@ export const ContainerButtonSRigth = styled.div`
     background-color: #e4e4e4;
   }
 `;
+//container Butto Side lado esquero
+export const ContainerButtonSLeft = styled.div`
+  border-left: 3px solid red ;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 5px 2px 5px;
+  background: transparent;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  &:hover {
+    background-color: #e4e4e4;
+  }
+`;
+/// rotina do botão para menu principal
+
+// ContainerSideButton
+export const ContainerSideButton = styled.div`
+  border: 2px;
+  border-color: red;
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 2px 0px 2px;
+  background: transparent;
+  width: 40px;
+  height: 37px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  &:hover {
+    background-color: #e4e4e4;
+   }
+`;
+// Botão Menu Principal
+export const ButtonSideBarImg = styled.button<{ img?: string }>`
+  border: none;
+  margin: 2px 5px 2px 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  background-image: url(${({ img }) => img || semimg});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  outline: none;
+  width: 40px;
+  min-height: 37px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+//////////////////////////////
+// Rotina para botôes Itens do Menu Principal
+// Container para botões dos Itens 
+type PropsContainerButtonMnItens = {
+  open?: boolean;
+};
+export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
+  border-color: ${props => props.theme.colors.textColor};
+  border-left: 4px solid;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 2px 0px 2px;
+  background: transparent;
+  display: ${props => (props.open ? 'flex' : 'none')};
+  flex-flow: row wrap;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  `;
+
+//container Butto Side lado esquero
+// usa o mesmo div
+
+
+
+
+
+
+
+
+
+
+
 export const ContainerButtonSDadosLeft = styled.div`
   border: 2px solid;
   border-color: ${props => props.theme.colors.textColor};
@@ -61,10 +150,8 @@ export const ContainerButtonSDadosLeft = styled.div`
   }
 `;
 
+
 export const ContainerBtnMnSRigth = styled.div`
-  //border: 1px solid;
-  //border-color: ${props => props.theme.colors.textColor};
-  //border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 2px 5px 2px 5px;
   background: transparent;
@@ -75,6 +162,56 @@ export const ContainerBtnMnSRigth = styled.div`
   align-content: center;
   color:  ${props => props.theme.colors.textColor};
 `;
+export const ContainerButtonMn = styled.div`
+  border: 5px solid red ;
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 2px 10px 2px;
+  background: transparent;
+  font-size: 18px;
+  min-height: 40px;
+  display: flex; 
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+`;
+
+export const ButtonItemMn = styled.button`
+  border: 2px;
+  border-color: ${props => props.theme.colors.primary};
+  border-radius: 3px;
+  margin: 2px 5px 2px 15px;
+  color:  ${props => props.theme.colors.textColor};
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  min-width: 37px;
+  display: flex;
+  flex-flow: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  &:active {
+    border: 2px solid; 
+    border-radius: 3px;
+    margin: 2px 5px 2px 15px;
+    color:  ${props => props.theme.colors.secundary};
+  }
+`;
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////
+
 
 //container Butto Side lado direito
 type TypeSBItensModulo = {
@@ -130,49 +267,6 @@ export const ContainerItensModBntMn = styled.div<PropsItensBntMn>`
 `;
 
 
-// ContainerSideButton
-export const ContainerSideButton = styled.div`
-  border: 2px;
-  border-color: red;
-  border-radius: 5px;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 2px 0px 2px;
-  background: transparent;
-  width: 40px;
-  height: 37px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  color:  ${props => props.theme.colors.textColor};
-  &:hover {
-    background-color: #e4e4e4;
-   }
-`;
-
-export const ButtonSideBarImg = styled.button<{ img?: string }>`
-  border: none;
-  margin: 2px 5px 2px 5px;
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
-  background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  cursor: pointer;
-  outline: none;
-  width: 40px;
-  min-height: 37px;
-  display: flex;
-  flex-flow: nowrap;
-  justify-content: center;
-  align-items: center;
-`;
-//////////////////////////////
 // botão para o titulo do submenu
 /////////////////////////////
 
@@ -223,6 +317,8 @@ type PropsMenuSide = {
   open?: boolean;
 };
 export const ContainerMenuSide = styled.div<PropsMenuSide>`
+  border: 1px solid;
+  border-radius: 10px;
   margin: 0px 0px 0px 8px;
   padding: 0px 0px 0px 0px;
   min-height: 50px;
@@ -236,16 +332,15 @@ export const ContainerMenuSide = styled.div<PropsMenuSide>`
   //border-color: ${props => props.theme.colors.textColor};
   //border-radius: 5px;
 
-  font-size: 12px;
+  font-size: 18px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
   color:  ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
 
-export const ContainerButtonSLeft = styled.div`
+export const ContainerButtonSMnLeft = styled.div`
   border: 1px solid;
-  //border-color: #ff8040;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
@@ -273,42 +368,9 @@ export const ContainerButtonSLeft = styled.div`
   } 
 `;
 
-export const ContainerButtonMnItens = styled.div`
-  border: none;
-  border-color: #ff8040;
-  //border-color: ${props => props.theme.colors.textColor};
-  border-radius: 5px;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 2px 0px 2px;
-  background: transparent;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: left;
-  align-items: center;
-  align-content: center;
-  color:  ${props => props.theme.colors.textColor};
-  //&:hover {
-  //  background-color: #e4e4e4;
-  //}
-  label {
-    padding: 0px 0px 0px 0px;
-    margin: 0px 0px 0px 10px;
-    font-style: normal;
-    font-family: Verdana, Tahoma, sans-serif;
-    font-weight: bold;
-    font-size: 18px;
-    font-weight: bold;
-    font-family: 'Courier New', 'Courier', 'monospace';
-    color:  ${props => props.theme.colors.textColor};
-  } 
-`;
-
-
-
-
-
+  
 export const ContainerDivBtnMn = styled.div`
-  border: 1px solid ;
+  border: 3px solid ;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
@@ -323,10 +385,16 @@ export const ContainerDivBtnMn = styled.div`
   align-items: center;
   align-content: center;
   justify-content: center;
+  
   &:hover {
     background-color: #e4e4e4;
   }
 `;
+
+
+
+
+
 
 
   
@@ -520,7 +588,7 @@ export const ContainerMenuSB = styled.div<PropsMenuSB>`
   min-height: 50px;
   background-color: white;
   border-left: 2px solid #ccc;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   padding: 10px 2x 10px 2px;
   transition: transform 0.3s ease-in-out;
   font-size: 20px;

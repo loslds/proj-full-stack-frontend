@@ -242,7 +242,9 @@ export const AcessoProvider: React.FC<{ children: ReactNode }> = ({
 export const useAcessoContext = (): AcessoContextType => {
   const context = useContext(AcessoContext);
   if (!context) {
-    throw new Error('useAcessoContext must be used within AcessoProvider');
+    throw new Error('useAcessoContext deve ser usado dentro de um AcessoProvider');
   }
   return context;
 };
+
+///// fim  ///////

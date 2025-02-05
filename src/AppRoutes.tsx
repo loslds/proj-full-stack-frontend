@@ -2,7 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Home from './components/pages/Home';
-import MysqlConfig from './components/pages/MysqlConfig';
+//import MysqlConfig from './components/pages/MysqlConfig';
 
 import Login from './components/pages/Login';
 import Resgate from './components/pages/Resgate';
@@ -19,8 +19,8 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/resgate" element={<Resgate />} />
       
-      {/* 🚨 Adicionando a rota do login MySQL separada */}
-      <Route path="/mysqlconfig" element={<MysqlConfig />} /> 
+      {/* 🚨 Adicionando a rota do login MySQL separada 
+      <Route path="/mysqlconfig" element={<MysqlConfig />} /> */}
 
       <Route path="/recepcao" element={<Recepcao />} />
 
