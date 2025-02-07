@@ -4,7 +4,7 @@ import light from "../../themes/light";
 import dark from "../../themes/dark";
 import { useNavigate } from 'react-router-dom';
 // Use o hook do contexto
-//import { useMySQLContext, MysqlUseActions } from '../contexts/MySQLContext'; 
+import { MysqlUseActions, MysqlUseContext  } from '../contexts/MySQLContext.tsx'; 
 
 import LayoutConfig from '../layouts/LayoutConfig';
 import { PageModal } from './PageModal';
@@ -32,6 +32,8 @@ const Config: React.FC = () => {
   const navigate = useNavigate();
   const goto = (path: string) => () => navigate(path);
 
+  const { state, dispatch } = MysqlUseContext();
+
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => {
     setCardHlpPage((oldState) => !oldState);
@@ -41,6 +43,17 @@ const Config: React.FC = () => {
     setTheme(theme.name === "dark" ? light : dark);
     setIscheck(theme.name === "dark");
   };
+
+  const TitlePage = 'Config.';
+  const AcaoPage = 'Acesso Database';
+  React.useEffect(() => {
+    dispatch({ type: MysqlUseActions.RESET_STATE });
+    dispatch({ type: MysqlUseActions.SET_PAGE, payload: TitlePage });
+    dispatch({ type: MysqlUseActions.SET_APLICACAO, payload: AcaoPage });
+    console.log('Valores iniciais do contexto:', state);
+  }, []); // O array vazio garante que o efeito só roda uma vez na montagem
+
+
 
 
   return (
@@ -64,6 +77,7 @@ const Config: React.FC = () => {
           {/* <BarSideMenuConfig setActiveComponent={setActiveComponent} /> */}
         </ContentCardPage>
         <DivisionPgHztal />
+
         <h1>Page Config</h1>
         {/* Exibição dinâmica do componente selecionado */}
         

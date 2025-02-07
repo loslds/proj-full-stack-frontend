@@ -2,6 +2,7 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
 export type StateMysql = {
+  currentPage: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
   // titulo da Pagina
   page: string | null;
   // Titulo da ação em Pagina
@@ -17,6 +18,7 @@ export type StateMysql = {
 };
 
 export const initialData: StateMysql = {
+  currentPage: 0,
   page: '',
   aplicacao: '',
   host: '',
@@ -28,6 +30,7 @@ export const initialData: StateMysql = {
 };
 
 export enum   MysqlUseActions {
+  SET_CURRENT_PAGE = 'SET_CURRENT_PAGE',
   SET_PAGE = 'SET_PAGE',
   SET_APLICACAO = 'SET_APLICACAO',
   SET_HOST = 'SET_HOST',
@@ -35,10 +38,12 @@ export enum   MysqlUseActions {
   SET_PASSWORD = 'SET_PASSWORD',
   SET_DATABASE = 'SET_DATABASE',
   SET_AUTH = 'SET_AUTH',
-  SET_ISCONNECTED = 'ISCONNECTED'
-};
+  SET_ISCONNECTED = 'ISCONNECTED',
+  RESET_STATE = 'RESET_STATE' // 👈 Nova ação para resetar o estado
+}
 
 type MysqlAction =
+  | { type: MysqlUseActions.SET_CURRENT_PAGE; payload: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 }
   | { type: MysqlUseActions.SET_PAGE; payload: string | null }
   | { type: MysqlUseActions.SET_APLICACAO; payload: string | null }
   | { type: MysqlUseActions.SET_HOST; payload: string | null }
@@ -46,7 +51,8 @@ type MysqlAction =
   | { type: MysqlUseActions.SET_PASSWORD; payload: string | null }
   | { type: MysqlUseActions.SET_DATABASE; payload: string | null }
   | { type: MysqlUseActions.SET_AUTH; payload: string | null }
-  | { type: MysqlUseActions.SET_ISCONNECTED; payload: boolean };
+  | { type: MysqlUseActions.SET_ISCONNECTED; payload: boolean }
+  | { type: MysqlUseActions.RESET_STATE }; // 👈 Tipo de ação para resetar
   
 const MysqlReducer = (state: StateMysql, action: MysqlAction) => {
   switch (action.type) {
@@ -66,6 +72,8 @@ const MysqlReducer = (state: StateMysql, action: MysqlAction) => {
       return { ...state, auth: action.payload };
     case MysqlUseActions.SET_ISCONNECTED:
       return { ...state, isConnected: action.payload };
+    case MysqlUseActions.RESET_STATE:
+      return initialData; // 👈 Aqui ele reseta tudo para o estado inicial
     default:
       return state;
   }
@@ -89,10 +97,10 @@ export const MySQLProvider: React.FC<{ children: ReactNode }> = ({
 };
 
 // Hook para facilitar o uso do contexto
-export const useMySQLContext = () => {
+export const MysqlUseContext = () => {
   const context = useContext(MySQLContext);
   if (!context) {
-    throw new Error('useMySQLContext deve ser usado dentro de um MySQLProvider');
+    throw new Error('MysqlUseContext deve ser usado dentro de um MySQLProvider');
   }
   return context;
 };

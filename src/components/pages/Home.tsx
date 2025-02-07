@@ -14,8 +14,11 @@ import bt_close from '../../assets/svgs/bt_close.svg';
 //import jr_circ from '../../assets/svgs/jr_circ.svg';
 
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-import { CardHlpHomePage } from '@/cards/CardHlpHomePage';
+import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 
+import { DateToCecular } from '../../funcs/funcs/DateToCecular';
+import { CardKeyMaster } from '../../cards/CardKeyMaster';
+import { CardCheckService } from '../../cards/CardCheckService';
 
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -23,7 +26,11 @@ import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import { PageModal } from './PageModal';
 
+
+// import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
+
 const Home: React.FC = () => {
+  
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
   const ToggleTheme = () => {
@@ -42,6 +49,30 @@ const Home: React.FC = () => {
     };
   };
 
+  const [showchave, setShowChave] = React.useState<boolean | null>(false);
+
+  const chaveDt = DateToCecular(Date());
+  
+  const [chavekey, setChavekey ] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Verifica se a tecla pressionada é "Ctrl + F12 "
+      if (event.ctrlKey && event.key === 'F12') {
+        setShowChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
+      }
+    };
+
+    // Adiciona o listener para o evento de teclado
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Remove o listener quando o componente é desmontado
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+
+  }, []);
+
   const [cardlogo, setCardLogo] = React.useState(false);
   const handlerCardLogo = React.useCallback(() => {
     setCardLogo((oldState) => !oldState);
@@ -52,6 +83,13 @@ const Home: React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
+  const [isChecado, setIsChecado] = React.useState<boolean | null>(null);
+  
+  const [isalltabelas, setisAllTabelas] = React.useState<boolean | null>(null);
+
+  const [isfaltatabelas, setisFaltaTabelas] = React.useState(<string | null>([]);
+
+  
   return (
     <ThemeProvider theme={theme}>
       <LayoutHome
@@ -76,6 +114,7 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
+          { }
           <ContentCustonImgPage
             open={true}
             pxheight={'165px'}
@@ -95,6 +134,40 @@ const Home: React.FC = () => {
             onclick={goto('/recepcao')}
           />
         </ContentItensBody>
+
+        { showchave ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Chechk DataBase.'}
+            onclose={() => setShowChave(false)}
+          >
+            <CardKeyMaster chave={chaveDt} />
+          </PageModal>
+        ) : null}
+
+        { !isConectado ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Chechk DataBase.'}
+            onclose={() => setIsConectado(false)}
+          >
+            <CardCheckService 
+              imgcardpage={lg_sys}
+              onclosesair={() => setIsConectado(false)}
+            />
+          </PageModal>
+        ) : null}
+
+
+
 
         {cardlogo ? (
           <PageModal
