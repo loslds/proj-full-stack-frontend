@@ -3,10 +3,10 @@ import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 
-interface PropsCardDesemvolver {
+interface PropsCardDesenvolver {
   imgcarddes?: string;
 }
-export const CardDesemvolver = ({ imgcarddes }: PropsCardDesemvolver) => {
+export const CardDesemvolver = ({ imgcarddes }: PropsCardDesenvolver) => {
   return (
     <CardModalCenter>
       <CardModalAround>

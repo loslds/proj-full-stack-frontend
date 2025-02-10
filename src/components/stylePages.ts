@@ -652,10 +652,10 @@ export const ContainerCustonBtnPage = styled.div<PropsContainerCustonBtnPage>`
     background: #e4e4e4;
    }
 `;
-type TypeButtonDefaulImgPage = {
+interface PropsButtonDefaulImgPage {
   img?: string;
 };
-export const ButtonDefaulImgPage = styled.button<TypeButtonDefaulImgPage>`
+export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
   border: none;
   border-radius: 3px;
   margin: 2px 5px 2px 5px;
@@ -677,6 +677,37 @@ export const ButtonDefaulImgPage = styled.button<TypeButtonDefaulImgPage>`
   justify-content: center;
   align-items: center;
 `;
+
+
+interface PropsBtnDefImgEnabledPage {
+  img?: string;
+  disabled?: boolean; // Adicionando a propriedade
+}
+export const ButtonDefImgEnabledPage = styled.button<PropsBtnDefImgEnabledPage>`
+  border: none;
+  border-radius: 3px;
+  margin: 2px 5px;
+  color: ${(props) => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  background-image: url(${({ img }) => (img ? img : 'semimg')});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')}; // ⬅️ Cursor muda quando desativado
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)}; // ⬅️ Opacidade reduzida se desativado
+  outline: none;
+  height: 30px;
+  min-width: 30px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+`;
+
 //////////////////////////////////////
 // fim do ContentSidePageBottonButtom
 // inicio do  
@@ -867,8 +898,39 @@ export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage
   align-content: center;
 `;
 //////////////////////////////////////
-
-
+/////////////////////
+interface PropsContainerCollunsCenterPage {
+  pheight? : string;
+  pwidth? : string;
+  openccp?: boolean;
+}
+export const ContainerCollunsCenterPage = styled.div<PropsContainerCollunsCenterPage>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: ${({ pheight }) => pheight || '50px'};
+  min-width: ${({ pwidth }) => pwidth || '100px'};
+  display: ${props => (props.openccp ? 'flex' : 'none')};
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+`;
+export const ContainerInputMainPage = styled.div`
+  border: 1px solid red;
+  padding: 2px 0px 2px 0px;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+`;
 
 interface PropsContainerDivMainOffRed {
   pxheight?: string;
@@ -890,6 +952,60 @@ export const ContainerDivMainOffRed = styled.div<PropsContainerDivMainOffRed>`
   justify-content: left;
   align-items: center;
   align-content: center;
-  color: red;
-  background: transparent;
+  color: white;
+  font-size: 18x;
+  font-weight: bold;
+  background-color: rgb(253, 74, 74);
+`;
+
+interface PropsContainerDivMainOffYellow {
+  pxheight?: string;
+  pxwidth?: string;
+  label?: string;
+  statedata?: string;
+}
+export const ContainerDivMainOffYellow = styled.div<PropsContainerDivMainOffYellow>`
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: yellow;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  min-height: ${({ pxheight }) => pxheight || '30px'};
+  width: ${({ pxwidth }) => pxwidth || '100%'};
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color: black;
+  font-size: 18x;
+  font-weight: bold;
+  background-color: rgb(253, 240, 125);
+`;
+
+interface PropsContainerDivMainOnGreen {
+  pxheight?: string;
+  pxwidth?: string;
+  label?: string;
+  statedata?: string;
+}
+export const ContainerDivMainOnGreen = styled.div<PropsContainerDivMainOnGreen>`
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: greenyellow;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  min-height: ${({ pxheight }) => pxheight || '30px'};
+  width: ${({ pxwidth }) => pxwidth || '100%'};
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color: black;
+  font-size: 18x;
+  font-weight: bold;
+  background-color: rgb(147, 245, 134);
 `;

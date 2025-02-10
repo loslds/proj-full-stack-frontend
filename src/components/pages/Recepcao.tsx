@@ -17,7 +17,7 @@ import lg_recepcao from "../../assets/svgs/lg_recepcao.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
-import { CardHlpRecepcaoPage } from "@/cards/CardHlpRecepcaoPage";
+import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
 import { BarSideMenuRecep } from "../sidebar/BarSideMenuRecep";
 
 import bt_close from "../../assets/svgs/bt_close.svg";

@@ -1,29 +1,93 @@
 
-import React from 'react';
-import { DateToCecular } from '../funcs/funcs/DateToCecular';
+//{show ? ( <h2>No momento a chave Master é: [ { chave }] ].</h2>
+//) : (<p> Acesso negado...</p> ) }
 
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { CardModalCenter } from '../modal/CardModalCenter';
-import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
+//import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
+import { ContentCardCollunsCenterPage } from '../components/ContentCardCollunsCenterPage.tsx';
+import { ContentInputMainPage } from '../components/ContentInputMainPage';
+import { ContentSidePageBottonLabel } from '../components/ContentSidePageBottonLabel.tsx';
+import { ContentSidePageBottonEnabled } from '../components/ContentSidePageBottonEnabled.tsx'
+import bt_enviar from '../assets/svgs/bt_enviar.svg';
 
 interface PropsCardKeyMaster {
   chave?: string | null;
 }
 export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
-  
-  const [show, setShow ] = React.useState<boolean | null>(false);
-  const chavedodia = DateToCecular(Date());
 
-  if ( chavedodia === chave) {
-    setShow(true);
-  }
+  const navigate = useNavigate();
+    const goto = (path: string) => {
+      return () => {
+        navigate(path);
+      };
+    };
+
+  const [btnok, setbtnok] = useState(false);
+  const [show, setShow] = useState(false);
+  const [chaveDigitada, setChaveDigitada] = useState('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChaveDigitada(event.target.value);
+  };
+
+  React.useEffect(() => {
+    if (chaveDigitada.length === 8) {
+      setbtnok(true);
+      setShow(true);
+    } else {
+      setbtnok(false);
+    }
+  },[chaveDigitada])
+
+ const handlerCheckBtnOk = () => {
+   if (chaveDigitada === chave) {
+     alert('Chave correta...')
+   } else {
+    alert('Chave errada...')
+   }
+ };
 
   return (
     <CardModalCenter>
-      <CardModalTextoColumn>
-        { show ? ( <h2>No momento a chave Master é: [ { chave }] ].</h2>
-        ) : (<p> Acesso negado...</p> )}
-      </CardModalTextoColumn>
+      <ContentCardCollunsCenterPage
+        openccp={true}
+        pwidth={'180px'}
+      >
+        <ContentInputMainPage>
+          <form name="chave">
+            <br />
+            <label>Digite a Chave Master para continuar:</label>
+            <input
+              name="chave"
+              type="password"
+              value={chaveDigitada}
+              onChange={handleChange}
+              placeholder="Digite a chave..."
+              size={8}
+              autoFocus={true}
+            />
+            <br />
+            <br />
+          </form>            
+            
+          <ContentSidePageBottonLabel istitl={true} title={'Ok.: '}>
+            <ContentSidePageBottonEnabled
+              pxheight={'40px'}
+              img={bt_enviar}
+              titbtn={'Check...'}
+              onclick={handlerCheckBtnOk}
+              disabled={btnok}
+            />
+          </ContentSidePageBottonLabel>
+          {show ? ( <h2>Confirma Edição ?.</h2>
+          ) : (<p> Aguardando Edição...</p> ) }
+
+        </ContentInputMainPage>
+      </ContentCardCollunsCenterPage>
     </CardModalCenter>
   );
 };
 
+// {show ? ( <h2>No momento a chave Master é: [ { chave }] ].</h2>
