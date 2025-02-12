@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { CardModalCenter } from '../modal/CardModalCenter';
 //import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-import { ContentCardCollunsCenterPage } from '../components/ContentCardCollunsCenterPage.tsx';
+import { ContentCardCarCollunsFormPage } from '../components/ContentCardCollunsFormPage.tsx';
 import { ContentInputMainPage } from '../components/ContentInputMainPage';
 import { ContentSidePageBottonLabel } from '../components/ContentSidePageBottonLabel.tsx';
 import { ContentSidePageBottonEnabled } from '../components/ContentSidePageBottonEnabled.tsx'
@@ -51,14 +51,17 @@ export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
 
   return (
     <CardModalCenter>
-      <ContentCardCollunsCenterPage
-        openccp={true}
-        pwidth={'180px'}
+      <ContentCardCarCollunsFormPage
+        open={true}
+        pwidth={'100%'}
+        pheight={'35%'}
       >
         <ContentInputMainPage>
           <form name="chave">
             <br />
             <label>Digite a Chave Master para continuar:</label>
+            <br />
+
             <input
               name="chave"
               type="password"
@@ -69,6 +72,8 @@ export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
               autoFocus={true}
             />
             <br />
+            <br />
+            <h1>Chave : {chave}</h1>
             <br />
           </form>            
             
@@ -85,7 +90,7 @@ export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
           ) : (<p> Aguardando Edição...</p> ) }
 
         </ContentInputMainPage>
-      </ContentCardCollunsCenterPage>
+      </ContentCardCarCollunsFormPage>
     </CardModalCenter>
   );
 };

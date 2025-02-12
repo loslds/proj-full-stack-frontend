@@ -26,6 +26,8 @@ import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
+
+import { ContentCardCarCollunsFormPage } from '../ContentCardCollunsFormPage';
 import { PageModal } from './PageModal';
 // //import { CardDesenvolver }  from '../../cards/CardDesenvolver';
 import { CardKeyMaster } from '../../cards/CardKeyMaster';
@@ -74,11 +76,6 @@ const Home: React.FC = () => {
       // Verifica se a tecla pressionada é "Ctrl + F12 "
       if (event.ctrlKey && event.key === 'F12') {
         setBuscaChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
-      }
-      if (!buscachave) {
-        setChavekey('');
-      } else {
-        setChavekey(chaveDt);
       }
     };
     // Adiciona o listener para o evento de teclado
@@ -165,7 +162,7 @@ const Home: React.FC = () => {
             pwidth={'165px'}
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
-            onclick={(num) => num !== undefined && handlerClicEventNegadoPage(num)}
+            onclick={ (nmmodulo==='config') || ischavekey ? (goto('/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -179,12 +176,20 @@ const Home: React.FC = () => {
             imgbtn={pn_recepcao}
             titlebtn={'Setor Recepção...'}
             onclick={ nmmodulo || ischavekey ? (goto('/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            //onclick={(num) => num !== undefined && handlerClicEventNegadoPage(num)}
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
 
+
         </ContentItensBody>
+
+        <Pg.DivisionPgHztal />
+        <ContentCardCarCollunsFormPage open={buscachave}>
+          <>
+          <h1>BuscaChave</h1>
+          </>
+          
+        </ContentCardCarCollunsFormPage>
         <Pg.DivisionPgHztal />
           <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
             <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
@@ -209,7 +214,7 @@ const Home: React.FC = () => {
           <PageModal
             ptop={'1%'}
             pwidth={'30%'}
-            pheight={'45%'}
+            pheight={'60%'}
             imgbm={bt_close}
             titbm="Fechar..."
             titulo={'Acesso Negado.'}
@@ -219,15 +224,19 @@ const Home: React.FC = () => {
               imgcard={lg_negado} 
               pminheight={'100px'} 
               pwidth={'100px'} 
-              onclickimg={() => setCardNegadoPage(false)}/>
+              onclickimg={() => setCardNegadoPage(false)}
+            />
         </PageModal>
         ) : null}  
         
+        
+        
+        {/* 
         { buscachave ? (
           <PageModal
             ptop={'1%'}
-            pwidth={'80%'}
-            pheight={'95%'}
+            pwidth={'35%'}
+            pheight={'85%'}
             imgbm={bt_close}
             titbm="Fechar..."
             titulo={'Chave Master.'}
@@ -235,7 +244,8 @@ const Home: React.FC = () => {
           >
             <CardKeyMaster chave={chavekey} />
           </PageModal>
-        ) : null}
+        ) : null} 
+        */}
 
  {/* 
 

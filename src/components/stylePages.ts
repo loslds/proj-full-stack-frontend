@@ -365,6 +365,9 @@ export const ContainerCardBoxColumnPg = styled.div`
   color: ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
+
+//////////////////////////////////////
+
 //
 export const ContainerCardBoxColumnPgFlex = styled.div`
   padding: 0px 0px 0px 0px;
@@ -762,7 +765,7 @@ export const DivisionPgHztal = styled.div`
 `;
 
 ////////////////////////////////////////////////
-// Conainer do Botão Custon
+// Container do Botão Custon
 interface PropsContainerCustonButton {
   pxheight : string;
 }
@@ -922,12 +925,6 @@ export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
 ////////////////////////////////////////////////////////
 // fim ContentCardPageMain
 
-
-
-
-
-
-
 export const ContainerCardBoxPage = styled.div`
   border: 2px solid #1116f2;
   padding: 0px 0px 0px 0px;
@@ -958,6 +955,7 @@ export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage
   align-content: center;
 `;
 //////////////////////////////////////
+// collums
 /////////////////////
 interface PropsContainerCollunsCenterPage {
   pheight? : string;
@@ -969,7 +967,7 @@ export const ContainerCollunsCenterPage = styled.div<PropsContainerCollunsCenter
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: ${({ pheight }) => pheight || '50px'};
-  min-width: ${({ pwidth }) => pwidth || '100px'};
+  //min-width: ${({ pwidth }) => pwidth || '100px'};
   display: ${props => (props.openccp ? 'flex' : 'none')};
   flex-direction: column;
   flex-wrap: wrap;
@@ -980,16 +978,37 @@ export const ContainerCollunsCenterPage = styled.div<PropsContainerCollunsCenter
   background: ${props => props.theme.colors.backgroundColor};
 `;
 export const ContainerInputMainPage = styled.div`
-  border: 1px solid red;
+  border: 1px;
   padding: 2px 0px 2px 0px;
   margin: 0px 0px 0px 0px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-flow: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   align-content: center;
+`;
+
+interface PropsContainerCardCollumForm {
+  open?: boolean;
+  pwidth? : string;
+  pheight? : string;
+};
+export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
+  border: 2px solid red;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: ${({ pheight }) => pheight || '30%'};
+  min-width: ${({ pwidth }) => pwidth || '30%'};
+  display: ${props => (props.open ? 'flex' : 'none')};
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
 `;
 
 interface PropsContainerDivMainOffRed {

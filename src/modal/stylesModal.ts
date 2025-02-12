@@ -5,8 +5,8 @@ import semimg from '../assets/svgs/semimg.svg';
 
 export const ContainerModalCenter = styled.div`
   border: none; //1px solid blue;
-  padding: 0px 5px 0px 0px;
-  margin: 2px 10px 2px 10px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   width: 100%;
   min-height: auto;
   overflow-y: auto;
@@ -22,9 +22,9 @@ export const ContainerModalCenter = styled.div`
 `;
 //*
 export const ContainerTextoModulos = styled.div`
-  border: none; // solid red;
-  padding: 0px 25px 0px 0px;
-  margin: 2px 10px 2px 10px;
+  border: none; 
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
   min-height: 40px;
   width: 100%;
   overflow-y: auto;
@@ -212,7 +212,7 @@ export const ContainerModalImg = styled.div<PropsContainerModalImg>`
 `;
 //*
 export const ContainerModalTitle = styled.div`
-  border: none; /*1px green dashed;*/
+  border: none; 
   padding: 0px auto;
   margin: 0px auto;
   min-height: 40px;
@@ -347,7 +347,7 @@ export const ContainerModalTexto = styled.div`
   border: 0px;
   padding: 0px 5px 0px 0px;
   margin: 2px 10px 2px 10px;
-  min-height: auto;
+  min-height: '20%';
   overflow-y: auto;
   display: flex row;
   flex-wrap: wrap;
@@ -362,6 +362,7 @@ export const ContainerModalTexto = styled.div`
 
 export const ContainerHeardModalMain = styled.div`
   border: 0px ;
+  min-height: 100px;
   height: 100%;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
