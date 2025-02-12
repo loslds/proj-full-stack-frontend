@@ -27,31 +27,23 @@ import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import { PageModal } from './PageModal';
-
-
-
 // //import { CardDesenvolver }  from '../../cards/CardDesenvolver';
 import { CardKeyMaster } from '../../cards/CardKeyMaster';
 //import { CardCheckingServices } from '../../cards/CardCheckingServices';
-
-
 // import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
-
-
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 
 const Home: React.FC = () => {
-  
-  const [ischecar, setIsChecar] = React.useState(false);
+  //const [ischecar, setIsChecar] = React.useState(false);
   //const [ischecado, setIsChecado] = React.useState(false);
-  
   const [buscachave, setBuscaChave] = React.useState(false);
   const [chavekey, setChavekey ] = React.useState('');
   const chaveDt = DateToCecular(Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
+  const [nmmodulo, setNmModulo] = React.useState('');
 
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
@@ -103,6 +95,7 @@ const Home: React.FC = () => {
 
   },[]);
 
+
   const handlerCardLogo = React.useCallback(() => {
     setCardLogo((oldState) => !oldState);
   }, []);
@@ -111,9 +104,36 @@ const Home: React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
-  const handlerCardNegadoPage = React.useCallback(() => {
-    setCardNegadoPage((oldState) => !oldState);
-  }, []);
+//  const handlerCardNegadoPage = React.useCallback(() => {
+//    setCardNegadoPage((oldState) => !oldState);
+//  }, []);
+  
+  React.useEffect(() => { 
+    setNmModulo('/recepcao');
+  },[]);
+
+  const handlerClicEventNegadoPage = React.useCallback((num: number) => {
+    if (num === undefined) return; // Se `num` for `undefined`, não faz nada
+   
+    const routes: Record<number, string> = {
+      1: '/config',
+      2: '/recepcao',
+      3: '/design',
+      4: '/producao',
+      5: '/acabamento',
+      6: '/expedicao',
+      7: '/administracao',
+      8: '/visitante',
+    };
+    
+    const targetRoute = routes[num]; // Obtém a rota correspondente
+    
+    if (!ischavekey) {
+      setCardNegadoPage(true);
+    } else if (targetRoute) {
+      goto(targetRoute);
+    };
+  }, [ischavekey, nmmodulo]);
 
 
   return (
@@ -136,40 +156,30 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
-          { ischavekey ? (
-            <ContentCustonImgPage
-              open={true}
-              pxheight={'165px'}
-              pheight={'165px'}
-              pwidth={'165px'}
-              imgbtn={pn_config}
-              titlebtn={'Cadastros Config...'}
-              onclick={goto('/config')}
-              onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
-              onMouseLeave={() => setMsgPanelBottom('')}
-            />
-          ) : (
-            <ContentCustonImgPage
-              open={true}
-              pxheight={'165px'}
-              pheight={'165px'}
-              pwidth={'165px'}
-              imgbtn={pn_config}
-              titlebtn={'Cadastros Config...'}
-              onclick={handlerCardNegadoPage}
-              onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
-              onMouseLeave={() => setMsgPanelBottom('')}
-            />
-            )
-          }
+
           <ContentCustonImgPage
+            num={1}
+            open={true}
+            pxheight={'165px'}
+            pheight={'165px'}
+            pwidth={'165px'}
+            imgbtn={pn_config}
+            titlebtn={'Cadastros Config...'}
+            onclick={(num) => num !== undefined && handlerClicEventNegadoPage(num)}
+            onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
+          
+          <ContentCustonImgPage
+            num={2}
             open={true}
             pxheight={'165px'}
             pheight={'165px'}
             pwidth={'165px'}
             imgbtn={pn_recepcao}
             titlebtn={'Setor Recepção...'}
-            onclick={goto('/recepcao')}
+            onclick={ nmmodulo || ischavekey ? (goto('/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            //onclick={(num) => num !== undefined && handlerClicEventNegadoPage(num)}
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -228,6 +238,20 @@ const Home: React.FC = () => {
         ) : null}
 
  {/* 
+
+
+{/* 
+             <ContentCustonImgPage
+               open={true}
+               pxheight={'165px'}
+               pheight={'165px'}
+               pwidth={'165px'}
+               imgbtn={pn_config}
+               titlebtn={'Cadastros Config...'}
+               onclick={handlerCardNegadoPage}
+               onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+               onMouseLeave={() => setMsgPanelBottom('')}
+             />
 
             <ContentSidePageBottonLabel istitl={start} title={'Voltar.: '}>
               <ContentSidePageBottonButton

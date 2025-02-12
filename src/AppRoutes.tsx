@@ -1,15 +1,9 @@
 
 import { Routes, Route } from 'react-router-dom';
-
 import Home from './components/pages/Home';
-//import MysqlConfig from './components/pages/MysqlConfig';
-
 import Login from './components/pages/Login';
 import Resgate from './components/pages/Resgate';
-
-
 import Recepcao from './components/pages/Recepcao';
-
 import MySQLRoutes from './MySQLRoutes'; // Importando as rotas do MySQL
 
 const AppRoutes = () => {
@@ -31,3 +25,4 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
+
