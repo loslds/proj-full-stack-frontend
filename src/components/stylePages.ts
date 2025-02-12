@@ -449,6 +449,7 @@ export const ContainerCardBoxInput = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -930,7 +931,7 @@ export const ContainerCardBoxPage = styled.div`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   width: 100%;
-  height: 150px;
+  min-height: 50px;
   //display: flex;
   //flex-wrap: wrap;
   //justify-content: center;
@@ -947,7 +948,7 @@ export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage
   //border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  width: ${({ pwidth }) => pwidth || '65%'};
+  width: ${({ pwidth }) => pwidth || '100%'};
   display: flex;
   //flex-flow: row;
   flex-wrap: wrap;
@@ -1004,12 +1005,16 @@ export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   display: ${props => (props.open ? 'flex' : 'none')};
   flex-wrap: wrap;
   flex-flow: column;
-  justify-content: space-between;
+  justify-content: center;
   align-content: center;
   align-items: center;
   color: ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
+
+
+
+
 
 interface PropsContainerDivMainOffRed {
   pxheight?: string;

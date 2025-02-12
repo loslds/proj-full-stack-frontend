@@ -26,13 +26,18 @@ import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
+import bt_enviar from '../../assets/svgs/bt_enviar.svg';
+
+import { ContentCardBoxPageCenter } from '../ContentCardBoxPageCenter';
 
 import { ContentCardCarCollunsFormPage } from '../ContentCardCollunsFormPage';
+import { ContentCardBoxInput } from '../ContentCardBoxInput';  
 import { PageModal } from './PageModal';
 // //import { CardDesenvolver }  from '../../cards/CardDesenvolver';
 import { CardKeyMaster } from '../../cards/CardKeyMaster';
 //import { CardCheckingServices } from '../../cards/CardCheckingServices';
 // import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
+import { ContentSidePageBottonEnabled } from '../ContentSidePageBottonEnabled';
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
@@ -45,6 +50,10 @@ const Home: React.FC = () => {
   const [chavekey, setChavekey ] = React.useState('');
   const chaveDt = DateToCecular(Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
+  const [chaveDigitada, setChaveDigitada] = React.useState('');
+  const [btnok, setbtnok] = React.useState(false);
+  const [show, setShow] = React.useState(false); 
+
   const [nmmodulo, setNmModulo] = React.useState('');
 
   const [cardlogo, setCardLogo] = React.useState(false);
@@ -92,6 +101,28 @@ const Home: React.FC = () => {
 
   },[]);
 
+  const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChaveDigitada(event.target.value);
+  };
+
+  React.useEffect(() => {
+      if (chaveDigitada.length === 8) {
+        setbtnok(true);
+        setShow(true);
+      } else {
+        setbtnok(false);
+      }
+  },[chaveDigitada])
+  
+  const handlerCheckBtnOk = () => {
+    if (chaveDigitada === chaveDt) {
+      alert('Chave correta...'+ chaveDigitada )
+      setChavekey(chaveDigitada);
+    } else {
+      alert('Chave errada...')
+      setChavekey('');
+    }
+  };
 
   const handlerCardLogo = React.useCallback(() => {
     setCardLogo((oldState) => !oldState);
@@ -184,12 +215,43 @@ const Home: React.FC = () => {
         </ContentItensBody>
 
         <Pg.DivisionPgHztal />
-        <ContentCardCarCollunsFormPage open={buscachave}>
-          <>
-          <h1>BuscaChave</h1>
-          </>
-          
-        </ContentCardCarCollunsFormPage>
+        <ContentCardBoxPageCenter>
+          <ContentCardCarCollunsFormPage open={!buscachave}>
+            <ContentCardBoxInput>
+              <form name="chave">
+                <br />
+                <label>Digite a Chave Master para continuar:</label>
+                <br />
+                <input
+                  name="chave"
+                  type="password"
+                  value={chaveDigitada}
+                  onChange={handleChangeKey}
+                  placeholder="Digite a chave..."
+                  size={8}
+                  autoFocus={true}
+                />
+                <br />
+                <br />
+                <h3>Chave : {chaveDt}</h3>
+                <h3>ChaveKey : {chavekey}</h3>
+                <br />
+                <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
+                  <ContentSidePageBottonEnabled
+                    pxheight={'40px'}
+                    img={bt_enviar}
+                    titbtn={'Checar...'}
+                    onclick={handlerCheckBtnOk}
+                    disabled={btnok}
+                  />
+                </ContentSidePageBottonLabel>
+                {show ? ( <h2>Confirma Edição ?.</h2>
+                ) : (<p> Aguardando Edição...</p> ) }
+              </form>
+            </ContentCardBoxInput>
+          </ContentCardCarCollunsFormPage>
+        </ContentCardBoxPageCenter>
+        
         <Pg.DivisionPgHztal />
           <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
             <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
@@ -208,6 +270,7 @@ const Home: React.FC = () => {
 
 
           </ContentSidePagePanelBotton>
+        
         {/* /////////////////////// */}
 
         { cardnegadopage ? (
