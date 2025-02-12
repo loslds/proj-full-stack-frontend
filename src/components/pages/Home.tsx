@@ -1,4 +1,6 @@
 import React from 'react';
+import * as Pg from '../stylePages';
+
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
@@ -16,6 +18,7 @@ import bt_close from '../../assets/svgs/bt_close.svg';
 
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
+import { CardImgNeg } from '../../cards/CardImgNeg';
 
 import { DateToCecular } from '../../funcs/funcs/DateToCecular';
 
@@ -24,26 +27,37 @@ import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import { PageModal } from './PageModal';
-import { CardDesenvolver } from '../../cards/CardDesenvolver';
+
+
+
+// //import { CardDesenvolver }  from '../../cards/CardDesenvolver';
 import { CardKeyMaster } from '../../cards/CardKeyMaster';
 //import { CardCheckingServices } from '../../cards/CardCheckingServices';
 
 
 // import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
 
+
+import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
+import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
+import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
+
 const Home: React.FC = () => {
   
   const [ischecar, setIsChecar] = React.useState(false);
-  const [isatables, setisTabes] = React.useState(false);
-  const [isfaltatabelas, setisFaltaTabelas] = React.useState([]);
+  //const [ischecado, setIsChecado] = React.useState(false);
   
   const [buscachave, setBuscaChave] = React.useState(false);
   const [chavekey, setChavekey ] = React.useState('');
   const chaveDt = DateToCecular(Date());
-  const [ismaster, setIsMaster ] = React.useState(false);
+  const [ischavekey, setIsChaveKey] = React.useState(false);
 
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
+  const [cardnegadopage, setCardNegadoPage] = React.useState(false);
+
+  const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
 
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
@@ -69,27 +83,25 @@ const Home: React.FC = () => {
       if (event.ctrlKey && event.key === 'F12') {
         setBuscaChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
       }
+      if (!buscachave) {
+        setChavekey('');
+      } else {
+        setChavekey(chaveDt);
+      }
     };
     // Adiciona o listener para o evento de teclado
     window.addEventListener('keydown', handleKeyDown);
     // Remove o listener quando o componente é desmontado
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      if (chavekey===chaveDt){
+        setIsChaveKey(true);
+      } else {
+        setIsChaveKey(false);
+      }
     };
-  }, []);
 
-  React.useEffect(() => {
-    if (buscachave) {
-      setChavekey(chaveDt);
-    } else {
-      setChavekey('');
-    }
-  },[buscachave]);
-
-  const handlerChecar = React.useCallback(() => {
-    setIsChecar((oldState) => !oldState);
-  }, []);
-
+  },[]);
 
   const handlerCardLogo = React.useCallback(() => {
     setCardLogo((oldState) => !oldState);
@@ -98,6 +110,11 @@ const Home: React.FC = () => {
   const handlerCardHlpPage = React.useCallback(() => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
+
+  const handlerCardNegadoPage = React.useCallback(() => {
+    setCardNegadoPage((oldState) => !oldState);
+  }, []);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,10 +136,7 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
-          
-           {/* (!ischecar && !isatables)  ? ( ()  => { handlerChecar} ) : null */}
-          
-          { ismaster ? (
+          { ischavekey ? (
             <ContentCustonImgPage
               open={true}
               pxheight={'165px'}
@@ -131,24 +145,73 @@ const Home: React.FC = () => {
               imgbtn={pn_config}
               titlebtn={'Cadastros Config...'}
               onclick={goto('/config')}
+              onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+              onMouseLeave={() => setMsgPanelBottom('')}
             />
-          ) : null }
-
-          { ismaster ? (
+          ) : (
             <ContentCustonImgPage
               open={true}
               pxheight={'165px'}
               pheight={'165px'}
               pwidth={'165px'}
-              imgbtn={pn_recepcao}
-              titlebtn={'Setor Recepção...'}
-              onclick={goto('/recepcao')}
+              imgbtn={pn_config}
+              titlebtn={'Cadastros Config...'}
+              onclick={handlerCardNegadoPage}
+              onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+              onMouseLeave={() => setMsgPanelBottom('')}
             />
-          ) : null }
+            )
+          }
+          <ContentCustonImgPage
+            open={true}
+            pxheight={'165px'}
+            pheight={'165px'}
+            pwidth={'165px'}
+            imgbtn={pn_recepcao}
+            titlebtn={'Setor Recepção...'}
+            onclick={goto('/recepcao')}
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
 
         </ContentItensBody>
-        
+        <Pg.DivisionPgHztal />
+          <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
+            <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
+            
+            <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
+              <ContentSidePageBottonButton
+                pxheight={'40px'}
+                img={''}
+                titbtn={'Voltar...'}
+                onclick={goto('/')}
+                onMouseEnter={() => setMsgPanelBottom('menssagem aqui...') }
+                onMouseLeave={() => setMsgPanelBottom('')}
+              />
+            </ContentSidePageBottonLabel>
+            
+
+
+          </ContentSidePagePanelBotton>
         {/* /////////////////////// */}
+
+        { cardnegadopage ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'30%'}
+            pheight={'45%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Acesso Negado.'}
+            onclose={() => setCardNegadoPage(false)}
+          >
+            <CardImgNeg 
+              imgcard={lg_negado} 
+              pminheight={'100px'} 
+              pwidth={'100px'} 
+              onclickimg={() => setCardNegadoPage(false)}/>
+        </PageModal>
+        ) : null}  
         
         { buscachave ? (
           <PageModal
@@ -164,7 +227,68 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
 
-        { !ischecar ? (
+ {/* 
+
+            <ContentSidePageBottonLabel istitl={start} title={'Voltar.: '}>
+              <ContentSidePageBottonButton
+                pxheight={'40px'}
+                img={setaesq}
+                titbtn={'Voltar...'}
+                onclick={goto('/')}
+              />
+            </ContentSidePageBottonLabel>
+
+            <ContentBoxLabelPage
+              label={'Tentativa [ ' + state.nrcont + 'ª ]'}
+            />
+
+            {btncontinua ? (
+              <ContentSidePageBottonLabel
+                istitl={btncontinua}
+                title={'Continuar.: '}
+              >
+                <ContentSidePageBottonButton
+                  pxheight={'40px'}
+                  img={setadir}
+                  titbtn={'Continuar...'}
+                  onclick={goto('/login1')}
+                />
+              </ContentSidePageBottonLabel>
+            ) : null}
+
+            {btnresgatar ? (
+              <ContentSidePageBottonLabel
+                istitl={btnresgatar}
+                title={'Resgatar...: '}
+              >
+                <ContentSidePageBottonButton
+                  pxheight={'40px'}
+                  img={setadir}
+                  titbtn={'Resgatar...'}
+                  onclick={goto('/resgate1')}
+                />
+              </ContentSidePageBottonLabel>
+            ) : null}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{ ischecar ? (
           <PageModal
             ptop={'1%'}
             pwidth={'80%'}
@@ -174,19 +298,15 @@ const Home: React.FC = () => {
             titulo={'Chechk DataBase.'}
             onclose={() => setIsChecar(false)}
           >
-            <CardDesenvolver imgcarddes ={lg_negado} />
-{/* 
-            <CardCheckServices 
+            <CardCheckingServices 
               imgcardpage={lg_sys}
+              checando= {checked}
               onclosesair={() => setIsChecar(false)}
+              //checked={checando}
             />
- */}
           </PageModal>
         ) : null}
-
-
-        {/* /////////////////////////////////////////// */}
-
+ */}
         {cardlogo ? (
           <PageModal
             ptop={'1%'}

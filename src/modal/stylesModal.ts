@@ -342,6 +342,38 @@ export const ContainerModalErro = styled.div<PropsContainerModalErro>`
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: normal;
 `;
+
+export const ContainerModalTexto = styled.div`
+  border: 0px;
+  padding: 0px 5px 0px 0px;
+  margin: 2px 10px 2px 10px;
+  min-height: auto;
+  overflow-y: auto;
+  display: flex row;
+  flex-wrap: wrap;
+  flex-direction: center;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  font-size: 12px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: normal;
+`;
+
+export const ContainerHeardModalMain = styled.div`
+  border: 0px ;
+  height: 100%;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background-color: transparent; //* black;*/
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: black;
+`;
+
 ///////////////////////////////////////////////////
 
 

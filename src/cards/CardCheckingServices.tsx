@@ -7,18 +7,22 @@ import * as M from '../modal/stylesModal';
 import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
+import { ContentCardPrintText } from '../components/ContentCardPrintText';
+import { ContentCardPrintTextVerm } from '../components/ContentCardPrintTextVerm';
+import { ContentCardPrintTextVerde } from '../components/ContentCardPrintTextVerde';
 import { CardHlpFooter } from './CardHlpFooter';
 
 
 interface CardCheckingServiceProps {
   imgchksrvpage?: string;
   onclosesair?: () => void;
+  checando?: boolean;
 }
-const CardCheckingServices: React.FC = ({imgchksrvpage, onclosesair}: CardCheckingServiceProps) => {
-
+const CardCheckingServices: React.FC = ({imgchksrvpage, checando, onclosesair}: CardCheckingServiceProps) => {
+  const [ischecando, setIsChecando] = React.useState<boolean | null>(null);
   const [isConnected, setIsConnected] = React.useState<boolean | null>(null);
   const [tablesExist, setTablesExist] = React.useState<boolean | null>(null);
-  const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
+  //const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
   //const [status, setStatus] = React.useState<string | null>(null);
   //const [error, setError] = React.useState<string | null>(null);
 
@@ -33,14 +37,16 @@ const CardCheckingServices: React.FC = ({imgchksrvpage, onclosesair}: CardChecki
         const tablesResult = await checkTables();
         if (tablesResult.success) {
           setTablesExist(true);
+          setIsChecando(true);
         } else {
           setTablesExist(false);
-          setErrorMessage(tablesResult.message); // Mensagem de erro caso as tabelas não existam
+          //setErrorMessage(tablesResult.message); // Mensagem de erro caso as tabelas não existam
         }
       } else {
         setIsConnected(false);
-        setErrorMessage(connectionResult.message); // Mensagem de erro caso a conexão falhe
+        //setErrorMessage(connectionResult.message); // Mensagem de erro caso a conexão falhe
       }
+
     };
   
     // Chama a função
@@ -51,25 +57,45 @@ const CardCheckingServices: React.FC = ({imgchksrvpage, onclosesair}: CardChecki
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'110px'}
+          pminheight={'80px'}
           pwidth={'220px'}
           img={imgchksrvpage}
         />
       </CardModalAround>
       <CardModalTextoColumn>
         {isConnected === null ? (
-          <p>Verificando a conexão com o banco...</p>
-        ) : isConnected ? (
-          tablesExist === null ? (
-            <p>Verificando a existência das tabelas...</p>
-          ) : tablesExist ? (
-            <p>Todas as tabelas necessárias estão presentes.</p>
-          ) : (
-            <p style={{ color: 'red' }}>{errorMessage}</p>
-          )
-        ) : (
-          <p style={{ color: 'red' }}>{errorMessage}</p>
-        )}
+          <ContentCardPrintText>
+            <h4>Verificando a conexão com o banco...</h4>  
+          </ContentCardPrintText>
+        ) : null }
+        { !isConnected ? (
+          <ContentCardPrintTextVerm>
+            <h4>Verificando a conexão com o banco...</h4>  
+          </ContentCardPrintTextVerm>
+        ) : null }
+        { isConnected ? (
+          <ContentCardPrintTextVerde>
+            <h4>Conexão de Rede Ativada com DataBase...</h4>  
+          </ContentCardPrintTextVerde>
+        ) : null }
+        { tablesExist === null ? (
+          <ContentCardPrintText>
+            <h4>Verificando a existência dos Bancos de Dados...</h4>
+          </ContentCardPrintText>
+        ) : null }
+        { !tablesExist ? (
+          <ContentCardPrintTextVerm>
+            <h4>Bancos de Dados "Inexistênte" ou Deficitário".</h4>
+          </ContentCardPrintTextVerm>  
+        ) : null }
+        { tablesExist ? (
+          <ContentCardPrintTextVerde>
+            <h4>Bancos de Dados "Completos".</h4>
+          </ContentCardPrintTextVerde>  
+        ) : null }
+        { isConnected && tablesExist ? (
+          checando = true
+        ): null}
       
         <CardHlpFooter
           label="PÁGINA-> CHECKING SERVICE."

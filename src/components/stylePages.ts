@@ -287,6 +287,9 @@ export const ButtonPagesImg = styled.button<PropsButtonPagesImg>`
   flex-flow: nowrap;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: #e4e4e4;
+   }
 `;
 // FIM content lado esquerdo HEADER (imagem swith e outras)
 
@@ -650,7 +653,8 @@ export const ContainerCustonBtnPage = styled.div<PropsContainerCustonBtnPage>`
   align-items: center;
   &:hover {
     background: #e4e4e4;
-   }
+  }
+
 `;
 interface PropsButtonDefaulImgPage {
   img?: string;
@@ -676,6 +680,11 @@ export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
   flex-flow: nowrap;
   justify-content: center;
   align-items: center;
+/*   
+  &:hover {
+    background: #e4e4e4;
+   }
+    */
 `;
 
 
@@ -826,6 +835,57 @@ export const ContainerCardPageTitle = styled.div`
   align-items: center;
   align-content: center;
 `;
+
+export const ContainerCardPrintText = styled.div`
+  border: 1px solid;
+  border-color: ${props => props.theme.colors.textColor};
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 8px;
+  background-color:rgb(214, 214, 214);
+  min-height: 30px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+export const ContainerCardPrintTextVerm = styled.div`
+  border: 1px solid;
+  border-color: red;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 8px;
+  background-color:rgb(214, 214, 214);
+  min-height: 25px;
+  // width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+export const ContainerCardPrintTextVerde = styled.div`
+  border: 1px solid;
+  border-color: green;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 8px;
+  background-color:rgb(214, 214, 214);
+  min-height: 25px;
+  // width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
+
 ////////////////////////////////////////////////////////
 // fim ContentCardPageTitle
 // ContentCardPageMain -> {ContainerCardPageMain,ContainerCardPageMainFlex}
@@ -1009,3 +1069,66 @@ export const ContainerDivMainOnGreen = styled.div<PropsContainerDivMainOnGreen>`
   font-weight: bold;
   background-color: rgb(147, 245, 134);
 `;
+//// painel botton //////////////////////////////////////
+
+interface PropsContainerPanelPage {
+  open?: boolean;
+  pwidth? : string;
+}
+export const ContainerPanelPage = styled.div<PropsContainerPanelPage>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  width: ${({ pwidth }) => pwidth || '32%'};
+  display: ${({open}) => open ? 'flex' : 'none' };
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+type PropsContainerPanelPageFlex = {
+  bordas?: string;
+  }
+  export const ContainerPanelPageFlex = styled.div<PropsContainerPanelPageFlex>`
+    border: ${({ bordas }) => bordas || '3px'};
+    border-style: double;
+    border-radius: 10px;
+    border-color: ${props => props.theme.colors.textColor};
+    padding: 0px 0px 0px 0px;
+    margin: 3px 5px 3px 5px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  `;
+  
+  interface PropsContainerMsgSidePanelBottonText {
+    bordas?: string;
+  }
+  export const ContainerMsgSidePanelBottonText = styled.div<PropsContainerMsgSidePanelBottonText>`
+  border: none;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+
+  border-bottom: ${({ bordas }) => bordas || '3px'} solid;
+  border-style: double;
+  border-color: ${props => props.theme.colors.textColor};
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background-color:rgb(241, 241, 241);
+  min-height: 30px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+  
+

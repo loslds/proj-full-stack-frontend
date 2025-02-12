@@ -8,6 +8,8 @@ interface ContentCustonImgPage {
   titlebtn?: string;
   onclick?: () => void;
   open?: boolean;
+  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
 };
 export const ContentCustonImgPage = ({
   pxheight,
@@ -16,7 +18,10 @@ export const ContentCustonImgPage = ({
   imgbtn,
   onclick,
   titlebtn,
-  open
+  open,
+
+  onMouseEnter,
+  onMouseLeave
 }: ContentCustonImgPage) => {
   return (
     <Pg.ContainerCustonImgPage open={open} pxheight={pxheight}>
@@ -26,6 +31,8 @@ export const ContentCustonImgPage = ({
         img={imgbtn}
         onClick={onclick}
         title={titlebtn}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       />
     </Pg.ContainerCustonImgPage>
   );
