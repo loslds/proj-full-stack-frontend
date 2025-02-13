@@ -1,3 +1,4 @@
+
 import React from 'react';
 import * as Pg from '../stylePages';
 
@@ -5,61 +6,53 @@ import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 import { useNavigate } from 'react-router-dom';
-
 import LayoutHome from '../layouts/LayoutHome';
-import lg_sys from '../../assets/svgs/lg_sys.svg';
-import bt_helppg from '../../assets/svgs/bt_helppg.svg';
-import bt_avatar from '../../assets/pngs/bt_avatar.png';
-import bt_resgate from '../../assets/svgs/bt_resgate.svg';
-import lg_negado from '../../assets/svgs/lg_negado.svg';
-
-import bt_close from '../../assets/svgs/bt_close.svg';
-//import jr_circ from '../../assets/svgs/jr_circ.svg';
-
-import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
-import { CardImgNeg } from '../../cards/CardImgNeg';
-
-import { DateToCecular } from '../../funcs/funcs/DateToCecular';
-
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
-import pn_config from '../../assets/svgs/pn_config.svg';
-import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
-import bt_enviar from '../../assets/svgs/bt_enviar.svg';
-
+import { DateToCecular } from '../../funcs/funcs/DateToCecular';
+import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
 import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
 import { ContentCardBoxInput } from '../ContentCardBoxInput';  
 
-import { PageModal } from './PageModal';
-//import { CardDesenvolver }  from '../../cards/CardDesenvolver';
-//import { CardKeyMaster } from '../../cards/CardKeyMaster';
-//import { CardCheckingServices } from '../../cards/CardCheckingServices';
-//import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
 import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 
+import { PageModal } from './PageModal';
+import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
+import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
+import { CardImgNeg } from '../../cards/CardImgNeg';
+
+import lg_sys from '../../assets/svgs/lg_sys.svg';
+import bt_helppg from '../../assets/svgs/bt_helppg.svg';
+import bt_avatar from '../../assets/pngs/bt_avatar.png';
+import bt_resgate from '../../assets/svgs/bt_resgate.svg';
+import lg_negado from '../../assets/svgs/lg_negado.svg';
+import bt_close from '../../assets/svgs/bt_close.svg';
+import pn_config from '../../assets/svgs/pn_config.svg';
+import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
+import bt_enviar from '../../assets/svgs/bt_enviar.svg';
+
 const Home: React.FC = () => {
-  //const [ischecar, setIsChecar] = React.useState(false);
-  //const [ischecado, setIsChecado] = React.useState(false);
+  
+  const [startbtnchave, setStartBtnChave] = React.useState(false);
   const [buscachave, setBuscaChave] = React.useState(false);
-  const [chavekey ] = React.useState('');
-  const chaveDt = DateToCecular(Date());
+  const chaveDt = DateToCecular(new Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
   const [chaveDigitada, setChaveDigitada] = React.useState('');
   const [btnok, setbtnok] = React.useState(false);
+  
   const [isdesable, setIsDesable] = React.useState(true); 
-
+  const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
   const [nmmodulo, setNmModulo] = React.useState('');
 
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
 
-  const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
+
 
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
@@ -79,7 +72,10 @@ const Home: React.FC = () => {
     };
   };
 
+
+
   React.useEffect(() => {
+    
     const handleKeyDown = (event: KeyboardEvent) => {
       // Verifica se a tecla pressionada é "Ctrl + F12 "
       if (event.shiftKey && event.key === 'Delete') {
@@ -92,7 +88,7 @@ const Home: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-
+    
   },[]);
 
   const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,30 +96,41 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    let ll = chaveDigitada.length; 
-    setbtnok(false);
+    let ll = chaveDigitada.length;
+    let rtn = false;
+  
+    setIsChaveKey(false);
+
     if (ll === 0 ) {
-      setMsgPanelBottom('Aguardando Edição...');
+      setMsgPanelBottom('Aguardando...');
+      setbtnok(false);
+      setIsDesable(true);
     } else if (ll > 0 && ll < 8) {
       setMsgPanelBottom('Edite Chave...');
+      setbtnok(false);
+      setIsDesable(true);
     } else if (chaveDigitada.length === 8) {
-      setbtnok(true);
+      rtn = CheckDateToCecular(chaveDigitada);
+      if (rtn) {
+        setIsChaveKey(true);
+        setMsgPanelBottom('Clique para Cofirmar.');
+        setbtnok(true);
+        setStartBtnChave(true);
+      } else {
+        setMsgPanelBottom('Chave inválida!');
+        setbtnok(false);
+      }
       setIsDesable(false);
-      setMsgPanelBottom('Click Continuar.');
-    } else if (chaveDigitada !== chaveDt){
-      setIsChaveKey(false);
-    } else {
-      setIsChaveKey(true);
     }
-  },[chaveDigitada])
+  },[chaveDigitada]);
   
   const handlerCheckBtnOk = () => {
-    if (ischavekey) {
+    if (btnok) {
+      setStartBtnChave(false);
       alert('Sucesso...')
-    } else {
-      alert('Chave errada...')
     }
     setBuscaChave(false);
+    setMsgPanelBottom('');
   };
 
   const handlerCardLogo = React.useCallback(() => {
@@ -212,10 +219,13 @@ const Home: React.FC = () => {
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
+
+
+
         </ContentItensBody>
         <Pg.DivisionPgHztal />
 
-        <ContentCardBoxChaveKey open={!buscachave}>
+        <ContentCardBoxChaveKey open={buscachave}>
           <ContentCardBoxInput>
             <form name="chave">
               <br />
@@ -224,26 +234,19 @@ const Home: React.FC = () => {
               <input
                 name="chave"
                 type="password"
-                value={chaveDigitada}
-                onChange={handleChangeKey}
-                placeholder="Chave..."
                 size={8}
                 autoFocus={true}
+                placeholder="Chave..."
+                value={chaveDigitada}
+                onChange={handleChangeKey}
+                onClick={() => setMsgPanelBottom('Editição Chave.') }
               />
               <br />
               <br />
               <h3>Chave : {chaveDt}</h3>
-              <h3>ChaveKey : {chavekey}</h3>
-
-              <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
-                <ContentPageButtonDefImgEnabled 
-                  pxheight={'40px'}
-                  img={bt_enviar}
-                  titbtn={'Checar...'}
-                  onclick={handlerCheckBtnOk}
-                  disabled={isdesable}
-                />
-              </ContentSidePageBottonLabel>
+              <h3>ChaveKey : {chaveDigitada}</h3>
+              
+              
               <br />
               </form>
             </ContentCardBoxInput>
@@ -252,6 +255,7 @@ const Home: React.FC = () => {
         <Pg.DivisionPgHztal />
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
           <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
+          
             <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
               <ContentSidePageBottonButton
                 pxheight={'40px'}
@@ -262,6 +266,19 @@ const Home: React.FC = () => {
                 onMouseLeave={() => setMsgPanelBottom('')}
               />
             </ContentSidePageBottonLabel>
+
+            { startbtnchave ? (
+              <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
+                <ContentPageButtonDefImgEnabled 
+                  pxheight={'40px'}
+                  img={bt_enviar}
+                  titbtn={'Checar...'}
+                  onclick={handlerCheckBtnOk}
+                  disabled={isdesable}
+                />
+              </ContentSidePageBottonLabel>
+            ): null}  
+
           </ContentSidePagePanelBotton>
 
         { cardnegadopage ? (
@@ -280,121 +297,13 @@ const Home: React.FC = () => {
               pwidth={'100px'} 
               onclickimg={() => setCardNegadoPage(false)}
             />
-        </PageModal>
+          </PageModal>
         ) : null}  
         
         
         
-        {/* 
-        { buscachave ? (
-          <PageModal
-            ptop={'1%'}
-            pwidth={'35%'}
-            pheight={'85%'}
-            imgbm={bt_close}
-            titbm="Fechar..."
-            titulo={'Chave Master.'}
-            onclose={() => setBuscaChave(false)}
-          >
-            <CardKeyMaster chave={chavekey} />
-          </PageModal>
-        ) : null} 
-        */}
-
- {/* 
 
 
-{/* 
-             <ContentCustonImgPage
-               open={true}
-               pxheight={'165px'}
-               pheight={'165px'}
-               pwidth={'165px'}
-               imgbtn={pn_config}
-               titlebtn={'Cadastros Config...'}
-               onclick={handlerCardNegadoPage}
-               onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
-               onMouseLeave={() => setMsgPanelBottom('')}
-             />
-
-            <ContentSidePageBottonLabel istitl={start} title={'Voltar.: '}>
-              <ContentSidePageBottonButton
-                pxheight={'40px'}
-                img={setaesq}
-                titbtn={'Voltar...'}
-                onclick={goto('/')}
-              />
-            </ContentSidePageBottonLabel>
-
-            <ContentBoxLabelPage
-              label={'Tentativa [ ' + state.nrcont + 'ª ]'}
-            />
-
-            {btncontinua ? (
-              <ContentSidePageBottonLabel
-                istitl={btncontinua}
-                title={'Continuar.: '}
-              >
-                <ContentSidePageBottonButton
-                  pxheight={'40px'}
-                  img={setadir}
-                  titbtn={'Continuar...'}
-                  onclick={goto('/login1')}
-                />
-              </ContentSidePageBottonLabel>
-            ) : null}
-
-            {btnresgatar ? (
-              <ContentSidePageBottonLabel
-                istitl={btnresgatar}
-                title={'Resgatar...: '}
-              >
-                <ContentSidePageBottonButton
-                  pxheight={'40px'}
-                  img={setadir}
-                  titbtn={'Resgatar...'}
-                  onclick={goto('/resgate1')}
-                />
-              </ContentSidePageBottonLabel>
-            ) : null}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{ ischecar ? (
-          <PageModal
-            ptop={'1%'}
-            pwidth={'80%'}
-            pheight={'95%'}
-            imgbm={bt_close}
-            titbm="Fechar..."
-            titulo={'Chechk DataBase.'}
-            onclose={() => setIsChecar(false)}
-          >
-            <CardCheckingServices 
-              imgcardpage={lg_sys}
-              checando= {checked}
-              onclosesair={() => setIsChecar(false)}
-              //checked={checando}
-            />
-          </PageModal>
-        ) : null}
- */}
         {cardlogo ? (
           <PageModal
             ptop={'1%'}
@@ -434,6 +343,70 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+{/* 
+
+            {btncontinua ? (
+              <ContentSidePageBottonLabel
+                istitl={btncontinua}
+                title={'Continuar.: '}
+              >
+                <ContentSidePageBottonButton
+                  pxheight={'40px'}
+                  img={setadir}
+                  titbtn={'Continuar...'}
+                  onclick={goto('/login1')}
+                />
+              </ContentSidePageBottonLabel>
+            ) : null}
+
+            {btnresgatar ? (
+              <ContentSidePageBottonLabel
+                istitl={btnresgatar}
+                title={'Resgatar...: '}
+              >
+                <ContentSidePageBottonButton
+                  pxheight={'40px'}
+                  img={setadir}
+                  titbtn={'Resgatar...'}
+                  onclick={goto('/resgate1')}
+                />
+              </ContentSidePageBottonLabel>
+            ) : null}
+
+{ ischecar ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Chechk DataBase.'}
+            onclose={() => setIsChecar(false)}
+          >
+            <CardCheckingServices 
+              imgcardpage={lg_sys}
+              checando= {checked}
+              onclosesair={() => setIsChecar(false)}
+              //checked={checando}
+            />
+          </PageModal>
+        ) : null}
+ */}
+
+
+
+
+
+
+
+
+
+
+//import { CardDesenvolver }  from '../../cards/CardDesenvolver';
+//import { CardKeyMaster } from '../../cards/CardKeyMaster';
+//import { CardCheckingServices } from '../../cards/CardCheckingServices';
+//import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
 
 // import React from 'react';
 // import { ThemeProvider } from 'styled-components';

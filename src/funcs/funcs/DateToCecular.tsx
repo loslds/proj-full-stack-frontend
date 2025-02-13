@@ -16,3 +16,4 @@ export function DateToCecular(date: Date | string): string {
   return `${year}${month}${day}`; // Retorna a data formatada (ex: 20250702)
 }
 
+

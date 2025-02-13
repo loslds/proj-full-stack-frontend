@@ -122,7 +122,7 @@ export const ContainerImgSys = styled.div`
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 3px 7px 3px 7px;
-  background: #fff;
+  background: #ffffff;
   display: flex;
   justify-content: left;
   align-items: center;
