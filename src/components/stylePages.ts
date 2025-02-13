@@ -927,16 +927,11 @@ export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
 // fim ContentCardPageMain
 
 export const ContainerCardBoxPage = styled.div`
-  border: 2px solid #1116f2;
+  border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   width: 100%;
   min-height: 50px;
-  //display: flex;
-  //flex-wrap: wrap;
-  //justify-content: center;
-  //align-content: center;
-  //align-items: center;
   color: ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
@@ -944,13 +939,11 @@ interface PropsContainerCardBoxFlexPage {
   pwidth? : string;
 };
 export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage>`
-  border: 1px dashed red;
-  //border-color: ${props => props.theme.colors.textColor};
+  border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   width: ${({ pwidth }) => pwidth || '100%'};
   display: flex;
-  //flex-flow: row;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
@@ -993,15 +986,18 @@ export const ContainerInputMainPage = styled.div`
 
 interface PropsContainerCardCollumForm {
   open?: boolean;
-  pwidth? : string;
-  pheight? : string;
+  p1width? : string;
+  p1height? : string;
 };
 export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
-  border: 2px solid red;
+  border: 2px solid;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 10px;
+
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-height: ${({ pheight }) => pheight || '30%'};
-  min-width: ${({ pwidth }) => pwidth || '30%'};
+  min-height: ${({ p1height }) => p1height || '30%'};
+  min-width: ${({ p1width }) => p1width || '30%'};
   display: ${props => (props.open ? 'flex' : 'none')};
   flex-wrap: wrap;
   flex-flow: column;

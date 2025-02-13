@@ -1,19 +1,19 @@
 import * as Pg from './stylePages';
 
-interface PropsContentSidePageBottonEnabled {
+interface PropsContentPageButtonDefImgEnabled {
   pxheight?: string;
   img?: string;
   titbtn?: string;
   disabled?: boolean;
   onclick?: () => void;
 };
-export const ContentSidePageBottonEnabled = ({
+export const ContentPageButtonDefImgEnabled = ({
   pxheight,
   img,
   titbtn,
   disabled,
   onclick
-}: PropsContentSidePageBottonEnabled) => {
+}: PropsContentPageButtonDefImgEnabled) => {
   return (
     <Pg.ContainerCustonBtnPage pxheight={pxheight}>
       <Pg.ButtonDefImgEnabledPage img={img} title={titbtn} disabled={disabled} onClick={onclick} />

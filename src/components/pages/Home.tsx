@@ -28,16 +28,15 @@ import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
-import { ContentCardBoxPageCenter } from '../ContentCardBoxPageCenter';
-
-import { ContentCardCarCollunsFormPage } from '../ContentCardCollunsFormPage';
+import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
 import { ContentCardBoxInput } from '../ContentCardBoxInput';  
+
 import { PageModal } from './PageModal';
-// //import { CardDesenvolver }  from '../../cards/CardDesenvolver';
-import { CardKeyMaster } from '../../cards/CardKeyMaster';
+//import { CardDesenvolver }  from '../../cards/CardDesenvolver';
+//import { CardKeyMaster } from '../../cards/CardKeyMaster';
 //import { CardCheckingServices } from '../../cards/CardCheckingServices';
-// import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
-import { ContentSidePageBottonEnabled } from '../ContentSidePageBottonEnabled';
+//import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
+import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
@@ -47,12 +46,12 @@ const Home: React.FC = () => {
   //const [ischecar, setIsChecar] = React.useState(false);
   //const [ischecado, setIsChecado] = React.useState(false);
   const [buscachave, setBuscaChave] = React.useState(false);
-  const [chavekey, setChavekey ] = React.useState('');
+  const [chavekey ] = React.useState('');
   const chaveDt = DateToCecular(Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
   const [chaveDigitada, setChaveDigitada] = React.useState('');
   const [btnok, setbtnok] = React.useState(false);
-  const [show, setShow] = React.useState(false); 
+  const [isdesable, setIsDesable] = React.useState(true); 
 
   const [nmmodulo, setNmModulo] = React.useState('');
 
@@ -83,7 +82,7 @@ const Home: React.FC = () => {
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Verifica se a tecla pressionada é "Ctrl + F12 "
-      if (event.ctrlKey && event.key === 'F12') {
+      if (event.shiftKey && event.key === 'Delete') {
         setBuscaChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
       }
     };
@@ -92,11 +91,6 @@ const Home: React.FC = () => {
     // Remove o listener quando o componente é desmontado
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
-      if (chavekey===chaveDt){
-        setIsChaveKey(true);
-      } else {
-        setIsChaveKey(false);
-      }
     };
 
   },[]);
@@ -106,22 +100,30 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-      if (chaveDigitada.length === 8) {
-        setbtnok(true);
-        setShow(true);
-      } else {
-        setbtnok(false);
-      }
+    let ll = chaveDigitada.length; 
+    setbtnok(false);
+    if (ll === 0 ) {
+      setMsgPanelBottom('Aguardando Edição...');
+    } else if (ll > 0 && ll < 8) {
+      setMsgPanelBottom('Edite Chave...');
+    } else if (chaveDigitada.length === 8) {
+      setbtnok(true);
+      setIsDesable(false);
+      setMsgPanelBottom('Click Continuar.');
+    } else if (chaveDigitada !== chaveDt){
+      setIsChaveKey(false);
+    } else {
+      setIsChaveKey(true);
+    }
   },[chaveDigitada])
   
   const handlerCheckBtnOk = () => {
-    if (chaveDigitada === chaveDt) {
-      alert('Chave correta...'+ chaveDigitada )
-      setChavekey(chaveDigitada);
+    if (ischavekey) {
+      alert('Sucesso...')
     } else {
       alert('Chave errada...')
-      setChavekey('');
     }
+    setBuscaChave(false);
   };
 
   const handlerCardLogo = React.useCallback(() => {
@@ -210,68 +212,57 @@ const Home: React.FC = () => {
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-
-
         </ContentItensBody>
-
         <Pg.DivisionPgHztal />
-        <ContentCardBoxPageCenter>
-          <ContentCardCarCollunsFormPage open={!buscachave}>
-            <ContentCardBoxInput>
-              <form name="chave">
-                <br />
-                <label>Digite a Chave Master para continuar:</label>
-                <br />
-                <input
-                  name="chave"
-                  type="password"
-                  value={chaveDigitada}
-                  onChange={handleChangeKey}
-                  placeholder="Digite a chave..."
-                  size={8}
-                  autoFocus={true}
+
+        <ContentCardBoxChaveKey open={!buscachave}>
+          <ContentCardBoxInput>
+            <form name="chave">
+              <br />
+              <label>Acesso Master PIN</label>
+              <br />
+              <input
+                name="chave"
+                type="password"
+                value={chaveDigitada}
+                onChange={handleChangeKey}
+                placeholder="Chave..."
+                size={8}
+                autoFocus={true}
+              />
+              <br />
+              <br />
+              <h3>Chave : {chaveDt}</h3>
+              <h3>ChaveKey : {chavekey}</h3>
+
+              <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
+                <ContentPageButtonDefImgEnabled 
+                  pxheight={'40px'}
+                  img={bt_enviar}
+                  titbtn={'Checar...'}
+                  onclick={handlerCheckBtnOk}
+                  disabled={isdesable}
                 />
-                <br />
-                <br />
-                <h3>Chave : {chaveDt}</h3>
-                <h3>ChaveKey : {chavekey}</h3>
-                <br />
-                <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
-                  <ContentSidePageBottonEnabled
-                    pxheight={'40px'}
-                    img={bt_enviar}
-                    titbtn={'Checar...'}
-                    onclick={handlerCheckBtnOk}
-                    disabled={btnok}
-                  />
-                </ContentSidePageBottonLabel>
-                {show ? ( <h2>Confirma Edição ?.</h2>
-                ) : (<p> Aguardando Edição...</p> ) }
+              </ContentSidePageBottonLabel>
+              <br />
               </form>
             </ContentCardBoxInput>
-          </ContentCardCarCollunsFormPage>
-        </ContentCardBoxPageCenter>
+          </ContentCardBoxChaveKey>
         
         <Pg.DivisionPgHztal />
-          <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
-            <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
-            
+        <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
+          <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
             <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
               <ContentSidePageBottonButton
                 pxheight={'40px'}
                 img={''}
                 titbtn={'Voltar...'}
                 onclick={goto('/')}
-                onMouseEnter={() => setMsgPanelBottom('menssagem aqui...') }
+                onMouseEnter={() => setMsgPanelBottom('retorna a Home...') }
                 onMouseLeave={() => setMsgPanelBottom('')}
               />
             </ContentSidePageBottonLabel>
-            
-
-
           </ContentSidePagePanelBotton>
-        
-        {/* /////////////////////// */}
 
         { cardnegadopage ? (
           <PageModal
