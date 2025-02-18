@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import LayoutHome from '../layouts/LayoutHome';
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
-import { DateToCecular } from '../../funcs/funcs/DateToCecular';
+
 import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
 import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
 import { ContentCardBoxInput } from '../ContentCardBoxInput';  
@@ -37,9 +37,10 @@ import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 const Home: React.FC = () => {
   
+
   const [startbtnchave, setStartBtnChave] = React.useState(false);
   const [buscachave, setBuscaChave] = React.useState(false);
-  const chaveDt = DateToCecular(new Date());
+  //const chaveDt = DateToCecular(new Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
   const [chaveDigitada, setChaveDigitada] = React.useState('');
   const [btnok, setbtnok] = React.useState(false);
@@ -126,10 +127,11 @@ const Home: React.FC = () => {
   
   const handlerCheckBtnOk = () => {
     if (btnok) {
-      setStartBtnChave(false);
-      alert('Sucesso...')
+      // Exibe a mensagem temporária por 5 segundos
+      setMsgPanelBottom('Sucesso!...');
+      setbtnok(false);
+      setBuscaChave(false);
     }
-    setBuscaChave(false);
     setMsgPanelBottom('');
   };
 
@@ -193,7 +195,7 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
-
+          
           <ContentCustonImgPage
             num={1}
             open={true}
@@ -206,6 +208,8 @@ const Home: React.FC = () => {
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
+      
+        
           
           <ContentCustonImgPage
             num={2}
@@ -219,7 +223,7 @@ const Home: React.FC = () => {
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-
+          {ischavekey ? <h1>Chave : correta.</h1> : <h1>Chave : incorreta!</h1>}
 
 
         </ContentItensBody>
@@ -240,21 +244,16 @@ const Home: React.FC = () => {
                 value={chaveDigitada}
                 onChange={handleChangeKey}
                 onClick={() => setMsgPanelBottom('Editição Chave.') }
-              />
-              <br />
-              <br />
-              <h3>Chave : {chaveDt}</h3>
-              <h3>ChaveKey : {chaveDigitada}</h3>
-              
-              
-              <br />
+                />
+                <br />
               </form>
             </ContentCardBoxInput>
           </ContentCardBoxChaveKey>
         
         <Pg.DivisionPgHztal />
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
-          <ContentSideMsgPagePanelBotton bordas="3px" msg={msgpanelbottom}/>
+          
+          <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom}></ContentSideMsgPagePanelBotton>
           
             <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
               <ContentSidePageBottonButton
@@ -285,7 +284,7 @@ const Home: React.FC = () => {
           <PageModal
             ptop={'1%'}
             pwidth={'30%'}
-            pheight={'60%'}
+            pheight={'35%'}
             imgbm={bt_close}
             titbm="Fechar..."
             titulo={'Acesso Negado.'}

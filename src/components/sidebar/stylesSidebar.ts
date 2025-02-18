@@ -327,16 +327,12 @@ export const ContainerMenuSide = styled.div<PropsMenuSide>`
   align-items: center;
   align-content: center;
   justify-content: space-between;
-
-  //border: 1px solid;
-  //border-color: ${props => props.theme.colors.textColor};
-  //border-radius: 5px;
-
   font-size: 18px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
   color:  ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
+  
 `;
 
 export const ContainerButtonSMnLeft = styled.div`

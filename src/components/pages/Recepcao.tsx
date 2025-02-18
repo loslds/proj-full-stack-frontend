@@ -18,7 +18,7 @@ import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
 import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
-import { BarSideMenuRecep } from "../sidebar/BarSideMenuRecep";
+import { BarMenuRecepcao } from "../sidebar/BarMenuRecepcao"; 
 
 import bt_close from "../../assets/svgs/bt_close.svg";
 //import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
@@ -75,7 +75,7 @@ const Recepcao : React.FC = () => {
 
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarSideMenuRecep />
+          <BarMenuRecepcao />
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 

@@ -37,7 +37,6 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
                 if (!option.subOptions) {
                   onSelect(option.value);
                   setIsOpen(false);
-  
                 }
               }}
               onMouseEnter={() => setOpenSubmenu(option.value)}

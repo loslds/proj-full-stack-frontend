@@ -1,10 +1,9 @@
-
+import React from 'react';
 import * as S from './stylesSidebar';
 
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContainerSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
-import React from 'react';
 
 import { Dropdown } from './Dropdown';
 
@@ -20,6 +19,10 @@ export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveC
   }, []);
   const handleSelectOption = (value: string) => {
     setActiveComponent(value);
+    if (value === "checkdb") setActiveComponent("CheckDB");
+    if (value === "backupdb") setActiveComponent("BackupDB");
+    if (value === "restoredb") setActiveComponent("RestoreDB");
+    if (value === "explorerdb") setActiveComponent("ExplorerDB");
   };
 
   // const handleSelectOption = (value: string) => {
@@ -46,19 +49,19 @@ export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveC
           labelbtn="Ferramentas."
           options={[
             {
-              label: "Checking DB", value: "Checking DB",
+              label: "O. Serviços", value: "O. Serviços",
               // label: "Checking DB", value: "heckingdb",
               //subOptions: [{ label: "Check DB", value: "checkdb" }],
             },
             {
-              label: "Manutenção DB", value: "Manutenção DB",
+              label: "Ferramentas", value: "Ferramentas",
               // label: "Manutenção DB", value: "keepingdb",
               // subOptions: [
               //   { label: "Backup", value: "backupdb" },
               //   { label: "Restore", value: "restoredb" },
               // ],
             },
-            { label: "Explorer DB", value: "explorerdb" },
+            { label: "Pesquisas", value: "Pesquisas" },
           ]}
           onSelect={handleSelectOption}
         />
