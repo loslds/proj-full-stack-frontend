@@ -1,3 +1,5 @@
+
+
 import * as S from './stylesSidebar';
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContainerSBMain';
@@ -8,22 +10,46 @@ import React from 'react';
 interface BarMenuRecepcaoProps {
   setActiveComponent: (component: string | null) => void;
 }
-export const BarMenuRecepcao = React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent }) => { 
+const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent }) => { 
   // Estado para abrir/fechar o menu principal
   const [isMenuPri, setIsMenuPri] = React.useState(false);
+
   const handlerClickMenuPri = React.useCallback(() => {
     setIsMenuPri((prevState) => !prevState);
   }, []);
-  // Lista das Opções para abrir/fechar o seleçoes
-  const handleSelectOption = (value: string) => {
-    setActiveComponent(value);
-    if (value === "O.Serviços") setActiveComponent("CheckDB");
-    if (value === "backupdb") setActiveComponent("BackupDB");
-    if (value === "restoredb") setActiveComponent("RestoreDB");
-    if (value === "explorerdb") setActiveComponent("ExplorerDB");
 
+  // Função para manipular a seleção do dropdown
+  const handleSelectOption = (value: string) => {
+    switch (value) {
+      case "incos":
+        setActiveComponent("IncOsDB");
+        break;
+      case "altos":
+        setActiveComponent("AltOsDB");
+        break;
+      case "excos":
+        setActiveComponent("ExcOsDB");
+        break;
+      case "tabcor":
+        setActiveComponent("TabCorDB");
+        break;
+      case "tabprc":
+        setActiveComponent("TabPrcDB");
+        break;
+      case "pesqos":
+        setActiveComponent("PesqosDB");
+        break;
+      case "pesqcli":
+        setActiveComponent("PesqcliDB");
+        break;
+      case "pesqcons":
+        setActiveComponent("PesqconsDB");
+        break;
+      default:
+        setActiveComponent(value);
+        break;
+    }
   };
-  
 
   return (
     <ContainerSBMain>
@@ -34,29 +60,46 @@ export const BarMenuRecepcao = React.FC<BarMenuRecepcaoProps> = ({ setActiveComp
           onClick={handlerClickMenuPri}
         />
       </S.ContainerButtonSRigth>
+      
       <S.ContainerMenuSide open={isMenuPri}>
         <Dropdown
           pxheight="30px"
           pxwidth="200px"
-          labelbtn="O.Serviços"
+          labelbtn="Ferramentas."
           options={[
             {
-              label: "Incluir Reg.", value: "CadIncOs",
+              label: "O. Serviços", value: "O. Serviços",
+              subOptions: [
+                { label: "Inclusão", value: "incos" },
+                { label: "Alteração", value: "altlos" },
+                { label: "Exclusão", value: "exclos" },
+              ],
             },
             {
-              label: "Alrerar Reg.", value: "CadAltOs",
+              label: "Ferramentas", value: "Ferramentas",
+              subOptions: [
+                { label: "Tab. Cores", value: "tabcor" },
+                { label: "Tab. Preço", value: "tabprc" },
+              ],
             },
-            {
-              label: "Excluir Reg.", value: "CadExcOs",
+            { label: "Pesquisas", value: "Pesquisas",
+              subOptions: [
+                { label: "Ordem Serv.", value: "pesqos" },
+                { label: "Cliêntes", value: "pesqcli" },
+                { label: "Consumidor", value: "pesqcons" },
+              ],
             },
           ]}
           onSelect={handleSelectOption}
         />
-
+        
       </S.ContainerMenuSide>
     </ContainerSBMain>
   );
 };
+
+export default BarMenuRecepcao;
+
 
 {/*
 

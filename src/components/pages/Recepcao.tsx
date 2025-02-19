@@ -8,6 +8,32 @@ import dark from "../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
 import LayoutRecepcao from "../layouts/LayoutRecepcao";
+
+import CadOServicosInc from "./CadOServicosInc";
+import CadOServicosAlt from "./CadOServicosAlt";
+import CadOServicosExc from "./CadOServicosExc";
+import CadOServicosPesq from "./CadOServicosPesq";
+
+import CadClientesInc from "./CadClientesInc";
+import CadClientesAlt from "./CadClientesAlt";
+import CadClientesExc from "./CadClientesExc";
+import CadClientesPesq from "./CadClientesPesq";
+
+import CadConsumidoresInc from "./CadConsumidoresInc";
+import CadConsumidoresAlt from "./CadConsumidoresAlt";
+import CadConsumidoresExc from "./CadConsumidoresExc";
+import CadConsumidoresPesq from "./CadConsumidoresPesq";
+
+import CadTabCoresList  from "./CadTabCoresList";
+import CadTabCoresPesq  from "./CadTabCoresPesq";
+
+import CadTabPrecosList  from "./CadTabPrecosList";
+import CadTabPrecosPesq from "./CadTabPrecosPesq";
+
+
+
+
+
 import { ContentCardPage } from "../ContentCardPage";
 
 import { PageModal } from './PageModal';
@@ -18,11 +44,9 @@ import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
 import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
-import { BarMenuRecepcao } from "../sidebar/BarMenuRecepcao"; 
+import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
 
 import bt_close from "../../assets/svgs/bt_close.svg";
-//import { BarSideMenuRecep } from '../../components/sidebar/BarSideMenuRecep';
-
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -30,6 +54,10 @@ import bt_close from "../../assets/svgs/bt_close.svg";
 const Recepcao : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
+
+  //const [activepage, setActivePge] = React.useState('');
+
+
 
   const ToggleTheme = () => {
     if (theme.name === "dark") {
@@ -52,6 +80,8 @@ const Recepcao : React.FC = () => {
   const handlerCardHlpPage = React.useCallback(() => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
+
+
   
   return (
     <ThemeProvider theme={theme}>
@@ -75,11 +105,22 @@ const Recepcao : React.FC = () => {
 
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarMenuRecepcao />
+          <BarMenuRecepcao setActiveComponent />
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
-        <h1>Página Recepção</h1>
+        {/* chama Página para trabalho */}
+
+        {activeComponent === "IncOsDB" && <CadOServicosInc />}
+        {activeComponent === "AltOsDB" && <CadOServicosAlt />}
+        {activeComponent === "ExcOsDB" && <CadOServicosExc />}
+
+        {activeComponent === "TabCorDB" && <CadTabCores />}
+        {activeComponent === "TabPrcDB" && <CadTabPrecos />}
+        {activeComponent === "PesqOsDB" && <CadOServicosPesq />}
+        {activeComponent === "PesqCliDB" && <CadClientesPesq />}
+        {activeComponent === "PesqConsDB" && <CadConsumPesq />}
+
 
         {cardhplpage ? (
           <PageModal

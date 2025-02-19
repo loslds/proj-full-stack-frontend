@@ -19,19 +19,8 @@ export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveC
   }, []);
   const handleSelectOption = (value: string) => {
     setActiveComponent(value);
-    if (value === "checkdb") setActiveComponent("CheckDB");
-    if (value === "backupdb") setActiveComponent("BackupDB");
-    if (value === "restoredb") setActiveComponent("RestoreDB");
-    if (value === "explorerdb") setActiveComponent("ExplorerDB");
   };
-
-  // const handleSelectOption = (value: string) => {
-  //   if (value === "checkdb") setActiveComponent("CheckDB");
-  //   if (value === "backupdb") setActiveComponent("BackupDB");
-  //   if (value === "restoredb") setActiveComponent("RestoreDB");
-  //   if (value === "explorerdb") setActiveComponent("ExplorerDB");
-  // };
-
+  
   return (
     <ContainerSBMain>
       <S.ContainerButtonSRigth>
@@ -50,18 +39,26 @@ export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveC
           options={[
             {
               label: "O. Serviços", value: "O. Serviços",
-              // label: "Checking DB", value: "heckingdb",
-              //subOptions: [{ label: "Check DB", value: "checkdb" }],
+              subOptions: [
+                { label: "Inclusão", value: "inclos" },
+                { label: "Alteração", value: "altlos" },
+                { label: "Exclusão", value: "exclos" },
+              ],
             },
             {
               label: "Ferramentas", value: "Ferramentas",
-              // label: "Manutenção DB", value: "keepingdb",
-              // subOptions: [
-              //   { label: "Backup", value: "backupdb" },
-              //   { label: "Restore", value: "restoredb" },
-              // ],
+              subOptions: [
+                { label: "Tab. Cores", value: "tabcor" },
+                { label: "Tab. Preço", value: "tabprc" },
+              ],
             },
-            { label: "Pesquisas", value: "Pesquisas" },
+            { label: "Pesquisas", value: "Pesquisas",
+              subOptions: [
+                { label: "Ordem Serv.", value: "ospesq" },
+                { label: "Cliêntes", value: "clipesq" },
+                { label: "Consumidor", value: "conspesq" },
+              ],
+            },
           ]}
           onSelect={handleSelectOption}
         />
