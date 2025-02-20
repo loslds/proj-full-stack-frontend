@@ -9,7 +9,7 @@ import { ContentHearderRight } from './ContentHearderRight';
 import { ContentHearderItensBar } from './ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../ContentPagesButton';
-interface PropsHearderResgatar {
+interface PropsHearderFones {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -28,7 +28,7 @@ interface PropsHearderResgatar {
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderResgatar = ({
+const HearderFones = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -45,7 +45,7 @@ const HearderResgatar = ({
 
   onchange,
   ischeck,
-}: PropsHearderResgatar) => {
+}: PropsHearderFones) => {
   return (
     <ContentHearderMain>
       {/** imagem botão do logo da pagina */}
@@ -108,4 +108,4 @@ const HearderResgatar = ({
   );
 };
 
-export default HearderResgatar;
+export default HearderFones;
