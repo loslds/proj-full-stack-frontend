@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyOServicosProvider } from './components/contexts/MyOServicosContext';
 
-import CadOServicos from './components/pages/CadOServicos';
-import CadOServicosInc from './components/pages/CadOServicosInc';
-import CadOServicosAlt from './components/pages/CadOServicosAlt';
-import CadOServicosExc from './components/pages/CadOServicosExc';
-import CadOServicosList from './components/pages/CadOServicosList';
-import CadOServicosPesq from './components/pages/CadOServicosPesq';
+import CadOServicos from './components/pages/cados/CadOServicos';
+import CadOServicosInc from './components/pages/cados/CadOServicosInc';
+import CadOServicosAlt from './components/pages/cados/CadOServicosAlt';
+import CadOServicosExc from './components/pages/cados/CadOServicosExc';
+import CadOServicosList from './components/pages/cados/CadOServicosList';
+import CadOServicosPesq from './components/pages/cados/CadOServicosPesq';
 
 
 // const defaultConfig = {

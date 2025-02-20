@@ -2,7 +2,7 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
-import HeaderTabCores from '../hearders/HearderTabCores';
+import HeaderTabCores from '../hearders/headers/HearderTabCores';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';

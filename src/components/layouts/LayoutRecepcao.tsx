@@ -3,7 +3,7 @@ import * as Pg from '../stylePages';
 ///
 import { ContentPages } from '../ContentPages';
 //import { ContentCardPage } from '../ContentCardPage';
-import HeaderRecepcao from '../hearders/HearderRecepcao';
+import HeaderRecepcao from '../hearders/headers/HearderRecepcao';
 //import { BarSideMenuRecep } from '../sidebar/BarSideMenuRecep';
 
 //import { FooterPage } from '../../footers/FooterPage';

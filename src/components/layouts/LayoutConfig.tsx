@@ -1,7 +1,7 @@
 import * as Pg from '../stylePages';
 import { ContentPages } from '../ContentPages';
 //import {ContentCardPage} from '../ContentCardPage';
-import HeaderConfig from '../hearders/HearderConfig';
+import HeaderConfig from '../hearders/headers/HearderConfig';
 //import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';

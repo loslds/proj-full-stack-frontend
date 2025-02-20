@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyTabCoresProvider } from './components/contexts/MyTabCoresContext';
 
-import CadTabCores from './components/pages/CadTabCores';
-import CadTabCoresInc from './components/pages/CadTabCoresInc';
-import CadTabCoresAlt from './components/pages/CadTabCoresAlt';
-import CadTabCoresExc from './components/pages/CadTabCoresExc';
-import CadTabCoresList from './components/pages/CadTabCoresList';
-import CadTabCoresPesq from './components/pages/CadTabCoresPesq';
+import CadTabCores from './components/pages/cadcor/CadTabCores';
+import CadTabCoresInc from './components/pages/cadcor/CadTabCoresInc';
+import CadTabCoresAlt from './components/pages/cadcor/CadTabCoresAlt';
+import CadTabCoresExc from './components/pages/cadcor/CadTabCoresExc';
+import CadTabCoresList from './components/pages/cadcor/CadTabCoresList';
+import CadTabCoresPesq from './components/pages/cadcor/CadTabCoresPesq';
 
 
 // const defaultConfig = {

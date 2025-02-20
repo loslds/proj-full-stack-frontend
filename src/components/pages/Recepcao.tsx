@@ -9,26 +9,26 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutRecepcao from "../layouts/LayoutRecepcao";
 
-import CadOServicosInc from "./CadOServicosInc";
-import CadOServicosAlt from "./CadOServicosAlt";
-import CadOServicosExc from "./CadOServicosExc";
-import CadOServicosPesq from "./CadOServicosPesq";
+import CadOServicosInc from "./cados/CadOServicosInc";
+import CadOServicosAlt from "./cados/CadOServicosAlt";
+import CadOServicosExc from "./cados/CadOServicosExc";
+import CadOServicosPesq from "./cados/CadOServicosPesq";
 
-import CadClientesInc from "./CadClientesInc";
-import CadClientesAlt from "./CadClientesAlt";
-import CadClientesExc from "./CadClientesExc";
-import CadClientesPesq from "./CadClientesPesq";
+import CadClientesInc from "./cadcli/CadClientesInc";
+import CadClientesAlt from "./cadcli/CadClientesAlt";
+import CadClientesExc from "./cadcli/CadClientesExc";
+import CadClientesPesq from "./cadcli/CadClientesPesq";
 
-import CadConsumidoresInc from "./CadConsumidoresInc";
-import CadConsumidoresAlt from "./CadConsumidoresAlt";
-import CadConsumidoresExc from "./CadConsumidoresExc";
-import CadConsumidoresPesq from "./CadConsumidoresPesq";
+import CadConsumidoresInc from "./cadcon/CadConsumidoresInc";
+import CadConsumidoresAlt from "./cadcon/CadConsumidoresAlt";
+import CadConsumidoresExc from "./cadcon/CadConsumidoresExc";
+import CadConsumidoresPesq from "./cadcon/CadConsumidoresPesq";
 
-import CadTabCoresList  from "./CadTabCoresList";
-import CadTabCoresPesq  from "./CadTabCoresPesq";
+import CadTabCoresList  from "./cadcor/CadTabCoresList";
+import CadTabCoresPesq  from "./cadcor/CadTabCoresPesq";
 
-import CadTabPrecosList  from "./CadTabPrecosList";
-import CadTabPrecosPesq from "./CadTabPrecosPesq";
+import CadTabPrecosList  from "./cadprc/CadTabPrecosList";
+import CadTabPrecosPesq from "./cadprc/CadTabPrecosPesq";
 
 
 

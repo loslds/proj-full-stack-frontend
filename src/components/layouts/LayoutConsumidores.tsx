@@ -2,7 +2,7 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
-import HeaderConsumidores from '../hearders/HearderConsumidores';
+import HeaderConsumidores from '../hearders/headers/HearderConsumidores';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';

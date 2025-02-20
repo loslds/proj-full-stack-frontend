@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyTabPrecosProvider } from './components/contexts/MyTabPrecosContext';
 
-import CadTabPrecos from './components/pages/CadTabPrecos';
-import CadTabPrecosInc from './components/pages/CadTabPrecosInc';
-import CadTabPrecosAlt from './components/pages/CadTabPrecosAlt';
-import CadTabPrecosExc from './components/pages/CadTabPrecosExc';
-import CadTabPrecosList from './components/pages/CadTabCoresList';
-import CadTabPrecosPesq from './components/pages/CadTabPrecosPesq';
+import CadTabPrecos from './components/pages/cadprc/CadTabPrecos';
+import CadTabPrecosInc from './components/pages/cadprc/CadTabPrecosInc';
+import CadTabPrecosAlt from './components/pages/cadprc/CadTabPrecosAlt';
+import CadTabPrecosExc from './components/pages/cadprc/CadTabPrecosExc';
+import CadTabPrecosList from './components/pages/cadcor/CadTabCoresList';
+import CadTabPrecosPesq from './components/pages/cadprc/CadTabPrecosPesq';
 
 
 // const defaultConfig = {

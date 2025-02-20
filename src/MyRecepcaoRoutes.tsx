@@ -3,23 +3,23 @@ import { Routes, Route } from 'react-router-dom';
 //import { MyRecepcaoProvider } from './components/contexts/MyRecepcaoContext';
 
 
-import CadClientesInc from './components/pages/CadClientesInc';
-import CadClientesAlt from './components/pages/CadClientesAlt';
-import CadClientesExc from './components/pages/CadClientesExc';
-import CadClientesList from './components/pages/CadClientesList';
-import CadClientesPesq from './components/pages/CadClientesPesq';
+import CadClientesInc from './components/pages/cadcli/CadClientesInc';
+import CadClientesAlt from './components/pages/cadcli/CadClientesAlt';
+import CadClientesExc from './components/pages/cadcli/CadClientesExc';
+import CadClientesList from './components/pages/cadcli/CadClientesList';
+import CadClientesPesq from './components/pages/cadcli/CadClientesPesq';
 
-import CadConsumidoresInc from './components/pages/CadConsumidoresInc';
-import CadConsumidoresAlt from './components/pages/CadConsumidoresAlt';
-import CadConsumidoresExc from './components/pages/CadConsumidoresExc';
-import CadConsumidoresList from './components/pages/CadConsumidoresList';
-import CadConsumidoresPesq from './components/pages/CadConsumidoresPesq';
+import CadConsumidoresInc from './components/pages/cadcon/CadConsumidoresInc';
+import CadConsumidoresAlt from './components/pages/cadcon/CadConsumidoresAlt';
+import CadConsumidoresExc from './components/pages/cadcon/CadConsumidoresExc';
+import CadConsumidoresList from './components/pages/cadcon/CadConsumidoresList';
+import CadConsumidoresPesq from './components/pages/cadcon/CadConsumidoresPesq';
 
-import CadTabCoresList from './components/pages/CadTabCoresList';
-import CadTabCoresPesq from './components/pages/CadTabCoresPesq';
+import CadTabCoresList from './components/pages/cadcor/CadTabCoresList';
+import CadTabCoresPesq from './components/pages/cadcor/CadTabCoresPesq';
 
-import CadTabPrecosList from './components/pages/CadTabPrecosList';
-import CadTabPrecosPesq from './components/pages/CadTabPrecosPesq';
+import CadTabPrecosList from './components/pages/cadprc/CadTabPrecosList';
+import CadTabPrecosPesq from './components/pages/cadprc/CadTabPrecosPesq';
 
 
 
