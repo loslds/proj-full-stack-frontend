@@ -7,7 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutAcessos from "../../layouts/LayoutAcessos";
+import LayoutAcoes from "../../layouts/LayoutAcoes";
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
@@ -16,7 +16,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadAcessosList: React.FC = () => {
+const CadAcoesList: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +51,12 @@ const CadAcessosList: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutAcessos
+      <LayoutAcoes
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Acessos Listagem."
+        titlepg="Ações Listagem."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadAcessosList: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadacessos') }
+        onclickaborta={ goto('/cadacoes') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAcessosList</h1>
+        <h1>CadAcoesList</h1>
   
-      </LayoutAcessos>
+      </LayoutAcoes>
     </ThemeProvider>
   );
 };
 
-export default CadAcessosList;
+export default CadAcoesList;

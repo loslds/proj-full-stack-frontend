@@ -7,7 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutAcoes from "../../layouts/LayoutAcoes";
+import LayoutAvatarUsers from "../../layouts/LayoutAvatarUsers";
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
@@ -51,12 +51,12 @@ const CadAcoesAlt: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutAcoes
+      <LayoutAvatarUsers
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Ações Alteração."
+        titlepg="Avatar Users Alteração."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadAcoesAlt: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadacoes') }
+        onclickaborta={ goto('/cadavatarusers') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
         <h1>CadAcoesAlt</h1>
   
-      </LayoutAcoes>
+      </LayoutAvatarUsers>
     </ThemeProvider>
   );
 };
 
-export default CadAcoesAlt;
+export default CadAvatarUsersAlt;

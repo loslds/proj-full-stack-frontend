@@ -7,6 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
+import LayoutAvatarUsers from '../../layouts/LayoutAvatarUsers'
 
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
@@ -16,7 +17,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadAcoes: React.FC = () => {
+const CadAvatarUsers: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -56,7 +57,7 @@ const CadAcoes: React.FC = () => {
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Ações Cadastros."
+        titlepg="Avatar Users Cadastros."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,12 +65,12 @@ const CadAcoes: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadacoes') }
+        onclickaborta={ goto('/cadavatarusers') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAcoes</h1>
+        <h1>CadAvatarUsers</h1>
   
       </LayoutAvatarUsers>
     </ThemeProvider>
