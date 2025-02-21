@@ -14,10 +14,10 @@ import CadOServicosAlt from "./cados/CadOServicosAlt";
 import CadOServicosExc from "./cados/CadOServicosExc";
 import CadOServicosPesq from "./cados/CadOServicosPesq";
 
-import CadClientesInc from "./cadcli/CadClientesInc";
-import CadClientesAlt from "./cadcli/CadClientesAlt";
-import CadClientesExc from "./cadcli/CadClientesExc";
-import CadClientesPesq from "./cadcli/CadClientesPesq";
+import CadClientesInc from "./cadcliente/CadClientesInc";
+import CadClientesAlt from "./cadcliente/CadClientesAlt";
+import CadClientesExc from "./cadcliente/CadClientesExc";
+import CadClientesPesq from "./cadcliente/CadClientesPesq";
 
 import CadConsumidoresInc from "./cadcon/CadConsumidoresInc";
 import CadConsumidoresAlt from "./cadcon/CadConsumidoresAlt";

@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyClientesProvider } from './components/contexts/MyClientesContext';
 
-import CadClientes from './components/pages/cadcli/CadClientes';
-import CadClientesInc from './components/pages/cadcli/CadClientesInc';
-import CadClientesAlt from './components/pages/cadcli/CadClientesAlt';
-import CadClientesExc from './components/pages/cadcli/CadClientesExc';
-import CadClientesList from './components/pages/cadcli/CadClientesList';
-import CadClientesPesq from './components/pages/cadcli/CadClientesPesq';
+import CadClientes from './components/pages/cadcliente/CadClientes';
+import CadClientesInc from './components/pages/cadcliente/CadClientesInc';
+import CadClientesAlt from './components/pages/cadcliente/CadClientesAlt';
+import CadClientesExc from './components/pages/cadcliente/CadClientesExc';
+import CadClientesList from './components/pages/cadcliente/CadClientesList';
+import CadClientesPesq from './components/pages/cadcliente/CadClientesPesq';
 
 
 // const defaultConfig = {

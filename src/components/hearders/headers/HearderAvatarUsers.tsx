@@ -9,7 +9,7 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../../ContentPagesButton';
-interface PropsHearderAvatar_Users {
+interface PropsHearderAvatarUsers {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -28,7 +28,7 @@ interface PropsHearderAvatar_Users {
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderAvatar_Users = ({
+const HearderAvatarUsers = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -45,7 +45,7 @@ const HearderAvatar_Users = ({
 
   onchange,
   ischeck,
-}: PropsHearderAvatar_Users) => {
+}: PropsHearderAvatarUsers) => {
   return (
     <ContentHearderMain>
       {/** imagem botão do logo da pagina */}
@@ -108,4 +108,4 @@ const HearderAvatar_Users = ({
   );
 };
 
-export default HearderAvatar_Users;
+export default HearderAvatarUsers;

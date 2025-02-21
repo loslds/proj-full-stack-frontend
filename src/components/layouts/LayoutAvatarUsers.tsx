@@ -2,12 +2,12 @@ import * as Pg from '../stylePages';
 
 ///
 import { ContentPages } from '../ContentPages';
-import HearderAvatar_users from '../hearders/headers/HearderAvatar_Users';
+import HearderAvatarUsers from '../hearders/headers/HearderAvatarUsers';
 //import { FooterPage } from '../../footers/FooterPage';
 //import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
 
-interface PropsLayoutAvatar_users {
+interface PropsLayoutAvatarUsers {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -31,7 +31,7 @@ interface PropsLayoutAvatar_users {
   children?: React.ReactNode | JSX.Element;
   open?: boolean;
 }
-const LayoutAvatar_users = ({
+const LayoutAvatarUsers = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -54,10 +54,10 @@ const LayoutAvatar_users = ({
   ischeck,
 
   children,
-}: PropsLayoutAvatar_users) => {
+}: PropsLayoutAvatarUsers) => {
   return (
     <ContentPages>
-      <HearderAvatar_users
+      <HearderAvatarUsers
         imgsys={imgsys}
         titbtnsys={titbtnsys}
         onclicksys={onclicksys}
@@ -94,4 +94,4 @@ const LayoutAvatar_users = ({
   );
 };
 
-export default LayoutAvatar_users;
+export default LayoutAvatarUsers;

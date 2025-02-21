@@ -7,16 +7,16 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutClientes from "../../layouts/LayoutClientes";
+import LayoutAcessos from "../../layouts/LayoutAcessos";
 
-import lg_resgate from "../../assets/svgs/lg_resgate.svg";
+import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadClientes: React.FC = () => {
+const CadAcessosList: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +51,12 @@ const CadClientes: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutClientes
-        imgsys={lg_resgate}
+      <LayoutAcessos
+        imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
+        onclicksys={ goto('/home') }
 
-        titlepg="Resgatar"
+        titlepg="Acessos Listagem."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadClientes: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/') }
+        onclickaborta={ goto('/cadacessos') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadClientes</h1>
+        <h1>CadAcessosList</h1>
   
-      </LayoutClientes>
+      </LayoutAcessos>
     </ThemeProvider>
   );
 };
 
-export default CadClientes;
+export default CadAcessosList;

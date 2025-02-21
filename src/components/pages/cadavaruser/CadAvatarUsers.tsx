@@ -7,16 +7,16 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutClientes from "../../layouts/LayoutClientes";
 
-import lg_resgate from "../../assets/svgs/lg_resgate.svg";
+
+import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadClientesList: React.FC = () => {
+const CadAcoes: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +51,12 @@ const CadClientesList: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutClientes
-        imgsys={lg_resgate}
+      <LayoutAvatarUsers
+        imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
+        onclicksys={ goto('/home') }
 
-        titlepg="Resgatar"
+        titlepg="Ações Cadastros."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadClientesList: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadclientes') }
+        onclickaborta={ goto('/cadacoes') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadClientesList</h1>
+        <h1>CadAcoes</h1>
   
-      </LayoutClientes>
+      </LayoutAvatarUsers>
     </ThemeProvider>
   );
 };
 
-export default CadClientesList;
+export default CadAvatarUsers;

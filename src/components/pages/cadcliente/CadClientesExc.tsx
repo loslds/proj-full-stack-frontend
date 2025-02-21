@@ -9,14 +9,14 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutClientes from "../../layouts/LayoutClientes";
 
-import lg_resgate from "../../assets/svgs/lg_resgate.svg";
+import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadClientesAlt: React.FC = () => {
+const CadClientesExc: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -52,11 +52,11 @@ const CadClientesAlt: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutClientes
-        imgsys={lg_resgate}
+        imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
+        onclicksys={ goto('/home') }
 
-        titlepg="Resgatar"
+        titlepg="Clientes Exclusão."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -69,11 +69,11 @@ const CadClientesAlt: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadClientesAlt</h1>
+        <h1>CadClientesInc</h1>
   
       </LayoutClientes>
     </ThemeProvider>
   );
 };
 
-export default CadClientesAlt;
+export default CadClientesExc;

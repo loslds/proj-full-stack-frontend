@@ -3,11 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 //import { MyRecepcaoProvider } from './components/contexts/MyRecepcaoContext';
 
 
-import CadClientesInc from './components/pages/cadcli/CadClientesInc';
-import CadClientesAlt from './components/pages/cadcli/CadClientesAlt';
-import CadClientesExc from './components/pages/cadcli/CadClientesExc';
-import CadClientesList from './components/pages/cadcli/CadClientesList';
-import CadClientesPesq from './components/pages/cadcli/CadClientesPesq';
+import CadClientesInc from './components/pages/cadcliente/CadClientesInc';
+import CadClientesAlt from './components/pages/cadcliente/CadClientesAlt';
+import CadClientesExc from './components/pages/cadcliente/CadClientesExc';
+import CadClientesList from './components/pages/cadcliente/CadClientesList';
+import CadClientesPesq from './components/pages/cadcliente/CadClientesPesq';
 
 import CadConsumidoresInc from './components/pages/cadcon/CadConsumidoresInc';
 import CadConsumidoresAlt from './components/pages/cadcon/CadConsumidoresAlt';
