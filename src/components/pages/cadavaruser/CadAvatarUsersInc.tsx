@@ -7,7 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutAvatarUsers from "../../layouts/LayoutAvatarUser";
+import LayoutAvatarUsers from "../../layouts/LayoutAvatarUsers";
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";

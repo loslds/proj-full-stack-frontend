@@ -69,7 +69,7 @@ const CadAvatarUsersPesq: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAcessosPesq</h1>
+        <h1>CadAvatarUsersPesq</h1>
   
       </LayoutAvatarUsers>
     </ThemeProvider>
