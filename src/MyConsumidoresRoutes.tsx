@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyConsumidoresProvider } from './components/contexts/MyConsumidoresContext';
 
-import CadConsumidores from './components/pages/cadcon/CadConsumidores';
-import CadConsumidoresInc from './components/pages/cadcon/CadConsumidoresInc';
-import CadConsumidoresAlt from './components/pages/cadcon/CadConsumidoresAlt';
-import CadConsumidoresExc from './components/pages/cadcon/CadConsumidoresExc';
-import CadConsumidoresList from './components/pages/cadcon/CadConsumidoresList';
-import CadConsumidoresPesq from './components/pages/cadcon/CadConsumidoresPesq';
+import CadConsumidores from './components/pages/cadconsumidor/CadConsumidores';
+import CadConsumidoresInc from './components/pages/cadconsumidor/CadConsumidoresInc';
+import CadConsumidoresAlt from './components/pages/cadconsumidor/CadConsumidoresAlt';
+import CadConsumidoresExc from './components/pages/cadconsumidor/CadConsumidoresExc';
+import CadConsumidoresList from './components/pages/cadconsumidor/CadConsumidoresList';
+import CadConsumidoresPesq from './components/pages/cadconsumidor/CadConsumidoresPesq';
 
 
 // const defaultConfig = {

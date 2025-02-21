@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutTabCores from "../../layouts/LayoutTabCores";
 
-import lg_resgate from "../../assets/svgs/lg_resgate.svg";
+import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
@@ -52,11 +52,11 @@ const CadTabCoresAlt: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutTabCores
-        imgsys={lg_resgate}
+        imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
+        onclicksys={ goto('/home') }
 
-        titlepg="Resgatar"
+        titlepg="Tab. Cores Alteração."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."

@@ -64,7 +64,7 @@ const CadAcoes: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadacoes') }
+        onclickaborta={ goto('/config') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}

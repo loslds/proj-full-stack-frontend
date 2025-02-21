@@ -65,7 +65,7 @@ const CadAvatarUsers: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadavatarusers') }
+        onclickaborta={ goto('/config') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}

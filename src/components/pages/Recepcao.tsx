@@ -19,16 +19,16 @@ import CadClientesAlt from "./cadcliente/CadClientesAlt";
 import CadClientesExc from "./cadcliente/CadClientesExc";
 import CadClientesPesq from "./cadcliente/CadClientesPesq";
 
-import CadConsumidoresInc from "./cadcon/CadConsumidoresInc";
-import CadConsumidoresAlt from "./cadcon/CadConsumidoresAlt";
-import CadConsumidoresExc from "./cadcon/CadConsumidoresExc";
-import CadConsumidoresPesq from "./cadcon/CadConsumidoresPesq";
+import CadConsumidoresInc from "./cadconsumidor/CadConsumidoresInc";
+import CadConsumidoresAlt from "./cadconsumidor/CadConsumidoresAlt";
+import CadConsumidoresExc from "./cadconsumidor/CadConsumidoresExc";
+import CadConsumidoresPesq from "./cadconsumidor/CadConsumidoresPesq";
 
 import CadTabCoresList  from "./cadcor/CadTabCoresList";
 import CadTabCoresPesq  from "./cadcor/CadTabCoresPesq";
 
-import CadTabPrecosList  from "./cadprc/CadTabPrecosList";
-import CadTabPrecosPesq from "./cadprc/CadTabPrecosPesq";
+import CadTabPrecosList  from "./cadtabprc/CadTabPrecosList";
+import CadTabPrecosPesq from "./cadtabprc/CadTabPrecosPesq";
 
 
 

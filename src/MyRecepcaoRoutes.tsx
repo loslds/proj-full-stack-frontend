@@ -9,17 +9,17 @@ import CadClientesExc from './components/pages/cadcliente/CadClientesExc';
 import CadClientesList from './components/pages/cadcliente/CadClientesList';
 import CadClientesPesq from './components/pages/cadcliente/CadClientesPesq';
 
-import CadConsumidoresInc from './components/pages/cadcon/CadConsumidoresInc';
-import CadConsumidoresAlt from './components/pages/cadcon/CadConsumidoresAlt';
-import CadConsumidoresExc from './components/pages/cadcon/CadConsumidoresExc';
-import CadConsumidoresList from './components/pages/cadcon/CadConsumidoresList';
-import CadConsumidoresPesq from './components/pages/cadcon/CadConsumidoresPesq';
+import CadConsumidoresInc from './components/pages/cadconsumidor/CadConsumidoresInc';
+import CadConsumidoresAlt from './components/pages/cadconsumidor/CadConsumidoresAlt';
+import CadConsumidoresExc from './components/pages/cadconsumidor/CadConsumidoresExc';
+import CadConsumidoresList from './components/pages/cadconsumidor/CadConsumidoresList';
+import CadConsumidoresPesq from './components/pages/cadconsumidor/CadConsumidoresPesq';
 
 import CadTabCoresList from './components/pages/cadcor/CadTabCoresList';
 import CadTabCoresPesq from './components/pages/cadcor/CadTabCoresPesq';
 
-import CadTabPrecosList from './components/pages/cadprc/CadTabPrecosList';
-import CadTabPrecosPesq from './components/pages/cadprc/CadTabPrecosPesq';
+import CadTabPrecosList from './components/pages/cadtabprc/CadTabPrecosList';
+import CadTabPrecosPesq from './components/pages/cadtabprc/CadTabPrecosPesq';
 
 
 
