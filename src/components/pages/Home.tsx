@@ -6,9 +6,14 @@ import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 import { useNavigate } from 'react-router-dom';
+
+import {useAcessoContext, UseAcessoActions
+} from '../contexts/ContextAcesso';
+
 import LayoutHome from '../layouts/LayoutHome';
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
+import { ContentCardPage } from '../ContentCardPage';
 
 import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
 import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
@@ -37,6 +42,7 @@ import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 const Home: React.FC = () => {
   
+  const { state, dispatch } = useAcessoContext();
 
   const [startbtnchave, setStartBtnChave] = React.useState(false);
   const [buscachave, setBuscaChave] = React.useState(false);
@@ -47,8 +53,7 @@ const Home: React.FC = () => {
   
   const [isdesable, setIsDesable] = React.useState(true); 
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
-  const [nmmodulo, setNmModulo] = React.useState('');
-
+  
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
@@ -126,12 +131,18 @@ const Home: React.FC = () => {
   },[chaveDigitada]);
   
   const handlerCheckBtnOk = () => {
+    dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 0 });
+    dispatch({ type: UseAcessoActions.SET_SETOR, payload: 'Home'});
     if (btnok) {
       // Exibe a mensagem temporária por 5 segundos
-      setMsgPanelBottom('Sucesso!...');
+      if (ischavekey) {
+        setMsgPanelBottom('Sucesso!...');
+        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
+        dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true });
+      }
       setbtnok(false);
       setBuscaChave(false);
-    }
+    } 
     setMsgPanelBottom('');
   };
 
@@ -147,22 +158,19 @@ const Home: React.FC = () => {
 //    setCardNegadoPage((oldState) => !oldState);
 //  }, []);
   
-  React.useEffect(() => { 
-    setNmModulo('/recepcao');
-  },[]);
-
   const handlerClicEventNegadoPage = React.useCallback((num: number) => {
     if (num === undefined) return; // Se `num` for `undefined`, não faz nada
    
     const routes: Record<number, string> = {
-      1: '/config',
+      1: '/visitante',
       2: '/recepcao',
       3: '/design',
       4: '/producao',
       5: '/acabamento',
       6: '/expedicao',
       7: '/administracao',
-      8: '/visitante',
+      8: '/config',
+      
     };
     
     const targetRoute = routes[num]; // Obtém a rota correspondente
@@ -172,7 +180,7 @@ const Home: React.FC = () => {
     } else if (targetRoute) {
       goto(targetRoute);
     };
-  }, [ischavekey, nmmodulo]);
+  }, [ischavekey]);
 
 
   return (
@@ -195,61 +203,141 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
-          
-          <ContentCustonImgPage
+
+        <ContentCustonImgPage
             num={1}
             open={true}
-            pxheight={'165px'}
-            pheight={'165px'}
-            pwidth={'165px'}
-            imgbtn={pn_config}
-            titlebtn={'Cadastros Config...'}
-            onclick={ (nmmodulo==='config') || ischavekey ? (goto('/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Visitantes..'}
+            onclick={ state.setor ==='Visitante' || ischavekey ? (goto('/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Visitante.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-      
-        
-          
-          <ContentCustonImgPage
+
+        <ContentCustonImgPage
             num={2}
             open={true}
-            pxheight={'165px'}
-            pheight={'165px'}
-            pwidth={'165px'}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
             imgbtn={pn_recepcao}
             titlebtn={'Setor Recepção...'}
-            onclick={ nmmodulo || ischavekey ? (goto('/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Recepção' || ischavekey ? (goto('/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-          {ischavekey ? <h1>Chave : correta.</h1> : <h1>Chave : incorreta!</h1>}
+          
+          <ContentCustonImgPage
+            num={3}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Design...'}
+            onclick={ state.setor ==='Design' || ischavekey ? (goto('/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Design.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
 
+          <ContentCustonImgPage
+            num={4}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Produção...'}
+            onclick={ state.setor ==='Produção' || ischavekey ? (goto('/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Produção.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
+          
+          <ContentCustonImgPage
+            num={5}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Acabamento...'}
+            onclick={ state.setor ==='Acabamento' || ischavekey ? (goto('/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Acabamento.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
+          
+          <ContentCustonImgPage
+            num={6}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Expedição...'}
+            onclick={ state.setor ==='Expedição' || ischavekey ? (goto('/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Expedição.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
 
+          <ContentCustonImgPage
+            num={7}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={''}
+            titlebtn={'Setor Administração...'}
+            onclick={ state.setor ==='Administração' || ischavekey ? (goto('/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Setor Administração.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
+
+          <ContentCustonImgPage
+            num={8}
+            open={true}
+            pxheight={'100px'}
+            pheight={'100px'}
+            pwidth={'100px'}
+            imgbtn={pn_config}
+            titlebtn={'Cadastros Config...'}
+            onclick={ (state.setor ==='config') || ischavekey ? (goto('/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
+            onMouseLeave={() => setMsgPanelBottom('')}
+          />
+
+          {ischavekey ? <h1>Chave correta : {state.chvkey}</h1> : null}
         </ContentItensBody>
-        <Pg.DivisionPgHztal />
 
-        <ContentCardBoxChaveKey open={buscachave}>
-          <ContentCardBoxInput>
-            <form name="chave">
-              <br />
-              <label>Acesso Master PIN</label>
-              <br />
-              <input
-                name="chave"
-                type="password"
-                size={8}
-                autoFocus={true}
-                placeholder="Chave..."
-                value={chaveDigitada}
-                onChange={handleChangeKey}
-                onClick={() => setMsgPanelBottom('Editição Chave.') }
-                />
+        { buscachave ? (
+          <ContentCardPage>
+          <Pg.DivisionPgHztal />
+          <ContentCardBoxChaveKey open={buscachave}>
+            <ContentCardBoxInput>
+              <form name="chave">
                 <br />
-              </form>
-            </ContentCardBoxInput>
-          </ContentCardBoxChaveKey>
-        
+                <label>Acesso Master.</label>
+                <br />
+                <input
+                  name="chave"
+                  type="password"
+                  size={8}
+                  autoFocus={true}
+                  placeholder="Chave..."
+                  value={chaveDigitada}
+                  onChange={handleChangeKey}
+                  onClick={() => setMsgPanelBottom('Editição de Chave.') }
+                  />
+                  <br />
+                </form>
+              </ContentCardBoxInput>
+            </ContentCardBoxChaveKey>
+            </ContentCardPage>
+          ) : null 
+        }
+
         <Pg.DivisionPgHztal />
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
           
