@@ -64,7 +64,7 @@ const CadFonesExc: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/config') }
+        onclickaborta={ goto('/cadfones') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}

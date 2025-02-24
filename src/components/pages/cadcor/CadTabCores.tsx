@@ -56,7 +56,7 @@ const CadTabCores: React.FC = () => {
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Tab. Cores."
+        titlepg="Tab. Cores Cadastro."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."

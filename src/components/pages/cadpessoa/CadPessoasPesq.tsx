@@ -7,7 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutFones from "../../layouts/LayoutFones";
+import LayoutPessoas from "../../layouts/LayoutPessoas";
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
@@ -16,7 +16,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadFonesAlt: React.FC = () => {
+const CadPessoasPesq: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +51,12 @@ const CadFonesAlt: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutFones
+      <LayoutPessoas
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Fones Alteração."
+        titlepg="Pessoas Pesquisas."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadFonesAlt: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadfones') }
+        onclickaborta={ goto('/cadpessoas') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadFonesAlt</h1>
+        <h1>CadPessoasPesq</h1>
   
-      </LayoutFones>
+      </LayoutPessoas>
     </ThemeProvider>
   );
 };
 
-export default CadFonesAlt;
+export default CadPessoasPesq;
