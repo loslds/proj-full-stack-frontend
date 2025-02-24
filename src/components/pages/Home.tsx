@@ -133,6 +133,8 @@ const Home: React.FC = () => {
   const handlerCheckBtnOk = () => {
     dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 0 });
     dispatch({ type: UseAcessoActions.SET_SETOR, payload: 'Home'});
+    dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+    dispatch({ type: UseAcessoActions.SET_LOGADO, payload: false });
     if (btnok) {
       // Exibe a mensagem temporária por 5 segundos
       if (ischavekey) {
@@ -341,32 +343,32 @@ const Home: React.FC = () => {
         <Pg.DivisionPgHztal />
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
           
-          <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom}></ContentSideMsgPagePanelBotton>
+          <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
           
-            <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
-              <ContentSidePageBottonButton
+          <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
+            <ContentSidePageBottonButton
+              pxheight={'40px'}
+              img={''}
+              titbtn={'Voltar...'}
+              onclick={goto('/')}
+              onMouseEnter={() => setMsgPanelBottom('retorna a Home...') }
+              onMouseLeave={() => setMsgPanelBottom('')}
+            />
+          </ContentSidePageBottonLabel>
+
+          { startbtnchave ? (
+            <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
+              <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
-                img={''}
-                titbtn={'Voltar...'}
-                onclick={goto('/')}
-                onMouseEnter={() => setMsgPanelBottom('retorna a Home...') }
-                onMouseLeave={() => setMsgPanelBottom('')}
+                img={bt_enviar}
+                titbtn={'Checar...'}
+                onclick={handlerCheckBtnOk}
+                disabled={isdesable}
               />
             </ContentSidePageBottonLabel>
+          ): null}  
 
-            { startbtnchave ? (
-              <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
-                <ContentPageButtonDefImgEnabled 
-                  pxheight={'40px'}
-                  img={bt_enviar}
-                  titbtn={'Checar...'}
-                  onclick={handlerCheckBtnOk}
-                  disabled={isdesable}
-                />
-              </ContentSidePageBottonLabel>
-            ): null}  
-
-          </ContentSidePagePanelBotton>
+        </ContentSidePagePanelBotton>
 
         { cardnegadopage ? (
           <PageModal
