@@ -1,6 +1,5 @@
 import React from "react";
-
-//import * as Pg from "../stylePages";
+import * as Pg from "../../stylePages";
 
 import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";
@@ -8,10 +7,19 @@ import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
 import LayoutEmpresas from "../../layouts/LayoutEmpresas";
+import { ContentCardPage } from "../../ContentCardPage";
+import  BarMenuEmpresas  from "../../sidebar/BarMenuEmpresas";
 
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import lg_sys from "../../../assets/svgs/lg_sys.svg";
+import bt_helppg from "../../../assets/svgs/bt_helppg.svg";
+import bt_abortar from "../../../assets/svgs/bt_abortar.svg";
+
+import  FormCadEmpresas from './FormCadEmpresas';
+import  FormIncEmpresas from './FormIncEmpresas';
+import  FormAltEmpresas from './FormAltEmpresas';
+import  FormExcEmpresas from './FormExcEmpresas';
+import  FormListEmpresas from './FormListEmpresas';
+import  FormPesqEmpresas from './FormPesqEmpresas';
 
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
@@ -38,17 +46,11 @@ const CadEmpresas: React.FC = () => {
     };
   };
 
-  // const DescrOpc = [
-  //   "Opções:",
-  //   "E-mail.",
-  //   "E-mail Resgate",
-  //   "Celular via SMS.",
-  //   "Celular via Whatsapp.",
-  //   "Peguntas.",
-  // ];
- 
+  const [activepage, setActivePage] = React.useState<string | null>(null);
 
-
+  React.useEffect(() => {
+    console.log("Página ativa:", activepage);
+  }, [activepage]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -56,25 +58,39 @@ const CadEmpresas: React.FC = () => {
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
-
         titlepg="Empresas Cadastro."
-
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ () => {} }
-
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
         onclickaborta={ goto('/config') }
-
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadEmpresas</h1>
-  
+        <ContentCardPage pwidth={'100%'}>
+          <BarMenuEmpresas setActiveComponent={setActivePage}/>
+        </ContentCardPage>
+        <Pg.DivisionPgHztal />
+
+
+
+
+        {activepage === "CadEmpre" && <FormCadEmpresas />}
+        {activepage === "IncEmpre" && <FormIncEmpresas />}
+        {activepage === "AltEmpre" && <FormAltEmpresas />}
+        {activepage === "ExcEmpre" && <FormExcEmpresas />}
+        {activepage === "ListEmpre" && <FormListEmpresas />}
+        {activepage === "PesqEmpre" && <FormPesqEmpresas />}
+
       </LayoutEmpresas>
     </ThemeProvider>
   );
 };
 
 export default CadEmpresas;
+
+
+
+
+          {/* <BarSideMenuConfig setActiveComponent={setActiveComponent} /> */}

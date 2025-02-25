@@ -53,9 +53,6 @@ const Config: React.FC = () => {
     console.log('Valores iniciais do contexto:', state);
   }, []); // O array vazio garante que o efeito só roda uma vez na montagem
 
-
-
-
   return (
     <ThemeProvider theme={theme}>
       <LayoutConfig

@@ -368,6 +368,16 @@ const Home: React.FC = () => {
             </ContentSidePageBottonLabel>
           ): null}  
 
+            <ContentSidePageBottonLabel istitl={true} title={'Pageteste? : '}>
+              <ContentPageButtonDefImgEnabled 
+                pxheight={'40px'}
+                img={bt_enviar}
+                titbtn={'Checar...'}
+                onclick={goto('/cadempresa')}
+                disabled={false}
+              />
+            </ContentSidePageBottonLabel>
+
         </ContentSidePagePanelBotton>
 
         { cardnegadopage ? (

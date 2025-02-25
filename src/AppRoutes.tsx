@@ -1,11 +1,13 @@
 
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
-//import Login from './components/pages/Login';
+import Login from './components/pages/Login';
 //import Resgate from './components/pages/Resgate';
 
 
 //import MySQLRoutes from './MySQLRoutes';                   // Importando as rotas do MySQL
+
+import MyEmpresasRoutes from './MyEmpresasRoutes';         // Importando as rotas do MyClientes
 
 //import MyClientesRoutes from './MyClientesRoutes';         // Importando as rotas do MyClientes
 //import MyConsumidoresRoutes from './MyConsumidoresRoutes'; // Importando as rotas do MyConsumidores
@@ -20,11 +22,12 @@ const AppRoutes = () => {
       
       <Route path="/" element={<Home />} />
       
-      {/* <Route path="/login" element={<Login />} /> */}
+      <Route path="/login" element={<Login />} />
       {/* <Route path="/resgate" element={<Resgate />} /> */}
 
+      {/* Rotas de Empresas envolvidas pelo MyEmpresasProvider */}
+      <Route path="/*" element={<MyEmpresasRoutes />} />
 
-      
       {/* Rotas do Clientes envolvidas pelo MyClientesProvider */}
       {/* <Route path="/*" element={<MyClientesRoutes />} /> */}
       {/* Rotas do Consumidores envolvidas pelo MyConsumidoresProvider */}

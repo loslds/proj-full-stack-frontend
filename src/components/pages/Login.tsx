@@ -10,7 +10,7 @@ interface Empresa {
 
 interface Setor {
   id: number;
-  setor: string;
+  nome: string;
 }
 
 
@@ -28,7 +28,13 @@ import { PageModal } from './PageModal';
 import { CardHlpLoginLogo } from '../../cards/CardHlpLoginLogo';
 import { CardHlpLoginPage } from '../../cards/CardHlpLoginPage';
 
-import { ContentItensBody } from '../ContentItensBody';
+//import { ContentItensBody } from '../ContentItensBody';
+
+import { ContentCardPageMain } from '../ContentCardPageMain';
+import { ContentBoxPageSelect } from '../ContentBoxPageSelect';
+//import { ContentCardBoxDialogo } from '../ContentCardBoxDialogo';
+
+
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
@@ -41,6 +47,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 import bt_close from "../../assets/svgs/bt_close.svg";
+import { ContentCardBoxInput } from '../ContentCardBoxInput';
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -70,14 +77,23 @@ const Login: React.FC = () => {
   // Estados para os selects
   const [empresas, setEmpresas] = React.useState([]);
   const [setores, setSetores] = React.useState([]);
+
   const [empresaSelecionada, setEmpresaSelecionada] = React.useState("");
+
+  
+  const [isempresa, setIsEmpresa] = React.useState(false);
   const [idempresa, setIdEmpresa] = React.useState(0);
   const [setorSelecionado, setSetorSelecionado] = React.useState("");
+  const [issetor, setIsSetor] = React.useState(false);
   const [idsetor, setIdSetor] = React.useState(0);
+
+  const [isinput, setIsInput] = React.useState(false);
   const [tipoAcesso, setTipoAcesso] = React.useState("");
   const [idtipoacesso, setIdTipoAcesso] = React.useState(0);
   const [isdesable, setIsDesable] = React.useState(true);
-  const [edicao, setEdicao] = React.useState(false);
+  
+  const [isbtnchk, setBtnChk] = React.useState(false);
+  
 
   
   // Estados para os inputs de login
@@ -104,42 +120,45 @@ const Login: React.FC = () => {
 
   // Manipular login
 
+  const handleEmpresaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = parseInt(e.target.value);
+    setIdEmpresa(selectedId);
+  };
+  const handleSetorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = parseInt(e.target.value);
+    setIdSetor(selectedId);
+  };
+
+
   React.useEffect(() => {
-    let idemp = parseInt(empresaSelecionada);
-    let idset = parseInt(setorSelecionado);
-    let idace = parseInt(tipoAcesso);
-    if (idemp <= 0){
+    setIsEmpresa(true);
+
+    if (idempresa <= 0 || idsetor <= 0 || idtipoacesso <= 0 ){
+      setIsSetor(false);
+      setIsInput(false);
+      setBtnChk(true);
+      setIsDesable(true);
       setMsgPanelBottom('Selecione uma Empresa...');
-      setEdicao(false);
-      setIsDesable(true);
-    } else if (idset <= 0){
-      setMsgPanelBottom('Selecione um Setor...');
-      setEdicao(false);
-      setIsDesable(true);
-    } else if (idace <= 0){
-      setMsgPanelBottom('Selecione um Acesso...');
-      setEdicao(false);
-      setIsDesable(true);
     } else {
-      setIdEmpresa( idemp );
-      setIdSetor( idset );
-      if (tipoAcesso === 'email-senha'){
-        setIdTipoAcesso(1);
-      } else if (tipoAcesso === 'email-pin'){
-        setIdTipoAcesso(2);
-      } else if (tipoAcesso === 'pseudonimo-senha'){
-        setIdTipoAcesso(3);
-      } else if (tipoAcesso === 'pseudonimo-pin'){
-        setIdTipoAcesso(4);
+      if (idempresa > 0){
+        setIsSetor(true);
+        setMsgPanelBottom('Selecione um Setor...');
       }
+      if (idtipoacesso > 0){
+        setIsInput(true);        
+        setMsgPanelBottom('Selecione Modo de Acesso...');
+      }
+    }
+    if (idempresa > 0 && idsetor > 0 && idtipoacesso > 0 ) {
       setIsDesable(false);
-      setEdicao(true);
+      setBtnChk(true);
     }
     
-  },[edicao]);
+  },[issetor, isinput, isbtnchk]);
 
-  const handleCheckLogin = () => {
-    if (edicao) {
+  const handleCheckInfo = () => {
+    if (isbtnchk) {
+      alert('Checar Existencia das Informações de usuário...');
       // busca em servidor ´:
       // se encontrar  
     }
@@ -162,7 +181,7 @@ const Login: React.FC = () => {
         titbtnsys="Acesso Sistema..."
         onclicksys={handlerCardHlpLoginLogo}
 
-        titlepg="Cadastros"
+        titlepg="Login"
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -175,73 +194,52 @@ const Login: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <ContentItensBody>
-          <h2>Login</h2>
+        {/* <ContentItensBody> */}
+          <ContentCardPageMain open={true}>
+            <ContentBoxPageSelect istitl={true} title='Empresa : '>
+              <ContentCardBoxInput>
+                <Pg.StyledSelect
+                    id="empresa-select"
+                    name="empresa"
+                    defaultValue={idempresa}
+                    onChange={handleEmpresaChange}
+                  >
+                  <Pg.StyledOption value={0}>Selecione:</Pg.StyledOption>
+                    {empresas.map((empresa : Empresa) => (
+                      <Pg.StyledOption key={empresa.id} value={empresa.id}>
+                        {empresa.fantasy}
+                      </Pg.StyledOption>
+                    ))}
+                  </Pg.StyledSelect>
+                
+                </ContentCardBoxInput>  
+            </ContentBoxPageSelect>
 
-          {/* Select Empresa */}
-          <div>
-            <label>Empresa:</label>
-            <select value={empresaSelecionada} onChange={(e) => setEmpresaSelecionada(e.target.value)}>
-              <option value="">Selecione Empresa</option>
-              {empresas.map((empresa: Empresa) => (
-                <option key={empresa.id} value={empresa.id}>{empresa.fantasy}</option>
-              ))}
-            </select>
-          
-            {/* Select Setores */}
-            {empresaSelecionada && (
-              <>
-                <label>Setor:</label>
-                <select value={setorSelecionado} onChange={(e) => setSetorSelecionado(e.target.value)}>
-                  <option value="">Selecione um setor</option>
-                  {setores.map((setor: Setor) => (
-                    <option key={setor.id} value={setor.id}>{setor.setor}</option>
-                  ))}
-                </select>
-              </>
-            )}
+            <ContentBoxPageSelect istitl={issetor} title='Setore :'>
+              <ContentCardBoxInput>
+                <Pg.StyledSelect
+                    id="setor-select"
+                    name="setor"
+                    defaultValue={idsetor}
+                    onChange={handleSetorChange}
+                  >
+                  <Pg.StyledOption value={0}>Selecione:</Pg.StyledOption>
+                    {setores.map((setor : Setor) => (
+                      <Pg.StyledOption key={setor.id} value={setor.id}>
+                        {setor.nome}
+                      </Pg.StyledOption>
+                    ))}
+                  </Pg.StyledSelect>
+                
+                </ContentCardBoxInput>  
+            </ContentBoxPageSelect>
 
-            {/* Select Tipo de Acesso */}
-            {setorSelecionado && (
-              <>
-                <label>Acesso:</label>
-                <select value={tipoAcesso} onChange={(e) => setTipoAcesso(e.target.value)}>
-                  <option value="0">Selecione o tipo de acesso</option>
-                  <option value="1">Email e Senha</option>
-                  <option value="2">Email e PIN</option>
-                  <option value="3">Pseudônimo e Senha</option>
-                  <option value="4">Pseudônimo e PIN</option>
-                </select>
-              </>
-            )}
+            <ContentBoxPageSelect istitl={true} title='Passaporte :'>
+              select Input
+            </ContentBoxPageSelect>
+          </ContentCardPageMain>
 
-            {/* Inputs de Login */}
-            {tipoAcesso && (
-              <>
-                <label>{tipoAcesso.includes("email") ? "Email" : "Pseudônimo"}:</label>
-                <input
-                  type="text"
-                  value={input1}
-                  onChange={(e) => setInput1(e.target.value)}
-                  placeholder={tipoAcesso.includes("email") ? "Digite seu email" : "Digite seu pseudônimo"}
-                />
-
-                <label>{tipoAcesso.includes("senha") ? "Senha" : "PIN"}:</label>
-                <input
-                  type={tipoAcesso.includes("senha") ? "password" : "text"}
-                  value={input2}
-                  onChange={(e) => setInput2(e.target.value)}
-                  placeholder={tipoAcesso.includes("senha") ? "Digite sua senha" : "Digite seu PIN"}
-                />
-                <p>
-                  <a href="#" onClick={() => navigate("/resgatar")}> Esqueceu sua senha? </a>
-                </p>
-            </>
-          )}
-        
-        </ContentItensBody>
-
-        <Pg.DivisionPgHztal />
+        {/* <Pg.DivisionPgHztal /> */}
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
          
           <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
@@ -257,13 +255,13 @@ const Login: React.FC = () => {
             />
           </ContentSidePageBottonLabel>
 
-          { edicao ? (
+          { isbtnchk ? (
             <ContentSidePageBottonLabel istitl={true} title={'Confirma? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
                 titbtn={'Confirmar...'}
-                onclick={handleCheckLogin}
+                onclick={handleCheckInfo}
                 disabled={isdesable}
               />
             </ContentSidePageBottonLabel>
@@ -310,3 +308,5 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+
+

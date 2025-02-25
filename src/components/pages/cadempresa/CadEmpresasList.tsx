@@ -9,9 +9,9 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutEmpresas from "../../layouts/LayoutEmpresas";
 
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import lg_sys from "../../../assets/svgs/lg_sys.svg";
+import bt_helppg from "../../../assets/svgs/bt_helppg.svg";
+import bt_abortar from "../../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
