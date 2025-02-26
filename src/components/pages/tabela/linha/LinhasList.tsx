@@ -1,22 +1,18 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "../../../../themes/light";
+import dark from "../../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutTabPrecos from "../../layouts/LayoutTabPrecos";
-
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayLinhas from "../../../layouts/LayoutLinhas";
+import lg_sys from "../../../../assets/svgs/lg_sys.svg";
+import bt_helppg from "../../../../assets/svgs/bt_helppg.svg";
+import bt_abortar from "../../../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadTabPrecosInc: React.FC = () => {
+const LinhasList: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -46,34 +42,26 @@ const CadTabPrecosInc: React.FC = () => {
   //   "Peguntas.",
   // ];
  
-
-
-
   return (
     <ThemeProvider theme={theme}>
-      <LayoutTabPrecos
+      <LayLinhas
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
-
-        titlepg="Tabelas Preços Inclusão."
-
+        onclicksys={ goto('/home') }
+        titlepg="Linhas Listagem."
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ () => {} }
-
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadtabprecos') }
-
+        onclickaborta={ goto('/linhas') }
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadTabPrecosInc</h1>
-  
-      </LayoutTabPrecos>
+        <h1>LinhasPesq</h1>
+      </LayLinhas>
     </ThemeProvider>
   );
 };
 
-export default CadTabPrecosInc;
+export default LinhasList;

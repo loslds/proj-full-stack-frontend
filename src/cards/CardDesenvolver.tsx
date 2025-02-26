@@ -7,7 +7,10 @@ interface PropsCardDesenvolver {
   imgcarddes?: string;
   onclosesair?: () => void;
 }
-export const CardDesenvolver = ({ imgcarddes, onclosesair }: PropsCardDesenvolver) => {
+export const CardDesenvolver = ({
+  imgcarddes,
+  onclosesair 
+}: PropsCardDesenvolver) => {
   return (
     <CardModalCenter>
       <CardModalAround>
@@ -23,7 +26,7 @@ export const CardDesenvolver = ({ imgcarddes, onclosesair }: PropsCardDesenvolve
         <p>Desculpas pelo transtorno.</p>
         <CardHlpFooter
             label="OBSERVAÇÂO em PÁGINA."
-            texto="Para entrar retornar poderá clicar em Fechar."
+            texto="Para retornar poderá clicar em Fechar."
             onclosesair={onclosesair}
           />
       </CardModalTextoColumn>

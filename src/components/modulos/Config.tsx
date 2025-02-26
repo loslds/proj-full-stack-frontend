@@ -1,19 +1,19 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
-import light from "../../../themes/light.ts";
-import dark from "../../../themes/dark.ts";
+import light from "../../themes/light.ts";
+import dark from "../../themes/dark.ts";
 import { useNavigate } from 'react-router-dom';
 // Use o hook do contexto
-import { MysqlUseActions, MysqlUseContext  } from '../../contexts/MySQLContext.tsx'; 
+import { MysqlUseActions, MysqlUseContext  } from '../contexts/MySQLContext.tsx'; 
 
-import LayoutConfig from '../../layouts/LayoutConfig.tsx';
-import { PageModal } from '../PageModal.tsx';
-import { CardHlpConfigPage } from '../../../cards/CardHlpConfigPage.tsx';
-import { ContentCardPage } from '../../ContentCardPage.tsx';
-import { BarMenuConfig } from '../../sidebar/BarMenuConfig.tsx'
+import LayoutConfig from '../layouts/LayoutConfig.tsx';
+import { PageModal } from '../pages/PageModal.tsx';
+import { CardHlpConfigPage } from '../../cards/CardHlpConfigPage.tsx';
+import { ContentCardPage } from '../ContentCardPage.tsx';
+import { BarMenuConfig } from '../sidebar/BarMenuConfig.tsx'
 
 //import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig.tsx';
-import { DivisionPgHztal } from '../../stylePages.ts';
+import { DivisionPgHztal } from '../stylePages.ts';
 import lg_config from '../../assets/svgs/lg_config.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_abortar from '../../assets/svgs/bt_abortar.svg';

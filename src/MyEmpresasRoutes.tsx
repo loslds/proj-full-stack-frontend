@@ -16,12 +16,12 @@ const MyEmpresasRoutes = () => {
     // <MyEmpresasProvider>
       
       <Routes>
-        <Route path="/cadempresas" element={ <CadEmpresas />} />
-        <Route path="/cadempresasinc" element={ <CadEmpresasInc />} />
-        <Route path="/cadempresasalt" element={ <CadEmpresasAlt />} />
-        <Route path="/cadempresasexc" element={ <CadEmpresasExc />} />
-        <Route path="/cadempresaslist" element={ <CadEmpresasList />} />
-        <Route path="/cadempresaslist" element={ <CadEmpresasPesq />} />
+        <Route path="/cadempresa/cadempresas" element={ <CadEmpresas />} />
+        <Route path="/cadempresa/cadempresasinc" element={ <CadEmpresasInc />} />
+        <Route path="/cadempresa/cadempresasalt" element={ <CadEmpresasAlt />} />
+        <Route path="/cadempresa/cadempresasexc" element={ <CadEmpresasExc />} />
+        <Route path="/cadempresa/cadempresaslist" element={ <CadEmpresasList />} />
+        <Route path="/cadempresa/cadempresaslist" element={ <CadEmpresasPesq />} />
       </Routes>
 
     // </MyEmpresasProvider>

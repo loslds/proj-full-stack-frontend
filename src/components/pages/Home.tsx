@@ -43,12 +43,12 @@ import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 const Home: React.FC = () => {
   
   const { state, dispatch } = useAcessoContext();
-
   const [startbtnchave, setStartBtnChave] = React.useState(false);
   const [buscachave, setBuscaChave] = React.useState(false);
   //const chaveDt = DateToCecular(new Date());
   const [ischavekey, setIsChaveKey] = React.useState(false);
   const [chaveDigitada, setChaveDigitada] = React.useState('');
+  const [islogado,setIsLogado] = React.useState(false);
   const [btnok, setbtnok] = React.useState(false);
   
   const [isdesable, setIsDesable] = React.useState(true); 
@@ -57,8 +57,6 @@ const Home: React.FC = () => {
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
-
-
 
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
@@ -79,7 +77,6 @@ const Home: React.FC = () => {
   };
 
 
-
   React.useEffect(() => {
     
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -94,8 +91,8 @@ const Home: React.FC = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-    
-  },[]);
+  },[]);  
+  
 
   const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChaveDigitada(event.target.value);
@@ -131,14 +128,11 @@ const Home: React.FC = () => {
   },[chaveDigitada]);
   
   const handlerCheckBtnOk = () => {
-    dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 0 });
-    dispatch({ type: UseAcessoActions.SET_SETOR, payload: 'Home'});
-    dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
-    dispatch({ type: UseAcessoActions.SET_LOGADO, payload: false });
     if (btnok) {
       // Exibe a mensagem temporária por 5 segundos
       if (ischavekey) {
         setMsgPanelBottom('Sucesso!...');
+        setIsLogado(ischavekey);
         dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
         dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true });
       }
@@ -147,6 +141,27 @@ const Home: React.FC = () => {
     } 
     setMsgPanelBottom('');
   };
+
+  React.useEffect(() => {
+    if (state.logado){
+      dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
+      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logion'});
+      if (ischavekey){
+        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
+        dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true});
+        dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Master'});
+        dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'Visualizar, Listar, Incluir, Alterar, Escluir'});
+        dispatch({ type: UseAcessoActions.SET_NIVEL, payload: 3 });
+      } else {
+        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+      }
+    } else {
+      dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
+      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
+      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+    }
+  },[state.logado]);
+
 
   const handlerCardLogo = React.useCallback(() => {
     setCardLogo((oldState) => !oldState);
@@ -164,14 +179,14 @@ const Home: React.FC = () => {
     if (num === undefined) return; // Se `num` for `undefined`, não faz nada
    
     const routes: Record<number, string> = {
-      1: '/visitante',
-      2: '/recepcao',
-      3: '/design',
-      4: '/producao',
-      5: '/acabamento',
-      6: '/expedicao',
-      7: '/administracao',
-      8: '/config',
+      1: '/modulo/visitante',
+      2: '/modulo/recepcao',
+      3: '/modulo/design',
+      4: '/modulo/producao',
+      5: '/modulo/acabamento',
+      6: '/modulo/expedicao',
+      7: '/modulo/administracao',
+      8: '/modulo/config',
       
     };
     
@@ -214,7 +229,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Visitantes..'}
-            onclick={ state.setor ==='Visitante' || ischavekey ? (goto('/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Visitante' || ischavekey ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Visitante.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -227,7 +242,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_recepcao}
             titlebtn={'Setor Recepção...'}
-            onclick={ state.setor ==='Recepção' || ischavekey ? (goto('/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Recepção' || ischavekey ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -240,7 +255,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Design...'}
-            onclick={ state.setor ==='Design' || ischavekey ? (goto('/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Design' || ischavekey ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Design.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -253,7 +268,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Produção...'}
-            onclick={ state.setor ==='Produção' || ischavekey ? (goto('/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Produção' || ischavekey ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Produção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -266,7 +281,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Acabamento...'}
-            onclick={ state.setor ==='Acabamento' || ischavekey ? (goto('/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Acabamento' || ischavekey ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Acabamento.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -279,7 +294,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Expedição...'}
-            onclick={ state.setor ==='Expedição' || ischavekey ? (goto('/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Expedição' || ischavekey ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Expedição.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -292,7 +307,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Setor Administração...'}
-            onclick={ state.setor ==='Administração' || ischavekey ? (goto('/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.setor ==='Administração' || ischavekey ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Setor Administração.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -305,7 +320,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
-            onclick={ (state.setor ==='config') || ischavekey ? (goto('/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ (state.setor ==='config') || ischavekey ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -373,7 +388,7 @@ const Home: React.FC = () => {
                 pxheight={'40px'}
                 img={bt_enviar}
                 titbtn={'Checar...'}
-                onclick={goto('/cadempresa')}
+                onclick={goto('/cadempresa/cadempresas')}
                 disabled={false}
               />
             </ContentSidePageBottonLabel>

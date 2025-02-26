@@ -7,7 +7,7 @@ import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
 
-import LayoutTabCores from "../../layouts/LayoutTabCores";
+import LayoutTabelas from "../../layouts/LayoutTabelas";
 
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
@@ -16,7 +16,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadTabCoresList: React.FC = () => {
+const Tabelas: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +51,12 @@ const CadTabCoresList: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutTabCores
+      <LayoutTabelas
         imgsys={lg_sys}
-        titbtnsys="Home Sistema..."
-        onclicksys={ goto('/home') }
+        titbtnsys="Users..."
+        onclicksys={ () => {} }
 
-        titlepg="Tab. Cores Listagem."
+        titlepg="Tabelas."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +64,16 @@ const CadTabCoresList: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadtabcores') }
+        onclickaborta={ goto('/config') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadTabCoresList</h1>
+        <h1>CadTabelas</h1>
   
-      </LayoutTabCores>
+      </LayoutTabelas>
     </ThemeProvider>
   );
 };
 
-export default CadTabCoresList;
+export default Tabelas;

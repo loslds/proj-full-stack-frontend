@@ -9,7 +9,7 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../../ContentPagesButton';
-interface PropsHearderAcoes {
+interface PropsHearderProducao {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -24,7 +24,7 @@ interface PropsHearderAcoes {
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderAcoes = ({
+const HearderProducao = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -37,7 +37,7 @@ const HearderAcoes = ({
   onclickaborta,
   onchange,
   ischeck,
-}: PropsHearderAcoes) => {
+}: PropsHearderProducao) => {
   return (
     <ContentHearderMain>
       {/** imagem botão lado esquerdo : logo da pagina */}
@@ -90,4 +90,4 @@ const HearderAcoes = ({
   );
 };
 
-export default HearderAcoes;
+export default HearderProducao;

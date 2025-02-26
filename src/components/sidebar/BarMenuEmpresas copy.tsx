@@ -1,16 +1,16 @@
 
-
+import React from 'react';
 import * as S from './stylesSidebar';
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContainerSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 import { Dropdown } from './Dropdown';
-import React from 'react';
 
-interface BarMenuRecepcaoProps {
+
+interface BarMenuEmpresasProps {
   setActiveComponent: (component: string | null) => void;
 }
-const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent }) => { 
+const BarMenuEmpresas: React.FC<BarMenuEmpresasProps> = ({ setActiveComponent }) => { 
   // Estado para abrir/fechar o menu principal
   const [isMenuPri, setIsMenuPri] = React.useState(false);
 
@@ -20,33 +20,30 @@ const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent })
 
   // Função para manipular a seleção do dropdown
   const handleSelectOption = (value: string) => {
-    
+    console.log("Opção selecionada no Dropdown:", value); // Verifica se a função está sendo chamada
+//      setActiveComponent(value);
+
     switch (value) {
-      /** Ferramentas. -> O.Serviços */
-      case "cados":
-        setActiveComponent("CadOs");
+      case "formInc":
+        setActiveComponent("formINC");
         break;
-      /** Ferramentas. -> Tabelas */
-      case "tabLnh":
-        setActiveComponent("LinhaTB");
+      case "formAlt":
+        setActiveComponent("formALT");
         break;
-      case "tabprc":
-        setActiveComponent("PrecoTB");
+      case "formExc":
+        setActiveComponent("formEXC");
         break;
-      /** Ferramentas. -> Pesquisas */
-      case "pesqOS":
-        setActiveComponent("PesqOS");
+      case "formList":
+        setActiveComponent("formLIST");
         break;
-      case "pesqCLI":
-        setActiveComponent("PesqCLI");
-        break;
-      case "pesqCONS":
-        setActiveComponent("PesqCONS");
+      case "formPesq":
+        setActiveComponent("FormPESQ");
         break;
       default:
         setActiveComponent(value);
         break;
     }
+
   };
 
   return (
@@ -66,21 +63,19 @@ const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent })
           labelbtn="Ferramentas."
           options={[
             {
-              label: "O.Serviços", value: "cados",
+              label: "Inclusão Reg.", value: "formInc",
             },
             {
-              label: "Tabelas", value: "tabs",
-              subOptions: [
-                { label: "Tab. Cores", value: "tabLnh" },
-                { label: "Tab. Preço", value: "tabPrc" },
-              ],
+              label: "Alteração Reg.", value: "formAlt",
             },
-            { label: "Pesquisas", value: "Pesquisas",
-              subOptions: [
-                { label: "Ordem Serv.", value: "pesqOS" },
-                { label: "Cliêntes", value: "pesqCLI" },
-                { label: "Consumidor", value: "pesqCONS" },
-              ],
+            {
+              label: "Exclusão Reg.", value: "formExc",
+            },
+            {
+              label: "Listagem Reg.", value: "formList",
+            },
+            { 
+              label: "Pesquisas Reg.", value: "formPesq",
             },
           ]}
           onSelect={handleSelectOption}
@@ -91,7 +86,7 @@ const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent })
   );
 };
 
-export default BarMenuRecepcao;
+export default BarMenuEmpresas;
 
 
 {/*

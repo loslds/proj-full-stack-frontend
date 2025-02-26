@@ -18,8 +18,8 @@ import CadConsumidoresPesq from './components/pages/cadconsumidor/CadConsumidore
 import CadTabCoresList from './components/pages/cadcor/CadTabCoresList';
 import CadTabCoresPesq from './components/pages/cadcor/CadTabCoresPesq';
 
-import CadTabPrecosList from './components/pages/cadtabprc/CadTabPrecosList';
-import CadTabPrecosPesq from './components/pages/cadtabprc/CadTabPrecosPesq';
+import CadTabPrecosList from './components/pages/tabela/preco/PrecosList';
+import CadTabPrecosPesq from './components/pages/tabela/preco/PrecosPesq';
 
 
 

@@ -21,25 +21,28 @@ const BarMenuEmpresas: React.FC<BarMenuEmpresasProps> = ({ setActiveComponent })
   // Função para manipular a seleção do dropdown
   const handleSelectOption = (value: string) => {
     console.log("Opção selecionada no Dropdown:", value); // Verifica se a função está sendo chamada
-      setActiveComponent(value);
+//      setActiveComponent(value);
 
-    // switch (value) {
-    //   case "IncEmpre":
-    //     setActiveComponent("FormIncEmpr");
-    //     break;
-    //   case "AltEmpre":
-    //     setActiveComponent("FormAltEmpr");
-    //     break;
-    //   case "ExcEmpre":
-    //     setActiveComponent("FormExcEmpr");
-    //     break;
-    //   case "PesqEmpre":
-    //     setActiveComponent("FormPesqEmpr");
-    //     break;
-    //   default:
-    //     setActiveComponent(value);
-    //     break;
-    // }
+    switch (value) {
+      case "formIncEmpr":
+        setActiveComponent("formINCEmpresas");
+        break;
+      case "formAltEmpr":
+        setActiveComponent("formALTEmpresas");
+        break;
+      case "formExcEmpr":
+        setActiveComponent("formEXCEmpresas");
+        break;
+      case "formListEmpr":
+        setActiveComponent("formLISTEmpresas");
+        break;
+      case "formPesqEmpr":
+        setActiveComponent("FormPESQEmpresas");
+        break;
+      default:
+        setActiveComponent(value);
+        break;
+    }
 
   };
 
@@ -60,16 +63,19 @@ const BarMenuEmpresas: React.FC<BarMenuEmpresasProps> = ({ setActiveComponent })
           labelbtn="Ferramentas."
           options={[
             {
-              label: "Inclusão Reg.", value: "IncEmpre",
+              label: "Inclusão Reg.", value: "formIncEmpr",
             },
             {
-              label: "Alteração Reg.", value: "AltEmpre",
+              label: "Alteração Reg.", value: "formAltEmpr",
             },
             {
-              label: "Exclusão Reg.", value: "ExcEmpre",
+              label: "Exclusão Reg.", value: "formExcEmpr",
+            },
+            {
+              label: "Listagem Reg.", value: "formListEmpr",
             },
             { 
-              label: "Pesquisas Reg.", value: "PesqEmpre",
+              label: "Pesquisas Reg.", value: "formPesqEmpr",
             },
           ]}
           onSelect={handleSelectOption}

@@ -14,7 +14,6 @@ import lg_sys from "../../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../../assets/svgs/bt_abortar.svg";
 
-import  FormCadEmpresas from './FormCadEmpresas';
 import  FormIncEmpresas from './FormIncEmpresas';
 import  FormAltEmpresas from './FormAltEmpresas';
 import  FormExcEmpresas from './FormExcEmpresas';
@@ -64,7 +63,7 @@ const CadEmpresas: React.FC = () => {
         onclickhlppg={ () => {} }
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/config') }
+        onclickaborta={ goto('/modulos/config') }
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
@@ -73,15 +72,11 @@ const CadEmpresas: React.FC = () => {
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
-
-
-
-        {activepage === "CadEmpre" && <FormCadEmpresas />}
-        {activepage === "IncEmpre" && <FormIncEmpresas />}
-        {activepage === "AltEmpre" && <FormAltEmpresas />}
-        {activepage === "ExcEmpre" && <FormExcEmpresas />}
-        {activepage === "ListEmpre" && <FormListEmpresas />}
-        {activepage === "PesqEmpre" && <FormPesqEmpresas />}
+        {activepage === "formINCEmpresas" && <FormIncEmpresas />}
+        {activepage === "formALTEmpresas" && <FormAltEmpresas />}
+        {activepage === "formEXCEmpresas" && <FormExcEmpresas />}
+        {activepage === "formLISTEmpresas" && <FormListEmpresas />}
+        {activepage === "formPESQEmpresas" && <FormPesqEmpresas />}
 
       </LayoutEmpresas>
     </ThemeProvider>

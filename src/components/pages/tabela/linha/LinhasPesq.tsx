@@ -1,22 +1,18 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "../../../../themes/light";
+import dark from "../../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutTabCores from "../../layouts/LayoutTabCores";
-
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayLinhas from "../../../layouts/LayoutLinhas";
+import lg_sys from "../../../../assets/svgs/lg_sys.svg";
+import bt_helppg from "../../../../assets/svgs/bt_helppg.svg";
+import bt_abortar from "../../../../assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadTabCoresInc: React.FC = () => {
+const LinhasPesq: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -46,34 +42,26 @@ const CadTabCoresInc: React.FC = () => {
   //   "Peguntas.",
   // ];
  
-
-
-
   return (
     <ThemeProvider theme={theme}>
-      <LayoutTabCores
+      <LayLinhas
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
-        onclicksys={ () => {} }
-
-        titlepg="Tab. Cores Inclusão."
-
+        onclicksys={ goto('/home') }
+        titlepg="Linhas Pesquisa."
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
-        onclickhlppg={ goto('/home') }
-
+        onclickhlppg={ () => {} }
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadtabcores') }
-
+        onclickaborta={ goto('/linhas') }
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadTabCoresInc</h1>
-  
-      </LayoutTabCores>
+        <h1>LinhasPesq</h1>
+      </LayLinhas>
     </ThemeProvider>
   );
 };
 
-export default CadTabCoresInc;
+export default LinhasPesq;

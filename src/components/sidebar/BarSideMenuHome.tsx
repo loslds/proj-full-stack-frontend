@@ -18,7 +18,10 @@ import { ContainerSBButton } from './ContainerSBButton';
 import { ContainerSBItensMenu } from './ContainerSBItensMenu';
 import { PageModal } from '../pages/PageModal';
 import { CardHlpRecepcaoPage } from '../../cards/CardHlpRecepcaoPage';
-import { CardDesemvolver } from '../../cards/CardDesenvolver';
+import { CardDesenvolver } from '@/cards/CardDesenvolver';
+
+
+
 
 export const BarSideMenuHome = () => {
   const [isitensmenu, setIsItensMenu] = React.useState(false);
@@ -136,7 +139,9 @@ export const BarSideMenuHome = () => {
             setIsMdDesig(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
         </PageModal>
       ) : null}
       {ismdprodu ? (
@@ -151,7 +156,9 @@ export const BarSideMenuHome = () => {
             setIsMdProdu(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+          imgcarddes={negado}
+        />
         </PageModal>
       ) : null}
       {ismdacaba ? (
@@ -166,7 +173,9 @@ export const BarSideMenuHome = () => {
             setIsMdAcaba(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
         </PageModal>
       ) : null}
       {ismdexped ? (
@@ -181,9 +190,12 @@ export const BarSideMenuHome = () => {
             setIsMdExped(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
         </PageModal>
       ) : null}
+
       {ismdadmin ? (
         <PageModal
           ptop={'1%'}
@@ -196,24 +208,12 @@ export const BarSideMenuHome = () => {
             setIsMdAdmin(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
         </PageModal>
-      ) : null}
-      {ismdmaste ? (
-        <PageModal
-          ptop={'1%'}
-          pwidth={'65%'}
-          pheight={'50%'}
-          titulo={'Help  : Master.'}
-          imgbm={close}
-          titbm={'Fechar...'}
-          onclose={() => {
-            setIsMdMaste(false);
-          }}
-        >
-          <CardDesemvolver imgcarddes={negado} />
-        </PageModal>
-      ) : null}
+      ): null }
+
       {ismdconfi ? (
         <PageModal
           ptop={'1%'}
@@ -226,7 +226,27 @@ export const BarSideMenuHome = () => {
             setIsMdConfi(false);
           }}
         >
-          <CardDesemvolver imgcarddes={negado} />
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
+        </PageModal>
+      ) : null}
+
+      {ismdmaste ? (
+        <PageModal
+          ptop={'1%'}
+          pwidth={'65%'}
+          pheight={'50%'}
+          titulo={'Help  : Master.'}
+          imgbm={close}
+          titbm={'Fechar...'}
+          onclose={() => {
+            setIsMdMaste(false);
+          }}
+        >
+          <CardDesenvolver 
+            imgcarddes={negado}
+          />
         </PageModal>
       ) : null}
     </ContainerSBMain>

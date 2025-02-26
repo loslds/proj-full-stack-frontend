@@ -9,7 +9,7 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../../ContentPagesButton';
-interface PropsHearderAcoes {
+interface PropsHearderPrecos {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -24,7 +24,7 @@ interface PropsHearderAcoes {
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderAcoes = ({
+const HearderPrecos = ({
   imgsys,
   titbtnsys,
   onclicksys,
@@ -37,10 +37,10 @@ const HearderAcoes = ({
   onclickaborta,
   onchange,
   ischeck,
-}: PropsHearderAcoes) => {
+}: PropsHearderPrecos) => {
   return (
     <ContentHearderMain>
-      {/** imagem botão lado esquerdo : logo da pagina */}
+      {/** imagem botão do logo da pagina */}
       <ContentHearderItens>
         <ContentHeaderButtonSys
           imgsys={imgsys}
@@ -52,7 +52,7 @@ const HearderAcoes = ({
       <ContentHearderItens>
         <ContentHeaderTitle title={titlepg} />
       </ContentHearderItens>
-      {/** imagem botão lado direito*/}
+
       <ContentHearderRight>
         <ContentHearderItensBar>
           {/** imagem botão do help da pagina */}
@@ -61,6 +61,7 @@ const HearderAcoes = ({
             titbtnhlp={titbtnhlppg}
             onClickhlp={onclickhlppg}
           />
+
           {/** imagem botão do Acão Abortar da pagina */}
           <ContentPagesButton
             imgbtn={imgbtnaborta}
@@ -90,4 +91,4 @@ const HearderAcoes = ({
   );
 };
 
-export default HearderAcoes;
+export default HearderPrecos;

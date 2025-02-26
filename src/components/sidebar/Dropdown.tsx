@@ -9,19 +9,18 @@ interface DropdownOption {
   subOptions?: DropdownOption[];
   onClick?: () => void;
 }
-
 interface PropsDropdown {
   pxheight?: string;
   pxwidth?: string;
   labelbtn?: string;
   options: DropdownOption[];
   onSelect: (value: string) => void;
-  
 }
 export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
   const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
+  //const [openSubSubSubmenu, setOpenSubSubSubmenu] = React.useState<string | null>(null);
 
   return (
     <ContentMainDropdownUl pxheigth={pxheight} pxwidth={pxwidth}>
@@ -34,25 +33,36 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
           {options.map((option) => (
             <li
               key={option.value}
-              onClick={() => {
-                if (!option.subOptions) {
-                  onSelect(option.value);
-                  setIsOpen(false);
-                }
-              }}
               onMouseEnter={() => setOpenSubmenu(option.value)}
               onMouseLeave={() => setOpenSubmenu(null)}
             >
               {option.label}
 
-              {option.subOptions && (
+              {option.subOptions && openSubmenu === option.value && (
                 <ul>
                   {option.subOptions.map((subOption) => (
                     <li
                       key={subOption.value}
-                      onClick={() => onSelect(subOption.value)}
+                      onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
+                      onMouseLeave={() => setOpenSubSubmenu(null)}
                     >
                       {subOption.label}
+
+                      {subOption.subOptions && openSubSubmenu === subOption.value && (
+                        <ul>
+                          {subOption.subOptions.map((subSubOption) => (
+                            <li
+                              key={subSubOption.value}
+                              onClick={() => {
+                                onSelect(subSubOption.value);
+                                setIsOpen(false);
+                              }}
+                            >
+                              {subSubOption.label}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -60,7 +70,7 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
             </li>
           ))}
         </ul>
-      )}
+      )};
     </ContentMainDropdownUl>
   );
 };
@@ -92,51 +102,27 @@ export const Dropdown: React.FC<DropdownProps> = ({ labelbtn, options, onSelect 
       <button onClick={() => setIsOpen(!isOpen)}>{labelbtn}</button>
 
       {isOpen && (
-        <ul style={{ position: "absolute", background: "white", listStyle: "none", padding: 10, margin: 0, border: "1px solid #ccc" }}>
+        <ul>
           {options.map((option) => (
             <li
               key={option.value}
               onMouseEnter={() => setOpenSubmenu(option.value)}
               onMouseLeave={() => setOpenSubmenu(null)}
-              style={{ padding: "5px 10px", cursor: "pointer", position: "relative" }}
             >
               {option.label}
 
               {option.subOptions && openSubmenu === option.value && (
-                <ul
-                  style={{
-                    position: "absolute",
-                    left: "100%",
-                    top: 0,
-                    background: "white",
-                    listStyle: "none",
-                    padding: 10,
-                    margin: 0,
-                    border: "1px solid #ccc",
-                  }}
-                >
+                <ul>
                   {option.subOptions.map((subOption) => (
                     <li
                       key={subOption.value}
                       onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
                       onMouseLeave={() => setOpenSubSubmenu(null)}
-                      style={{ padding: "5px 10px", cursor: "pointer", position: "relative" }}
                     >
                       {subOption.label}
 
                       {subOption.subOptions && openSubSubmenu === subOption.value && (
-                        <ul
-                          style={{
-                            position: "absolute",
-                            left: "100%",
-                            top: 0,
-                            background: "white",
-                            listStyle: "none",
-                            padding: 10,
-                            margin: 0,
-                            border: "1px solid #ccc",
-                          }}
-                        >
+                        <ul>
                           {subOption.subOptions.map((subSubOption) => (
                             <li
                               key={subSubOption.value}
@@ -144,7 +130,6 @@ export const Dropdown: React.FC<DropdownProps> = ({ labelbtn, options, onSelect 
                                 onSelect(subSubOption.value);
                                 setIsOpen(false);
                               }}
-                              style={{ padding: "5px 10px", cursor: "pointer" }}
                             >
                               {subSubOption.label}
                             </li>

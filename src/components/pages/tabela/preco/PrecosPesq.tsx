@@ -1,14 +1,10 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "../../../../themes/light";
+import dark from "../../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutTabCores from "../../layouts/LayoutTabCores";
-
+import LayPrecos  from "../../../layouts/LayoutPrecos";
 import lg_sys from "../../assets/svgs/lg_sys.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
@@ -16,7 +12,7 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadTabCoresExc: React.FC = () => {
+const PrecosPesq : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -46,34 +42,26 @@ const CadTabCoresExc: React.FC = () => {
   //   "Peguntas.",
   // ];
  
-
-
-
   return (
     <ThemeProvider theme={theme}>
-      <LayoutTabCores
+      <LayPrecos 
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
-
-        titlepg="Tab. Cores Exclusão."
-
+        titlepg="Preços Pesquisa."
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ () => {} }
-
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadtabcores') }
-
+        onclickaborta={ goto('/config') }
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadTabCoresExc</h1>
-  
-      </LayoutTabCores>
+        <h1>PrecosPesq </h1>
+      </LayPrecos >
     </ThemeProvider>
   );
 };
 
-export default CadTabCoresExc;
+export default PrecosPesq ;

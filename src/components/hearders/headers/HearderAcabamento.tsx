@@ -9,46 +9,38 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../../ContentPagesButton';
-interface PropsHearderTabCores {
+interface PropsHearderAcabamento {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
-
   titlepg?: string;
-
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
-
   imgbtnaborta?: string;
   titbtnaborta?: string;
   onclickaborta?: () => void;
-  
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode | JSX.Element;
 }
-const HearderTabCores = ({
+const HearderAcabamento = ({
   imgsys,
   titbtnsys,
   onclicksys,
-
   titlepg,
-
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
-
   imgbtnaborta,
   titbtnaborta,
   onclickaborta,
-
   onchange,
   ischeck,
-}: PropsHearderTabCores) => {
+}: PropsHearderAcabamento) => {
   return (
     <ContentHearderMain>
-      {/** imagem botão do logo da pagina */}
+      {/** imagem botão lado esquerdo : logo da pagina */}
       <ContentHearderItens>
         <ContentHeaderButtonSys
           imgsys={imgsys}
@@ -60,7 +52,7 @@ const HearderTabCores = ({
       <ContentHearderItens>
         <ContentHeaderTitle title={titlepg} />
       </ContentHearderItens>
-
+      {/** imagem botão lado direito*/}
       <ContentHearderRight>
         <ContentHearderItensBar>
           {/** imagem botão do help da pagina */}
@@ -69,22 +61,12 @@ const HearderTabCores = ({
             titbtnhlp={titbtnhlppg}
             onClickhlp={onclickhlppg}
           />
-
           {/** imagem botão do Acão Abortar da pagina */}
           <ContentPagesButton
             imgbtn={imgbtnaborta}
             titbtn={titbtnaborta}
             onClick={onclickaborta}
           />
-
-          {/** imagem botão do Restate da pagina 
-          <ContentPagesButton
-            imgbtn={imgbtnreg}
-            titbtn={titbtnreg}
-            onClick={onclickreg}
-          />
-          */}
-
           {/** botão switch do Padrão fundo Preto ou Branco */}
           <H.ContainerHeaderButton>
             <Switch
@@ -108,4 +90,4 @@ const HearderTabCores = ({
   );
 };
 
-export default HearderTabCores;
+export default HearderAcabamento;

@@ -2,14 +2,13 @@ import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 
 export type StateAcesso = {
   page: string | null;
+  aplicacao: string | null;
   auth: string | null;
   chvkey: string | null;
   id_acesso: number;
   qdd_acesso: number;
   ult_acesso: string | null;
-  usando_tb: string | null;
-  usando_id_tb: number;
-  setor: string | null;
+  modulo: string | null;
   id_setor: number;
   acao: string | null;
   nivel: number;
@@ -35,20 +34,19 @@ export type StateAcesso = {
   nmlogin: string | null;
   nrcont: number | null;
   nmcont: string | null;
-  aplicacao: string | null;
+
 };
 
 export const initialData: StateAcesso = {
   page: '',
+  aplicacao: '',
   auth: '',
   chvkey: '',
   id_acesso: 0,
   qdd_acesso: 0,
   ult_acesso: '',
-  usando_tb: '',
-  usando_id_tb: 0,
   id_setor: 0,
-  setor: '',
+  modulo: '',
   acao: '',
   nivel: 0,
   cadeado: false,
@@ -73,20 +71,18 @@ export const initialData: StateAcesso = {
   nmcont: '',
   mdlogin: 0,
   nmlogin: '',
-  aplicacao: '',
 };
 
 export enum UseAcessoActions {
   SET_PAGE = 'SET_PAGE',
+  SET_APLICACAO = 'SET_APLICACAO',
   SET_AUTH = 'SET_AUTH',
   SET_CHVKEY = 'SET_CHVKEY',
   SET_ID_ACESSO = 'SET_ID_ACESSO',
   SET_QDD_ACESSO = 'SET_QDD_ACESSO',
   SET_ULT_ACESSO = 'SET_ULT_ACESSO',
-  SET_USANDO_TB = 'SET_USANDO_TB',
-  SET_USANDO_ID_TB = 'SET_USANDO_TB_ID',
   SET_ID_SETOR = 'SET_ID_SETOR',
-  SET_SETOR = 'SET_SETOR',
+  SET_MODULO = 'SET_MODULO',
   SET_ACAO = 'SET_ACAO',
   SET_NIVEL = 'SET_NIVEL',
   SET_CADEADO = 'SET_CADEADO',
@@ -111,20 +107,19 @@ export enum UseAcessoActions {
   SET_NMCONT = 'SET_NMCONT',
   SET_MDLOGIN = 'SET_MDLOGIN',
   SET_NMLOGIN = 'SET_NMLOGIN',
-  SET_APLICACAO = 'SET_APLICACAO',
+
 }
 
 type AcessoAction =
   | { type: UseAcessoActions.SET_PAGE; payload: string | null }
+  | { type: UseAcessoActions.SET_APLICACAO; payload: string }
   | { type: UseAcessoActions.SET_AUTH; payload: string | null }
   | { type: UseAcessoActions.SET_CHVKEY; payload: string | null }
   | { type: UseAcessoActions.SET_ID_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_QDD_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_ULT_ACESSO; payload: string }
-  | { type: UseAcessoActions.SET_USANDO_TB; payload: string }
-  | { type: UseAcessoActions.SET_USANDO_ID_TB; payload: number }
   | { type: UseAcessoActions.SET_ID_SETOR; payload: number }
-  | { type: UseAcessoActions.SET_SETOR; payload: string }
+  | { type: UseAcessoActions.SET_MODULO; payload: string }
   | { type: UseAcessoActions.SET_ACAO; payload: string }
   | { type: UseAcessoActions.SET_NIVEL; payload: number }
   | { type: UseAcessoActions.SET_CADEADO; payload: boolean }
@@ -148,13 +143,15 @@ type AcessoAction =
   | { type: UseAcessoActions.SET_NRCONT; payload: number }
   | { type: UseAcessoActions.SET_NMCONT; payload: string }
   | { type: UseAcessoActions.SET_MDLOGIN; payload: number }
-  | { type: UseAcessoActions.SET_NMLOGIN; payload: string }
-  | { type: UseAcessoActions.SET_APLICACAO; payload: string };
+  | { type: UseAcessoActions.SET_NMLOGIN; payload: string };
+  
 
 const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
   switch (action.type) {
     case UseAcessoActions.SET_PAGE:
       return { ...state, page: action.payload };
+    case UseAcessoActions.SET_APLICACAO:
+      return { ...state, aplicacao: action.payload };
     case UseAcessoActions.SET_AUTH:
       return { ...state, auth: action.payload };
     case UseAcessoActions.SET_CHVKEY:
@@ -165,11 +162,9 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
       return { ...state, qdd_acesso: action.payload };
     case UseAcessoActions.SET_ULT_ACESSO:
       return { ...state, ult_acesso: action.payload };
-    case UseAcessoActions.SET_USANDO_TB:
-      return { ...state, usando_tb: action.payload };
-    case UseAcessoActions.SET_USANDO_ID_TB:
-      return { ...state, usando_id_tb: action.payload };
-    case UseAcessoActions.SET_SETOR:
+    case UseAcessoActions.SET_ID_SETOR:
+      return { ...state, id_setor: action.payload };
+    case UseAcessoActions.SET_MODULO:
       return { ...state, modulo: action.payload };
     case UseAcessoActions.SET_ACAO:
       return { ...state, descrnivel: action.payload };
@@ -219,8 +214,6 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
       return { ...state, mdlogin: action.payload };
     case UseAcessoActions.SET_NMLOGIN:
       return { ...state, nmlogin: action.payload };
-    case UseAcessoActions.SET_APLICACAO:
-      return { ...state, aplicacao: action.payload };
     default:
       return state;
   }

@@ -9,44 +9,23 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutRecepcao from "../layouts/LayoutRecepcao";
 
-import CadOServicosInc from "./cados/CadOServicosInc";
-import CadOServicosAlt from "./cados/CadOServicosAlt";
-import CadOServicosExc from "./cados/CadOServicosExc";
-import CadOServicosPesq from "./cados/CadOServicosPesq";
-
-import CadClientesInc from "./cadcliente/CadClientesInc";
-import CadClientesAlt from "./cadcliente/CadClientesAlt";
-import CadClientesExc from "./cadcliente/CadClientesExc";
-import CadClientesPesq from "./cadcliente/CadClientesPesq";
-
-import CadConsumidoresInc from "./cadconsumidor/CadConsumidoresInc";
-import CadConsumidoresAlt from "./cadconsumidor/CadConsumidoresAlt";
-import CadConsumidoresExc from "./cadconsumidor/CadConsumidoresExc";
-import CadConsumidoresPesq from "./cadconsumidor/CadConsumidoresPesq";
-
-import CadTabCoresList  from "./cadcor/CadTabCoresList";
-import CadTabCoresPesq  from "./cadcor/CadTabCoresPesq";
-
-import CadTabPrecosList  from "./cadtabprc/CadTabPrecosList";
-import CadTabPrecosPesq from "./cadtabprc/CadTabPrecosPesq";
-
-
-
-
+import CadOServicos from "../pages/cados/CadOServicos";
+import CadOServicosPesq from "../pages/cados/CadOServicosPesq";
+import CadClientesPesq from "../pages/cadcliente/CadClientesPesq";
+import CadConsumidoresPesq from "../pages/cadconsumidor/CadConsumidoresPesq";
+import Linhas from "../pages/tabela/linha/Linhas";
+import Precos from "../pages/tabela/preco/Precos";
 
 import { ContentCardPage } from "../ContentCardPage";
-
-import { PageModal } from './PageModal';
-
-
-import lg_recepcao from "../../assets/svgs/lg_recepcao.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import { PageModal } from '../pages/PageModal';
 
 import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
 import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
 
-import bt_close from "../../assets/svgs/bt_close.svg";
+import lg_recepcao from "../../assets/svgs/lg_recepcao.svg";
+import bt_helppg from "../../assets/svgs/bt_helppg.svg";
+import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import bt_close from "../../../assets/svgs/bt_close.svg";
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -54,10 +33,6 @@ import bt_close from "../../assets/svgs/bt_close.svg";
 const Recepcao : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
-
-  //const [activepage, setActivePge] = React.useState('');
-
-
 
   const ToggleTheme = () => {
     if (theme.name === "dark") {
@@ -81,45 +56,45 @@ const Recepcao : React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
+  const [activepage,setActivePage] = React.useState('');
 
-  
   return (
     <ThemeProvider theme={theme}>
       <LayoutRecepcao
         imgsys={lg_recepcao}
         titbtnsys="Modulo Recepção..."
         onclicksys={ () => {} }
-
         titlepg="Recepção"
-
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
-
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
         onclickaborta={ goto('/') }
-
         onchange={ToggleTheme}
         ischeck={ischeck}
-
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarMenuRecepcao setActiveComponent />
+          <BarMenuRecepcao setActiveComponent={setActivePage} />
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
         {/* chama Página para trabalho */}
 
-        {activeComponent === "IncOsDB" && <CadOServicosInc />}
-        {activeComponent === "AltOsDB" && <CadOServicosAlt />}
-        {activeComponent === "ExcOsDB" && <CadOServicosExc />}
 
-        {activeComponent === "TabCorDB" && <CadTabCores />}
-        {activeComponent === "TabPrcDB" && <CadTabPrecos />}
-        {activeComponent === "PesqOsDB" && <CadOServicosPesq />}
-        {activeComponent === "PesqCliDB" && <CadClientesPesq />}
-        {activeComponent === "PesqConsDB" && <CadConsumPesq />}
+
+
+        {activepage === "CadOs" && <CadOServicos />}
+                
+        {activepage === "LinhaTB" && <Linhas />}
+        {activepage === "PrecoTB" && <Precos />}
+        
+        {activepage === "PesqOS" && <CadOServicosPesq />}
+        {activepage === "PesqCLI" && <CadClientesPesq />}
+        {activepage === "PesqCONS" && <CadConsumidoresPesq />}
+
+
+
 
 
         {cardhplpage ? (
