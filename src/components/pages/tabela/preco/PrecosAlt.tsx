@@ -1,13 +1,13 @@
 import React from "react";
-//import * as Pg from "../stylePages";
+//import * as Pg from "../../../stylePages";
 import { ThemeProvider } from "styled-components";
-import light from "../../../../themes/light";
-import dark from "../../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayPrecos  from "../../../layouts/LayoutPrecos";
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayoutPrecos  from "../../../layouts/LayoutPrecos";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -44,7 +44,7 @@ const PrecosAlt : React.FC = () => {
  
   return (
     <ThemeProvider theme={theme}>
-      <LayPrecos 
+      <LayoutPrecos 
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
@@ -59,7 +59,7 @@ const PrecosAlt : React.FC = () => {
         ischeck={ischeck}
       >
         <h1>PrecosAlt  </h1>
-      </LayPrecos >
+      </LayoutPrecos >
     </ThemeProvider>
   );
 };

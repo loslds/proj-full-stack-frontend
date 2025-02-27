@@ -27,6 +27,7 @@ const MyModulosRoutes = () => {
         <Route path="/modulos/visitante" element={ <Visitante />} />
         <Route path="/modulos/recepcao" element={ <Recepcao />} />
         <Route path="/modulos/design" element={ <Design />} />
+        <Route path="/modulos/producao" element={ <Producao />} />
         <Route path="/modulos/acabamento" element={ <Acabamento />} />
         <Route path="/modulos/administracao" element={ <Administracao />} />
         <Route path="/modulos/config" element={ <Config />} />

@@ -1,19 +1,16 @@
 import React from "react";
-
-//import * as Pg from "../stylePages";
-
+//import * as Pg from "../../../stylePages";
 import { ThemeProvider } from "styled-components";
-import light from "../../../../themes/light";
-import dark from "../../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayoutLinhas from "../../../layouts/LayoutLinhas";
-import lg_sys from "../../../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../../../assets/svgs/bt_abortar.svg";
+import LayoutLinhas  from "../../../layouts/LayoutLinhas";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
-
 const Linhas: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);

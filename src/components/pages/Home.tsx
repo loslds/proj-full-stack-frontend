@@ -133,8 +133,6 @@ const Home: React.FC = () => {
       if (ischavekey) {
         setMsgPanelBottom('Sucesso!...');
         setIsLogado(ischavekey);
-        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
-        dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true });
       }
       setbtnok(false);
       setBuscaChave(false);
@@ -159,6 +157,7 @@ const Home: React.FC = () => {
       dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
       dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
       dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+      dispatch({ type: UseAcessoActions.SET_MODULO, payload: ''});
     }
   },[state.logado]);
 
@@ -192,12 +191,12 @@ const Home: React.FC = () => {
     
     const targetRoute = routes[num]; // Obtém a rota correspondente
     
-    if (!ischavekey) {
+    if (!state.logado) {
       setCardNegadoPage(true);
     } else if (targetRoute) {
       goto(targetRoute);
     };
-  }, [ischavekey]);
+  }, []);
 
 
   return (
@@ -228,9 +227,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Visitantes..'}
-            onclick={ state.setor ==='Visitante' || ischavekey ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Visitante.') }
+            titlebtn={'Modulo Visitantes..'}
+            onclick={ state.modulo ==='Visitante' || state.logado ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
 
@@ -241,9 +240,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={pn_recepcao}
-            titlebtn={'Setor Recepção...'}
-            onclick={ state.setor ==='Recepção' || ischavekey ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Recepção.') }
+            titlebtn={'Modulo Recepção...'}
+            onclick={ state.modulo ==='Recepção' || state.logado ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
           
@@ -254,9 +253,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Design...'}
-            onclick={ state.setor ==='Design' || ischavekey ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Design.') }
+            titlebtn={'Modulo Design...'}
+            onclick={ state.modulo ==='Design' || state.logado ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
 
@@ -267,9 +266,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Produção...'}
-            onclick={ state.setor ==='Produção' || ischavekey ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Produção.') }
+            titlebtn={'Modulo Produção...'}
+            onclick={ state.modulo ==='Produção' || state.logado ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
           
@@ -280,9 +279,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Acabamento...'}
-            onclick={ state.setor ==='Acabamento' || ischavekey ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Acabamento.') }
+            titlebtn={'Modulo Acabamento...'}
+            onclick={ state.modulo ==='Acabamento' || state.logado ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
           
@@ -293,9 +292,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Expedição...'}
-            onclick={ state.setor ==='Expedição' || ischavekey ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Expedição.') }
+            titlebtn={'Modulo Expedição...'}
+            onclick={ state.modulo ==='Expedição' || state.logado ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
 
@@ -306,9 +305,9 @@ const Home: React.FC = () => {
             pheight={'100px'}
             pwidth={'100px'}
             imgbtn={''}
-            titlebtn={'Setor Administração...'}
-            onclick={ state.setor ==='Administração' || ischavekey ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
-            onMouseEnter={() => setMsgPanelBottom('Abre Setor Administração.') }
+            titlebtn={'Modulo Administração...'}
+            onclick={ state.modulo ==='Administração' || state.logado ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
 
@@ -320,12 +319,13 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
-            onclick={ (state.setor ==='config') || ischavekey ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ (state.modulo ==='config') || state.logado ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-
+{/**
           {ischavekey ? <h1>Chave correta : {state.chvkey}</h1> : null}
+*/}
         </ContentItensBody>
 
         { buscachave ? (
@@ -382,7 +382,7 @@ const Home: React.FC = () => {
               />
             </ContentSidePageBottonLabel>
           ): null}  
-
+{/* SO para Teste */}
             <ContentSidePageBottonLabel istitl={true} title={'Pageteste? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
@@ -413,9 +413,6 @@ const Home: React.FC = () => {
             />
           </PageModal>
         ) : null}  
-        
-        
-        
 
 
         {cardlogo ? (
@@ -451,6 +448,7 @@ const Home: React.FC = () => {
             />
           </PageModal>
         ) : null}
+
       </LayoutHome>
     </ThemeProvider>
   );
@@ -458,243 +456,3 @@ const Home: React.FC = () => {
 
 export default Home;
 
-{/* 
-
-            {btncontinua ? (
-              <ContentSidePageBottonLabel
-                istitl={btncontinua}
-                title={'Continuar.: '}
-              >
-                <ContentSidePageBottonButton
-                  pxheight={'40px'}
-                  img={setadir}
-                  titbtn={'Continuar...'}
-                  onclick={goto('/login1')}
-                />
-              </ContentSidePageBottonLabel>
-            ) : null}
-
-            {btnresgatar ? (
-              <ContentSidePageBottonLabel
-                istitl={btnresgatar}
-                title={'Resgatar...: '}
-              >
-                <ContentSidePageBottonButton
-                  pxheight={'40px'}
-                  img={setadir}
-                  titbtn={'Resgatar...'}
-                  onclick={goto('/resgate1')}
-                />
-              </ContentSidePageBottonLabel>
-            ) : null}
-
-{ ischecar ? (
-          <PageModal
-            ptop={'1%'}
-            pwidth={'80%'}
-            pheight={'95%'}
-            imgbm={bt_close}
-            titbm="Fechar..."
-            titulo={'Chechk DataBase.'}
-            onclose={() => setIsChecar(false)}
-          >
-            <CardCheckingServices 
-              imgcardpage={lg_sys}
-              checando= {checked}
-              onclosesair={() => setIsChecar(false)}
-              //checked={checando}
-            />
-          </PageModal>
-        ) : null}
- */}
-
-
-
-
-
-
-
-
-
-
-//import { CardDesenvolver }  from '../../cards/CardDesenvolver';
-//import { CardKeyMaster } from '../../cards/CardKeyMaster';
-//import { CardCheckingServices } from '../../cards/CardCheckingServices';
-//import { checkConnection, checkTables } from '../../api/dbApi'; // Importa as funções da API
-
-// import React from 'react';
-// import { ThemeProvider } from 'styled-components';
-// import light from '../../themes/light';
-// import dark from '../../themes/dark';
-// import { useNavigate } from 'react-router-dom';
-
-// import LayoutHome from '../layouts/LayoutHome';
-// import { PageModal } from './PageModal';
-// import { ContentItensBody } from '../ContentItensBody';
-// import { ContentCustonImgPage } from '../ContentCustonImgPage';
-
-// import logo_sys from '../../assets/svgs/logo_sys.svg';
-// import jr_circ from '../../assets/svgs/jr_circ.svg';
-// import bt_help from '../../assets/svgs/bt_help.svg';
-// import bt_close from '../../assets/svgs/bt_close.svg';
-// import bt_avatar from '../../assets/svgs/bt_avatar.svg';
-// import bt_resgate from '../../assets/svgs/bt_resgate.svg';
-// import lg_negado from '../../assets/svgs/lg_negado.svg';
-// import lg_recepcao from '../../assets/svgs/lg_recepcao.svg';
-
-// import { CardHomeSys } from '../../cards/CardHomeSys';
-// import { CardHomePg } from '../../cards/CardHomePg';
-// import { CardAcessoNeg } from '../../cards/CardAcessoNeg' ;
-
-// const Home = () => {
-//   const [theme, setTheme] = React.useState(light);
-//   const [ischeck, setIscheck] = React.useState(false);
-//   const ToggleTheme = () => {
-//     if (theme.name === 'dark') {
-//       setTheme(light);
-//       setIscheck(true);
-//     } else {
-//       setTheme(dark);
-//       setIscheck(false);
-//     }
-//   };
-//   const navigate = useNavigate();
-
-//   const [logado, setLogado] = React.useState(false);
-//   const [callmodulo, setCallModulo] = React.useState('');
-
-//   const goto = (path: string) => {
-//     setCallModulo(path);
-
-//     if (!logado && (callmodulo === '/login' || callmodulo === '/resgate')) {
-//       return () => {
-//         navigate(path);
-//       };
-//     } else {
-//       if (logado) {
-//         if ( callmodulo === 'Visitante' || callmodulo === 'Master') {
-//           path = '/visitante';
-//         } else if ( callmodulo === 'Recepção' || callmodulo === 'Master') {
-//           path = '/recepcao';
-//         } else if ( callmodulo === 'Design' || callmodulo === 'Master') {
-//           path = '/design';
-//         } else if ( callmodulo === 'Produção' || callmodulo === 'Master') {
-//           path = '/producao';
-//         } else if ( callmodulo === 'Acabamento' || callmodulo === 'Master') {
-//           path = '/acabamento';
-//         } else if ( callmodulo === 'Expedição' || callmodulo === 'Master') {
-//           path = '/expedicao';
-//         } else if ( callmodulo === 'Administração' || callmodulo === 'Master') {
-//           path = '/administacao';
-//         } else if ( callmodulo === 'Config' || callmodulo === 'Master') {
-//           path = '/config';
-//         };
-//         return () => {
-//           navigate(path);
-//         };
-//       };
-//     };
-//   };
-
-//   const [logoSys, setLogoSys] = React.useState(false);
-//     const handlerLogoSys = React.useCallback(() => {
-//     setLogoSys((oldState) => !oldState);
-//   }, []);
-
-//   const [helppage, setHelpPage] = React.useState(false);
-//   const handlerHelpPage = React.useCallback(() => {
-//     setHelpPage((oldState) => !oldState);
-//   }, []);
-
-//   const [mainhelp, setMainHelp] = React.useState(false);
-
-//   return (
-//     <ThemeProvider theme={theme}>
-//       <LayoutHome
-//         imgsys={logo_sys}
-//         titbtnsys="Home..."
-//         onclicksys={handlerLogoSys}
-//         titlepg="Home"
-//         imgbtnhlppg={bt_help}
-//         titbtnhlppg="Help Page."
-//         onclickhlppg={handlerHelpPage}
-//         imgbtnopen={bt_avatar}
-//         titbtnopen="Login..."
-//         onclickopen={() => {}}
-//         imgbtnreg={bt_resgate}
-//         titbtnreg="botaoResgate"
-//         onclickreg={goto('/resgate')}
-//         onchange={ToggleTheme}
-//         ischeck={ischeck}
-//       >
-//         <ContentItensBody>
-//           <ContentCustonImgPage
-//             open={true}
-//             pxheight={'165px'}
-//             pheight={'165px'}
-//             pwidth={'165px'}
-//             imgbtn={''}
-//             titlebtn={'Visitante...'}
-//             onclick={ logado ? (goto('/visitante')) : (() => setMainHelp(true))}
-//           />
-
-//           {logoSys ? (
-//             <PageModal
-//               ptop={'1%'}
-//               pwidth={'65%'}
-//               pheight={'90%'}
-//               imgbm={bt_close}
-//               titbm="Fechar..."
-//               titulo={'Help Home Sistema.'}
-//               onclose={() => setLogoSys(false)}
-//             >
-//               <CardHomeSys imgcardsys={jr_circ} />
-//             </PageModal>
-//           ) : null}
-
-//         <ContentCustonImgPage
-//             open={true}
-//             pxheight={'165px'}
-//             pheight={'165px'}
-//             pwidth={'165px'}
-//             imgbtn={lg_recepcao}
-//             titlebtn={'Recepção.'}
-//             onclick={goto('/recepcao')}
-//           />
-
-//           {helppage ? (
-//             <PageModal
-//               ptop={'1%'}
-//               pwidth={'65%'}
-//               pheight={'90%'}
-//               imgbm={bt_close}
-//               titbm="Fechar..."
-//               titulo={'Help Conteúdo Home.'}
-//               onclose={() => setHelpPage(false)}
-//             >
-//               <CardHomePg imgcardpg={logo_sys} />
-//             </PageModal>
-//           ) : null}
-
-//           {mainhelp ? (
-//             <PageModal
-//               ptop="111px"
-//               pwidth="30%"
-//               pheight="25%"
-//               titulo='" A T E N Ç Ã O "'
-//               imgbm={bt_close}
-//               titbm="Fechar..."
-//               onclose={() => {
-//                 setMainHelp(false);
-//               }}
-//             >
-//               <CardAcessoNeg imgcardneg={lg_negado} />
-//             </PageModal>
-//           ) : null}
-//         </ContentItensBody>
-//       </LayoutHome>
-//     </ThemeProvider>
-//   );
-// };
-
-// export default Home;

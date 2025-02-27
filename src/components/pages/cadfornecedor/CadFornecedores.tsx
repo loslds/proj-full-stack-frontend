@@ -1,22 +1,18 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutOServicos from "../../layouts/LayoutOServicos";
-
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayoutFornecedores from "../../layouts/LayoutFornecedores";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadOServicosInc: React.FC = () => {
+const CadFornecedores: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +47,12 @@ const CadOServicosInc: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutOServicos
+      <LayoutFornecedores
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="O.Serviço Inclusão."
+        titlepg="Fornecedores Cadastro."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +60,16 @@ const CadOServicosInc: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadoservicos') }
+        onclickaborta={ goto('/config') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadOServicosInc</h1>
+        <h1>CadFornecedores</h1>
   
-      </LayoutOServicos>
+      </LayoutFornecedores>
     </ThemeProvider>
   );
 };
 
-export default CadOServicosInc;
+export default CadFornecedores;

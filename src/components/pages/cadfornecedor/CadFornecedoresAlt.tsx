@@ -1,22 +1,18 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutOServicos from "../../layouts/LayoutOServicos";
-
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayoutFornecedores from "../../layouts/LayoutFornecedores";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadOServicosList: React.FC = () => {
+const CadFornecedoresAlt: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -51,12 +47,12 @@ const CadOServicosList: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutOServicos
+      <LayoutFornecedores
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="O.Serviço Listagem"
+        titlepg="Fornecedores Alteração."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -64,16 +60,15 @@ const CadOServicosList: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadoservicos') }
+        onclickaborta={ goto('/cadfornecedores') }
 
         onchange={ToggleTheme}
-        ischeck={ischeck}
-      >
-        <h1>CadOServicosList</h1>
+        ischeck={ischeck}      >
+        <h1>CadFornecedoresAlt</h1>
   
-      </LayoutOServicos>
+      </LayoutFornecedores>
     </ThemeProvider>
   );
 };
 
-export default CadOServicosList;
+export default CadFornecedoresAlt;

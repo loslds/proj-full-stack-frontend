@@ -7,6 +7,8 @@ import { CardDesenvolver } from './cards/CardDesenvolver';
 //import Resgate from './components/pages/Resgate';
 //import MySQLRoutes from './MySQLRoutes';                 // Importando as rotas do MySQL
 import MyModulosRoutes from './MyModulosRoutes';           // Importando as rotas do MyModulos
+import MyAcoesRoutes from './MyAcoesRoutes';               // Importando as rotas do MyAcoes
+import MyAcessosRoutes from './MyAcoesRoutes';             // Importando as rotas do MyAcessos
 
 
 import MyEmpresasRoutes from './MyEmpresasRoutes';         // Importando as rotas do MyClientes
@@ -28,6 +30,15 @@ const AppRoutes = () => {
       {/* <Route path="/resgate" element={<Resgate />} /> */}
       {/* Rotas de Empresas envolvidas pelo MyEmpresasProvider */}
       <Route path="/*" element={<MyModulosRoutes />} />
+      {/* Rotas de Acoes envolvidas pelo MyAcoesProvider */}
+      <Route path="/*" element={<MyAcoesRoutes />} />
+      {/* Rotas de Acessos envolvidas pelo MyAcessosProvider */}
+      <Route path="/*" element={<MyAcessosRoutes />} />
+      {/* Rotas de Avatarusers envolvidas pelo MyAvatarusersProvider 
+      <Route path="/*" element={<MyAvatarusersRoutes />} />*/}
+
+
+
 
       {/* Rotas de Empresas envolvidas pelo MyEmpresasProvider */}
       <Route path="/*" element={<MyEmpresasRoutes />} />

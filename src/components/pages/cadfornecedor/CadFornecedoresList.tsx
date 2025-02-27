@@ -1,23 +1,18 @@
 import React from "react";
-
 //import * as Pg from "../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutAvatarUsers from '../../layouts/LayoutAvatarUsers'
-
-
-import lg_sys from "../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+import LayoutFornecedores from "../../layouts/LayoutFornecedores";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadAvatarUsers: React.FC = () => {
+const CadFornecedoresList: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -52,12 +47,12 @@ const CadAvatarUsers: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutAvatarUsers
+      <LayoutFornecedores
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Avatar Users Cadastros."
+        titlepg="Fornecedores Listagem."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -65,16 +60,16 @@ const CadAvatarUsers: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/config') }
+        onclickaborta={ goto('/cadfornecedores') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAvatarUsers</h1>
+        <h1>CadFornecedoresList</h1>
   
-      </LayoutAvatarUsers>
+      </LayoutFornecedores>
     </ThemeProvider>
   );
 };
 
-export default CadAvatarUsers;
+export default CadFornecedoresList;

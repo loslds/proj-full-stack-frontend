@@ -1,28 +1,25 @@
 import React from "react";
 import * as Pg from "../../stylePages";
-
 import { ThemeProvider } from "styled-components";
-import light from "../../../themes/light";
-import dark from "../../../themes/dark";
+import light from "@/themes/light";
+import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-
 import LayoutEmpresas from "../../layouts/LayoutEmpresas";
+import lg_sys from "@/assets/svgs/lg_sys.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
+//import bt_close from "../../assets/svgs/bt_close.svg";
+//import bt_voltar from "../../assets/pngs/bt_voltar.png";
+//import bt_setadir from "../../assets/svgs/bt_setadir.svg";
+
 import { ContentCardPage } from "../../ContentCardPage";
 import  BarMenuEmpresas  from "../../sidebar/BarMenuEmpresas";
-
-import lg_sys from "../../../assets/svgs/lg_sys.svg";
-import bt_helppg from "../../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../../assets/svgs/bt_abortar.svg";
-
 import  FormIncEmpresas from './FormIncEmpresas';
 import  FormAltEmpresas from './FormAltEmpresas';
 import  FormExcEmpresas from './FormExcEmpresas';
 import  FormListEmpresas from './FormListEmpresas';
 import  FormPesqEmpresas from './FormPesqEmpresas';
 
-//import bt_close from "../../assets/svgs/bt_close.svg";
-//import bt_voltar from "../../assets/pngs/bt_voltar.png";
-//import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
 const CadEmpresas: React.FC = () => {
   const [theme, setTheme] = React.useState(light);

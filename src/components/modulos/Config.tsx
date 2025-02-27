@@ -14,10 +14,10 @@ import { BarMenuConfig } from '../sidebar/BarMenuConfig.tsx'
 
 //import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig.tsx';
 import { DivisionPgHztal } from '../stylePages.ts';
-import lg_config from '../../assets/svgs/lg_config.svg';
-import bt_helppg from '../../assets/svgs/bt_helppg.svg';
-import bt_abortar from '../../assets/svgs/bt_abortar.svg';
-import bt_close from '../../assets/svgs/bt_close.svg';
+import lg_config from '@/assets/svgs/lg_config.svg';
+import bt_helppg from '@/assets/svgs/bt_helppg.svg';
+import bt_abortar from '@/assets/svgs/bt_abortar.svg';
+import bt_close from '@/assets/svgs/bt_close.svg';
 
 //import MysqlConfig from './MysqlConfig'; // Importando MysqlConfig
 // import CheckDB from './CheckDB.tsx';

@@ -22,10 +22,10 @@ import { PageModal } from '../pages/PageModal';
 import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
 import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
 
-import lg_recepcao from "../../assets/svgs/lg_recepcao.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
-import bt_close from "../../../assets/svgs/bt_close.svg";
+import lg_recepcao from "@/assets/svgs/lg_recepcao.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
+import bt_close from "@/assets/svgs/bt_close.svg";
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
