@@ -60,12 +60,12 @@ const CadAvatarUsersInc: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadacessos') }
+        onclickaborta={ goto('/cadavatarusers') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAcessosInc</h1>
+        <h1>CadAvatarusersInc</h1>
   
       </LayoutAvatarUsers>
     </ThemeProvider>

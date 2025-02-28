@@ -11,7 +11,7 @@ import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
-const CadPerguntasExc: React.FC = () => {
+const CadRespostasExc: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -71,4 +71,4 @@ const CadPerguntasExc: React.FC = () => {
   );
 };
 
-export default CadPerguntasExc;
+export default CadRespostasExc;

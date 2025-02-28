@@ -24,13 +24,13 @@ const MyModulosRoutes = () => {
     // <MyTabCoresProvider>
       
       <Routes>
-        <Route path="/modulos/visitante" element={ <Visitante />} />
-        <Route path="/modulos/recepcao" element={ <Recepcao />} />
-        <Route path="/modulos/design" element={ <Design />} />
-        <Route path="/modulos/producao" element={ <Producao />} />
-        <Route path="/modulos/acabamento" element={ <Acabamento />} />
-        <Route path="/modulos/administracao" element={ <Administracao />} />
-        <Route path="/modulos/config" element={ <Config />} />
+        <Route path="./components/modulos/visitante" element={ <Visitante />} />
+        <Route path="./components/modulos/recepcao" element={ <Recepcao />} />
+        <Route path="./components/modulos/design" element={ <Design />} />
+        <Route path="./components/modulos/producao" element={ <Producao />} />
+        <Route path="./components/modulos/acabamento" element={ <Acabamento />} />
+        <Route path="./components/modulos/administracao" element={ <Administracao />} />
+        <Route path="./components/modulos/config" element={ <Config />} />
       </Routes>
 
     // </MyTabCoresProvider>

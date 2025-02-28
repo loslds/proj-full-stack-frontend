@@ -65,7 +65,7 @@ const CadAvatarUsersAlt: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAcoesAlt</h1>
+        <h1>CadAvatarUsersAlt</h1>
   
       </LayoutAvatarUsers>
     </ThemeProvider>

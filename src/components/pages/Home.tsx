@@ -30,6 +30,8 @@ import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 
+/// import { MyPessoas } from 'src/MyPessoas';
+
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_avatar from '../../assets/pngs/bt_avatar.png';
@@ -387,8 +389,8 @@ const Home: React.FC = () => {
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
-                titbtn={'Checar...'}
-                onclick={goto('/cadempresa/cadempresas')}
+                titbtn={'Pessoas...'}
+                onclick={goto('../conponent/pages/cadpessoa/cadpessoas')}
                 disabled={false}
               />
             </ContentSidePageBottonLabel>

@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyOServicosProvider } from './components/contexts/MyOServicosContext';
 
-import CadOServicos from './components/pages/cados/CadOServicos';
-import CadOServicosInc from './components/pages/cados/CadOServicosInc';
-import CadOServicosAlt from './components/pages/cados/CadOServicosAlt';
-import CadOServicosExc from './components/pages/cados/CadOServicosExc';
-import CadOServicosList from './components/pages/cados/CadOServicosList';
-import CadOServicosPesq from './components/pages/cados/CadOServicosPesq';
+import CadOServicos from './components/pages/cadoservico/CadOServicos';
+import CadOServicosInc from './components/pages/cadoservico/CadOServicosInc';
+import CadOServicosAlt from './components/pages/cadoservico/CadOServicosAlt';
+import CadOServicosExc from './components/pages/cadoservico/CadOServicosExc';
+import CadOServicosList from './components/pages/cadoservico/CadOServicosList';
+import CadOServicosPesq from './components/pages/cadoservico/CadOServicosPesq';
 
 
 // const defaultConfig = {
@@ -23,12 +23,12 @@ const MyOServicosRoutes = () => {
     // <MyOServicosProvider>
       
       <Routes>
-        <Route path="/cadoservicos" element={ <CadOServicos />} />
-        <Route path="/cadoservicosinc" element={ <CadOServicosInc />} />
-        <Route path="/cadoservicosalt" element={ <CadOServicosAlt />} />
-        <Route path="/cadoservicosexc" element={ <CadOServicosExc />} />
-        <Route path="/cadoservicoslist" element={ <CadOServicosList />} />
-        <Route path="/cadoservicosPesq" element={ <CadOServicosPesq />} />
+        <Route path="./components/pages/cadoservico/cadoservicos" element={ <CadOServicos />} />
+        <Route path="./components/pages/cadoservico/cadoservicosinc" element={ <CadOServicosInc />} />
+        <Route path="./components/pages/cadoservico/cadoservicosalt" element={ <CadOServicosAlt />} />
+        <Route path="./components/pages/cadoservico/cadoservicosexc" element={ <CadOServicosExc />} />
+        <Route path="./components/pages/cadoservico/cadoservicoslist" element={ <CadOServicosList />} />
+        <Route path="./components/pages/cadoservico/cadoservicosPesq" element={ <CadOServicosPesq />} />
       </Routes>
 
     // </MyOServicosProvider>

@@ -4,7 +4,7 @@ import { ThemeProvider } from "styled-components";
 import light from "@/themes/light";
 import dark from "@/themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayoutAvatarUsers from '../../layouts/LayoutAvatarUsers'
+import LayoutAvatar from '../../layouts/LayoutAvatar'
 import lg_sys from "@/assets/svgs/lg_sys.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
@@ -12,7 +12,7 @@ import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const CadAvatarUsersExc: React.FC = () => {
+const CadAvatarInc: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -47,12 +47,12 @@ const CadAvatarUsersExc: React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutAvatarUsers
+      <LayoutAvatar
         imgsys={lg_sys}
         titbtnsys="Home Sistema..."
         onclicksys={ goto('/home') }
 
-        titlepg="Avatar Users Exclusão"
+        titlepg="Avatar Inclusão."
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
@@ -60,16 +60,16 @@ const CadAvatarUsersExc: React.FC = () => {
 
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
-        onclickaborta={ goto('/cadaavatarusers') }
+        onclickaborta={ goto('/cadavatar') }
 
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <h1>CadAvatarUsersExc</h1>
+        <h1>CadAvatarInc</h1>
   
-      </LayoutAvatarUsers>
+      </LayoutAvatar>
     </ThemeProvider>
   );
 };
 
-export default CadAvatarUsersExc;
+export default CadAvatarInc;

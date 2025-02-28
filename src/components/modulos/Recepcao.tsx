@@ -9,18 +9,18 @@ import { useNavigate } from "react-router-dom";
 
 import LayoutRecepcao from "../layouts/LayoutRecepcao";
 
-import CadOServicos from "../pages/cados/CadOServicos";
-import CadOServicosPesq from "../pages/cados/CadOServicosPesq";
-import CadClientesPesq from "../pages/cadcliente/CadClientesPesq";
-import CadConsumidoresPesq from "../pages/cadconsumidor/CadConsumidoresPesq";
-import Linhas from "../pages/tabela/linha/Linhas";
-import Precos from "../pages/tabela/preco/Precos";
+//import CadOServicos from "../pages/cadoservico/CadOServicos";
+//import CadOServicosPesq from "../pages/cadoservico/CadOServicosPesq";
+//import CadClientesPesq from "../pages/cadcliente/CadClientesPesq";
+//import CadConsumidoresPesq from "../pages/cadconsumidor/CadConsumidoresPesq";
+//import Linhas from "../pages/tabela/linha/Linhas";
+//import Precos from "../pages/tabela/preco/Precos";
 
 import { ContentCardPage } from "../ContentCardPage";
 import { PageModal } from '../pages/PageModal';
 
 import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
-import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
+//import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
 
 import lg_recepcao from "@/assets/svgs/lg_recepcao.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
@@ -56,7 +56,7 @@ const Recepcao : React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
-  const [activepage,setActivePage] = React.useState('');
+//  const [activepage,setActivePage] = React.useState('');
 
   return (
     <ThemeProvider theme={theme}>
@@ -74,17 +74,20 @@ const Recepcao : React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
+         
         <ContentCardPage pwidth={'100%'}>
+{/* 
           <BarMenuRecepcao setActiveComponent={setActivePage} />
+ */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
-
+ 
         {/* chama Página para trabalho */}
 
 
 
 
-        {activepage === "CadOs" && <CadOServicos />}
+        {/* {activepage === "CadOs" && <CadOServicos />}
                 
         {activepage === "LinhaTB" && <Linhas />}
         {activepage === "PrecoTB" && <Precos />}
@@ -92,7 +95,7 @@ const Recepcao : React.FC = () => {
         {activepage === "PesqOS" && <CadOServicosPesq />}
         {activepage === "PesqCLI" && <CadClientesPesq />}
         {activepage === "PesqCONS" && <CadConsumidoresPesq />}
-
+ */}
 
 
 
