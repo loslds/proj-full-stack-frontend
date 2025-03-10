@@ -1,17 +1,17 @@
 import React from "react";
 
-import * as Pg from "../stylePages";
+import * as Pg from "../../stylePages";
 
 import { ThemeProvider } from "styled-components";
-import light from "../../themes/light";
-import dark from "../../themes/dark";
+import light from "../../../themes/light";
+import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayoutVisitante from "../layouts/LayoutVisitante";
-import { ContentCardPage } from "../ContentCardPage";
-import { PageModal } from '../pages/PageModal';
-//import { CardHlpVisitantePage } from "../../../cards/CardHlpVisitantePage";
-//import  BarMenuVisitante  from "../../sidebar/BarMenuVisitante"; 
-//import lg_Visitante from "../../assets/svgs/lg_Visitante.svg";
+import LayoutAcabamento from "../../layouts/LayoutAcabamento";
+import { ContentCardPage } from "../../ContentCardPage";
+import { PageModal } from '../PageModal';
+//import { CardHlpAcabamentoPage } from "../../../cards/CardHlpAcabamentoPage";
+//import  BarMenuAcabamento  from "../../sidebar/BarMenuAcabamento"; 
+//import lg_Acabamento from "../../assets/svgs/lg_Acabamento.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 import bt_close from "@/assets/svgs/bt_close.svg";
@@ -20,7 +20,7 @@ import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const Visitante : React.FC = () => {
+const Acabamento : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -50,9 +50,9 @@ const Visitante : React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutVisitante
+      <LayoutAcabamento
         imgsys={lg_sys}
-        titbtnsys="Modulo Visitante..."
+        titbtnsys="Modulo Acabamento..."
         onclicksys={ () => {} }
         titlepg="Recepção"
         imgbtnhlppg={bt_helppg}
@@ -66,14 +66,14 @@ const Visitante : React.FC = () => {
       >
         <ContentCardPage pwidth={'100%'}>
 {/* 
-          <BarMenuVisitante setActiveComponent={setActivePage} />
+          <BarMenuAcabamento setActiveComponent={setActivePage} />
  */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
         {/* chama Página para trabalho */}
 
-        <h1>Modulo Visitante</h1>
+        <h1>Modulo Acabamento</h1>
 
         {cardhplpage ? (
           <PageModal
@@ -82,12 +82,12 @@ const Visitante : React.FC = () => {
             pheight={'95%'}
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Help Conteúdo Visitante.'}
+            titulo={'Help Conteúdo Acabamento.'}
             onclose={() => setCardHlpPage(false)}
           >
 {/* 
-            <CardHlpVisitantePage
-              imgcardpage={lg_Visitante}
+            <CardHlpAcabamentoPage
+              imgcardpage={lg_Acabamento}
               onclosesair={() => setCardHlpPage(false)}
 
 */}
@@ -97,9 +97,9 @@ const Visitante : React.FC = () => {
             />
           </PageModal>
         ) : null}
-      </LayoutVisitante>
+      </LayoutAcabamento>
     </ThemeProvider>
   );
 };
 
-export default Visitante;
+export default Acabamento;

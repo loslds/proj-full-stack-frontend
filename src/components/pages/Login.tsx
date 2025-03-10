@@ -28,9 +28,11 @@ import { PageModal } from './PageModal';
 import { CardHlpLoginLogo } from '../../cards/CardHlpLoginLogo';
 import { CardHlpLoginPage } from '../../cards/CardHlpLoginPage';
 
-//import { ContentItensBody } from '../ContentItensBody';
+import { ContentItensBody } from '../ContentItensBody';
 
 import { ContentCardPageMain } from '../ContentCardPageMain';
+
+
 import { ContentBoxPageSelect } from '../ContentBoxPageSelect';
 //import { ContentCardBoxDialogo } from '../ContentCardBoxDialogo';
 
@@ -47,7 +49,10 @@ import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 import bt_close from "../../assets/svgs/bt_close.svg";
+
+import { ContentCardCollunsFormPage } from '../ContentCardCollunsFormPage';
 import { ContentCardBoxInput } from '../ContentCardBoxInput';
+
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -75,94 +80,104 @@ const Login: React.FC = () => {
   };
 
   // Estados para os selects
-  const [empresas, setEmpresas] = React.useState([]);
-  const [setores, setSetores] = React.useState([]);
+  const [isempresa, setIsEmpresa] = React.useState(true);
+  const [idempresa, setIdEmpresa] = React.useState(0);
+  const [fantempresa, setFantEmpresa] = React.useState('');
 
   const [empresaSelecionada, setEmpresaSelecionada] = React.useState("");
 
-  
-  const [isempresa, setIsEmpresa] = React.useState(false);
-  const [idempresa, setIdEmpresa] = React.useState(0);
-  const [setorSelecionado, setSetorSelecionado] = React.useState("");
+  const [empresas, setEmpresas] = React.useState([]);
+
   const [issetor, setIsSetor] = React.useState(false);
   const [idsetor, setIdSetor] = React.useState(0);
+  const [nmsetor, setNmSetor] = React.useState('');
 
+  const [setores, setSetores] = React.useState([]);
+  
+  const [setorSelecionado, setSetorSelecionado] = React.useState("");
+  
   const [isinput, setIsInput] = React.useState(false);
+  
+  // Estados para os inputs de login
   const [tipoAcesso, setTipoAcesso] = React.useState("");
   const [idtipoacesso, setIdTipoAcesso] = React.useState(0);
   const [isdesable, setIsDesable] = React.useState(true);
+
+  const [input1, setInput1] = React.useState("");
+  const [input2, setInput2] = React.useState("");
+
   
   const [isbtnchk, setBtnChk] = React.useState(false);
   
 
   
-  // Estados para os inputs de login
-  const [input1, setInput1] = React.useState("");
-  const [input2, setInput2] = React.useState("");
+  
+  
 
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
 
-  // Buscar empresas no servidor
-  React.useEffect(() => {
-    axios.get("http://localhost:3001/empresas")
-      .then((res) => setEmpresas(res.data))
-      .catch((err) => console.error("Erro ao buscar empresas:", err));
-  }, []);
+
+  // // Buscar empresas no servidor
+  // React.useEffect(() => {
+  //   axios.get("http://localhost:3001/empresas")
+  //     .then((res) => setEmpresas(res.data))
+  //     .catch((err) => console.error("Erro ao buscar empresas:", err));
+  // }, []);
   
-  // Buscar setores ao selecionar empresa
-  React.useEffect(() => {
-    if (empresaSelecionada) {
-      axios.get(`http://localhost:3001/setores`)
-        .then((res) => setSetores(res.data))
-        .catch((err) => console.error("Erro ao buscar setores:", err));
-    }
-  }, [empresaSelecionada]);
+  // // Buscar setores ao selecionar empresa
+  // React.useEffect(() => {
+  //   if (empresaSelecionada) {
+  //     axios.get(`http://localhost:3001/setores`)
+  //       .then((res) => setSetores(res.data))
+  //       .catch((err) => console.error("Erro ao buscar setores:", err));
+  //   }
+  // }, [empresaSelecionada]);
 
-  // Manipular login
+  // // Manipular login
 
-  const handleEmpresaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedId = parseInt(e.target.value);
-    setIdEmpresa(selectedId);
-  };
-  const handleSetorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedId = parseInt(e.target.value);
-    setIdSetor(selectedId);
-  };
+  // const handleEmpresaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const selectedId = parseInt(e.target.value);
+  //   setIdEmpresa(selectedId);
+  // };
+  // const handleSetorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const selectedId = parseInt(e.target.value);
+  //   setIdSetor(selectedId);
+  // };
 
 
-  React.useEffect(() => {
-    setIsEmpresa(true);
+  // React.useEffect(() => {
+  //   setIsEmpresa(true);
 
-    if (idempresa <= 0 || idsetor <= 0 || idtipoacesso <= 0 ){
-      setIsSetor(false);
-      setIsInput(false);
-      setBtnChk(true);
-      setIsDesable(true);
-      setMsgPanelBottom('Selecione uma Empresa...');
-    } else {
-      if (idempresa > 0){
-        setIsSetor(true);
-        setMsgPanelBottom('Selecione um Setor...');
-      }
-      if (idtipoacesso > 0){
-        setIsInput(true);        
-        setMsgPanelBottom('Selecione Modo de Acesso...');
-      }
-    }
-    if (idempresa > 0 && idsetor > 0 && idtipoacesso > 0 ) {
-      setIsDesable(false);
-      setBtnChk(true);
-    }
+  //   if (idempresa <= 0 || idsetor <= 0 || idtipoacesso <= 0 ){
+  //     setIsSetor(false);
+  //     setIsInput(false);
+  //     setBtnChk(true);
+  //     setIsDesable(true);
+  //     setMsgPanelBottom('Selecione uma Empresa...');
+  //   } else {
+  //     if (idempresa > 0){
+  //       setIsSetor(true);
+  //       setMsgPanelBottom('Selecione um Setor...');
+  //     }
+  //     if (idtipoacesso > 0){
+  //       setIsInput(true);        
+  //       setMsgPanelBottom('Selecione Modo de Acesso...');
+  //     }
+  //   }
+  //   if (idempresa > 0 && idsetor > 0 && idtipoacesso > 0 ) {
+  //     setIsDesable(false);
+  //     setBtnChk(true);
+  //   }
     
-  },[issetor, isinput, isbtnchk]);
+  // },[issetor, isinput, isbtnchk]);
 
-  const handleCheckInfo = () => {
-    if (isbtnchk) {
-      alert('Checar Existencia das Informações de usuário...');
-      // busca em servidor ´:
-      // se encontrar  
-    }
-  };
+  // const handleCheckInfo = () => {
+  //   if (isbtnchk) {
+  //     alert('Checar Existencia das Informações de usuário...');
+  //     // busca em servidor ´:
+  //     // se encontrar  
+  //   }
+  // };
 
   const [cardhplloginlogo, setCardHlpLoginLogo] = React.useState(false);
   const handlerCardHlpLoginLogo = React.useCallback(() => {
@@ -173,6 +188,8 @@ const Login: React.FC = () => {
   const handlerCardHlpLoginPage = React.useCallback(() => {
     setCardHlpLoginPage((oldState) => !oldState);
   }, []);
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -194,11 +211,25 @@ const Login: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        {/* <ContentItensBody> */}
+        <ContentItensBody>
+        <ContentCardCollunsFormPage open={true}>
+<h2>aqui</h2>
+            </ContentCardCollunsFormPage>
+        </ContentItensBody> 
+
           <ContentCardPageMain open={true}>
+
+            
+
+
+
+
+
             <ContentBoxPageSelect istitl={true} title='Empresa : '>
               <ContentCardBoxInput>
-                <Pg.StyledSelect
+                <h3>select empresa</h3>
+
+                {/* <Pg.StyledSelect
                     id="empresa-select"
                     name="empresa"
                     defaultValue={idempresa}
@@ -211,12 +242,15 @@ const Login: React.FC = () => {
                       </Pg.StyledOption>
                     ))}
                   </Pg.StyledSelect>
-                
+                 */}
                 </ContentCardBoxInput>  
             </ContentBoxPageSelect>
 
             <ContentBoxPageSelect istitl={issetor} title='Setore :'>
               <ContentCardBoxInput>
+
+              <h3>select setores</h3>
+{/* 
                 <Pg.StyledSelect
                     id="setor-select"
                     name="setor"
@@ -230,12 +264,15 @@ const Login: React.FC = () => {
                       </Pg.StyledOption>
                     ))}
                   </Pg.StyledSelect>
-                
+                 */}
                 </ContentCardBoxInput>  
             </ContentBoxPageSelect>
 
             <ContentBoxPageSelect istitl={true} title='Passaporte :'>
-              select Input
+
+            <h3>imput ID</h3>
+            <h3>imput PSW</h3>
+
             </ContentBoxPageSelect>
           </ContentCardPageMain>
 
@@ -254,7 +291,7 @@ const Login: React.FC = () => {
               onMouseLeave={() => setMsgPanelBottom('')}
             />
           </ContentSidePageBottonLabel>
-
+{/* 
           { isbtnchk ? (
             <ContentSidePageBottonLabel istitl={true} title={'Confirma? : '}>
               <ContentPageButtonDefImgEnabled 
@@ -266,7 +303,7 @@ const Login: React.FC = () => {
               />
             </ContentSidePageBottonLabel>
           ): null}
-          
+*/}
         </ContentSidePagePanelBotton>
 
 

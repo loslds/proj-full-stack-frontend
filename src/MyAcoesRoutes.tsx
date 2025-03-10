@@ -2,12 +2,12 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyAcoesProvider } from './components/contexts/MyAcoesContext';
 
-import CadAcoes from './components/pages/cadacao/CadAcoes';
-import CadAcoesInc from './components/pages/cadacao/CadAcoesInc';
-import CadAcoesAlt from './components/pages/cadacao/CadAcoesAlt';
-import CadAcoesExc from './components/pages/cadacao/CadAcoesExc';
-import CadAcoesList from './components/pages/cadacao/CadAcoesList';
-import CadAcoesPesq from './components/pages/cadacao/CadAcoesPesq';
+import CadAcoes from './components/pages/acaoes/CadAcoes';
+import CadAcoesInc from './components/pages/acaoes/CadAcoesInc';
+import CadAcoesAlt from './components/pages/acaoes/CadAcoesAlt';
+import CadAcoesExc from './components/pages/acaoes/CadAcoesExc';
+import CadAcoesList from './components/pages/acaoes/CadAcoesList';
+import CadAcoesPesq from './components/pages/acaoes/CadAcoesPesq';
 
 
 // const defaultConfig = {

@@ -2,13 +2,13 @@
 import { Routes, Route } from 'react-router-dom';
 //import { MyTabelasProvider } from './components/contexts/MyTabelasContext';
 
-import Visitante from './components/modulos/Visitante';
-import Recepcao from './components/modulos/Recepcao';
-import Design from './components/modulos/Design';
-import Acabamento from './components/modulos/Acabamento';
-import Producao from './components/modulos/Producao';
-import Administracao from './components/modulos/Administracao';
-import Config from './components/modulos/Config';
+import Visitante from './components/pages/modulos/Visitante';
+import Recepcao from './components/pages/modulos/Recepcao';
+import Design from './components/pages/modulos/Design';
+import Acabamento from './components/pages/modulos/Acabamento';
+import Producao from './components/pages/modulos/Producao';
+import Administracao from './components/pages/modulos/Administracao';
+import Config from './components/pages/modulos/Config';
 
 
 // const defaultConfig = {

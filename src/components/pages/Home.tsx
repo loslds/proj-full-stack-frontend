@@ -143,25 +143,26 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (state.logado){
+    if (state.logado  || islogado) {
+      if (state.logado) {
       dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
       dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logion'});
-      if (ischavekey){
+      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+      } else {
         dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
         dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true});
         dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Master'});
         dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'Visualizar, Listar, Incluir, Alterar, Escluir'});
         dispatch({ type: UseAcessoActions.SET_NIVEL, payload: 3 });
-      } else {
-        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
       }
     } else {
+      setIsLogado(false);
       dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
       dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
       dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
       dispatch({ type: UseAcessoActions.SET_MODULO, payload: ''});
     }
-  },[state.logado]);
+  },[state.logado, islogado]);
 
 
   const handlerCardLogo = React.useCallback(() => {
@@ -230,7 +231,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Visitantes..'}
-            onclick={ state.modulo ==='Visitante' || state.logado ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Visitante' && ( state.logado || islogado ) ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -243,7 +244,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_recepcao}
             titlebtn={'Modulo Recepção...'}
-            onclick={ state.modulo ==='Recepção' || state.logado ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Recepção' && ( state.logado || islogado ) ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Recepção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -256,7 +257,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Design...'}
-            onclick={ state.modulo ==='Design' || state.logado ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Design' && ( state.logado || islogado ) ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -269,7 +270,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Produção...'}
-            onclick={ state.modulo ==='Produção' || state.logado ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Produção' && ( state.logado || islogado ) ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -282,7 +283,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Acabamento...'}
-            onclick={ state.modulo ==='Acabamento' || state.logado ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Acabamento' && ( state.logado || islogado ) ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -295,7 +296,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Expedição...'}
-            onclick={ state.modulo ==='Expedição' || state.logado ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Expedição' && ( state.logado || islogado ) ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -308,7 +309,7 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Administração...'}
-            onclick={ state.modulo ==='Administração' || state.logado ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.modulo ==='Administração' && ( state.logado || islogado ) ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
@@ -321,13 +322,10 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
-            onclick={ (state.modulo ==='config') || state.logado ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ (state.modulo ==='config') && ( state.logado || islogado ) ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
             onMouseLeave={() => setMsgPanelBottom('')}
           />
-{/**
-          {ischavekey ? <h1>Chave correta : {state.chvkey}</h1> : null}
-*/}
         </ContentItensBody>
 
         { buscachave ? (
@@ -384,13 +382,15 @@ const Home: React.FC = () => {
               />
             </ContentSidePageBottonLabel>
           ): null}  
+
+
 {/* SO para Teste */}
             <ContentSidePageBottonLabel istitl={true} title={'Pageteste? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
                 titbtn={'Pessoas...'}
-                onclick={goto('../conponent/pages/cadpessoa/cadpessoas')}
+                onclick={goto('/modulos/recepcao')}
                 disabled={false}
               />
             </ContentSidePageBottonLabel>

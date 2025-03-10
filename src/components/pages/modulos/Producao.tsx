@@ -1,36 +1,24 @@
 import React from "react";
-
-import * as Pg from "../stylePages";
-
+import * as Pg from "../../stylePages";
 import { ThemeProvider } from "styled-components";
-import light from "../../themes/light";
-import dark from "../../themes/dark";
+import light from "../../../themes/light";
+import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-
-import LayoutRecepcao from "../layouts/LayoutRecepcao";
-
-//import CadOServicos from "../pages/cadoservico/CadOServicos";
-//import CadOServicosPesq from "../pages/cadoservico/CadOServicosPesq";
-//import CadClientesPesq from "../pages/cadcliente/CadClientesPesq";
-//import CadConsumidoresPesq from "../pages/cadconsumidor/CadConsumidoresPesq";
-//import Linhas from "../pages/tabela/linha/Linhas";
-//import Precos from "../pages/tabela/preco/Precos";
-
-import { ContentCardPage } from "../ContentCardPage";
-import { PageModal } from '../pages/PageModal';
-
-import { CardHlpRecepcaoPage } from "../../cards/CardHlpRecepcaoPage";
-//import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
-
-import lg_recepcao from "@/assets/svgs/lg_recepcao.svg";
+import LayoutProducao from "../../layouts/LayoutProducao";
+import { ContentCardPage } from "../../ContentCardPage";
+import { PageModal } from '../PageModal';
+//import { CardHlpProducaoPage } from "@/cards/CardHlpProducaoPage";
+//import  BarMenuProducao  from "../../sidebar/BarMenuProducao"; 
+//import lg_Producao from "@/assets/svgs/lg_Producao.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 import bt_close from "@/assets/svgs/bt_close.svg";
-
+import lg_sys from '@/assets/svgs/lg_sys.svg';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const Recepcao : React.FC = () => {
+const Producao : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -60,9 +48,9 @@ const Recepcao : React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutRecepcao
-        imgsys={lg_recepcao}
-        titbtnsys="Modulo Recepção..."
+      <LayoutProducao
+        imgsys={lg_sys}
+        titbtnsys="Modulo Producao..."
         onclicksys={ () => {} }
         titlepg="Recepção"
         imgbtnhlppg={bt_helppg}
@@ -74,31 +62,16 @@ const Recepcao : React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-         
         <ContentCardPage pwidth={'100%'}>
 {/* 
-          <BarMenuRecepcao setActiveComponent={setActivePage} />
+          <BarMenuProducao setActiveComponent={setActivePage} />
  */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
- 
+
         {/* chama Página para trabalho */}
 
-
-
-
-        {/* {activepage === "CadOs" && <CadOServicos />}
-                
-        {activepage === "LinhaTB" && <Linhas />}
-        {activepage === "PrecoTB" && <Precos />}
-        
-        {activepage === "PesqOS" && <CadOServicosPesq />}
-        {activepage === "PesqCLI" && <CadClientesPesq />}
-        {activepage === "PesqCONS" && <CadConsumidoresPesq />}
- */}
-
-
-
+        <h1>Modulo Producao</h1>
 
         {cardhplpage ? (
           <PageModal
@@ -107,18 +80,24 @@ const Recepcao : React.FC = () => {
             pheight={'95%'}
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Help Conteúdo Home.'}
+            titulo={'Help Conteúdo Producao.'}
             onclose={() => setCardHlpPage(false)}
           >
-            <CardHlpRecepcaoPage
-              imgcardpage={lg_recepcao}
+{/* 
+            <CardHlpProducaoPage
+              imgcardpage={lg_Producao}
+              onclosesair={() => setCardHlpPage(false)}
+
+*/}
+            <CardDesenvolver
+              imgcarddes={lg_sys}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>
         ) : null}
-      </LayoutRecepcao>
+      </LayoutProducao>
     </ThemeProvider>
   );
 };
 
-export default Recepcao;
+export default Producao;

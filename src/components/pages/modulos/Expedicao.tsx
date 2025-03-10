@@ -1,26 +1,26 @@
 import React from "react";
 
-import * as Pg from "../stylePages";
+import * as Pg from "../../stylePages";
 
 import { ThemeProvider } from "styled-components";
-import light from "../../themes/light";
-import dark from "../../themes/dark";
+import light from "../../../themes/light";
+import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayoutAcabamento from "../layouts/LayoutAcabamento";
-import { ContentCardPage } from "../ContentCardPage";
-import { PageModal } from '../pages/PageModal';
-//import { CardHlpAcabamentoPage } from "../../../cards/CardHlpAcabamentoPage";
-//import  BarMenuAcabamento  from "../../sidebar/BarMenuAcabamento"; 
-//import lg_Acabamento from "../../assets/svgs/lg_Acabamento.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
-import bt_close from "../../assets/svgs/bt_close.svg";
-import lg_sys from '../../assets/svgs/lg_sys.svg';
+import LayoutExpedicao from "../../layouts/LayoutExpedicao";
+import { ContentCardPage } from "../../ContentCardPage";
+import { PageModal } from '../PageModal';
+//import { CardHlpExpedicaoPage } from "@/cards/CardHlpExpedicaoPage";
+//import  BarMenuExpedicao  from "../../sidebar/BarMenuExpedicao"; 
+//import lg_Expedicao from "@/assets/svgs/lg_Expedicao.svg";
+import bt_helppg from "@/assets/svgs/bt_helppg.svg";
+import bt_abortar from "@/assets/svgs/bt_abortar.svg";
+import bt_close from "@/assets/svgs/bt_close.svg";
+import lg_sys from '@/assets/svgs/lg_sys.svg';
 import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
-const Acabamento : React.FC = () => {
+const Expedicao : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -50,9 +50,9 @@ const Acabamento : React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutAcabamento
+      <LayoutExpedicao
         imgsys={lg_sys}
-        titbtnsys="Modulo Acabamento..."
+        titbtnsys="Modulo Expedicao..."
         onclicksys={ () => {} }
         titlepg="Recepção"
         imgbtnhlppg={bt_helppg}
@@ -66,14 +66,14 @@ const Acabamento : React.FC = () => {
       >
         <ContentCardPage pwidth={'100%'}>
 {/* 
-          <BarMenuAcabamento setActiveComponent={setActivePage} />
+          <BarMenuExpedicao setActiveComponent={setActivePage} />
  */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
         {/* chama Página para trabalho */}
 
-        <h1>Modulo Acabamento</h1>
+        <h1>Modulo Expedicao</h1>
 
         {cardhplpage ? (
           <PageModal
@@ -82,12 +82,12 @@ const Acabamento : React.FC = () => {
             pheight={'95%'}
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Help Conteúdo Acabamento.'}
+            titulo={'Help Conteúdo Expedicao.'}
             onclose={() => setCardHlpPage(false)}
           >
 {/* 
-            <CardHlpAcabamentoPage
-              imgcardpage={lg_Acabamento}
+            <CardHlpExpedicaoPage
+              imgcardpage={lg_Expedicao}
               onclosesair={() => setCardHlpPage(false)}
 
 */}
@@ -97,9 +97,9 @@ const Acabamento : React.FC = () => {
             />
           </PageModal>
         ) : null}
-      </LayoutAcabamento>
+      </LayoutExpedicao>
     </ThemeProvider>
   );
 };
 
-export default Acabamento;
+export default Expedicao;

@@ -1,26 +1,26 @@
 import React from "react";
 
-import * as Pg from "../stylePages";
+import * as Pg from "../../stylePages";
 
 import { ThemeProvider } from "styled-components";
-import light from "../../themes/light";
-import dark from "../../themes/dark";
+import light from "../../../themes/light";
+import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
-import LayoutExpedicao from "../layouts/LayoutExpedicao";
-import { ContentCardPage } from "../ContentCardPage";
-import { PageModal } from '../pages/PageModal';
-//import { CardHlpExpedicaoPage } from "../../../cards/CardHlpExpedicaoPage";
-//import  BarMenuExpedicao  from "../../sidebar/BarMenuExpedicao"; 
-//import lg_Expedicao from "../../assets/svgs/lg_Expedicao.svg";
+import LayoutDesign from "../../layouts/LayoutDesign";
+import { ContentCardPage } from "../../ContentCardPage";
+import { PageModal } from '../PageModal';
+//import { CardHlpDesignPage } from "@/cards/CardHlpDesignPage";
+//import  BarMenuDesign  from "../../sidebar/BarMenuDesign"; 
+//import lg_Design from "@loslds/assets/svgs/lg_Design.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 import bt_close from "@/assets/svgs/bt_close.svg";
 import lg_sys from '@/assets/svgs/lg_sys.svg';
 import { CardDesenvolver } from "@/cards/CardDesenvolver";
-//import bt_voltar from "../../assets/pngs/bt_voltar.png";
-//import bt_setadir from "../../assets/svgs/bt_setadir.svg";
+//import bt_voltar from "@/assets/pngs/bt_voltar.png";
+//import bt_setadir from "@/assets/svgs/bt_setadir.svg";
 
-const Expedicao : React.FC = () => {
+const Design : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -50,9 +50,9 @@ const Expedicao : React.FC = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <LayoutExpedicao
+      <LayoutDesign
         imgsys={lg_sys}
-        titbtnsys="Modulo Expedicao..."
+        titbtnsys="Modulo Design..."
         onclicksys={ () => {} }
         titlepg="Recepção"
         imgbtnhlppg={bt_helppg}
@@ -66,14 +66,14 @@ const Expedicao : React.FC = () => {
       >
         <ContentCardPage pwidth={'100%'}>
 {/* 
-          <BarMenuExpedicao setActiveComponent={setActivePage} />
+          <BarMenuDesign setActiveComponent={setActivePage} />
  */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
         {/* chama Página para trabalho */}
 
-        <h1>Modulo Expedicao</h1>
+        <h1>Modulo Design</h1>
 
         {cardhplpage ? (
           <PageModal
@@ -82,12 +82,12 @@ const Expedicao : React.FC = () => {
             pheight={'95%'}
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Help Conteúdo Expedicao.'}
+            titulo={'Help Conteúdo Design.'}
             onclose={() => setCardHlpPage(false)}
           >
 {/* 
-            <CardHlpExpedicaoPage
-              imgcardpage={lg_Expedicao}
+            <CardHlpDesignPage
+              imgcardpage={lg_Design}
               onclosesair={() => setCardHlpPage(false)}
 
 */}
@@ -97,9 +97,9 @@ const Expedicao : React.FC = () => {
             />
           </PageModal>
         ) : null}
-      </LayoutExpedicao>
+      </LayoutDesign>
     </ThemeProvider>
   );
 };
 
-export default Expedicao;
+export default Design;

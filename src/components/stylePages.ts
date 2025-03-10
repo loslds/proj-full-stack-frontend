@@ -1012,7 +1012,7 @@ export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   min-width: ${({ p1width }) => p1width || '30%'};
   display: ${props => (props.open ? 'flex' : 'none')};
   flex-wrap: wrap;
-  flex-flow: column;
+  flex-flow: center;
   justify-content: center;
   align-content: center;
   align-items: center;

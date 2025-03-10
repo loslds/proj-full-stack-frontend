@@ -2,7 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { MySQLProvider } from './components/contexts/MySQLContext';
 
-import Config from './components/modulos/Config';
+import Config from './components/pages/modulos/Config';
 
 // import CheckDB from './components/pages/CheckDB';
 // import BackupDB from './components/pages/BackupDB';
