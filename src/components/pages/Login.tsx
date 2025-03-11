@@ -41,17 +41,18 @@ import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
-import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
+//import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
 import lg_login from "../../assets/svgs/lg_login.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
-import bt_enviar from '../../assets/svgs/bt_enviar.svg';
+//import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 import bt_close from "../../assets/svgs/bt_close.svg";
 
-import { ContentCardCollunsFormPage } from '../ContentCardCollunsFormPage';
-import { ContentCardBoxInput } from '../ContentCardBoxInput';
+//import { ContentCardCollunsFormPage } from '../ContentCardCollunsFormPage';
+//import { ContentCardBoxInput } from '../ContentCardBoxInput';
+
 
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
@@ -83,26 +84,24 @@ const Login: React.FC = () => {
   const [isempresa, setIsEmpresa] = React.useState(true);
   const [idempresa, setIdEmpresa] = React.useState(0);
   const [fantempresa, setFantEmpresa] = React.useState('');
-
-  const [empresaSelecionada, setEmpresaSelecionada] = React.useState("");
-
   const [empresas, setEmpresas] = React.useState([]);
 
   const [issetor, setIsSetor] = React.useState(false);
   const [idsetor, setIdSetor] = React.useState(0);
   const [nmsetor, setNmSetor] = React.useState('');
-
   const [setores, setSetores] = React.useState([]);
   
-  const [setorSelecionado, setSetorSelecionado] = React.useState("");
-  
-  const [isinput, setIsInput] = React.useState(false);
-  
-  // Estados para os inputs de login
-  const [tipoAcesso, setTipoAcesso] = React.useState("");
-  const [idtipoacesso, setIdTipoAcesso] = React.useState(0);
-  const [isdesable, setIsDesable] = React.useState(true);
+  const [ispassaporte, setIsPassaporte] = React.useState(false);
+  const [idpassaporte, setIdPpassaporte] = React.useState(0);
+  const [nmpassaporte, setNmPassaporte] = React.useState('');
+  const [passaporte, setPassaporte] = React.useState([]);
 
+
+  
+  
+
+  const [isinput, setIsInput] = React.useState(false);
+  const [isdesable, setIsDesable] = React.useState(true);
   const [input1, setInput1] = React.useState("");
   const [input2, setInput2] = React.useState("");
 
@@ -144,6 +143,12 @@ const Login: React.FC = () => {
   //   setIdSetor(selectedId);
   // };
 
+  const handlePassaportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = parseInt(e.target.value);
+    setIdPpassaporte(selectedId);
+  };
+
+  
 
   // React.useEffect(() => {
   //   setIsEmpresa(true);
@@ -179,6 +184,9 @@ const Login: React.FC = () => {
   //   }
   // };
 
+
+
+
   const [cardhplloginlogo, setCardHlpLoginLogo] = React.useState(false);
   const handlerCardHlpLoginLogo = React.useCallback(() => {
     setCardHlpLoginLogo((oldState) => !oldState);
@@ -211,45 +219,71 @@ const Login: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <ContentItensBody>
-        <ContentCardCollunsFormPage open={true}>
-<h2>aqui</h2>
-            </ContentCardCollunsFormPage>
-        </ContentItensBody> 
+        
 
           <ContentCardPageMain open={true}>
 
-            
+            <ContentBoxPageSelect open={isempresa} istitl={false} title='Empresa : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                <label>Empresas :</label>
+                  <Pg.StyledSelect
+                    id="empresa-select"
+                    name="empresa"
+                    defaultValue={idempresa}
+                    // onChange={handleEmpresaChange}
+                    onChange={() => {}}
+                  >
+                    <option value={'0'}>Opções : </option>
+                    <option value={'1'}>JR. Bordados.</option>
+                    <option value={'2'}>RB. Bordados.</option>
+                  </Pg.StyledSelect>
 
-
-
-
-
-            <ContentBoxPageSelect istitl={true} title='Empresa : '>
-              <ContentCardBoxInput>
-                <h3>select empresa</h3>
-
+                </Pg.SelectContainer>
+                
+              </Pg.SelectMainContainer>
                 {/* <Pg.StyledSelect
                     id="empresa-select"
                     name="empresa"
                     defaultValue={idempresa}
-                    onChange={handleEmpresaChange}
-                  >
+                    // onChange={handleEmpresaChange}
+                    onChange={() => {}}
+                  > */}
+                {/*   
                   <Pg.StyledOption value={0}>Selecione:</Pg.StyledOption>
                     {empresas.map((empresa : Empresa) => (
                       <Pg.StyledOption key={empresa.id} value={empresa.id}>
                         {empresa.fantasy}
                       </Pg.StyledOption>
                     ))}
-                  </Pg.StyledSelect>
                  */}
-                </ContentCardBoxInput>  
+                  {/* </Pg.StyledSelect> */}
+                {/* </ContentCardBoxInput>   */}
             </ContentBoxPageSelect>
 
-            <ContentBoxPageSelect istitl={issetor} title='Setore :'>
-              <ContentCardBoxInput>
-
-              <h3>select setores</h3>
+            <ContentBoxPageSelect open={ issetor} istitl={false} title='Setore :'>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                <label>Setores :</label>
+                  <Pg.StyledSelect
+                    id="setores-select"
+                    name="setores"
+                    defaultValue={idsetor}
+                    // onChange={handleSetorChange}
+                    onChange={() => {}}
+                  >
+                    <option value={'0'}>Opções : </option>
+                    <option value={'1'}>Visitante</option>
+                    <option value={'2'}>Recepção.</option>
+                    <option value={'3'}>Design.</option>
+                    <option value={'4'}>Acabamento.</option>
+                    <option value={'5'}>Expedição.</option>
+                    <option value={'6'}>Administração.</option>
+                    <option value={'6'}>Config.</option>
+                  </Pg.StyledSelect>
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
+            </ContentBoxPageSelect>
 {/* 
                 <Pg.StyledSelect
                     id="setor-select"
@@ -265,14 +299,41 @@ const Login: React.FC = () => {
                     ))}
                   </Pg.StyledSelect>
                  */}
-                </ContentCardBoxInput>  
+
+            <ContentBoxPageSelect open={ispassaporte} istitl={false} title='Passaport : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                <label>Passaport :</label>
+                  <Pg.StyledSelect
+                    id="passaport-select"
+                    name="passaport"
+                    defaultValue={passaporte}
+                    onChange={handlePassaportChange}
+                    // onChange={() => {}}
+                  >
+                    <option value={'0'}>Opções : </option>
+                    <option value={'1'}>E-Mail / PassWord.</option>
+                    <option value={'2'}>E-Mail / PIN.</option>
+                    <option value={'3'}>Pseudônino / PassWord.</option>
+                    <option value={'4'}>Pseudônino / PIN.</option>
+                  </Pg.StyledSelect>
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
             </ContentBoxPageSelect>
 
-            <ContentBoxPageSelect istitl={true} title='Passaporte :'>
+            <ContentBoxPageSelect open={isinput} istitl={false} title='Acesso : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                <label>Acesso :</label>
+                { isinput && idpassaporte === 1 ? (
+                  <Pg.SelectContainer>
+                    <Pg.EmailInput />
+                  </Pg.SelectContainer>
+                ): null}
 
-            <h3>imput ID</h3>
-            <h3>imput PSW</h3>
-
+                
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
             </ContentBoxPageSelect>
           </ContentCardPageMain>
 

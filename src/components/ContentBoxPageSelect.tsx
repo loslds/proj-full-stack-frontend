@@ -3,17 +3,19 @@ import { ReactNode } from 'react';
 import * as Pg from './stylePages';
 
 interface PropsContentBoxPageSelect {
+  open?: boolean;
   istitl?: boolean;
   title?: string;
   children?: ReactNode | JSX.Element;
 }
 export const ContentBoxPageSelect = ({
+  open,
   istitl,
   title,
   children,
 }: PropsContentBoxPageSelect) => {
   return (
-    <Pg.ContainerBtnSRigthPage>
+    <Pg.ContainerBtnSRigthPage open={open}>
       {istitl ? <label>{title}</label> : null}
       {children}
     </Pg.ContainerBtnSRigthPage>
