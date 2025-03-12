@@ -540,7 +540,7 @@ export const StyledOption = styled.option`
 // fim do Styled -> Option 
 // inicio do EmailInput
 ///////////////////////////////////////
-export const EmailInput = styled.input.attrs({ type: 'email' })`
+export const EmailInput = styled.input.attrs({ type: 'email' name="email" maxLength={250} })`
   //width: 100%;
   margin: 0px 10px 0px 10px;
   max-width: 300px;
@@ -570,7 +570,7 @@ export const EmailInput = styled.input.attrs({ type: 'email' })`
   }
 `;
 
-export const PasswordInput = styled.input.attrs({ type: 'password' })`
+export const PasswordInput = styled.input.attrs({ type: 'password' name="password" maxLength={10}})`
   margin: 0px 10px 0px 10px;
   //width: 100%;
   max-width: 300px;
@@ -600,7 +600,7 @@ export const PasswordInput = styled.input.attrs({ type: 'password' })`
   }
 `;
 
-export const PseudonimoInput = styled.input.attrs({ type: 'text' })`
+export const PseudonimoInput = styled.input.attrs({ type: 'text' name="password" maxLength={20} })`
   margin: 0px 10px 0px 10px;
   //width: 100%;
   max-width: 300px;
@@ -630,7 +630,7 @@ export const PseudonimoInput = styled.input.attrs({ type: 'text' })`
   }
 `;
 
-export const PinInput = styled.input.attrs({ type: 'text' })`
+export const PinInput = styled.input.attrs({ type: 'text' name="password" maxLength={8}})`
   margin: 0px 10px 0px 10px;
   //width: 100%;
   max-width: 300px;
