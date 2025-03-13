@@ -10,10 +10,10 @@ export const ContentCardBoxBorderPg = ({
   children,
 }: PropsContentCardBoxBorderPg) => {
   return (
-    <Pg.ContainerCardBoxBorderPg pwidth={pwidth}>
+    <Pg.ContainerCardBoxPg pwidth={pwidth}>
       <Pg.ContainerCardBoxBorderPgFlex>
         {children}
       </Pg.ContainerCardBoxBorderPgFlex>
-    </Pg.ContainerCardBoxBorderPg>
+    </Pg.ContainerCardBoxPg>
   );
 };

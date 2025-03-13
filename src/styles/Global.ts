@@ -62,7 +62,7 @@ export default createGlobalStyle`
     color: black;
   }
   select {
-    width: 100%;
+    max-width: 100%;
   }
   option:hover,
   option:focus,

@@ -14,6 +14,7 @@ import { CardHlpLoginPage } from '../../cards/CardHlpLoginPage';
 //import { ContentItensBody } from '../ContentItensBody';
 import { ContentCardPageMain } from '../ContentCardPageMain';
 import { ContentBoxPageSelect } from '../ContentBoxPageSelect';
+import { ContentCardBoxBorderPg } from "../ContentCardBoxBorderPg";
 //import { ContentCardBoxDialogo } from '../ContentCardBoxDialogo';
 import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
@@ -27,13 +28,15 @@ import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 import bt_close from "../../assets/svgs/bt_close.svg";
 //import { ContentCardCollunsFormPage } from '../ContentCardCollunsFormPage';
 //import { ContentCardBoxInput } from '../ContentCardBoxInput';
-import { ContentInputMainPage } from '../ContentInputMainPage'
+//import { ContentInputMainPage } from '../ContentInputMainPage'
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
 import { TypeListEmpresa, ListEmpresas } from "@/boockList/ListEmpresas";
 import { TypeListSetor, ListSetores } from "@/boockList/ListSetores";
 import { TypeListPassaporte, ListPassaportes } from "@/boockList/ListPassaportes";
+import { verifInputs } from '../../funcs/funcs/FuncVerificadores';
+import { ContentCardPageTitle } from "../ContentCardPageTitle";
 
 const Login: React.FC = () => {
   
@@ -60,62 +63,34 @@ const Login: React.FC = () => {
   // Estados para os selects
 
 
-  const [ischkacesso, setIsChkAcesso] = React.useState(false);
-  
-  
-  
-  const [empresaSelecionada, setEmpresaSelecionada ] = React.useState('');
-  const [setorSelecionado, setSetorSelecionado ] = React.useState('');
-  const [passaporteSelecionado, setPassaporteSelecionado ] = React.useState('');
-  
-  const [isempresa, setIsEmpresa] = React.useState(true);
-  const [issetor, setIsSetor] = React.useState(false);
-  const [ispassaporte, setIsPassaporte] = React.useState(false);
-  const [isinput, setIsInput] = React.useState(false);
 
+  const [isempresa, setIsEmpresa] = React.useState(true);
+  const [empresaSelecionada, setEmpresaSelecionada ] = React.useState('0');
   const [idempresa, setIdEmpresa] = React.useState(0);
   const [fantempresa, setFantEmpresa] = React.useState('');
   //const [empresas, setEmpresas] = React.useState([]);
 
+  const [issetor, setIsSetor] = React.useState(false);
+  const [setorSelecionado, setSetorSelecionado ] = React.useState('0');
   const [idsetor, setIdSetor] = React.useState(0);
   const [nmsetor, setNmSetor] = React.useState('');
   //const [setores, setSetores] = React.useState([]);
-  
+
+  const [ispassaporte, setIsPassaporte] = React.useState(false);
+  const [passaporteSelecionado, setPassaporteSelecionado ] = React.useState('0');
   const [idpassaporte, setIdPassaporte] = React.useState(0);
   const [nmpassaporte, setNmPassaporte] = React.useState('');
   //const [passaporte, setPassaporte] = React.useState([]);
-
   
-  const [isdesable, setIsDesable] = React.useState(true);
+  const [isinput, setIsInput] = React.useState(false);
   const [input1, setInput1] = React.useState("");
   const [input2, setInput2] = React.useState("");
   
-  const [isbtnchk, setBtnChk] = React.useState(false);
-  
+  const [isdesable, setIsDesable] = React.useState(true);
+  const [isbtnchk, setIsBtnChk] = React.useState(false);
+  const [ischkacesso, setIsChkAcesso] = React.useState(false);
+
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
-
-  // // Manipular paineis do login
-  // const handleEmpresaSelected = (i: string , n: string ) => {
-  //   const selectedNr = parseInt(i);
-  //   const selectedStr = n ;
-  //   setIdEmpresa(selectedNr);
-  //   setFantEmpresa(selectedStr);
-  // };
- 
-  // const handleSetorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedId = parseInt(e.target.value);
-  //   setIdSetor(selectedId);
-  //   // Busca o nome do setor correspondente
-  //   const setor = ListSetores.find((s) => s.id === selectedId);
-  //   if (setor) {
-  //     setNmSetor(setor.modulo); // Define o nome do setor
-  //   }
-  // };
-
-  // const handlePassaportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedId = parseInt(e.target.value);
-  //   setIdPpassaporte(selectedId);
-  // };
 
   const [cardhplloginlogo, setCardHlpLoginLogo] = React.useState(false);
   const handlerCardHlpLoginLogo = React.useCallback(() => {
@@ -129,152 +104,216 @@ const Login: React.FC = () => {
   
   React.useEffect(() => {
     if (isempresa){
-      if (empresaSelecionada === ''){
-        setBtnChk(true);
+      if (empresaSelecionada === '0'){
+        setIsBtnChk(true);
         setIsDesable(true);
         setIsChkAcesso(false);
+
         setIsEmpresa(true);
         setIdEmpresa(0);
         setFantEmpresa('');
+
         setIsSetor(false);
-        setSetorSelecionado('');
+        setSetorSelecionado('0');
         setIdSetor(0);
         setNmSetor('');
+
         setIsPassaporte(false);
-        setPassaporteSelecionado('');
+        setPassaporteSelecionado('0');
         setIdPassaporte(0);
         setNmPassaporte('');
+
         setIsInput(false);
         setInput1('');
         setInput2('')
+
+        setMsgPanelBottom('Selecione uma Opção para Empresa.');
+      
       } else {
         const idemp = parseInt(empresaSelecionada);
         // Busca o fantasy da empresa correspondente
         const empresa = ListEmpresas.find((s) => s.id === idemp);
         if (empresa) {
-          setBtnChk(true);
-          setIsDesable(true);
-          setIsChkAcesso(false);
-          setIsEmpresa(true);
           setIdEmpresa(empresa.id);
           setFantEmpresa(empresa.fantasy); // Define o fantasy da empresa
+          
           setIsSetor(true);
-          setSetorSelecionado('');
+          setSetorSelecionado('0');
           setIdSetor(0);
           setNmSetor('');
+          
           setIsPassaporte(false);
-          setPassaporteSelecionado('');
+          setPassaporteSelecionado('0');
           setIdPassaporte(0);
           setNmPassaporte('');
+          
           setIsInput(false);
           setInput1('');
-          setInput2('')
+          setInput2('');
+
+          setMsgPanelBottom('Selecione uma Opção para Setor.');
+
         }
       }
     }
+  },[isempresa, empresaSelecionada]);
+
+  React.useEffect(() => {
     if (issetor){
-      if (setorSelecionado === '') {
-        setBtnChk(true);
+      if (setorSelecionado === '0') {
+        setIsBtnChk(true);
         setIsDesable(true);
         setIsChkAcesso(false);
-        setIsEmpresa(true);
-        setIsSetor(true);
+
         setIdSetor(0);
         setNmSetor('');
+
         setIsPassaporte(false);
         setPassaporteSelecionado('');
         setIdPassaporte(0);
         setNmPassaporte('');
+
         setIsInput(false);
         setInput1('');
-        setInput2('')
-    } else {
+        setInput2('');
+
+        setMsgPanelBottom('Selecione uma Opção para Setor.');
+
+      } else {
         const idset = parseInt(setorSelecionado);
         // Busca o modulo do setor correspondente
         const setor = ListSetores.find((s) => s.id === idset);
         if (setor) {
-          setBtnChk(true);
+          setIsBtnChk(true);
           setIsDesable(true);
           setIsChkAcesso(false);
-          setIsEmpresa(true);
-          setIsSetor(true);
+
           setIdSetor(setor.id);
           setNmSetor(setor.modulo);
+          
           setIsPassaporte(true);
-          setPassaporteSelecionado('');
+          setPassaporteSelecionado('0');
           setIdPassaporte(0);
           setNmPassaporte('');
+          
           setIsInput(false);
           setInput1('');
           setInput2('')
+
+          setMsgPanelBottom('Selecione uma Opção para Passaport.');
+
         }
       }
     }
+  },[issetor, setorSelecionado]);
+  
+  React.useEffect(() => {
     if (ispassaporte){
-      if (passaporteSelecionado === '') {
-        setBtnChk(true);
+      if (passaporteSelecionado === '0') {
+        setIsBtnChk(true);
         setIsDesable(true);
         setIsChkAcesso(false);
-        setIsEmpresa(true);
-        setIsSetor(true);
-        setIsPassaporte(true);
+
         setIdPassaporte(0);
         setNmPassaporte('');
+
         setIsInput(false);
         setInput1('');
-        setInput2('')
-    } else {
+        setInput2('');
+
+        setMsgPanelBottom('Selecione uma Opção para Passaport.');
+
+      } else {
         const idpas = parseInt(passaporteSelecionado);
         // Busca o modolo do passaporte correspondente
         const passaporte = ListPassaportes.find((s) => s.id === idpas);
         if (passaporte) {
-          setBtnChk(true);
+          setIsBtnChk(true);
           setIsDesable(true);
           setIsChkAcesso(false);
-          setIsEmpresa(true);
-          setIsSetor(true);
-          setIsPassaporte(true);
+
           setIdPassaporte(passaporte.id);
           setNmPassaporte(passaporte.modo); // Define o modo do passaporte
+          
           setIsInput(true);
           setInput1('');
           setInput2('')
+
+          setMsgPanelBottom('Selecione uma Opção para Acesso.');
         }
       }
     }
+  },[ispassaporte, passaporteSelecionado]);
+  
+  React.useEffect(() => {
     if (isinput){
       let rtn = true;
-      if (input1 === '' || input2 === '') {
-        rtn = false;
-      } else if (input1 === '0' || input2 === '0') {
-        rtn = false;
-      } else if (input1.length < 3 && input2.length < 3) {
-        rtn = false;
+      if (idpassaporte === 1 ){
+        rtn = verifInputs(input1,"string");
+        if (!rtn){
+          setMsgPanelBottom('Edição de Email: formato errado ou sem edição.');
+        } else {
+          rtn = verifInputs(input2,"string")
+          if (!rtn){
+            setMsgPanelBottom('Password sem Edição.');
+          }
+        }
+      } else if (idpassaporte === 2 ){
+        rtn = verifInputs(input1,"string");
+        if (!rtn){
+          setMsgPanelBottom('Edição de Email: formato errado ou sem edição.');
+        } else {
+          rtn = verifInputs(input2,"string")
+          if (!rtn){
+            setMsgPanelBottom('Pin sem Edição.');
+          }
+        }
+      }else if (idpassaporte === 3 ){
+        rtn = verifInputs(input1,"string");
+        if (!rtn){
+          setMsgPanelBottom('Pseudônimo: sem edição.');
+        } else {
+          rtn = verifInputs(input2,"string")
+          if (!rtn){
+            setMsgPanelBottom('Password sem Edição.');
+          }
+        }
+      } else if (idpassaporte === 4 ){
+        rtn = verifInputs(input1,"string");
+        if (!rtn){
+          setMsgPanelBottom('Pseudônimo: sem edição.');
+        } else {
+          rtn = verifInputs(input2,"string")
+          if (!rtn){
+            setMsgPanelBottom('Pin sem Edição.');
+          }
+        }
       }
       if (!rtn){
-        setBtnChk(true);
+        setIsBtnChk(true);
         setIsDesable(true);
         setIsChkAcesso(false);
-        setIsEmpresa(true);
-        setIsSetor(true);
-        setIsPassaporte(true);
-        setIsInput(true);
-        setInput1('');
-        setInput2('')
+        setMsgPanelBottom('Selecione uma Opção para Acesso.');
       } else {
-        setBtnChk(true);
-        setIsDesable(false);
-        setIsChkAcesso(true);
-        setIsEmpresa(true);
-        setIsSetor(true);
-        setIsPassaporte(true);
-        setIsInput(true);
+        if (!isbtnchk){
+          setIsBtnChk(true);
+        }
+        if (isdesable){
+          setIsDesable(false);
+        }
+        if (!ischkacesso){
+          setIsChkAcesso(true);
+          setMsgPanelBottom('Aguade processo de Verificação.');
+        }
       }
+      console.log('input1 : ', input1);
+      console.log('input2 : ', input2);
     }
-  },[isempresa, issetor, idpassaporte, isinput, isbtnchk, ischkacesso]);
+  },[isinput, isbtnchk, ischkacesso, input1, input2]);
 
+  
   const handleCheckInfo = () => {
-    if (isbtnchk) {
+    if (ischkacesso) {
       alert('Checar Existencia das Informações de usuário...');
       // busca em servidor ´:
       // se encontrar  
@@ -287,28 +326,26 @@ const Login: React.FC = () => {
         imgsys={lg_login}
         titbtnsys="Acesso Sistema..."
         onclicksys={handlerCardHlpLoginLogo}
-
         titlepg="Login"
-
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpLoginPage }
-
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
         onclickaborta={ goto('/') }
-
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
         <ContentCardPageMain open={true}>
+          
           <ContentBoxPageSelect open={isempresa} istitl={false} title='Empresa : '>
             <Pg.SelectMainContainer>
               <Pg.SelectContainer>
                 <label htmlFor="empresa-select">Empresas:</label>
-                <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>
+                 {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>  */}
                 <select
                   id="empresa-select"
+                  value={empresaSelecionada || '0'}
                   onChange={(e) => setEmpresaSelecionada(e.target.value)}
                   >
                     {ListEmpresas.map((empresa: TypeListEmpresa) => (
@@ -323,10 +360,10 @@ const Login: React.FC = () => {
             <Pg.SelectMainContainer>
               <Pg.SelectContainer>
                 <label htmlFor="setor-select">Setores:</label>
-                <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>
+                {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
                 <select
                   id="setor-select" 
-                  value={setorSelecionado} 
+                  value={setorSelecionado || '0'}
                   onChange={(e) => setSetorSelecionado(e.target.value)}
                   >
                     {ListSetores.map((setor: TypeListSetor) => (
@@ -341,10 +378,10 @@ const Login: React.FC = () => {
             <Pg.SelectMainContainer>
               <Pg.SelectContainer>
                 <label htmlFor="passaport-select">Passaportes:</label>
-                <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>
+                {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
                 <select
                   id="passaport-select" 
-                  value={passaporteSelecionado} 
+                  value={passaporteSelecionado || '0'}
                   onChange={(e) => setPassaporteSelecionado(e.target.value)}
                   >
                     {ListPassaportes.map((passaporte: TypeListPassaporte) => (
@@ -356,115 +393,151 @@ const Login: React.FC = () => {
           </ContentBoxPageSelect>
 
           <ContentBoxPageSelect open={isinput} istitl={false} title='Acesso : '>
-            <ContentInputMainPage>
-              <label>Acesso :</label>
-              { isinput && idpassaporte === 1 ? (
-                <form name='passaport-1'>
-                  <Pg.EmailInput
-                    value={input1}
-                    onChange={(e) => setInput1(e.currentTarget.value)}>
-                  </Pg.EmailInput>
-                  <Pg.PasswordInput
-                    value={input2}
-                    onChange={(e) => setInput2(e.currentTarget.value)}>
-                  </Pg.PasswordInput>
-                </form>
-              ): null }
-                         
-              { isinput && idpassaporte === 2 ? (
-                <form name='passaport-2'>
-                  <Pg.EmailInput
-                    value={input1}
-                    onChange={(e) => setInput1(e.currentTarget.value)}>
-                  </Pg.EmailInput>
-                  <Pg.PinInput
-                    value={input2}
-                    onChange={(e) => setInput2(e.currentTarget.value)}>
-                  </Pg.PinInput>
-                </form>
-              ): null }
+            <Pg.SelectMainContainer>
+              <Pg.SelectContainer>
+                <label>Acesso :</label>
+                  { isinput && idpassaporte === 1 ? (
+                  <form name='passaport-1'>
+                    <Pg.EmailInput
+                      name="email1" 
+                      maxLength={250}
+                      value={input1}
+                      onChange={(e) => setInput1(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite seu ID...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.EmailInput>
+                    <Pg.PasswordInput
+                      name="password1" 
+                      maxLength={10}
+                      value={input2}
+                      onChange={(e) => setInput2(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PasswordInput>
+                  </form>
+                ): null }
+                                    
+                { isinput && idpassaporte === 2 ? (
+                  <form name='passaport-2'>
+                    <Pg.EmailInput
+                      name="email2" 
+                      maxLength={250}
+                      value={input1}
+                      onChange={(e) => setInput1(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite seu ID...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.EmailInput>
+                    <Pg.PinInput
+                      name="pin1" 
+                      maxLength={8}
+                      value={input2}
+                      onChange={(e) => setInput2(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PinInput>
+                  </form>
+                ): null }
 
-              { isinput && idpassaporte === 3 ? (
-                <form name='passaport-3'>
-                  <Pg.EmailInput
-                    value={input1}
-                    onChange={(e) => setInput1(e.currentTarget.value)}>
-                  </Pg.EmailInput>
-                  <Pg.PseudonimoInput
-                    value={input2}
-                    onChange={(e) => setInput2(e.currentTarget.value)}>
-                  </Pg.PseudonimoInput>
-                </form>
-              ): null }
+                { isinput && idpassaporte === 3 ? (
+                  <form name='passaport-3'>
+                    <Pg.PseudonimoInput
+                      name="pseudonimo1" 
+                      maxLength={20}
+                      value={input1}
+                      onChange={(e) => setInput1(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite seu ID...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PseudonimoInput>
+                    <Pg.PasswordInput
+                      name="password2" 
+                      maxLength={10}
+                      value={input2}
+                      onChange={(e) => setInput2(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PasswordInput>
+                  </form>
+                ): null }
 
-              { isinput && idpassaporte === 3 ? (
-                <form name='passaport-3'>
-                  <Pg.PseudonimoInput
-                    value={input1}
-                    onChange={(e) => setInput1(e.currentTarget.value)}>
-                  </Pg.PseudonimoInput>
-                  <Pg.PasswordInput
-                    value={input2}
-                    onChange={(e) => setInput2(e.currentTarget.value)}>
-                  </Pg.PasswordInput>
-                </form>
-              ): null }
-
-              { isinput && idpassaporte === 4 ? (
-                <form name='passaport-4'>
-                  <Pg.PseudonimoInput
-                    value={input1}
-                    onChange={(e) => setInput1(e.currentTarget.value)}>
-                  </Pg.PseudonimoInput>
-                  <Pg.PinInput
-                    value={input2}
-                    onChange={(e) => setInput2(e.currentTarget.value)}>
-                  </Pg.PinInput>
-                </form>
-              ): null }
-            </ContentInputMainPage>
+                { isinput && idpassaporte === 4 ? (
+                  <form name='passaport-4'>
+                    <Pg.PseudonimoInput
+                      name="pseudonimo2" 
+                      maxLength={20}
+                      value={input1}
+                      onChange={(e) => setInput1(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite seu ID...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PseudonimoInput>
+                    <Pg.PinInput
+                      name="pin2" 
+                      maxLength={8}
+                      value={input2}
+                      onChange={(e) => setInput2(e.currentTarget.value)}
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseLeave={() => setMsgPanelBottom('')}
+                      >
+                    </Pg.PinInput>
+                  </form>
+                ): null }
+              </Pg.SelectContainer>
+            </Pg.SelectMainContainer>
           </ContentBoxPageSelect>
         </ContentCardPageMain>
 
         
         <Pg.DivisionPgHztal /> 
-        <ContentCardPageMain open={ischkacesso}>
-          <h2>Checando Dados</h2>
-          <h3> Empresa : </h3>
-          <form>
-            <label>Empresa :</label>
-            <p>ID: {idempresa} Fantasia: {fantempresa}</p>
-            <br/>
-            
-            <label>Setor :</label>
-            <p>ID: {idsetor} Modulo : {nmsetor}</p>
-            <br/>
 
-            <label>Passaporte :</label>
-            <p>ID: {idpassaporte} Modo : {nmpassaporte}</p>
-            <br/>
+        <ContentCardPageMain open={isbtnchk}>
+          <ContentCardBoxBorderPg pwidth="100%">
+            <ContentCardPageTitle>
+              <h2>Checando Dados</h2>
+            </ContentCardPageTitle>
+      
+            <h3> Empresa : </h3>
+            <form>
+              <label>Empresa :</label>
+              <p><span><label>ID :</label></span> {idempresa} <span><label>Fantasia :</label></span> {fantempresa}</p>
+              <br/>
+                
+              <label>Setor :</label>
+              <p><span><label>ID :</label></span> {idsetor} <span><label>Modulo :</label></span>{nmsetor}</p>
+              <br/>
 
-            <label>Acesso :</label>
-            {idsetor === 1 ? (
-              <p>Email : {input1} Passord : {input2}</p>
-            ): null }
-            <br/>
+              <label>Passaporte :</label>
+              <p><span><label>ID :</label></span> {idpassaporte} <span><label>Modo :</label></span>{nmpassaporte}</p>    
+              <br/>
 
-            {idsetor === 2 ? (
-              <p>Email : {input1} Pin : {input2}</p>
-            ): null }
-            <br/>
+              <label>Acesso :</label>
+              {idsetor === 1 ? (
+                <p>Email : {input1} Passord : {input2}</p>
+              ): null }
+              <br/>
 
-            {idsetor === 3 ? (
-              <p>Pseudônimo : {input1} Passord : {input2}</p>
-            ): null }
-            <br/>
-            
-            {idsetor === 4 ? (
-              <p>Pseudônimo : {input1} Pin : {input2}</p>
-            ): null }
-            <br/>
-          </form>
+              {idsetor === 2 ? (
+                <p>Email : {input1} Pin : {input2}</p>
+              ): null }
+              <br/>
+
+              {idsetor === 3 ? (
+                <p>Pseudônimo : {input1} Passord : {input2}</p>
+              ): null }
+              <br/>
+              
+              {idsetor === 4 ? (
+                <p>Pseudônimo : {input1} Pin : {input2}</p>
+              ): null }
+              <br/>
+
+            </form>
+          </ContentCardBoxBorderPg>
         </ContentCardPageMain>
 
         <Pg.DivisionPgHztal /> 

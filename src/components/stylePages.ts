@@ -385,18 +385,18 @@ export const ContainerCardBoxColumnPgFlex = styled.div`
 //////////////////////////////
 // box column com borda pwidth || '150px'
 ////////////////////////////////
-interface PropsContainerCardBoxBorderPg {
+interface PropsContainerCardBoxPg {
   pwidth? : string;
 }
-export const ContainerCardBoxBorderPg = styled.div<PropsContainerCardBoxBorderPg>`
+export const ContainerCardBoxPg = styled.div<PropsContainerCardBoxPg>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-width: ${({ pwidth }) => pwidth || '150px'};
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  flex-flow: row;
+  //flex-direction: column;
+  //flex-wrap: wrap;
+  //flex-flow: row;
   color: ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
@@ -409,10 +409,12 @@ export const ContainerCardBoxBorderPgFlex = styled.div`
   width: 100%;
   min-height: 40px;
   display: flex;
-  //flex-flow: row;
+  flex-flow: column;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
+  align-items: center;
+  
 `;
 //////////////////////////////////////
 // fim do ContainerCardBoxTitle
@@ -496,31 +498,36 @@ export const ContainerCardBoxInput = styled.div`
 ///////////////////////////////////////
 // Estilo para o contêiner que envolve o select
 export const SelectMainContainer = styled.div`
-margin: 0px 10px 0px 10px;
+  margin: 0px 10px 0px 10px;
+  padding: 0px 0px 0px 0px;
   border: 1px solid skyblue;
+  font-size: 12px;
+  line-height: 14px;
   border-radius: 10px;
   display: flex;
   align-content: space-between;
-  align-items: center;//flex-start;
-  //margin: 0px 0px;
+  align-items: center;
 `;
 export const SelectContainer = styled.div`
+  margin: 0px 5px 5px 5px;
+  padding: 0px 0px 0px 0px;
+  font-size: 12px;
+  line-height: 14px;
   border: none;
   display: flex;
   flex-direction: column;
   align-items: center;// flex-start;
-  gap: 10px;
-  //margin: 10px 10px;
-  margin: 5px 10px 5px 10px;
+  gap: 5px;
 `;
+
 // Estilo para o select
 export const StyledSelect = styled.select`
   margin: 0px 10px 0px 10px;
-  //width: 100%;
-  max-width: 300px;
   padding: 8px 12px;
-  font-size: 16px;
-  color: #333;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 14px;
+  color: #333333;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
@@ -533,19 +540,20 @@ export const StyledSelect = styled.select`
 `;
 // Estilo para as opções dentro do select
 export const StyledOption = styled.option`
-  font-size: 16px;
-  color: #333;
+  font-size: 12px;
+  line-height: 14px;
+  color: #333333;
 `;
 //////////////////////////////////////
 // fim do Styled -> Option 
 // inicio do EmailInput
 ///////////////////////////////////////
-export const EmailInput = styled.input.attrs({ type: 'email' name="email" maxLength={250} })`
-  //width: 100%;
-  margin: 0px 10px 0px 10px;
-  max-width: 300px;
-  padding: 8px 12px;
-  font-size: 16px;
+export const EmailInput = styled.input.attrs({ type: 'email' })`
+  margin: 0px 5px 0px 5px;
+  padding: 8px 12px 8px 12px;
+  max-width: 100%;
+  font-size: 14px;
+  line-height: 14px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -570,12 +578,12 @@ export const EmailInput = styled.input.attrs({ type: 'email' name="email" maxLen
   }
 `;
 
-export const PasswordInput = styled.input.attrs({ type: 'password' name="password" maxLength={10}})`
+export const PasswordInput = styled.input.attrs({ type: 'password' })`
   margin: 0px 10px 0px 10px;
-  //width: 100%;
-  max-width: 300px;
   padding: 8px 12px;
-  font-size: 16px;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 14px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -600,12 +608,12 @@ export const PasswordInput = styled.input.attrs({ type: 'password' name="passwor
   }
 `;
 
-export const PseudonimoInput = styled.input.attrs({ type: 'text' name="password" maxLength={20} })`
+export const PseudonimoInput = styled.input.attrs({ type: 'text' })`
   margin: 0px 10px 0px 10px;
-  //width: 100%;
-  max-width: 300px;
+  max-width: 100%;
   padding: 8px 12px;
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 14px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -630,12 +638,12 @@ export const PseudonimoInput = styled.input.attrs({ type: 'text' name="password"
   }
 `;
 
-export const PinInput = styled.input.attrs({ type: 'text' name="password" maxLength={8}})`
+export const PinInput = styled.input.attrs({ type: 'text' })`
   margin: 0px 10px 0px 10px;
-  //width: 100%;
-  max-width: 300px;
-  padding: 8x 12px;
-  font-size: 16px;
+  max-width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+  line-height: 14px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -661,11 +669,11 @@ export const PinInput = styled.input.attrs({ type: 'text' name="password" maxLen
 `;
 
 export const FoneInput = styled.input.attrs({ type: 'text' })`
-  margin: 0px 10px 0px 10px;
-  //width: 100%;
-  max-width: 300px;
+ margin: 0px 10px 0px 10px;
+  max-width: 100%;
   padding: 8px 12px;
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 14px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -691,12 +699,10 @@ export const FoneInput = styled.input.attrs({ type: 'text' })`
 `;
 
 export const CpfInput = styled.input.attrs({ type: 'text' })`
-  margin: 0px 10px 0px 10px;
-  // width: 100%;
-  max-width: 300px;
+margin: 0px 10px 0px 10px;
+  max-width: 100%;
   padding: 8px 12px;
-  font-size: 16px;
-  //margin: 10px 10px ;
+  font-size: 12px;
   color: #333;
   background-color: #f9f9f9;
   border: 2px solid #ccc;
@@ -720,6 +726,7 @@ export const CpfInput = styled.input.attrs({ type: 'text' })`
     border-color: #888;
   }
 `;
+
 //////////////////////////////////////
 // fim do CpfInput 
 // inicio do ContentSidePageBottomLabel -> ContainerBtnSRigthPage
