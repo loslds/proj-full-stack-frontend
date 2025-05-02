@@ -41,6 +41,7 @@ import bt_close from '../../assets/svgs/bt_close.svg';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
+import bt_setaleft from '../../assets/pngs/bt_setaleft.png';
 
 const Home: React.FC = () => {
   
@@ -98,37 +99,22 @@ const Home: React.FC = () => {
 
   const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChaveDigitada(event.target.value);
-  };
-
-  React.useEffect(() => {
-    let ll = chaveDigitada.length;
-    let rtn = false;
-  
-    setIsChaveKey(false);
-
-    if (ll === 0 ) {
+    if (chaveDigitada.length === 0 ) {
       setMsgPanelBottom('Aguardando...');
       setbtnok(false);
       setIsDesable(true);
-    } else if (ll > 0 && ll < 8) {
+    } else if (chaveDigitada.length > 0 && chaveDigitada.length < 8) {
       setMsgPanelBottom('Edite Chave...');
       setbtnok(false);
       setIsDesable(true);
-    } else if (chaveDigitada.length === 8) {
-      rtn = CheckDateToCecular(chaveDigitada);
-      if (rtn) {
-        setIsChaveKey(true);
-        setMsgPanelBottom('Clique para Cofirmar.');
-        setbtnok(true);
-        setStartBtnChave(true);
-      } else {
-        setMsgPanelBottom('Chave inválida!');
-        setbtnok(false);
-      }
-      setIsDesable(false);
+    } else if (chaveDigitada.length >= 8) {
+      setStartBtnChave(true);
+      setMsgPanelBottom('Clique para Cofirmar.');
+      setbtnok(true);
+      setStartBtnChave(true);
     }
-  },[chaveDigitada]);
-  
+  };
+
   const handlerCheckBtnOk = () => {
     if (btnok) {
       // Exibe a mensagem temporária por 5 segundos
@@ -141,6 +127,25 @@ const Home: React.FC = () => {
     } 
     setMsgPanelBottom('');
   };
+
+
+  React.useEffect(() => {
+    setIsChaveKey(false);
+    if (chaveDigitada.length === 8) {
+      const rtn = CheckDateToCecular(chaveDigitada);
+      if (rtn) {
+        setIsChaveKey(true);
+        
+      } else {
+        setMsgPanelBottom('Chave inválida!');
+        setbtnok(false);
+      }
+      setIsDesable(false);
+    }
+  },[chaveDigitada]);
+  
+  
+
 
   React.useEffect(() => {
     if (state.logado  || islogado) {
@@ -161,6 +166,7 @@ const Home: React.FC = () => {
       dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
       dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
       dispatch({ type: UseAcessoActions.SET_MODULO, payload: ''});
+      setMsgPanelBottom('Aguardando Login Sistema...')
     }
   },[state.logado, islogado]);
 
@@ -233,7 +239,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Visitantes..'}
             onclick={ state.modulo ==='Visitante' && ( state.logado || islogado ) ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
         <ContentCustonImgPage
@@ -246,7 +252,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Recepção...'}
             onclick={ state.modulo ==='Recepção' && ( state.logado || islogado ) ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Recepção.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -259,7 +265,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Design...'}
             onclick={ state.modulo ==='Design' && ( state.logado || islogado ) ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -272,7 +278,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Produção...'}
             onclick={ state.modulo ==='Produção' && ( state.logado || islogado ) ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -285,7 +291,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Acabamento...'}
             onclick={ state.modulo ==='Acabamento' && ( state.logado || islogado ) ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -298,7 +304,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Expedição...'}
             onclick={ state.modulo ==='Expedição' && ( state.logado || islogado ) ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -311,7 +317,7 @@ const Home: React.FC = () => {
             titlebtn={'Modulo Administração...'}
             onclick={ state.modulo ==='Administração' && ( state.logado || islogado ) ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -324,7 +330,7 @@ const Home: React.FC = () => {
             titlebtn={'Cadastros Config...'}
             onclick={ (state.modulo ==='config') && ( state.logado || islogado ) ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
-            onMouseLeave={() => setMsgPanelBottom('')}
+            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
         </ContentItensBody>
 
@@ -360,19 +366,19 @@ const Home: React.FC = () => {
           
           <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
           
-          <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
+          <ContentSidePageBottonLabel open={true} istitl={true} title={'Voltar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={''}
+              img={bt_setaleft}
               titbtn={'Voltar...'}
               onclick={goto('/')}
               onMouseEnter={() => setMsgPanelBottom('retorna a Home...') }
-              onMouseLeave={() => setMsgPanelBottom('')}
+              onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
             />
           </ContentSidePageBottonLabel>
 
           { startbtnchave ? (
-            <ContentSidePageBottonLabel istitl={true} title={'Confirmar? : '}>
+            <ContentSidePageBottonLabel open={true} istitl={true} title={'Confirmar? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
