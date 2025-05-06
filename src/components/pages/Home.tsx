@@ -28,6 +28,7 @@ import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton'
 import { PageModal } from './PageModal';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
+
 import { CardImgNeg } from '../../cards/CardImgNeg';
 
 /// import { MyPessoas } from 'src/MyPessoas';
@@ -52,7 +53,7 @@ const Home: React.FC = () => {
   const [ischavekey, setIsChaveKey] = React.useState(false);
   const [chaveDigitada, setChaveDigitada] = React.useState('');
   const [islogado,setIsLogado] = React.useState(false);
-  const [btnok, setbtnok] = React.useState(false);
+  //const [btnok, setbtnok] = React.useState(false);
   
   const [isdesable, setIsDesable] = React.useState(true); 
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
@@ -79,13 +80,16 @@ const Home: React.FC = () => {
     };
   };
 
-
+  const [messagebottom, setMessageBottom] = React.useState('');
   React.useEffect(() => {
-    
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Verifica se a tecla pressionada é "Ctrl + F12 "
+      // Verifica se a tecla pressionada é "Shift + Delete "
       if (event.shiftKey && event.key === 'Delete') {
         setBuscaChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
+      }
+      // Fechar com tecla Escape
+      if (event.key === 'Escape') {
+        setBuscaChave(false);
       }
     };
     // Adiciona o listener para o evento de teclado
@@ -101,74 +105,82 @@ const Home: React.FC = () => {
     setChaveDigitada(event.target.value);
     if (chaveDigitada.length === 0 ) {
       setMsgPanelBottom('Aguardando...');
-      setbtnok(false);
+      setStartBtnChave(false);
       setIsDesable(true);
-    } else if (chaveDigitada.length > 0 && chaveDigitada.length < 8) {
-      setMsgPanelBottom('Edite Chave...');
-      setbtnok(false);
+    } else {
+      setMsgPanelBottom('Edite Chave...');  
+      setStartBtnChave(true);
       setIsDesable(true);
-    } else if (chaveDigitada.length >= 8) {
-      setStartBtnChave(true);
-      setMsgPanelBottom('Clique para Cofirmar.');
-      setbtnok(true);
-      setStartBtnChave(true);
     }
   };
 
-  const handlerCheckBtnOk = () => {
-    if (btnok) {
-      // Exibe a mensagem temporária por 5 segundos
-      if (ischavekey) {
-        setMsgPanelBottom('Sucesso!...');
-        setIsLogado(ischavekey);
-      }
-      setbtnok(false);
-      setBuscaChave(false);
-    } 
-    setMsgPanelBottom('');
-  };
-
-
   React.useEffect(() => {
-    setIsChaveKey(false);
+    if (chaveDigitada.length === 8) {
+      setMsgPanelBottom('Clique para Cofirmar.');
+      setStartBtnChave(true);
+      setIsDesable(false);
+    }
+  },[chaveDigitada]);
+
+  const handlerCheckBtnOk = () => {
     if (chaveDigitada.length === 8) {
       const rtn = CheckDateToCecular(chaveDigitada);
       if (rtn) {
         setIsChaveKey(true);
-        
+        setIsLogado(ischavekey);
+        // Exibe a mensagem temporária por 5 segundos
+        setMsgPanelBottom('Sucesso!...');
+        setIsLogado(ischavekey);
       } else {
+        setIsChaveKey(false);
+        setIsLogado(false);
+        setChaveDigitada('');
+        // Exibe a mensagem temporária por 5 segundos
         setMsgPanelBottom('Chave inválida!');
-        setbtnok(false);
       }
-      setIsDesable(false);
-    }
-  },[chaveDigitada]);
-  
-  
+      setTimeout(() => {
+        setMsgPanelBottom('');
+      }, 2000); // 5 segundos
 
+      setStartBtnChave(false);
+      setIsDesable(true);
+      setBuscaChave(false);
+    }
+  };
 
   React.useEffect(() => {
-    if (state.logado  || islogado) {
+    setMessageBottom('');
+    dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
+    if (state.logado || ischavekey) {
+      setIsLogado(true);
+      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logon'});
+      setMsgPanelBottom('Aguardando Seleção Módulo Trabalho...')
       if (state.logado) {
-      dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
-      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logion'});
-      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+        setMessageBottom( 'Logado : "Sim"');
       } else {
-        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: chaveDigitada});
-        dispatch({ type: UseAcessoActions.SET_LOGADO, payload: true});
-        dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Master'});
-        dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'Visualizar, Listar, Incluir, Alterar, Escluir'});
-        dispatch({ type: UseAcessoActions.SET_NIVEL, payload: 3 });
-      }
+        if (ischavekey){
+          dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ischavekey});
+          dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Master'});
+          dispatch({ type: UseAcessoActions.SET_NIVEL, payload: 3 });
+          dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'Visualizar, Listar, Incluir, Alterar,Escluir'});
+          setMessageBottom( 'Logado : "Não", Chave Master : "Sim"');
+        } else {
+          setMessageBottom( 'Logado : "Sim", Chave Master : "Sim"');
+        }
+      }      
+      
     } else {
       setIsLogado(false);
-      dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
-      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
-      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: ''});
+      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false});
       dispatch({ type: UseAcessoActions.SET_MODULO, payload: ''});
+      dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Logioff'});
       setMsgPanelBottom('Aguardando Login Sistema...')
+      setMessageBottom('Logoff');
+      setMessageBottom( 'Logado : "Não" , Chave Master "Não"');
     }
-  },[state.logado, islogado]);
+     
+
+  },[state.logado, ischavekey, islogado]);
 
 
   const handlerCardLogo = React.useCallback(() => {
@@ -187,14 +199,14 @@ const Home: React.FC = () => {
     if (num === undefined) return; // Se `num` for `undefined`, não faz nada
    
     const routes: Record<number, string> = {
-      1: '/modulo/visitante',
-      2: '/modulo/recepcao',
-      3: '/modulo/design',
-      4: '/modulo/producao',
-      5: '/modulo/acabamento',
-      6: '/modulo/expedicao',
-      7: '/modulo/administracao',
-      8: '/modulo/config',
+      1: '/modulos/visitante',
+      2: '/modulos/recepcao',
+      3: '/modulos/design',
+      4: '/modulos/producao',
+      5: '/modulos/acabamento',
+      6: '/modulos/expedicao',
+      7: '/modulos/administracao',
+      8: '/modulos/config'
       
     };
     
@@ -237,9 +249,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Visitantes..'}
-            onclick={ state.modulo ==='Visitante' && ( state.logado || islogado ) ? (goto('/modulo/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey ||  (state.logado && state.modulo ==='Visitante') ? (goto('/modulos/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado && !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
         <ContentCustonImgPage
@@ -250,9 +262,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_recepcao}
             titlebtn={'Modulo Recepção...'}
-            onclick={ state.modulo ==='Recepção' && ( state.logado || islogado ) ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || (state.logado && state.modulo ==='Recepcao') ? (goto('/modulos/recepcao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Recepção.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado && !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -263,9 +275,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Design...'}
-            onclick={ state.modulo ==='Design' && ( state.logado || islogado ) ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Design')  ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -276,9 +288,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Produção...'}
-            onclick={ state.modulo ==='Produção' && ( state.logado || islogado ) ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Producao')  ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -289,9 +301,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Acabamento...'}
-            onclick={ state.modulo ==='Acabamento' && ( state.logado || islogado ) ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Acabamento')  ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
           
           <ContentCustonImgPage
@@ -302,9 +314,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Expedição...'}
-            onclick={ state.modulo ==='Expedição' && ( state.logado || islogado ) ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Expedicao')  ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -315,9 +327,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={''}
             titlebtn={'Modulo Administração...'}
-            onclick={ state.modulo ==='Administração' && ( state.logado || islogado ) ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Administracao')  ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
 
           <ContentCustonImgPage
@@ -328,9 +340,9 @@ const Home: React.FC = () => {
             pwidth={'100px'}
             imgbtn={pn_config}
             titlebtn={'Cadastros Config...'}
-            onclick={ (state.modulo ==='config') && ( state.logado || islogado ) ? (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
+            onclick={ state.chvkey || ( state.logado || state.modulo ==='Config')  ?  (goto('/modulos/config')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.') }
-            onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
+            onMouseLeave={() => { ( !state.logado || !state.chvkey ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
           />
         </ContentItensBody>
 
@@ -456,6 +468,8 @@ const Home: React.FC = () => {
             />
           </PageModal>
         ) : null}
+
+        <div>{ messagebottom }</div>
 
       </LayoutHome>
     </ThemeProvider>

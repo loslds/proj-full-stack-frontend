@@ -52,7 +52,7 @@ const Visitante : React.FC = () => {
         imgsys={lg_sys}
         titbtnsys="Modulo Visitante..."
         onclicksys={ () => {} }
-        titlepg="Recepção"
+        titlepg="Visitante"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }

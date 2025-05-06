@@ -12,6 +12,8 @@ import LayoutResgatar from "../layouts/LayoutResgatar";
 import lg_resgate from "../../assets/svgs/lg_resgate.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
+
+import { CardHlpResgateLogo } from '../../cards/CardHlpResgateLogo';
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -56,7 +58,7 @@ const Resgate: React.FC = () => {
         titbtnsys="Home Sistema..."
         onclicksys={ () => {} }
 
-        titlepg="Resgatar"
+        titlepg="Resgate"
 
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."

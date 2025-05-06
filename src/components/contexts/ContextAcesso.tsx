@@ -4,7 +4,7 @@ export type StateAcesso = {
   page: string | null;
   aplicacao: string | null;
   auth: string | null;
-  chvkey: string | null;
+  chvkey: boolean | null;
   id_acesso: number;
   qdd_acesso: number;
   ult_acesso: string | null;
@@ -41,7 +41,7 @@ export const initialData: StateAcesso = {
   page: '',
   aplicacao: '',
   auth: '',
-  chvkey: '',
+  chvkey: false,
   id_acesso: 0,
   qdd_acesso: 0,
   ult_acesso: '',
@@ -114,7 +114,7 @@ type AcessoAction =
   | { type: UseAcessoActions.SET_PAGE; payload: string | null }
   | { type: UseAcessoActions.SET_APLICACAO; payload: string }
   | { type: UseAcessoActions.SET_AUTH; payload: string | null }
-  | { type: UseAcessoActions.SET_CHVKEY; payload: string | null }
+  | { type: UseAcessoActions.SET_CHVKEY; payload: boolean | null }
   | { type: UseAcessoActions.SET_ID_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_QDD_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_ULT_ACESSO; payload: string }

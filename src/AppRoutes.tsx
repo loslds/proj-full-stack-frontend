@@ -4,7 +4,8 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 
 import { CardDesenvolver } from './cards/CardDesenvolver';
-//import Resgate from './components/pages/Resgate';
+import Resgate from './components/pages/Resgate';
+
 //import MySQLRoutes from './MySQLRoutes';                 
 import MyModulosRoutes from './MyModulosRoutes';           
 import MyAcoesRoutes from './MyAcoesRoutes';               
@@ -40,7 +41,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path='./cards/CardDesenvolver' element={<CardDesenvolver/>} /> 
-      {/* <Route path="/resgate" element={<Resgate />} /> */}
+      <Route path="/resgate" element={<Resgate />} />
       {/* <Route path="/resgate" element={<Resgate />} /> */}
       <Route path="/*" element={<MyModulosRoutes />} />      {/* Rotas de Empresas envolvidas pelo MyEmpresasProvider */}
       <Route path="/*" element={<MyAcoesRoutes />} />        {/* Rotas de Acoes envolvidas pelo MyAcoesProvider */}
