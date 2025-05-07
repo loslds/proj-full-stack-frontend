@@ -39,11 +39,17 @@ import bt_avatar from '../../assets/pngs/bt_avatar.png';
 import bt_resgate from '../../assets/svgs/bt_resgate.svg';
 import lg_negado from '../../assets/svgs/lg_negado.svg';
 import bt_close from '../../assets/svgs/bt_close.svg';
-import pn_config from '../../assets/svgs/pn_config.svg';
+import pn_visitante from '../../assets/svgs/pn_visitante.svg';
 import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
+import pn_design from '../../assets/svgs/pn_design.svg';
+import pn_producao from '../../assets/svgs/pn_producao.svg';
+import pn_acabamento from '../../assets/svgs/pn_acabamento.svg';
+import pn_expedicao from '../../assets/svgs/pn_expedicao.svg';
+import pn_administracao from '../../assets/svgs/pn_administracao.svg';
+import pn_config from '../../assets/svgs/pn_config.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
-import bt_setaleft from '../../assets/pngs/bt_setaleft.png';
-
+//import bt_setaleft from '../../assets/pngs/bt_setaleft.png';
+import bt_refresca1 from '../../assets/pngs/bt_refresca1.png';
 const Home: React.FC = () => {
   
   const { state, dispatch } = useAcessoContext();
@@ -247,7 +253,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_visitante}
             titlebtn={'Modulo Visitantes..'}
             onclick={ state.chvkey ||  (state.logado && state.modulo ==='Visitante') ? (goto('/modulos/visitante')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.') }
@@ -273,7 +279,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_design}
             titlebtn={'Modulo Design...'}
             onclick={ state.chvkey || ( state.logado || state.modulo ==='Design')  ? (goto('/modulos/design')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.') }
@@ -286,7 +292,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_producao}
             titlebtn={'Modulo Produção...'}
             onclick={ state.chvkey || ( state.logado || state.modulo ==='Producao')  ? (goto('/modulos/producao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.') }
@@ -299,7 +305,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_acabamento}
             titlebtn={'Modulo Acabamento...'}
             onclick={ state.chvkey || ( state.logado || state.modulo ==='Acabamento')  ? (goto('/modulos/acabamento')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.') }
@@ -312,7 +318,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_expedicao}
             titlebtn={'Modulo Expedição...'}
             onclick={ state.chvkey || ( state.logado || state.modulo ==='Expedicao')  ? (goto('/modulos/expedicao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.') }
@@ -325,7 +331,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={''}
+            imgbtn={pn_administracao}
             titlebtn={'Modulo Administração...'}
             onclick={ state.chvkey || ( state.logado || state.modulo ==='Administracao')  ? (goto('/modulos/administracao')) : ((num) => num !== undefined && handlerClicEventNegadoPage(num))} 
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.') }
@@ -378,13 +384,13 @@ const Home: React.FC = () => {
           
           <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
           
-          <ContentSidePageBottonLabel open={true} istitl={true} title={'Voltar.: '}>
+          <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={bt_setaleft}
-              titbtn={'Voltar...'}
-              onclick={goto('/')}
-              onMouseEnter={() => setMsgPanelBottom('retorna a Home...') }
+              img={bt_refresca1}
+              titbtn={'Refrescar...'}
+              onclick={() => window.location.reload()}
+              onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
               onMouseLeave={() => { ( !state.logado || !islogado ) ? setMsgPanelBottom('Aguardando Login Sistema...'): null }}
             />
           </ContentSidePageBottonLabel>
