@@ -21,6 +21,7 @@ export function isValidarEmail(email: string): boolean {
   const normalizedEmail = email.toLowerCase();
   // Expressão regular para email no seu formato xxxx?xxxx@xxxx.xxx???
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i
   // Verifica se o email tem os caracteres desejados
   return emailRegex.test(normalizedEmail);
 }
