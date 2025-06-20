@@ -866,7 +866,7 @@ export const ContainerMenu = styled.div`
 `;
 
 export const ContainerPage = styled.div`
-  border: 2px dashed grey;
+  border: none; // dashed red;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
@@ -1047,7 +1047,7 @@ interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
-  border: 2px solid red;
+  border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   width: ${({ pwidth }) => pwidth || '100%'};
@@ -1262,12 +1262,7 @@ type PropsContainerPanelPageFlex = {
     bordas?: string;
   }
   export const ContainerMsgSidePanelBottonText = styled.div<PropsContainerMsgSidePanelBottonText>`
-  border: none;
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-
-  border-bottom: ${({ bordas }) => bordas || '3px'} solid;
-  border-style: double;
+  border-bottom: ${({ bordas }) => bordas || '3px'} double;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;

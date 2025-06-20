@@ -112,6 +112,7 @@ const Login: React.FC = () => {
       if (empresaSelecionada === '0'){
         setIsBtnChk(true);
         setIsDesable(true);
+
         setIsChkAcesso(false);
 
         setIsEmpresa(true);
@@ -172,6 +173,7 @@ const Login: React.FC = () => {
       if (setorSelecionado === '0') {
         setIsBtnChk(true);
         setIsDesable(true);
+
         setIsChkAcesso(false);
 
         setIdSetor(0);
@@ -245,6 +247,7 @@ const Login: React.FC = () => {
         if (passaporte) {
           setIsBtnChk(true);
           setIsDesable(true);
+
           setIsChkAcesso(false);
 
           setIdPassaporte(passaporte.id);
@@ -256,290 +259,66 @@ const Login: React.FC = () => {
           setInput1('');
           setInput2('')
 
-          setMsgPanelBottom('Selecione uma Opção para Acesso.');
+          setMsgPanelBottom('Edite o Acesso ao Sistema...');
         }
       }
     }
-  },[ispassaporte, passaporteSelecionado, idpassaporte,isinput]);
-  
+  },[ispassaporte, passaporteSelecionado, idpassaporte, isinput]);
 
   const handlerEdtInput1 = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
     const edtinput1 = e.target.value;  
     // verefico a edição do input1
     let msgedticao = '';
-    if (isinput ){
-      // testa input1
-      if ( !chkinput1) {
-        // não foi editado 
-        if (edtinput1.length === 0 ){
-          if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) { msgedticao = 'Edite Email...'; 
-          } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { msgedticao = 'Edite Pseudônimo...'; 
-          }
-        } else {       
-          //foi editado algo
-          if (edtinput1.length > 0 ) {
-            setChkInput1( verifInputs(edtinput1,"string") );
-          }
-        }
-      }
-      if ( !chkinput1) { setRtnMsgPanelBottom(msgedticao); 
-      } else {
-        setInput1(edtinput1);
-        setRtnMsgPanelBottom('');
-      }
+    if (edtinput1.length === 0 ){
+      if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) { msgedticao = 'Edite Email...'; } 
+      else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { msgedticao = 'Edite Pseudônimo...'; } 
+      setInput1('');
+      setMsgPanelBottom(msgedticao);
+    } else {
+      setChkInput1( verifInputs(edtinput1,"string") );
+      setInput1(edtinput1);
     }
-  }, [input1]);
+
+    if (chkinput1 && chkinput2) { setIsDesable(false)}
+    else { setIsDesable(true); }
+    
+    if (isinput) {console.log('isinput = true');} else {console.log('isinput = false');}
+    console.log('input1 = '+ input1);
+
+  }, [input1, chkinput1]);
 
   const handlerEdtInput2 = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
     const edtinput2 = e.target.value;  
     // verefico a edição dos input2
     let msgedticao = '';
-    if (isinput ) {
-      // testa input1
-      if ( !chkinput2) {
-        // não foi editado 
-        if (edtinput2.length === 0 ){
-          if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) { 
-            msgedticao = 'Edite Password...'; 
-          } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { 
-            msgedticao = 'Edite  PIN...';
-          }
-        } else {
-          //foi editado algo
-          if (edtinput2.length <= 3 ) {
-            if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) { 
-              msgedticao = 'Edite Password com 4 ou mais Caracteres...'; 
-            } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { 
-              msgedticao = 'Edite PIN com 4 ou mais Números...';
-            }
-          } else {
-            //foi editado algo
-            if (edtinput2.length > 0 ) {
-              if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) {
-                setChkInput2( verifInputs(edtinput2,"string") );
-              } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { 
-                setChkInput2( verifInputs(edtinput2,"number") );
-                if ( !chkinput2) {
-                  setChkInput2( verifInputs(edtinput2,"string") );
-                }
-              }
-            }
-            if ( !chkinput2) {
-              msgedticao = 'ERRO Edição de Acesso...';
-            }
-          }
-        }
-      }
-      if ( !chkinput2) { setRtnMsgPanelBottom(msgedticao); 
-      } else {
-        setInput2(edtinput2);
-        setRtnMsgPanelBottom('');
-      }
+    if (edtinput2.length === 0 ){
+      if ( (idpassaporte === 1 ) || (idpassaporte === 2 ) ) { msgedticao = 'Edite Password...'; } 
+      else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) { msgedticao = 'Edite  PIN...'; }
+      setInput2('');
+      setMsgPanelBottom(msgedticao);
+    } else {
+      setChkInput2( verifInputs(edtinput2,"string") );
+      setInput2(edtinput2);
     }
-  }, [input2]);
 
+    if (chkinput1 && chkinput2) { setIsDesable(false)}
+    else { setIsDesable(true);}
 
+  }, [input2, chkinput2]);
 
-
-
-
-  // React.useEffect(() => {
-  //         } else {
-  //           if (edtinput.length > 0 ) {
-  //             setChkInput1( verifInputs(edtinput,"string") );
-  //           }
-  //         }
-  //       } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ) {
-  //         edtinput = input1;
-  //         if (edtinput.length === 0 ) {
-  //           if (idpassaporte === 3 ) { msgedticao = 'Edite Email...'; }
-  //           else {msgedticao = 'Edite Password...';}
-  //       }
-  //     } 
-    
-      
-  //         if (!chkinput1) {
-  //           if (idpassaporte === 1 ) { msgedticao = 'Edite Email...'; }
-  //           else {msgedticao = 'Edite Password...';}
-  //         }
-
-
-
-
-  //           if (idpassaporte === 1 ) { msgedticao = 'Edite Email...'; }
-  //           else {msgedticao = 'Edite Password...';}
-
-  //         }
-  //       } 
-          
-  //         if ( (edtinput.length > 0 ) ){ setChkInput1( verifInputs(edtinput,"string") ); } 
-  //       if (!chkinput1) { msgedticao = 'Edição Email "NÁO" esta correta...' ;
-  //       }else{ msgedticao = ''; }
-  //       setRtnMsgPanelBottom(edtinput);
-  //     } else if ( (idpassaporte === 3 ) || (idpassaporte === 4 ) ){
-  //       msgedticao = 'Edite Pseudônimo...';
-  //       if ( (edtinput.length > 0 ) ){ 
-  //         setChkInput1( verifInputs(edtinput,"string") );
-  //         if (!chkinput1) { msgedticao = 'Edição Pseudônimo "NÁO" esta correto...' ; }
-  //         else if ( (edtinput.length < 3 ) ){ msgedticao = 'Edição Pseudônimo "DEVE" possuir 3 ou mais caracteres...';}
-  //       }
-      
-
-  //       else 
-          
-  //         setChkInput1( verifInputs(edtinput,"string") ); }         
-  //         if (!chkinput1) { msgedticao = 'Edição Pseudônimo "NÁO" esta correto...' ;
-  //         }else{ msgedticao = ''; } 
-  //       setRtnMsgPanelBottom(edtinput);
-
-        
-  //     } else {setRtnMsgPanelBottom(edtinput);}
-      
-      
-      
-  //     if (chkinput1){
-  //       setChkInput1( isValidarEmail(edtinput) );
-  //       if (chkinput1){
-  //     }
-
-
-
-
-
-
-
-  //       edtinput = input1;
-  //       if (edtinput.length >= 4 ) {
-  //         rtn = verifInputs(edtinput,"string");
-  //       } else {
-  //         msgedticao = 'Edição Pseudônimo "DEVE" possuir 3 ou mais caracteres...';
-  //       }       
-  //     }
-  //     if (rtn){
-
-  //     }
-
-  //   }
-
-
-  // },[isinput, idpassaporte, chkinput1, isbtnchk, ischkacesso, input1, input2]);
-
-
-    //   if (idpassaporte === 3 || idpassaporte === 4 ){
-    //     msgedticao = 'Edite Pseudônimo...';
-    //     edtinput = input2;
-    //   }
-    //   setRtnMsgPanelBottom(msgedticao);
-    //   if (edtinput.length > 0 ) {
-    //     rtn = verifInputs(edtinput,"string")
-    //     if (!rtn){
-    //       if (idpassaporte === 1 || idpassaporte === 2 ){
-    //       msgedticao = 'Edite Email...';
-
-    //     };
-    //   }
-    //   if (input2.length > 0 || input2.length > 0 ) {rtn = true;}
-    //   if (rtn) {
-    //     if (input1.length > 0){ rtn = verifInputs(input1,"string");}
-    //     if (input2.length > 0){ rtn = verifInputs(input1,"string");}
-      
-
-    // }
-    // if (isinput && idpassaporte > 0) {
-    //   if (idpassaporte === 1 || idpassaporte === 2 ) {
-    //     if ( edtinput.length > 0 )  
-    
-    
-    // else { edtinput = ''}
-
-
-
-    // setRtnMsgPanelBottom(edtinput);
-      
-      
-    //   if (idpassaporte === 1 || idpassaporte === 2 ){
-    //     if (idpassaporte === 1) {
-    //       edtinput = input1;  
-    //     }
-    //     let edtemail = input1;
-    //     let rtnemail = verifInputs(input1,"string")
-    //     if (!rtnemail){
-    //       setMsgPanelBottom('Edição de Email: formato errado ou sem edição.');
-    //     }
-        
-        
-        
-    //     else {
-    //       rtn = verifInputs(input2,"string")
-    //       if (!rtn){
-    //         setMsgPanelBottom('Password sem Edição.');
-    //       }
-    //     }
-    //   } else if (idpassaporte === 2 ){
-    //     rtn = verifInputs(input1,"string");
-    //     if (!rtn){
-    //       setMsgPanelBottom('Edição de Email: formato errado ou sem edição.');
-    //     } else {
-    //       rtn = verifInputs(input2,"string")
-    //       if (!rtn){
-    //         setMsgPanelBottom('Pin sem Edição.');
-    //       }
-    //     }
-    //   }else if (idpassaporte === 3 ){
-    //     rtn = verifInputs(input1,"string");
-    //     if (!rtn){
-    //       setMsgPanelBottom('Pseudônimo: sem edição.');
-    //     } else {
-    //       rtn = verifInputs(input2,"string")
-    //       if (!rtn){
-    //         setMsgPanelBottom('Password sem Edição.');
-    //       }
-    //     }
-    //   } else if (idpassaporte === 4 ){
-    //     rtn = verifInputs(input1,"string");
-    //     if (!rtn){
-    //       setMsgPanelBottom('Pseudônimo: sem edição.');
-    //     } else {
-    //       rtn = verifInputs(input2,"string")
-    //       if (!rtn){
-    //         setMsgPanelBottom('Pin sem Edição.');
-    //       }
-    //     }
-    //   }
-    //   if (!rtn){
-    //     setIsBtnChk(true);
-    //     setIsDesable(true);
-    //     setIsChkAcesso(false);
-    //     setMsgPanelBottom('Selecione uma Opção para Acesso.');
-    //   } else {
-    //     if (!isbtnchk){
-    //       setIsBtnChk(true);
-    //     }
-    //     if (isdesable){
-    //       setIsDesable(false);
-    //     }
-    //     if (!ischkacesso){
-    //       setIsChkAcesso(true);
-    //       setMsgPanelBottom('Aguade processo de Verificação.');
-    //     }
-    //   }
-    //   console.log('input1 : ', input1);
-    //   console.log('input2 : ', input2);
-    // }
-
-
-  
-
-  
   const handleCheckInfo = () => {
-    if (ischkacesso) {
-      alert('Checar Existencia das Informações de usuário...');
+//    if (ischkacesso) {
+      alert('Checar a validade IDs e Informações de usuário...');
+      // verefica se a edição do email é valido
+      // verefica os valores editado
+
       // busca em servidor ´:
       // se encontrar  
-    }
+    //}
   };
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -635,7 +414,7 @@ const Login: React.FC = () => {
                       value={input2}
                       //onChange={(e) => setInput2(e.currentTarget.value)}
                       onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
                       onMouseLeave={() => setMsgPanelBottom('')}
                       >
                     </Pg.PasswordInput>
@@ -683,7 +462,7 @@ const Login: React.FC = () => {
                       value={input2}
                       //onChange={(e) => setInput2(e.currentTarget.value)}
                       onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite sua PASWORD...') }
+                      onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
                       onMouseLeave={() => setMsgPanelBottom('')}
                       >
                     </Pg.PasswordInput>
@@ -766,7 +545,7 @@ const Login: React.FC = () => {
          
           <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
                     
-          <ContentSidePageBottonLabel istitl={true} title={'Voltar.: '}>
+          <ContentSidePageBottonLabel open={isbtnchk} istitl={true} title={'Voltar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
               img={''}
@@ -778,7 +557,7 @@ const Login: React.FC = () => {
           </ContentSidePageBottonLabel>
 
           { isbtnchk ? (
-            <ContentSidePageBottonLabel istitl={true} title={'Confirma? : '}>
+            <ContentSidePageBottonLabel open={isbtnchk} istitl={true} title={'Confirma? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
