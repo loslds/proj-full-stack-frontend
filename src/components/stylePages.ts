@@ -1,3 +1,4 @@
+// import { ContainerDivOpcModal } from './../modal/stylesModal';
 import styled from 'styled-components';
 //import { darken } from 'polished';
 import semimg from '../assets/svgs/semimg.svg';
@@ -343,11 +344,6 @@ export const ContainerCustonImgPage = styled.div<PropsContainerCustonImgPage>`
   color: ${props => props.theme.colors.textColor};
   display: ${props => (props.open ? 'flex' : 'none')};
 `;
-
-
-
-
-
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////
@@ -746,17 +742,18 @@ export const ContainerBtnSRigthPage = styled.div<PropsContainerBtnSRigthPage>`
   align-items: center;
   align-content: center;
  `;
- export const ContainerBtnSCenterPage = styled.div`
- border: none;
- padding: 0px 0px 0px 0px;
- margin: 2px 5px 2px 5px;
- min-width: 35px;
- display: flex;
- flex-flow: row;
- flex-wrap: wrap;
- justify-content: center;
- align-items: center;
- align-content: center;
+
+export const ContainerBtnSCenterPage = styled.div`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 5px 2px 5px;
+  min-width: 35px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 `;
 //////////////////////////////////////
 // fim do ContentSidePageBottomLabel
@@ -888,7 +885,7 @@ export const DivisionPgHztal = styled.div`
 ////////////////////////////////////////////////
 // Container do Botão Custon
 interface PropsContainerCustonButton {
-  pxheight : string;
+  pxheight? : string;
 }
 export const ContainerCustonButton = styled.div<PropsContainerCustonButton>`
   border: 1px red;
@@ -921,11 +918,12 @@ export const ContainerCardPage = styled.div`
   color: ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
 `;
+
 interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageFlex = styled.div<PropsContainerCardMainFlex>`
-  border: none; 
+  border: 1px solid; 
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
@@ -1006,6 +1004,8 @@ export const ContainerCardPrintTextVerm = styled.div`
   align-items: center;
   align-content: center;
 `;
+
+
 export const ContainerCardPrintTextVerde = styled.div`
   border: 1px solid;
   border-color: green;
@@ -1138,11 +1138,6 @@ export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   align-items: center;
   color: ${props => props.theme.colors.textColor};
 `;
-
-
-
-
-
 interface PropsContainerDivMainOffRed {
   pxheight?: string;
   pxwidth?: string;
@@ -1220,6 +1215,68 @@ export const ContainerDivMainOnGreen = styled.div<PropsContainerDivMainOnGreen>`
   font-weight: bold;
   background-color: rgb(147, 245, 134);
 `;
+/// painel Confirmação
+export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
+  border: 2px solid;
+  border-radius: 10px;
+  border-color: greenyellow;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  min-height: ${({ pxheight }) => pxheight || '40px'};
+  width: ${({ pxwidth }) => pxwidth || '100%'};
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color: black;
+  font-size: 18x;
+  font-weight: bold;
+  background-color: rgb(244, 245, 199);
+`;
+interface PropsContainerDivCstImg {
+  status:  2 | 1 | 0 ; // 0 = transparente, 1 = verde, 2 = vermelho
+  pxheight? : string;
+}
+export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
+  border: 1px solid ;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: ${({ pxheight }) => pxheight || '33px'};
+  background: ${({ status }) => status === 2 ? 'rgb(255, 0, 0)' : status === 1 ? 'rgb(30, 255, 0)' : 'transparent' };
+  display: flex row;
+  flex-flow: row;
+  flex-wrap: wrap;
+  //justify-content: end;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  `;
+interface PropsContainerDivImgCst {
+  pxh? : string;
+  pxw? : string;
+  img? : string;
+}
+export const ContainerDivImgCst = styled.div<PropsContainerDivImgCst>`
+  border: none ;
+  padding: 0px 0px 0px 0px;
+  margin: 3px 3px 3px 3px;
+  height: ${({ pxh }) => pxh || '30px'};
+  width:  ${({ pxw }) => pxw || '30px'};
+  background-image: url( ${ ( {img} ) => img ? img : semimg });
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
 //// painel botton //////////////////////////////////////
 
 interface PropsContainerPanelPage {

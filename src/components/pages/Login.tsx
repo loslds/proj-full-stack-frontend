@@ -38,6 +38,8 @@ import { TypeListPassaporte, ListPassaportes } from "@/boockList/ListPassaportes
 import { verifInputs } from '../../funcs/funcs/FuncVerificadores';
 import { isValidarEmail } from '../../funcs/ErroEdicao';
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
+import { ContentCustonDivImg } from "../ContentCustonDivImg";
+
 
 const Login: React.FC = () => {
   
@@ -92,10 +94,11 @@ const Login: React.FC = () => {
   
   const [isdesable, setIsDesable] = React.useState(true);
   const [isbtnchk, setIsBtnChk] = React.useState(false);
+  const [corstt, setCorStt]= React.useState(0);
   const [ischkacesso, setIsChkAcesso] = React.useState(false);
 
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
-  const [rtnmsgpanelbottom, setRtnMsgPanelBottom] = React.useState('');
+  //const [rtnmsgpanelbottom, setRtnMsgPanelBottom] = React.useState('');
 
   const [cardhplloginlogo, setCardHlpLoginLogo] = React.useState(false);
   const handlerCardHlpLoginLogo = React.useCallback(() => {
@@ -238,6 +241,7 @@ const Login: React.FC = () => {
         setInput1('');
         setInput2('');
 
+        setCorStt(0);
         setMsgPanelBottom('Selecione uma Opção para Passaport.');
 
       } else {
@@ -281,11 +285,10 @@ const Login: React.FC = () => {
     }
 
     if (chkinput1 && chkinput2) { setIsDesable(false)}
-    else { setIsDesable(true); }
-    
-    if (isinput) {console.log('isinput = true');} else {console.log('isinput = false');}
-    console.log('input1 = '+ input1);
-
+    else { 
+      setIsDesable(true); 
+      if (corstt !== 0){ setCorStt(0); }
+    }
   }, [input1, chkinput1]);
 
   const handlerEdtInput2 = React.useCallback(
@@ -304,8 +307,10 @@ const Login: React.FC = () => {
     }
 
     if (chkinput1 && chkinput2) { setIsDesable(false)}
-    else { setIsDesable(true);}
-
+    else { 
+      setIsDesable(true);
+      if (corstt !== 0){ setCorStt(0); }
+    }
   }, [input2, chkinput2]);
 
   const handleCheckInfo = () => {
@@ -503,8 +508,34 @@ const Login: React.FC = () => {
         <ContentCardPageMain open={isbtnchk}>
           <ContentCardBoxBorderPg pwidth="100%">
             <ContentCardPageTitle>
-              <h2>Checando Dados</h2>
+              <h2>Checkando Dados</h2>
             </ContentCardPageTitle>
+            <Pg.ContainerCardPageFlex>
+              <h3>Avaliando Dados</h3>
+            <Pg.ContainerDivMainChecing>
+              <form>
+                <span><label>Empresa ...: </label> {fantempresa} </span>
+              </form>
+              <ContentCustonDivImg status={0} img={bt_enviar}/> 
+
+            </Pg.ContainerDivMainChecing>
+
+            <Pg.ContainerDivMainChecing>
+              <form>
+                <label>Setor ........:</label>
+              </form>
+            </Pg.ContainerDivMainChecing>
+            <Pg.ContainerDivMainChecing>
+              <form>
+                <label>Passaport .:</label>
+              </form>
+            </Pg.ContainerDivMainChecing>
+            <Pg.ContainerDivMainChecing>
+              <form>
+                <label>Acesso .....:</label>
+              </form>
+            </Pg.ContainerDivMainChecing>
+            </Pg.ContainerCardPageFlex>
       
             <h3> Empresa : </h3>
             <form>
