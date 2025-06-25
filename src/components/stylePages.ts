@@ -388,7 +388,7 @@ export const ContainerCardBoxPg = styled.div<PropsContainerCardBoxPg>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-width: ${({ pwidth }) => pwidth || '150px'};
+  min-width: ${({ pwidth }) => pwidth || '50px'};
   display: flex;
   //flex-direction: column;
   //flex-wrap: wrap;
@@ -1227,7 +1227,7 @@ export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   align-content: center;
   color: black;
@@ -1236,7 +1236,7 @@ export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
   background-color: rgb(244, 245, 199);
 `;
 interface PropsContainerDivCstImg {
-  status:  2 | 1 | 0 ; // 0 = transparente, 1 = verde, 2 = vermelho
+  status :  0 | 1 | 2 ; // 0 = transparente, 1 = verde, 2 = vermelho
   pxheight? : string;
 }
 export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
@@ -1246,8 +1246,8 @@ export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   min-height: ${({ pxheight }) => pxheight || '33px'};
-  background: ${({ status }) => status === 2 ? 'rgb(255, 0, 0)' : status === 1 ? 'rgb(30, 255, 0)' : 'transparent' };
-  display: flex row;
+  background: ${({ status }) => status === 1 ? 'rgb(30, 255, 0)' : status === 2 ? 'rgb(255, 0, 0)' : 'transparent'};
+  display: flex;
   flex-flow: row;
   flex-wrap: wrap;
   //justify-content: end;

@@ -2,7 +2,7 @@
 import * as Pg from './stylePages';
 
 interface PropsContentCustonDivImg {
-  status:  2 | 1 | 0;
+  status:  0 | 1 | 2;
   pxheight?: string;
   pxh?: string;
   pxw?: string;

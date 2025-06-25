@@ -36,8 +36,9 @@ import { TypeListEmpresa, ListEmpresas } from "@/boockList/ListEmpresas";
 import { TypeListSetor, ListSetores } from "@/boockList/ListSetores";
 import { TypeListPassaporte, ListPassaportes } from "@/boockList/ListPassaportes";
 import { verifInputs } from '../../funcs/funcs/FuncVerificadores';
-import { isValidarEmail } from '../../funcs/ErroEdicao';
+//import { isValidarEmail } from '../../funcs/ErroEdicao';
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
+//import { ContentCardCollunsCenterPage } from "../ContentCardCollunsCenterPage";
 import { ContentCustonDivImg } from "../ContentCustonDivImg";
 
 
@@ -313,17 +314,36 @@ const Login: React.FC = () => {
     }
   }, [input2, chkinput2]);
 
-  const handleCheckInfo = () => {
-//    if (ischkacesso) {
+  const handleCheckDados = () => {
+    if (isbtnchk) {
+      setIsBtnChk(false);
+      
+      setIsDesable(true)
+      setMsgPanelBottom('AGUARDE...');
       alert('Checar a validade IDs e Informações de usuário...');
-      // verefica se a edição do email é valido
-      // verefica os valores editado
-
+      
+      setIsChkAcesso(true);
+      // verefica os valores editado, na edição mostrando o progress
+      // qualquer falha na edição para o progress tornando vermelho o painel com erro
       // busca em servidor ´:
-      // se encontrar  
-    //}
+      // Se encontrar dados referentes as informações 
+      //   Abre botão continuar  
+      //   Busca dados filtrado no servidor ´:
+      //   Se encontrar :
+      //     Preenche o context criando o logon
+      //     Abre o botão continuar.
+      //     Se clicar em continuar, retorna a page Home logon
+      //     Caso clique em voltar, retorna a page Home logoff 
+      //   Senão retorna para inserir novamente novos dados para Acesso 
+      // Caso não encontrar dados referentes as informações
+      //   retorna para inserir novamente novos dados para Acesso
+    }  
+    
   };
 
+  const handleContinuar = () => {
+      alert('Checar a validade IDs e Informações de usuário...');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -341,242 +361,222 @@ const Login: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
-        <ContentCardPageMain open={true}>
-          
-          <ContentBoxPageSelect open={isempresa} istitl={false} title='Empresa : '>
-            <Pg.SelectMainContainer>
-              <Pg.SelectContainer>
-                <label htmlFor="empresa-select">Empresas:</label>
-                 {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>  */}
-                <select
-                  id="empresa-select"
-                  value={empresaSelecionada || '0'}
-                  onChange={(e) => setEmpresaSelecionada(e.target.value)}
-                  >
-                    {ListEmpresas.map((empresa: TypeListEmpresa) => (
-                      <option key={empresa.id} value={empresa.id}>{empresa.fantasy}</option>
-                    ))}
-                </select>
-              </Pg.SelectContainer>
-            </Pg.SelectMainContainer>
-          </ContentBoxPageSelect>
+        {/* <ContentCardPageMain open={true}> */}
+          {/* // botão ok */}
+          <ContentCardPageMain open={isbtnchk}>
+            <ContentBoxPageSelect open={isempresa} istitl={false} title='Empresa : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                  <label htmlFor="empresa-select">Empresas:</label>
+                   {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption>  */}
+                  <select
+                    id="empresa-select"
+                    value={empresaSelecionada || '0'}
+                    onChange={(e) => setEmpresaSelecionada(e.target.value)}
+                    >
+                      {ListEmpresas.map((empresa: TypeListEmpresa) => (
+                        <option key={empresa.id} value={empresa.id}>{empresa.fantasy}</option>
+                      ))}
+                  </select>
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
+            </ContentBoxPageSelect>
+  
+            <ContentBoxPageSelect open={ issetor} istitl={false} title='Setore :'>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                  <label htmlFor="setor-select">Setores:</label>
+                  {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
+                  <select
+                    id="setor-select" 
+                    value={setorSelecionado || '0'}
+                    onChange={(e) => setSetorSelecionado(e.target.value)}
+                    >
+                      {ListSetores.map((setor: TypeListSetor) => (
+                        <option key={setor.id} value={setor.id}>{setor.modulo}</option>
+                      ))}
+                  </select>
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
+            </ContentBoxPageSelect>
 
-          <ContentBoxPageSelect open={ issetor} istitl={false} title='Setore :'>
-            <Pg.SelectMainContainer>
-              <Pg.SelectContainer>
-                <label htmlFor="setor-select">Setores:</label>
-                {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
-                <select
-                  id="setor-select" 
-                  value={setorSelecionado || '0'}
-                  onChange={(e) => setSetorSelecionado(e.target.value)}
-                  >
-                    {ListSetores.map((setor: TypeListSetor) => (
-                      <option key={setor.id} value={setor.id}>{setor.modulo}</option>
-                    ))}
-                </select>
-              </Pg.SelectContainer>
-            </Pg.SelectMainContainer>
-          </ContentBoxPageSelect>
+            <ContentBoxPageSelect open={ispassaporte} istitl={false} title='Passaport : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                  <label htmlFor="passaport-select">Passaportes:</label>
+                  {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
+                  <select
+                    id="passaport-select" 
+                    value={passaporteSelecionado || '0'}
+                    onChange={(e) => setPassaporteSelecionado(e.target.value)}
+                    >
+                      {ListPassaportes.map((passaporte: TypeListPassaporte) => (
+                        <option key={passaporte.id} value={passaporte.id}>{passaporte.modo}</option>
+                      ))}
+                  </select>
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
+            </ContentBoxPageSelect>
 
-          <ContentBoxPageSelect open={ispassaporte} istitl={false} title='Passaport : '>
-            <Pg.SelectMainContainer>
-              <Pg.SelectContainer>
-                <label htmlFor="passaport-select">Passaportes:</label>
-                {/* <Pg.StyledOption value={'0'}>Opções:</Pg.StyledOption> */}
-                <select
-                  id="passaport-select" 
-                  value={passaporteSelecionado || '0'}
-                  onChange={(e) => setPassaporteSelecionado(e.target.value)}
-                  >
-                    {ListPassaportes.map((passaporte: TypeListPassaporte) => (
-                      <option key={passaporte.id} value={passaporte.id}>{passaporte.modo}</option>
-                    ))}
-                </select>
-              </Pg.SelectContainer>
-            </Pg.SelectMainContainer>
-          </ContentBoxPageSelect>
-
-          <ContentBoxPageSelect open={isinput} istitl={false} title='Acesso : '>
-            <Pg.SelectMainContainer>
-              <Pg.SelectContainer>
-                <label>Acesso :</label>
-                  { idpassaporte === 1 ? (
-                  <form name='idpass1'>
-                    <Pg.EmailInput
-                      name="email" 
-                      maxLength={250}
-                      value={input1}           
-                      //onChange={(e) => setInput1(e.currentTarget.value)}
-                      onChange={handlerEdtInput1}
-                      onMouseEnter={() => setMsgPanelBottom('Edite Email...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.EmailInput>
-                    <Pg.PasswordInput
-                      name="passw" 
-                      maxLength={10}
-                      value={input2}
-                      //onChange={(e) => setInput2(e.currentTarget.value)}
-                      onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PasswordInput>
-                  </form>
-                  ) : null}
-                  { idpassaporte === 2 ? (
-                  <form name='idpass2'>
-                    <Pg.EmailInput
-                      name="email" 
-                      maxLength={250}
-                      value={input1}           
-                      //onChange={(e) => setInput1(e.currentTarget.value)}
-                      onChange={handlerEdtInput1}
-                      onMouseEnter={() => setMsgPanelBottom('Edite Email...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.EmailInput>
-                    <Pg.PinInput
-                      name="pin" 
-                      maxLength={8}
-                      value={input2}
-                      //onChange={(e) => setInput2(e.currentTarget.value)}
-                      onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite PIN...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PinInput>
-                  </form>
-                  ) : null}
-                  { idpassaporte === 3 ? (
-                  <form name='idpass3'>
-                    <Pg.PseudonimoInput
-                      name="pseudo" 
-                      maxLength={20}
-                      value={input1}
-                      //onChange={(e) => setInput1(e.currentTarget.value)}
-                      onChange={handlerEdtInput1}
-                      onMouseEnter={() => setMsgPanelBottom('Edite Pseudônimo...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PseudonimoInput>
-                    <Pg.PasswordInput
-                      name="passw" 
-                      maxLength={10}
-                      value={input2}
-                      //onChange={(e) => setInput2(e.currentTarget.value)}
-                      onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PasswordInput>
+            <ContentBoxPageSelect open={isinput} istitl={false} title='Acesso : '>
+              <Pg.SelectMainContainer>
+                <Pg.SelectContainer>
+                  <label>Acesso :</label>
+                    { idpassaporte === 1 ? (
+                    <form name='idpass1'>
+                      <Pg.EmailInput
+                        name="email" 
+                        maxLength={250}
+                        value={input1}           
+                        //onChange={(e) => setInput1(e.currentTarget.value)}
+                        onChange={handlerEdtInput1}
+                        onMouseEnter={() => setMsgPanelBottom('Edite Email...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.EmailInput>
+                      <Pg.PasswordInput
+                        name="passw" 
+                        maxLength={10}
+                        value={input2}
+                        //onChange={(e) => setInput2(e.currentTarget.value)}
+                        onChange={handlerEdtInput2}
+                        onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PasswordInput>
                     </form>
-                  ) : null}
-                  { idpassaporte === 4 ? (
-                  <form name='idpass4'>
-                    <Pg.PseudonimoInput
-                      name="pseudo" 
-                      maxLength={20}
-                      value={input1}
-                      //onChange={(e) => setInput1(e.currentTarget.value)}
-                      onChange={handlerEdtInput1}
-                      onMouseEnter={() => setMsgPanelBottom('Edite Pseudônimo...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PseudonimoInput>
-                    <Pg.PinInput
-                      name="pin" 
-                      maxLength={8}
-                      value={input2}
-                      //onChange={(e) => setInput2(e.currentTarget.value)}
-                      onChange={handlerEdtInput2}
-                      onMouseEnter={() => setMsgPanelBottom('Edite PIN...') }
-                      onMouseLeave={() => setMsgPanelBottom('')}
-                      >
-                    </Pg.PinInput>
-                  </form>
-                ) : null }
-              </Pg.SelectContainer>
-            </Pg.SelectMainContainer>
-          </ContentBoxPageSelect>
-        </ContentCardPageMain>
+                    ) : null}
+                    { idpassaporte === 2 ? (
+                    <form name='idpass2'>
+                      <Pg.EmailInput
+                        name="email" 
+                        maxLength={250}
+                        value={input1}           
+                        //onChange={(e) => setInput1(e.currentTarget.value)}
+                        onChange={handlerEdtInput1}
+                        onMouseEnter={() => setMsgPanelBottom('Edite Email...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.EmailInput>
+                      <Pg.PinInput
+                        name="pin" 
+                        maxLength={8}
+                        value={input2}
+                        //onChange={(e) => setInput2(e.currentTarget.value)}
+                        onChange={handlerEdtInput2}
+                        onMouseEnter={() => setMsgPanelBottom('Edite PIN...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PinInput>
+                    </form>
+                    ) : null}
+                    { idpassaporte === 3 ? (
+                    <form name='idpass3'>
+                      <Pg.PseudonimoInput
+                        name="pseudo" 
+                        maxLength={20}
+                        value={input1}
+                        //onChange={(e) => setInput1(e.currentTarget.value)}
+                        onChange={handlerEdtInput1}
+                        onMouseEnter={() => setMsgPanelBottom('Edite Pseudônimo...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PseudonimoInput>
+                      <Pg.PasswordInput
+                        name="passw" 
+                        maxLength={10}
+                        value={input2}
+                        //onChange={(e) => setInput2(e.currentTarget.value)}
+                        onChange={handlerEdtInput2}
+                        onMouseEnter={() => setMsgPanelBottom('Edite sua Password...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PasswordInput>
+                      </form>
+                    ) : null}
+                    { idpassaporte === 4 ? (
+                    <form name='idpass4'>
+                      <Pg.PseudonimoInput
+                        name="pseudo" 
+                        maxLength={20}
+                        value={input1}
+                        //onChange={(e) => setInput1(e.currentTarget.value)}
+                        onChange={handlerEdtInput1}
+                        onMouseEnter={() => setMsgPanelBottom('Edite Pseudônimo...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PseudonimoInput>
+                      <Pg.PinInput
+                        name="pin" 
+                        maxLength={8}
+                        value={input2}
+                        //onChange={(e) => setInput2(e.currentTarget.value)}
+                        onChange={handlerEdtInput2}
+                        onMouseEnter={() => setMsgPanelBottom('Edite PIN...') }
+                        onMouseLeave={() => setMsgPanelBottom('')}
+                        >
+                      </Pg.PinInput>
+                    </form>
+                  ) : null }
+                </Pg.SelectContainer>
+              </Pg.SelectMainContainer>
+            </ContentBoxPageSelect>
+          
+          </ContentCardPageMain>
+          {/* // botão checkAcesso */}
+          
+          
+          <ContentCardPageMain open={ischkacesso}>
+            <ContentCardBoxBorderPg pwidth="100%">
+              <ContentCardPageTitle>
+                <h2>Checkando Dados</h2>
+              </ContentCardPageTitle>
 
+              <Pg.ContainerDivMainChecing pxwidth="60%">
+                <form>
+                  <h3>Empresa ...: </h3>
+                  <span>{fantempresa} </span>
+                </form>
+                <Pg.ContainerDivMainOffYellow>
+                  <ContentCustonDivImg status={0}>
+
+                  </ContentCustonDivImg>
+                </Pg.ContainerDivMainOffYellow>
+              </Pg.ContainerDivMainChecing>
+            
+              <Pg.ContainerDivMainChecing>
+                <form>
+                  <h3>Setor ........:</h3>
+                  <span>{nmsetor}</span>
+                </form>
+              </Pg.ContainerDivMainChecing>
+
+              <Pg.ContainerDivMainChecing>
+                <form>
+                  <h3>Passaport .:</h3>
+                  <span>{nmpassaporte}</span>
+                </form>
+              </Pg.ContainerDivMainChecing>
+
+              <Pg.ContainerDivMainChecing>
+                <form>
+                  <h3>Acesso .....:</h3>
+                    <p><h3>{input1}</h3></p>
+                    <p><h3>{input2}</h3></p>
+                </form>
+ 
+              </Pg.ContainerDivMainChecing>
+            </ContentCardBoxBorderPg>
+          </ContentCardPageMain>
         
-        <Pg.DivisionPgHztal /> 
-
-        <ContentCardPageMain open={isbtnchk}>
-          <ContentCardBoxBorderPg pwidth="100%">
-            <ContentCardPageTitle>
-              <h2>Checkando Dados</h2>
-            </ContentCardPageTitle>
-            <Pg.ContainerCardPageFlex>
-              <h3>Avaliando Dados</h3>
-            <Pg.ContainerDivMainChecing>
-              <form>
-                <span><label>Empresa ...: </label> {fantempresa} </span>
-              </form>
-              <ContentCustonDivImg status={0} img={bt_enviar}/> 
-
-            </Pg.ContainerDivMainChecing>
-
-            <Pg.ContainerDivMainChecing>
-              <form>
-                <label>Setor ........:</label>
-              </form>
-            </Pg.ContainerDivMainChecing>
-            <Pg.ContainerDivMainChecing>
-              <form>
-                <label>Passaport .:</label>
-              </form>
-            </Pg.ContainerDivMainChecing>
-            <Pg.ContainerDivMainChecing>
-              <form>
-                <label>Acesso .....:</label>
-              </form>
-            </Pg.ContainerDivMainChecing>
-            </Pg.ContainerCardPageFlex>
-      
-            <h3> Empresa : </h3>
-            <form>
-              <label>Empresa :</label>
-              <p><span><label>ID :</label></span> {idempresa} <span><label>Fantasia :</label></span> {fantempresa}</p>
-              <br/>
-                
-              <label>Setor :</label>
-              <p><span><label>ID :</label></span> {idsetor} <span><label>Módulo :</label></span>{nmsetor}</p>
-              <br/>
-
-              <label>Passaporte :</label>
-              <p><span><label>ID :</label></span> {idpassaporte} <span><label>Acesso :</label></span>{nmpassaporte}</p>    
-              <br/>
-
-              <label>Chaves :</label>
-              { idpassaporte === 1 ? (
-              <p><span><label> Email :</label></span> {input1} <span><label>Password :</label></span> {input2}</p>) : null } 
-
-              { idpassaporte === 2 ? (
-                <p><span><label>Email :</label></span> {input1} <span><label>Pin :</label></span>{input2}</p>): null }
-
-              {idpassaporte === 3 ? (
-                <p><span><label>Pseudônimo :</label></span> {input1} <span><label>Password :</label></span> {input2}</p>
-              ): null }
-
-              {idpassaporte === 4 ? (
-                <p><span><label>Pseudônimo :</label></span> {input1} <span><label>Pin :</label></span> {input2}</p>
-              ): null }
-              <br/>
-
-            </form>
-          </ContentCardBoxBorderPg>
-        </ContentCardPageMain>
 
         <Pg.DivisionPgHztal /> 
+
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
          
           <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
                     
-          <ContentSidePageBottonLabel open={isbtnchk} istitl={true} title={'Voltar.: '}>
+          <ContentSidePageBottonLabel open={true} istitl={true} title={'Voltar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
               img={''}
@@ -587,17 +587,30 @@ const Login: React.FC = () => {
             />
           </ContentSidePageBottonLabel>
 
-          { isbtnchk ? (
+          { isbtnchk && !ischkacesso ? (
             <ContentSidePageBottonLabel open={isbtnchk} istitl={true} title={'Confirma? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
                 img={bt_enviar}
                 titbtn={'Confirmar...'}
-                onclick={handleCheckInfo}
+                onclick={handleCheckDados}
                 disabled={isdesable}
               />
             </ContentSidePageBottonLabel>
           ): null}
+
+          { ischkacesso ? (
+            <ContentSidePageBottonLabel open={ischkacesso} istitl={true} title={'Continuar? : '}>
+              <ContentPageButtonDefImgEnabled 
+                pxheight={'40px'}
+                img={bt_enviar}
+                titbtn={'Continuar...'}
+                onclick={handleContinuar}
+                disabled={isdesable}
+              />
+            </ContentSidePageBottonLabel>
+          ): null}
+
 
         </ContentSidePagePanelBotton>
 
