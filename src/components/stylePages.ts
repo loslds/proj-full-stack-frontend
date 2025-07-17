@@ -801,13 +801,7 @@ export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
   flex-flow: nowrap;
   justify-content: center;
   align-items: center;
-/*   
-  &:hover {
-    background: #e4e4e4;
-   }
-    */
 `;
-
 
 interface PropsBtnDefImgEnabledPage {
   img?: string;
@@ -841,11 +835,7 @@ export const ButtonDefImgEnabledPage = styled.button<PropsBtnDefImgEnabledPage>`
 //////////////////////////////////////
 // fim do ContentSidePageBottonButtom
 // inicio do  
-///////////////////////////////////////
 
-
-
-//////////////////////////////////////
 export const ContainerBody = styled.div`
   border: none; /* 1px dashed red;*/
   padding: 0px 0px 0px 0px;
@@ -1219,7 +1209,7 @@ export const ContainerDivMainOnGreen = styled.div<PropsContainerDivMainOnGreen>`
 export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
   border: 2px solid;
   border-radius: 10px;
-  border-color: greenyellow;
+  border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   min-height: ${({ pxheight }) => pxheight || '40px'};
@@ -1288,14 +1278,14 @@ export const ContainerPanelPage = styled.div<PropsContainerPanelPage>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  width: ${({ pwidth }) => pwidth || '32%'};
+  min-width: ${({ pwidth }) => pwidth || '28%'};
   display: ${({open}) => open ? 'flex' : 'none' };
   min-height: 50px;
   flex-wrap: wrap;
   justify-content: center;
 `;
 
-type PropsContainerPanelPageFlex = {
+interface PropsContainerPanelPageFlex {
   bordas?: string;
   }
   export const ContainerPanelPageFlex = styled.div<PropsContainerPanelPageFlex>`
@@ -1314,7 +1304,26 @@ type PropsContainerPanelPageFlex = {
     align-content: center;
     align-items: center;
   `;
-  
+
+interface PropsContainerPanelFlex {
+  bordas?: string;
+  }
+  export const ContainerPanelFlex = styled.div<PropsContainerPanelFlex>`
+    border: 1px solid salmon;
+    padding: 0px 0px 0px 10px;
+    margin: 3px 5px 3px 5px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  `;
+
+
+
   interface PropsContainerMsgSidePanelBottonText {
     bordas?: string;
   }

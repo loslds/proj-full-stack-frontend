@@ -40,6 +40,7 @@ import { verifInputs } from '../../funcs/funcs/FuncVerificadores';
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
 //import { ContentCardCollunsCenterPage } from "../ContentCardCollunsCenterPage";
 import { ContentCustonDivImg } from "../ContentCustonDivImg";
+import { ContentPanelMain } from "../ContentPanelMain";
 
 
 const Login: React.FC = () => {
@@ -294,7 +295,7 @@ const Login: React.FC = () => {
 
   const handlerEdtInput2 = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-    const edtinput2 = e.target.value;  
+    const edtinput2 = e.target.value;
     // verefico a edição dos input2
     let msgedticao = '';
     if (edtinput2.length === 0 ){
@@ -306,7 +307,6 @@ const Login: React.FC = () => {
       setChkInput2( verifInputs(edtinput2,"string") );
       setInput2(edtinput2);
     }
-
     if (chkinput1 && chkinput2) { setIsDesable(false)}
     else { 
       setIsDesable(true);
@@ -532,40 +532,34 @@ const Login: React.FC = () => {
                 <h2>Checkando Dados</h2>
               </ContentCardPageTitle>
 
-              <Pg.ContainerDivMainChecing pxwidth="60%">
-                <form>
-                  <h3>Empresa ...: </h3>
-                  <span>{fantempresa} </span>
-                </form>
-                <Pg.ContainerDivMainOffYellow>
-                  <ContentCustonDivImg status={0}>
-
-                  </ContentCustonDivImg>
-                </Pg.ContainerDivMainOffYellow>
-              </Pg.ContainerDivMainChecing>
-            
-              <Pg.ContainerDivMainChecing>
-                <form>
-                  <h3>Setor ........:</h3>
-                  <span>{nmsetor}</span>
-                </form>
-              </Pg.ContainerDivMainChecing>
-
-              <Pg.ContainerDivMainChecing>
-                <form>
-                  <h3>Passaport .:</h3>
-                  <span>{nmpassaporte}</span>
-                </form>
-              </Pg.ContainerDivMainChecing>
-
-              <Pg.ContainerDivMainChecing>
-                <form>
-                  <h3>Acesso .....:</h3>
-                    <p><h3>{input1}</h3></p>
-                    <p><h3>{input2}</h3></p>
-                </form>
- 
-              </Pg.ContainerDivMainChecing>
+              <ContentPanelMain open={true} pwidth="33%">
+               <Pg.ContainerDivMainChecing pxwidth="97%">
+                  <form>
+                    <h3>Empresa ...: </h3>
+                    <span>{fantempresa} </span>
+                  </form>
+                </Pg.ContainerDivMainChecing>  
+                <Pg.ContainerDivMainChecing pxwidth="97%">
+                  <form>
+                    <h3>Setor ........:</h3>
+                    <span>{nmsetor}</span>
+                  </form>
+                </Pg.ContainerDivMainChecing>
+                <Pg.ContainerDivMainChecing pxwidth="97%">
+                  <form>
+                    <h3>Passaport .:</h3>
+                    <span>{nmpassaporte}</span>
+                  </form>
+                </Pg.ContainerDivMainChecing>
+                <Pg.ContainerDivMainChecing pxwidth="97%">
+                  <form>
+                    <h3>Acesso .....:</h3>
+                      <p><span>ID: {input1}</span></p>
+                      <p><span>PW: {input2}</span></p>
+                  </form>
+                </Pg.ContainerDivMainChecing>
+                
+              </ContentPanelMain>
             </ContentCardBoxBorderPg>
           </ContentCardPageMain>
         
