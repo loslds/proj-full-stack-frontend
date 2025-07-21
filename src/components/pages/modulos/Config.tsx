@@ -4,7 +4,7 @@ import light from "../../../themes/light.ts";
 import dark from "../../../themes/dark.ts";
 import { useNavigate } from 'react-router-dom';
 // Use o hook do contexto
-import { MysqlUseActions, MysqlUseContext  } from '../../contexts/MySQLContext.tsx'; 
+// import { MysqlUseActions, MysqlUseContext  } from '../../contexts/MySQLContext.tsx'; 
 
 import LayoutConfig from '../../layouts/LayoutConfig.tsx';
 import { PageModal } from '../PageModal.tsx';
@@ -32,7 +32,7 @@ const Config: React.FC = () => {
   const navigate = useNavigate();
   const goto = (path: string) => () => navigate(path);
 
-  const { state, dispatch } = MysqlUseContext();
+  //const { state, dispatch } = MysqlUseContext();
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => {
@@ -44,14 +44,15 @@ const Config: React.FC = () => {
     setIscheck(theme.name === "dark");
   };
 
-  const TitlePage = 'Config.';
-  const AcaoPage = 'Acesso Database';
-  React.useEffect(() => {
-    dispatch({ type: MysqlUseActions.RESET_STATE });
-    dispatch({ type: MysqlUseActions.SET_PAGE, payload: TitlePage });
-    dispatch({ type: MysqlUseActions.SET_APLICACAO, payload: AcaoPage });
-    console.log('Valores iniciais do contexto:', state);
-  }, []); // O array vazio garante que o efeito só roda uma vez na montagem
+  // const TitlePage = 'Config.';
+  
+  // const AcaoPage = 'Acesso Database';
+  // React.useEffect(() => {
+  //   dispatch({ type: MysqlUseActions.RESET_STATE });
+  //   dispatch({ type: MysqlUseActions.SET_PAGE, payload: TitlePage });
+  //   dispatch({ type: MysqlUseActions.SET_APLICACAO, payload: AcaoPage });
+  //   console.log('Valores iniciais do contexto:', state);
+  // }, []); // O array vazio garante que o efeito só roda uma vez na montagem
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,17 +72,33 @@ const Config: React.FC = () => {
       >
         <ContentCardPage pwidth={'100%'}>
           <BarMenuConfig />
-          {/* <BarSideMenuConfig setActiveComponent={setActiveComponent} /> */}
-        </ContentCardPage>
+        </ContentCardPage>  
+
         <DivisionPgHztal />
 
-        <h1>Page Config</h1>
-        {/* Exibição dinâmica do componente selecionado */}
+
+{/* 
+        <ContentCardPage pwidth={'100%'}>
+          <BarMenuConfig />
+            <BarSideMenuConfig setActiveComponent={setActiveComponent} /> 
+        </ContentCardPage>
+         
+        <DivisionPgHztal />
+
+         <h1>Page Config</h1> 
+         Exibição dinâmica do componente selecionado 
         
-        {/* {activeComponent === "CheckDB" && <CheckDB />}
+         {activeComponent === "CheckDB" && <CheckDB />}
         {activeComponent === "BackupDB" && <BackupDB />}
         {activeComponent === "RestoreDB" && <RestoreDB />}
-        {activeComponent === "ExplorerDB" && <ExplorerDB />} */}
+        {activeComponent === "ExplorerDB" && <ExplorerDB />} 
+*/}
+
+
+
+
+
+
 
         {cardhplpage && (
           <PageModal

@@ -1,4 +1,5 @@
 import React from "react";
+import {useAcessoContext} from '../../contexts/ContextAcesso';
 //import * as Pg from "../stylePages";
 import { ThemeProvider } from "styled-components";
 import light from "@/themes/light";
@@ -13,7 +14,11 @@ import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
 const CadCadastros: React.FC = () => {
+  
+  const {state} = useAcessoContext();
+
   const [theme, setTheme] = React.useState(light);
+
   const [ischeck, setIscheck] = React.useState(false);
 
   const ToggleTheme = () => {
@@ -65,7 +70,11 @@ const CadCadastros: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
+        
         <h1>CadCadastros</h1>
+        {state.chvkey ? (<p>Master : {state.chvkey}</p>) : null } 
+        {state.logado ? (<p>Logado : {state.logado}</p>) : null }
+        { (!state.chvkey && state.logado) ? (<p> Não Logado </p>): null }
   
       </LayoutCadastros>
     </ThemeProvider>

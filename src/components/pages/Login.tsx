@@ -39,7 +39,7 @@ import { verifInputs } from '../../funcs/funcs/FuncVerificadores';
 //import { isValidarEmail } from '../../funcs/ErroEdicao';
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
 //import { ContentCardCollunsCenterPage } from "../ContentCardCollunsCenterPage";
-import { ContentCustonDivImg } from "../ContentCustonDivImg";
+//import { ContentCustonDivImg } from "../ContentCustonDivImg";
 import { ContentPanelMain } from "../ContentPanelMain";
 
 
@@ -91,8 +91,15 @@ const Login: React.FC = () => {
 
   const [chkinput1, setChkInput1] = React.useState(false);
   const [chkinput2, setChkInput2] = React.useState(false);
+  
   const [input1, setInput1] = React.useState("");
   const [input2, setInput2] = React.useState("");
+ 
+  const [ischked, setIsChked] = React.useState(false);
+  const [mskinput1, setMskInput1] = React.useState("");
+  const [mskinput2, setMskInput2] = React.useState("");
+
+
   
   const [isdesable, setIsDesable] = React.useState(true);
   const [isbtnchk, setIsBtnChk] = React.useState(false);
@@ -137,8 +144,13 @@ const Login: React.FC = () => {
         setIsInput(false);
         setChkInput1(false);
         setChkInput2(false);
+        
         setInput1('');
-        setInput2('')
+        setInput2('');
+
+        setIsChked(false);
+        setMskInput1('');
+        setMskInput2('');
 
         setMsgPanelBottom('Selecione uma Opção para Empresa.');
       
@@ -165,6 +177,10 @@ const Login: React.FC = () => {
           setChkInput2(false);
           setInput1('');
           setInput2('');
+          
+          setIsChked(false);
+          setMskInput1('');
+          setMskInput2('');
 
           setMsgPanelBottom('Selecione uma Opção para Setor.');
 
@@ -195,6 +211,10 @@ const Login: React.FC = () => {
         setInput1('');
         setInput2('');
 
+        setIsChked(false);
+        setMskInput1('');
+        setMskInput2('');
+
         setMsgPanelBottom('Selecione uma Opção para Setor.');
 
       } else {
@@ -220,6 +240,10 @@ const Login: React.FC = () => {
           setInput1('');
           setInput2('')
 
+          setIsChked(false);
+          setMskInput1('');
+          setMskInput2('');
+
           setMsgPanelBottom('Selecione uma Opção para Passaport.');
 
         }
@@ -243,6 +267,10 @@ const Login: React.FC = () => {
         setInput1('');
         setInput2('');
 
+        setIsChked(false);
+        setMskInput1('');
+        setMskInput2('');
+
         setCorStt(0);
         setMsgPanelBottom('Selecione uma Opção para Passaport.');
 
@@ -265,6 +293,10 @@ const Login: React.FC = () => {
           setInput1('');
           setInput2('')
 
+          setIsChked(false);
+          setMskInput1('');
+          setMskInput2('');
+
           setMsgPanelBottom('Edite o Acesso ao Sistema...');
         }
       }
@@ -283,10 +315,12 @@ const Login: React.FC = () => {
       setMsgPanelBottom(msgedticao);
     } else {
       setChkInput1( verifInputs(edtinput1,"string") );
+
       setInput1(edtinput1);
     }
 
-    if (chkinput1 && chkinput2) { setIsDesable(false)}
+    if (chkinput1 && chkinput2) { 
+      setIsDesable(false)}
     else { 
       setIsDesable(true); 
       if (corstt !== 0){ setCorStt(0); }
@@ -317,13 +351,19 @@ const Login: React.FC = () => {
   const handleCheckDados = () => {
     if (isbtnchk) {
       setIsBtnChk(false);
-      
       setIsDesable(true)
       setMsgPanelBottom('AGUARDE...');
       alert('Checar a validade IDs e Informações de usuário...');
+      // verefica os valores editado 
+      setIsChked(false);
+      // verefica se existe "idempresa" existe em db_jrbordados -> empresas 
+
+
       
+
+     
       setIsChkAcesso(true);
-      // verefica os valores editado, na edição mostrando o progress
+
       // qualquer falha na edição para o progress tornando vermelho o painel com erro
       // busca em servidor ´:
       // Se encontrar dados referentes as informações 
@@ -342,7 +382,7 @@ const Login: React.FC = () => {
   };
 
   const handleContinuar = () => {
-      alert('Checar a validade IDs e Informações de usuário...');
+      alert('Logando Acesso ao Sistema...');
   };
 
   return (
@@ -559,6 +599,10 @@ const Login: React.FC = () => {
                   </form>
                 </Pg.ContainerDivMainChecing>
                 
+              </ContentPanelMain>
+              <ContentPanelMain open={ischkacesso}>
+                oi
+
               </ContentPanelMain>
             </ContentCardBoxBorderPg>
           </ContentCardPageMain>

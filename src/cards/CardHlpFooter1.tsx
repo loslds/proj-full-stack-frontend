@@ -1,29 +1,35 @@
-//import { CardModalCenter } from '../modal/CardModalCenter';;
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-
-interface PropsCardHlpFooter {
+import { ContentHeaderButtonHelp } from '../components/hearders/ContentHeaderButtonHelp';
+interface PropsCardHlpFooter1 {
   imghlpsair?: string;
   label?: string;
   texto?: string;
   onclosesair?: () => void;
-  children?: React.ReactNode | JSX.Element;
+  //children?: React.ReactNode | JSX.Element;
 }
-export const CardHlpFooter = ({
+export const CardHlpFooter1 = ({
+  imghlpsair,
   label,
   texto,
   onclosesair
-}: PropsCardHlpFooter) => {
+  //, children
+    
+}: PropsCardHlpFooter1) => {
   return (
     <CardModalTextoColumn>
       <label>{label}</label>
       <p>
+      <br/>
         &emsp;&emsp; - {texto} &emsp;&emsp;&emsp;
         <a href="#" onClick={onclosesair}>
           Fechar...
         </a>
       </p>
-      <br />
-      <br />
+      <ContentHeaderButtonHelp
+        imgbtnhlp={imghlpsair}
+        titbtnhlp={'FECHAR...'}
+        onClickhlp={onclosesair}
+      />
     </CardModalTextoColumn>
   );
 };

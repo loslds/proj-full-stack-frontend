@@ -124,8 +124,7 @@ export const CardHlpLoginPage = ({
         </p>
         <CardHlpFooter
           label="PÁGINA-> LOGIN."
-          texto="Assim que Logado for, Sistema retorna a Pagina HOME onde poderá clicar
-          na imagem de sua atividade e usufluir do Sistema."
+          texto="Assim que Logado for, Sistema retorna a Pagina HOME onde poderá clicar na imagem de sua atividade e usufluir do Sistema."
           onclosesair={onclosesair}
         />
         <br />

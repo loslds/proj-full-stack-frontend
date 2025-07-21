@@ -347,7 +347,7 @@ export const ContainerModalTexto = styled.div`
   border: 0px;
   padding: 0px 5px 0px 0px;
   margin: 2px 10px 2px 10px;
-  min-height: '20%';
+  min-height: '35%';
   overflow-y: auto;
   display: flex row;
   flex-wrap: wrap;

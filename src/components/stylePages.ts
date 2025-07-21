@@ -1037,7 +1037,7 @@ interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
-  border: none;
+  border: 1px solid red;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   width: ${({ pwidth }) => pwidth || '100%'};
@@ -1311,6 +1311,42 @@ interface PropsContainerPanelFlex {
   export const ContainerPanelFlex = styled.div<PropsContainerPanelFlex>`
     border: 1px solid salmon;
     padding: 0px 0px 0px 10px;
+    margin: 3px 5px 3px 5px;
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  `;
+
+interface PropsContainerPanelHlp {
+  pwidth? : string;
+}
+export const ContainerPanelHlp = styled.div<PropsContainerPanelHlp>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  min-width: ${({ pwidth }) => pwidth || '28%'};
+  display: flex;
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+interface PropsContainerPanelHlpFlex {
+  bordas?: string;
+  isborda?: boolean;
+  }
+  export const ContainerPanelHlpFlex = styled.div<PropsContainerPanelHlpFlex>`
+    border: ${({isborda}) => isborda ? '3px' : 'none' };
+    /* ${({ bordas }) => bordas || '3px'}; */
+    border-style: double;
+    border-radius: 10px;
+    border-color: ${props => props.theme.colors.textColor};
+    padding: 0px 0px 0px 0px;
     margin: 3px 5px 3px 5px;
     width: 100%;
     min-height: 50px;

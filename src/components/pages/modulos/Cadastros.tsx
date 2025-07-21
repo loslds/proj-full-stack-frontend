@@ -10,7 +10,7 @@ import LayoutAdministracao from "../../layouts/LayoutAdministracao";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
 //import { CardHlpAdministracaoPage } from "@/cards/CardHlpAdministracaoPage";
-//import  BarMenuAdministracao  from "../../sidebar/BarMenuAdministracao"; 
+import  { BarMenuConfig } from "../../sidebar/BarMenuConfig"; 
 //import lg_Administracao from "@/assets/svgs/lg_Administracao.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
@@ -20,7 +20,7 @@ import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "@/assets/pngs/bt_voltar.png";
 //import bt_setadir from "@/assets/svgs/bt_setadir.svg";
 
-const Administracao : React.FC = () => {
+const Cadastros : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -50,9 +50,9 @@ const Administracao : React.FC = () => {
     <ThemeProvider theme={theme}>
       <LayoutAdministracao
         imgsys={lg_sys}
-        titbtnsys="Modulo Administracao..."
+        titbtnsys="Modulo Cadastros..."
         onclicksys={ () => {} }
-        titlepg="Administração"
+        titlepg="DB - Cadastros"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
@@ -63,15 +63,13 @@ const Administracao : React.FC = () => {
         ischeck={ischeck}
       >
         <ContentCardPage pwidth={'100%'}>
-{/* 
-          <BarMenuAdministracao setActiveComponent={setActivePage} />
- */}
+          <BarMenuConfig />
         </ContentCardPage>
         <Pg.DivisionPgHztal />
 
         {/* chama Página para trabalho */}
 
-        <h1>Modulo Administracao</h1>
+        <h1>Modulo Cadastros</h1>
 
         {cardhplpage ? (
           <PageModal
@@ -80,12 +78,12 @@ const Administracao : React.FC = () => {
             pheight={'95%'}
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Help Conteúdo Administracao.'}
+            titulo={'Help Conteúdo Cadastros.'}
             onclose={() => setCardHlpPage(false)}
           >
 {/* 
-            <CardHlpAdministracaoPage
-              imgcardpage={lg_Administracao}
+            <CardHlpCadastros
+              imgcardpage={lg_cadastros}
               onclosesair={() => setCardHlpPage(false)}
 
 */}
@@ -100,4 +98,4 @@ const Administracao : React.FC = () => {
   );
 };
 
-export default Administracao;
+export default Cadastros;
