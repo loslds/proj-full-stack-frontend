@@ -5,9 +5,5 @@ interface PropsContentSBMain {
 };
 
 export const ContentSBMain: React.FC<PropsContentSBMain> = ({ children }) => {
-  return (
-    <>
-      <ContainerSBMain>{children}</ContainerSBMain>
-    </>
-  )
+  return <ContainerSBMain>{children}</ContainerSBMain>
 }
