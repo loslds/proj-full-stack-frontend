@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './stylesSidebar';
 
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContainerSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 
 import { Dropdown } from './Dropdown';

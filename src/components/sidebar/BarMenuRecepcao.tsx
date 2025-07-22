@@ -2,7 +2,7 @@
 
 import * as S from './stylesSidebar';
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContainerSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 import { Dropdown } from './Dropdown';
 import React from 'react';
@@ -94,7 +94,7 @@ const BarMenuRecepcao: React.FC<BarMenuRecepcaoProps> = ({ setActiveComponent })
 export default BarMenuRecepcao;
 
 
-{/*
+/*
 
 // Estados dos itens do menu
   const [activeItem, setActiveItem] = React.useState<string | null>(null);
@@ -180,4 +180,4 @@ Pesquisas.
 ]}
 onSelect={handleSelectOption}
 />
- */}
+ */

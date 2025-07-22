@@ -2,7 +2,7 @@
 import React from 'react';
 import * as S from './stylesSidebar';
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContentSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 import { Dropdown } from './Dropdown';
 
@@ -47,7 +47,7 @@ const BarMenuEmpresas: React.FC<BarMenuEmpresasProps> = ({ setActiveComponent })
   };
 
   return (
-    <ContainerSBMain>
+    <ContentSBMain>
       <S.ContainerButtonSRigth>
         <ContainerSBButton
           img={bt_menucirc}
@@ -82,14 +82,14 @@ const BarMenuEmpresas: React.FC<BarMenuEmpresasProps> = ({ setActiveComponent })
         />
         
       </S.ContainerMenuSide>
-    </ContainerSBMain>
+    </ContentSBMain>
   );
 };
 
 export default BarMenuEmpresas;
 
 
-{/*
+/*
 
 // Estados dos itens do menu
   const [activeItem, setActiveItem] = React.useState<string | null>(null);
@@ -175,4 +175,4 @@ Pesquisas.
 ]}
 onSelect={handleSelectOption}
 />
- */}
+ */

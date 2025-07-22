@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import avatar001 from '../../assets/svgs/avatar001.svg';
 import portaon from '../../assets/svgs/portaon.svg';
 
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContainerSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 import { ContainerSBItensLogado } from './ContainerSBItensLogado';
 

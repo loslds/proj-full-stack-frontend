@@ -1,14 +1,14 @@
 import * as S from './stylesSidebar';
 
-interface PropsContentSBMenuSide {
+interface PropsContentSBItensMenu {
   children?: React.ReactNode | JSX.Element;
   onoff: boolean;
 };
 
-export const ContentSBMenuSide = ({
+export const ContentSBItensMenu = ({
   onoff,
   children
-}: PropsContentSBMenuSide) => {
+}: PropsContentSBItensMenu) => {
   return (
     <S.ContainerSBItensMenu open={onoff}>{children}</S.ContainerSBItensMenu>
   );

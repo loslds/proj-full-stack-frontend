@@ -2,11 +2,9 @@ import styled from 'styled-components';
 
 import semimg from "../../assets/svgs/semimg.svg"
 
-// ContainerBarSideMain
-export const ContainerSPanelMain = styled.div`
-  border: none;
-  border-color: ${props => props.theme.colors.textColor};
-  margin: 2px 0px 2px 8px;
+export const ContainerSBMain = styled.div`
+  border: 2px solid red;
+  margin: 10px 10px 10px 10px;
   padding: 0px 0px 0px 0px;
   min-height: 50px;
   display: flex;
@@ -18,8 +16,10 @@ export const ContainerSPanelMain = styled.div`
   line-height: 20px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
-  color:  ${props => props.theme.colors.textColor};
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
 `;
+
+
 
 //container Butto Side lado direito
 export const ContainerButtonSRigth = styled.div`
@@ -27,7 +27,7 @@ export const ContainerButtonSRigth = styled.div`
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 0px 2px 0px 2px;
+  margin: 10px 2px 0px 2px;
   background: transparent;
   display: flex;
   flex-flow: row wrap;
@@ -63,10 +63,10 @@ export const ContainerSideButton = styled.div`
   border-color: red;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 0px 2px 0px 2px;
+  margin: 0px 5px 0px 5px;
   background: transparent;
   width: 40px;
-  height: 37px;
+  height: 40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -80,8 +80,8 @@ export const ContainerSideButton = styled.div`
 // Botão Menu Principal
 export const ButtonSideBarImg = styled.button<{ img?: string }>`
   border: none;
-  margin: 2px 5px 2px 5px;
-  color: white;
+  margin: 5px 5px 5px 5px;
+  color:  ${props => props.theme.colors.textColor};
   font-size: 12px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
@@ -116,7 +116,7 @@ export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
   justify-content: left;
   align-items: center;
   align-content: center;
-  color:  ${props => props.theme.colors.textColor};
+  color:  ${props => props?.theme?.colors?.textColor};
   `;
 
 //container Butto Side lado esquero
@@ -214,14 +214,15 @@ export const ButtonItemMn = styled.button`
 
 
 //container Butto Side lado direito
-type TypeSBItensModulo = {
+interface PropsContainerSBItensModulo {
   open?: boolean;
 };
-export const ContainerItensModulo = styled.div<TypeSBItensModulo>`
-  border: 1px solid white;
+export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
+  border: 1px solid;
+  border-color:  ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 0px 5px 0px 10px;
+  margin: 5px 10px 5px 10px;
   background: transparent;
   max-height: fit-content;
   display: ${({open}) => open ? 'flex' : 'none' };
@@ -229,7 +230,9 @@ export const ContainerItensModulo = styled.div<TypeSBItensModulo>`
   align-items: center;
   align-content: center;
   justify-content: space-around;
+  color:  ${props => props.theme.colors.textColor};
 `;
+
 
 type TypeSBContainerItensLogon = {
   open?: boolean;

@@ -12,7 +12,7 @@ import bt_menu from '../../assets/svgs/bt_menu.svg';
 //import master from "../../assets/svgs/master.svg";
 //import config from "../../assets/svgs/config.svg";
 
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContainerSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
 
 //import { ContainerSBItensModMn } from './ContainerSBItensModMn';

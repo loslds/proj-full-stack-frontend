@@ -13,9 +13,9 @@ import administracao from '../../assets/svgs/administracao.svg';
 import master from '../../assets/svgs/master.svg';
 import config from '../../assets/svgs/config.svg';
 
-import { ContainerSBMain } from './ContainerSBMain';
+import { ContentSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContainerSBButton';
-import { ContainerSBItensMenu } from './ContainerSBItensMenu';
+import { ContentSBItensMenu } from './ContentSBItensMenu';
 import { PageModal } from '../pages/PageModal';
 import { CardHlpRecepcaoPage } from '../../cards/CardHlpRecepcaoPage';
 import { CardDesenvolver } from '@/cards/CardDesenvolver';
@@ -39,7 +39,7 @@ export const BarSideMenuHome = () => {
   }, []);
 
   return (
-    <ContainerSBMain>
+    <ContentSBMain>
       <S.ContainerButtonSRigth>
         <ContainerSBButton
           img={menuh}
@@ -48,7 +48,7 @@ export const BarSideMenuHome = () => {
         />
       </S.ContainerButtonSRigth>
 
-      <ContainerSBItensMenu onoff={isitensmenu}>
+      <ContentSBItensMenu onoff={isitensmenu}>
         <ContainerSBButton
           img={servicos}
           titbtn="Help Recepção..."
@@ -105,7 +105,7 @@ export const BarSideMenuHome = () => {
             setIsMdConfi(true);
           }}
         />
-      </ContainerSBItensMenu>
+      </ContentSBItensMenu>
 
       {ismdrecep ? (
         <PageModal
@@ -249,6 +249,6 @@ export const BarSideMenuHome = () => {
           />
         </PageModal>
       ) : null}
-    </ContainerSBMain>
+    </ContentSBMain>
   );
 };

@@ -1,10 +1,11 @@
-
-import * as S from './stylesSidebar';
-
-import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
-import { ContainerSBMain } from './ContainerSBMain';
-import { ContainerSBButton } from './ContainerSBButton';
 import React from 'react';
+//import * as S from './stylesSidebar';
+import { ContentSBMain } from './ContentSBMain';
+
+//import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
+
+//import { ContainerSBButton } from './ContainerSBButton';
+
 
 // import { Dropdown } from './Dropdown';
 
@@ -12,17 +13,20 @@ import React from 'react';
 //   setActiveComponent: (component: string | null) => void;
 // }
 // export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveComponent }) => {
+
 export const BarMenuConfig = () => {  
   
   // abre ou fecha Menu Principal
-  const [ismenu, setIsMenu] = React.useState(false);
-  const handlerClickMenu = React.useCallback(() => {
-    setIsMenu((oldState) => !oldState);
-  }, []);
+  //const [ismenu, setIsMenu] = React.useState(false);
+  //const handlerClickMenu = React.useCallback(() => {
+  //  setIsMenu((oldState) => !oldState);
+  //}, []);
 
 
   return (
-    <ContainerSBMain>
+    <ContentSBMain>
+
+{/*       
       <S.ContainerButtonSRigth>
         <ContainerSBButton
           img={bt_menucirc}
@@ -56,16 +60,16 @@ export const BarMenuConfig = () => {
 
           
         </S.ContainerButtonMnItens>
-      </S.ContainerMenuSide>
+      </S.ContainerMenuSide> */}
 
       
-    </ContainerSBMain>
+    </ContentSBMain>
   );
 };
 
 
 
-{/* 
+/* {
 
   // const handleSelectOption = (value: string) => {
   //   setActiveComponent(value);
@@ -101,4 +105,4 @@ export const BarMenuConfig = () => {
 ]}
 onSelect={handleSelectOption}
 />
- */}
+ }*/
