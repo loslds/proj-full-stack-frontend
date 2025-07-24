@@ -1,7 +1,5 @@
 import React from "react";
 
-import * as Pg from "../../stylePages";
-
 import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";
 import dark from "../../../themes/dark";
@@ -10,7 +8,7 @@ import LayoutAdministracao from "../../layouts/LayoutAdministracao";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
 //import { CardHlpAdministracaoPage } from "@/cards/CardHlpAdministracaoPage";
-import  { BarMenuConfig } from "../../sidebar/BarMenuConfig"; 
+//import  { BarMenuConfig } from "../../sidebar/BarMenuConfig"; 
 //import lg_Administracao from "@/assets/svgs/lg_Administracao.svg";
 import bt_helppg from "@/assets/svgs/bt_helppg.svg";
 import bt_abortar from "@/assets/svgs/bt_abortar.svg";
@@ -19,6 +17,10 @@ import lg_sys from '@/assets/svgs/lg_sys.svg';
 import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "@/assets/pngs/bt_voltar.png";
 //import bt_setadir from "@/assets/svgs/bt_setadir.svg";
+
+//import * as Pg from "../../stylePages";
+ 
+import { BarLeftMenuDropdown } from "../../sidebar/BarLeftMenuDropdown";
 
 const Cadastros : React.FC = () => {
   const [theme, setTheme] = React.useState(light);
@@ -46,6 +48,13 @@ const Cadastros : React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
+  // Dropdonw
+  const items = [
+    { label: "Home", onClick: () => alert("Home") },
+    { label: "Sobre", onClick: () => alert("Sobre") },
+    { label: "Contato", onClick: () => alert("Contato") },
+  ];
+
   return (
     <ThemeProvider theme={theme}>
       <LayoutAdministracao
@@ -63,9 +72,13 @@ const Cadastros : React.FC = () => {
         ischeck={ischeck}
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarMenuConfig />
+          <BarLeftMenuDropdown items={items} />
+          <h1>Conteúdo Principal</h1>
+          <h3>Apresenta conteudo do item selecionado no menu.</h3>
+
+            {/* <BarMenuConfig /> */}
         </ContentCardPage>
-        <Pg.DivisionPgHztal />
+        
 
         {/* chama Página para trabalho */}
 
