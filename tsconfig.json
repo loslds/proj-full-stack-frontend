@@ -1,7 +1,10 @@
+
 {
   "compilerOptions": {
     "strict": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx", // ou "react" se for React 17 ou anterior
+    "types": ["react", "react-dom"]
   },
   "files": [],
   "references": [
