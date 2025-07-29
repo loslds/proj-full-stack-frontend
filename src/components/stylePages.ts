@@ -897,7 +897,7 @@ export const ContainerCustonButton = styled.div<PropsContainerCustonButton>`
 // ContentCardPage -> {ContainerCardPage,ContainerCardPageFlex}
 /////////////////////////////////////////////////////////
 export const ContainerCardPage = styled.div`
-  border: 1px springgreen solid;
+  border: none;  /* springgreen solid; */
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   width: 100%;

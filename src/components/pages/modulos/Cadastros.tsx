@@ -73,7 +73,8 @@ const Cadastros : React.FC = () => {
       >
         <ContentCardPage pwidth={'100%'}>
           <BarLeftMenuDropdown items={items} />
-          <h1>Conteúdo Principal</h1>
+          <h1>Conteúdo Principal config</h1>
+
           <h3>Apresenta conteudo do item selecionado no menu.</h3>
 
             {/* <BarMenuConfig /> */}

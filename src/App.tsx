@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Global from './styles/Global';
-import { AcessoProvider } from './components/contexts/ContextAcesso';
+import { AcessoProvider } from './components/contexts/AcessoProvider';
 import AppRoutes from './AppRoutes';
 
 const App: React.FC = () => {
