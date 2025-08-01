@@ -4,6 +4,7 @@ import light from "../../../themes/light.ts";
 import dark from "../../../themes/dark.ts";
 import { useNavigate } from 'react-router-dom';
 import { useAcessoContext } from '../../contexts/useAcessoContext.ts';
+import { }
 
 import LayoutConfig from '../../layouts/LayoutConfig.tsx';
 
@@ -38,8 +39,7 @@ const Config: React.FC = () => {
 
   const { state } = useAcessoContext();
 
-  const [ischkdb, setIsChkDb] = React.useState(false);
-
+  const [ischkdb, setIsChkDb] = React.useState(state.chkdb);
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => {
@@ -66,6 +66,13 @@ const Config: React.FC = () => {
 
   React.useEffect(() => {
     if (state.chvkey) {
+      let checado = state.chkdb;
+      setIsChkDb(checado);
+      
+
+      if (state.chkdb){
+
+      }
       if (!ischkdb){ 
         setIsChkDb(true);
       }

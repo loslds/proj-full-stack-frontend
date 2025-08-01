@@ -163,11 +163,33 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   align-items: center;
 `;
 ///////////////////////
-
-
-
-
-
+interface PropsBtnDefImgEnabledOnOffPg {
+  img?: string;
+  disabled?: boolean; // Adicionando a propriedade
+}
+export const ButtonDefImgEnabledOnOffPg = styled.button<PropsBtnDefImgEnabledOnOffPg>`
+  border: none;
+  margin: 2px 5px 2px 5px;
+  color: ${props => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  background-image: url(${({ img }) => img || semimg});
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')}; // ⬅️ Cursor muda quando desativado
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)}; // ⬅️ Opacidade reduzida se desativado
+  outline: none;
+  min-height: 45px;
+  width: 45px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+`;
 
 /////////////////////////// fim HEADER ///////////////////////
 

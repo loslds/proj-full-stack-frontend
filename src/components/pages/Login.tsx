@@ -1,6 +1,10 @@
 
 import React from "react";
 import * as Pg from '../stylePages';
+
+import { useAcessoContext } from '../contexts/useAcessoContext';
+//import { UseAcessoActions } from '../contexts/ContextAcesso';
+
 //import axios from "axios";
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
@@ -44,6 +48,7 @@ import { ContentPanelMain } from "../ContentPanelMain";
 
 
 const Login: React.FC = () => {
+  const { state } = useAcessoContext();
   
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
@@ -66,8 +71,7 @@ const Login: React.FC = () => {
   };
 
   // Estados para os selects
-
-
+  const [ischkdb, setIsChkDb] = React.useState(state.chkdb);
 
   const [isempresa, setIsEmpresa] = React.useState(true);
   const [empresaSelecionada, setEmpresaSelecionada ] = React.useState('0');
@@ -120,7 +124,7 @@ const Login: React.FC = () => {
   }, []);
   
   React.useEffect(() => {
-    if (isempresa){
+    if (isempresa && ischkdb){
       if (empresaSelecionada === '0'){
         setIsBtnChk(true);
         setIsDesable(true);
@@ -651,6 +655,9 @@ const Login: React.FC = () => {
 
 
         </ContentSidePagePanelBotton>
+
+
+        
 
 
         {cardhplloginpage ? (

@@ -51,7 +51,7 @@ export const ContainerModalAround = styled.div`
   justify-content: space-around;
   align-content: center;
   align-items: center;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
 `;
 //*
 // modal
@@ -110,7 +110,7 @@ export const ContainerModal = styled.div<PropsContainerModal>`
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 8px 10px 8px 10px;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
   top: ${({ ptop }) => ptop ||'62px'};
   position: fixed;
   width: ${({ pwidth }) => pwidth || '66.3%'};
@@ -143,7 +143,7 @@ export const ContainerCard = styled.div<PropsContainerCard>`
   align-items: center;
   font-size: 16px;
   font-style: normal;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
 `;
 //*
 export const ContainerCardFlex = styled.div`
@@ -159,7 +159,7 @@ export const ContainerCardFlex = styled.div`
   justify-content: space-between; /*space-around;*/
   align-content: center;
   //align-items: center;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
 `;
 interface PropsContainerCardFlexWidth {
   pwidth?: string;
@@ -221,13 +221,10 @@ export const ContainerModalTitle = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
 `;
 //*
 ///////////////// fim CardModal
-
-
-
 interface PropsButtonModal {
   img?: string
 }
@@ -235,7 +232,7 @@ export const ButtonImgModal = styled.button<PropsButtonModal>`
   border: none; /*1 red solid;*/
   padding: 0px 0px 0px 0px;
   margin: 2px 5px 2px 5px;
-  color: white;
+  color: ${props => props.theme.colors.textColor};
   font-size: 12px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
@@ -268,7 +265,7 @@ export const ContainerModalColumn = styled.div`
   text-align: left; /* Alinhar o texto à esquerda */
   font-size: 16px;
   font-style: normal;
-  color: #000000; /* Garantir que o texto tenha a cor definida */
+  color: ${props => props.theme.colors.textColor};
   
   h1, h2, h3, h4, h5 {
     margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
@@ -373,6 +370,68 @@ export const ContainerHeardModalMain = styled.div`
   align-content: center;
   align-items: center;
   color: black;
+`;
+/////// contente para erro
+interface PropsContainerModalPanelErroPage {
+  ppwidth? : string;
+}
+export const ContainerModalPanelErroPage = styled.div<PropsContainerModalPanelErroPage>`
+  border: 4px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  min-width: ${({ ppwidth }) => ppwidth || '28%'};
+  display: flex;
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+interface PropsContainerModalPanelPageErroFlex {
+  bordas?: string;
+}
+export const ContainerModalPanelErroFlex = styled.div<PropsContainerModalPanelPageErroFlex>`
+  border: ${({ bordas }) => bordas || 'none'};
+  border-style: double;
+  border-radius: 10px;
+  border-color: red;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 5px 5px 5px;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+    
+  h1, h2, h3, h4, h5 {
+    margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
+    padding: 0px 0px 0px 0px;
+    font-style: normal;
+    text-decoration-color: #ff0000ff;
+  }
+  label {
+    font-size: 12px;
+    line-height: 12px;
+    //font-style: normal;
+    text-decoration: underline 0.5px;
+  }
+`;
+
+export const ContainerModalBetween = styled.div`
+  border: none; 
+  padding: 0px auto;
+  margin: 0px auto;
+  min-height: 40px;
+  width: '100%';
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  color: ${props => props.theme.colors.textColor};
 `;
 
 ///////////////////////////////////////////////////
