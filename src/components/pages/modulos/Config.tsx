@@ -3,10 +3,11 @@ import { ThemeProvider } from 'styled-components';
 import light from "../../../themes/light.ts";
 import dark from "../../../themes/dark.ts";
 import { useNavigate } from 'react-router-dom';
-// Use o hook do contexto
-// import { MysqlUseActions, MysqlUseContext  } from '../../contexts/MySQLContext.tsx'; 
+import { useAcessoContext } from '../../contexts/useAcessoContext.ts';
+import { }
 
 import LayoutConfig from '../../layouts/LayoutConfig.tsx';
+
 import { PageModal } from '../PageModal.tsx';
 import { CardHlpConfigPage } from '@/cards/CardHlpConfigPage.tsx';
 import { ContentCardPage } from '../../ContentCardPage.tsx';
@@ -28,21 +29,23 @@ import bt_close from '@/assets/svgs/bt_close.svg';
 const Config: React.FC = () => {
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
-  
+  const ToggleTheme = () => {
+    setTheme(theme.name === "dark" ? light : dark);
+    setIscheck(theme.name === "dark");
+  };
+
   const navigate = useNavigate();
   const goto = (path: string) => () => navigate(path);
 
-  //const { state, dispatch } = MysqlUseContext();
+  const { state } = useAcessoContext();
+
+  const [ischkdb, setIsChkDb] = React.useState(state.chkdb);
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
-  const ToggleTheme = () => {
-    setTheme(theme.name === "dark" ? light : dark);
-    setIscheck(theme.name === "dark");
-  };
 
   // const TitlePage = 'Config.';
   
@@ -53,6 +56,34 @@ const Config: React.FC = () => {
   //   dispatch({ type: MysqlUseActions.SET_APLICACAO, payload: AcaoPage });
   //   console.log('Valores iniciais do contexto:', state);
   // }, []); // O array vazio garante que o efeito só roda uma vez na montagem
+
+
+  const [checagemsyspage, setChecagemSysPage] = React.useState(false);
+  
+  const handlerChecagemSysPage = React.useCallback(() => {
+    setChecagemSysPage((oldState) => !oldState);
+  }, []);
+
+  React.useEffect(() => {
+    if (state.chvkey) {
+      let checado = state.chkdb;
+      setIsChkDb(checado);
+      
+
+      if (state.chkdb){
+
+      }
+      if (!ischkdb){ 
+        setIsChkDb(true);
+      }
+    } else {
+      setIsChkDb(false);
+    }
+    if (ischkdb){
+      handlerChecagemSysPage();
+    }
+  },[]);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -70,7 +101,28 @@ const Config: React.FC = () => {
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
+
         <ContentCardPage pwidth={'100%'}>
+
+        {ischkdb ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Checagem do Sistema.'}
+            onclose={() => setChecagemSysPage(false)}
+          >
+            <CardHlpHomePage
+              imgcardpage={lg_chksys}
+              onclosesair={() => setChecagemSysPage(false)}
+            />
+          </PageModal>
+        ) : null}
+
+
+
           <BarMenuConfig />
         </ContentCardPage>  
 
@@ -93,9 +145,6 @@ const Config: React.FC = () => {
         {activeComponent === "RestoreDB" && <RestoreDB />}
         {activeComponent === "ExplorerDB" && <ExplorerDB />} 
 */}
-
-
-
 
 
 

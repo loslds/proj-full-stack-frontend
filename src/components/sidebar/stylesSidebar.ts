@@ -4,9 +4,9 @@ import semimg from "../../assets/svgs/semimg.svg"
 
 export const ContainerSBMain = styled.div`
   border: 2px solid red;
-  margin: 10px 10px 10px 10px;
+  margin: 5x 5px 5px 5px;
   padding: 0px 0px 0px 0px;
-  min-height: 50px;
+  min-height: 45px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -27,7 +27,7 @@ export const ContainerButtonSRigth = styled.div`
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 10px 2px 0px 2px;
+  margin: 2px 2px 2px 2px;
   background: transparent;
   display: flex;
   flex-flow: row wrap;
@@ -41,7 +41,7 @@ export const ContainerButtonSRigth = styled.div`
 `;
 //container Butto Side lado esquero
 export const ContainerButtonSLeft = styled.div`
-  border-left: 3px solid red ;
+  border-left: 3px solid violet ;
   padding: 0px 0px 0px 0px;
   margin: 2px 5px 2px 5px;
   background: transparent;
@@ -60,13 +60,13 @@ export const ContainerButtonSLeft = styled.div`
 // ContainerSideButton
 export const ContainerSideButton = styled.div`
   border: 2px;
-  border-color: red;
+  border-color: blue;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 0px 5px 0px 5px;
+  margin: 0px 0px 0px 0px;
   background: transparent;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -92,8 +92,8 @@ export const ButtonSideBarImg = styled.button<{ img?: string }>`
   background-position: center;
   cursor: pointer;
   outline: none;
-  width: 40px;
-  min-height: 37px;
+  min-width: 40px;
+  min-height: 40px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;

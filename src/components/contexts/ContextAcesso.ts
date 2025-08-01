@@ -1,10 +1,12 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+
+import React, { createContext } from 'react';
 
 export type StateAcesso = {
   page: string | null;
   aplicacao: string | null;
   auth: string | null;
   chvkey: boolean | null;
+  chkdb: boolean | null;
   id_acesso: number;
   qdd_acesso: number;
   ult_acesso: string | null;
@@ -26,15 +28,14 @@ export type StateAcesso = {
   logo: Blob | null;
   path_logo: string | null;
   nmarq_logo: string | null;
-  dtini: string | null;
-  dtfim: string | null;
+  dataini: string | null;
+  datafim: string | null;
   tempo: string | null;
   logado: boolean | null;
   mdlogin: number | null;
   nmlogin: string | null;
   nrcont: number | null;
   nmcont: string | null;
-
 };
 
 export const initialData: StateAcesso = {
@@ -42,6 +43,7 @@ export const initialData: StateAcesso = {
   aplicacao: '',
   auth: '',
   chvkey: false,
+  chkdb: false,
   id_acesso: 0,
   qdd_acesso: 0,
   ult_acesso: '',
@@ -63,8 +65,8 @@ export const initialData: StateAcesso = {
   logo: null,
   path_logo: '',
   nmarq_logo: '',
-  dtini: '',
-  dtfim: '',
+  dataini: '',
+  datafim: '',
   tempo: '',
   logado: false,
   nrcont: 0,
@@ -78,6 +80,7 @@ export enum UseAcessoActions {
   SET_APLICACAO = 'SET_APLICACAO',
   SET_AUTH = 'SET_AUTH',
   SET_CHVKEY = 'SET_CHVKEY',
+  SET_CHKDB = 'SET_CHKDB',
   SET_ID_ACESSO = 'SET_ID_ACESSO',
   SET_QDD_ACESSO = 'SET_QDD_ACESSO',
   SET_ULT_ACESSO = 'SET_ULT_ACESSO',
@@ -99,7 +102,7 @@ export enum UseAcessoActions {
   SET_LOGO = 'SET_LOGO',
   SET_PATH_LOGO = 'SET_PATH_LOGO',
   SET_NMARQ_LOGO = 'SET_NMARQ_LOGO',
-  SET_DATINI = 'SET_DATINI',
+  SET_DATAINI = 'SET_DATAINI',
   SET_DATAFIM = 'SET_DATAFIM',
   SET_TEMPO = 'SET_TEMPO',
   SET_LOGADO = 'SET_LOGADO',
@@ -107,7 +110,6 @@ export enum UseAcessoActions {
   SET_NMCONT = 'SET_NMCONT',
   SET_MDLOGIN = 'SET_MDLOGIN',
   SET_NMLOGIN = 'SET_NMLOGIN',
-
 }
 
 type AcessoAction =
@@ -115,6 +117,7 @@ type AcessoAction =
   | { type: UseAcessoActions.SET_APLICACAO; payload: string }
   | { type: UseAcessoActions.SET_AUTH; payload: string | null }
   | { type: UseAcessoActions.SET_CHVKEY; payload: boolean | null }
+  | { type: UseAcessoActions.SET_CHKDB; payload: boolean | null }
   | { type: UseAcessoActions.SET_ID_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_QDD_ACESSO; payload: number }
   | { type: UseAcessoActions.SET_ULT_ACESSO; payload: string }
@@ -136,7 +139,7 @@ type AcessoAction =
   | { type: UseAcessoActions.SET_LOGO; payload: null }
   | { type: UseAcessoActions.SET_PATH_LOGO; payload: string }
   | { type: UseAcessoActions.SET_NMARQ_LOGO; payload: string }
-  | { type: UseAcessoActions.SET_DATINI; payload: string }
+  | { type: UseAcessoActions.SET_DATAINI; payload: string }
   | { type: UseAcessoActions.SET_DATAFIM; payload: string }
   | { type: UseAcessoActions.SET_TEMPO; payload: string }
   | { type: UseAcessoActions.SET_LOGADO; payload: boolean }
@@ -146,7 +149,7 @@ type AcessoAction =
   | { type: UseAcessoActions.SET_NMLOGIN; payload: string };
   
 
-const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
+export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
   switch (action.type) {
     case UseAcessoActions.SET_PAGE:
       return { ...state, page: action.payload };
@@ -156,6 +159,8 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
       return { ...state, auth: action.payload };
     case UseAcessoActions.SET_CHVKEY:
       return { ...state, chvkey: action.payload };
+    case UseAcessoActions.SET_CHKDB:
+      return { ...state, chkdb: action.payload };
     case UseAcessoActions.SET_ID_ACESSO:
       return { ...state, id_acesso: action.payload };
     case UseAcessoActions.SET_QDD_ACESSO:
@@ -167,7 +172,7 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.SET_MODULO:
       return { ...state, modulo: action.payload };
     case UseAcessoActions.SET_ACAO:
-      return { ...state, descrnivel: action.payload };
+      return { ...state, acao: action.payload };
     case UseAcessoActions.SET_NIVEL:
       return { ...state, nivel: action.payload };
     case UseAcessoActions.SET_CADEADO:
@@ -198,10 +203,10 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
       return { ...state, path_logo: action.payload };
     case UseAcessoActions.SET_NMARQ_LOGO:
       return { ...state, nmarq_logo: action.payload };
-    case UseAcessoActions.SET_DATINI:
-      return { ...state, data_ini: action.payload };
+    case UseAcessoActions.SET_DATAINI:
+      return { ...state, dataini: action.payload };
     case UseAcessoActions.SET_DATAFIM:
-      return { ...state, data_fim: action.payload };
+      return { ...state, datafim: action.payload };
     case UseAcessoActions.SET_TEMPO:
       return { ...state, tempo: action.payload };
     case UseAcessoActions.SET_LOGADO:
@@ -219,29 +224,14 @@ const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
   }
 };
 
-type AcessoContextType = {
+
+// Define o tipo do contexto
+export type AcessoContextType = {
   state: StateAcesso;
   dispatch: React.Dispatch<AcessoAction>;
 };
+
+// Cria o contexto
 export const AcessoContext = createContext<AcessoContextType | undefined>(undefined);
-
-export const AcessoProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
-  const [state, dispatch] = useReducer(AcessoReducer, initialData);
-  return (
-    <AcessoContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AcessoContext.Provider>
-  );
-};
-
-export const useAcessoContext = (): AcessoContextType => {
-  const context = useContext(AcessoContext);
-  if (!context) {
-    throw new Error('useAcessoContext deve ser usado dentro de um AcessoProvider');
-  }
-  return context;
-};
-
+ 
 ///// fim  ///////
