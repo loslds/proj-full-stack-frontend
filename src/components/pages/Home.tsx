@@ -1,5 +1,7 @@
 
 import React from 'react';
+import axios from 'axios';
+
 import * as Pg from '../stylePages';
 
 import { ThemeProvider } from 'styled-components';
@@ -29,7 +31,7 @@ import { PageModal } from './PageModal';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-import { CardImgNegSys } from '@/cards/CardImgNegSys';
+//import { CardImgNegSys } from '@/cards/CardImgNegSys';
 
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
@@ -48,35 +50,22 @@ import pn_config from '../../assets/svgs/pn_config.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 //import bt_setaleft from '../../assets/pngs/bt_setaleft.png';
 import bt_refresca1 from '../../assets/pngs/bt_refresca1.png';
-import esclamacaocirc from '@/assets/svgs/esclamacaocirc.svg';
-
-import { DateToCecular } from '../../funcs/funcs/DateToCecular'; 
+//import esclamacaocirc from '@/assets/svgs/esclamacaocirc.svg';
 const Home: React.FC = () => {
-  const { state, dispatch } = useAcessoContext();
-
-  const dtCecular = DateToCecular(new Date());
-  const [ischkdb, setIisChkDb] = React.useState(false);
-  
-  const [startbtnchave, setStartBtnChave] = React.useState(false);
-  const [buscachave, setBuscaChave] = React.useState(false);
-  //const chaveDt = DateToCecular(new Date());
-  
-  const [chavedigitada, setChaveDigitada] = React.useState('');
-  
-  //const [btnok, setbtnok] = React.useState(false);
-  
-  const [isdesable, setIsDesable] = React.useState(true); 
-  const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
-  
-  const [cardlogo, setCardLogo] = React.useState(false);
-  const [cardhplpage, setCardHlpPage] = React.useState(false);
-  const [cardnegadopage, setCardNegadoPage] = React.useState(false);
-
-  const [closechkdbhomepage,setCloseChkDbHomePage] = React.useState(false);
-
-  const [theme, setTheme] = React.useState(light);
-  const [ischeck, setIscheck] = React.useState(false);
-
+ 
+  const { state, dispatch } = useAcessoContext();// procedimento para usar o context
+//  const [ischkdb, setIisChkDb] = React.useState(false);// state para gardar o valor do retorno para ser guardado no context
+  const [startbtnchave, setStartBtnChave] = React.useState(false);// state para liberar a edição da chave master
+  const [buscachave, setBuscaChave] = React.useState(false);//state para abrir procedimento de avaliação da chave master
+  const [chavedigitada, setChaveDigitada] = React.useState('');// state para guardar chave master digitada
+  const [isdesable, setIsDesable] = React.useState(true); // state para ativar/desativar acesso botão
+  const [msgpanelbottom, setMsgPanelBottom] = React.useState('');// state guardar menssagem em passar o mouse sobre o botão 
+  const [cardlogo, setCardLogo] = React.useState(false);// state para chamada do Modal Explicativo do Sistema 
+  const [cardhplpage, setCardHlpPage] = React.useState(false);// state para chamada do Modal HELP da PAGINA 
+  const [cardnegadopage, setCardNegadoPage] = React.useState(false);// state para abrir e fechar modal negado acesso Pagina
+  const [theme, setTheme] = React.useState(light);// state para tema THEME pagina 
+  const [ischeck, setIscheck] = React.useState(false);// state para checar se existe edição  
+  // procedimentos para troca de THEME
   const ToggleTheme = () => {
     if (theme.name === 'dark') {
       setTheme(light);
@@ -86,15 +75,110 @@ const Home: React.FC = () => {
       setIscheck(false);
     }
   };
-  
+  // procedimentos para chamadas de Paginas
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => {
     navigate(path);
   }, [navigate]);
-
+  // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
+  //=============================================================================
+  // === sistema de checagem inicial ===
+  const [showSystemModal, setShowSystemModal] = React.useState(true);
+  const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+  const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
+
+  const appendMessage = (msg: string) =>
+    setSystemMessages((prev) => [...prev, msg]);
+
+  const performSystemCheck = React.useCallback(async () => {
+    const requiredTables = ['sys_data', 'pessoas', 'empresas']; // agora dentro
+    setSystemMessages([]);
+    setSystemOk(null);
+    try {
+      appendMessage('1. Verificando conexão com o banco de dados...');
+      const connRes = await axios.get('http://localhost:3001/api/db/check-connection');
+      if (!connRes.data?.success) {
+        appendMessage('❌ Conexão Deferida. Entre em contato com o Administrador.');
+        setSystemOk(false);
+        return;
+      }
+      appendMessage('✅ Conexão Ok.');
+
+      appendMessage('2. Verificando flag chkdb em sys_data...');
+      try {
+        const chkdbRes = await axios.get('http://localhost:3001/api/db/check-chkdb');
+        if (chkdbRes.data?.success) {
+          appendMessage('✅ Liberado para Serviço (chkdb=true).');
+        } else {
+          appendMessage('❌ Requisitos não aceitáveis (chkdb).');
+          appendMessage('Solicitar contato com Administrador.');
+          setSystemOk(false);
+          return;
+        }
+      } catch (err) {
+        appendMessage('❌ Erro ao checar chkdb. Solicitar contato com Administrador.');
+        console.error('chkdb check error:', err);
+        setSystemOk(false);
+        return;
+      }
+
+      // 3. Verificar existência e contagem das tabelas necessárias
+      let anyFailure = false;
+      for (const tbl of requiredTables) {
+        appendMessage(`3. Verificando tabela "${tbl}"...`);
+        try {
+          const countRes = await axios.get(`http://localhost:3001/api/db/table-count/${tbl}`);
+          if (countRes.data?.success) {
+            const cnt: number = countRes.data.count;
+            if (cnt > 0) {
+              appendMessage(`✅ Tabela "${tbl}" presente com ${cnt} registros.`);
+            } else {
+              appendMessage(`⚠️ Tabela "${tbl}" presente, mas vazia.`);
+              anyFailure = true;
+            }
+          } else {
+            appendMessage(`❌ Tabela "${tbl}" ausente ou erro ao consultar.`);
+            anyFailure = true;
+          }
+        } catch (err) {
+          appendMessage(`❌ Falha ao verificar a tabela "${tbl}".`);
+          console.error(`table check error for ${tbl}:`, err);
+          anyFailure = true;
+        }
+      }
+
+      if (anyFailure) {
+        appendMessage('Solicitar contato com Administrador.');
+        setSystemOk(false);
+        return;
+      }
+
+      appendMessage('✅ Sistema pronto. Liberado para serviço.');
+      setSystemOk(true);
+    } catch (err) {
+      appendMessage('❌ Erro inesperado na checagem do sistema.');
+      console.error('performSystemCheck unexpected error:', err);
+      setSystemOk(false);
+    }
+  }, []);
 
 
+  // dispara checagem ao montar
+  React.useEffect(() => {
+    performSystemCheck();
+  }, [performSystemCheck]);
+
+  // fecha automático se tudo OK
+  React.useEffect(() => {
+    if (systemOk === true) {
+      const timer = setTimeout(() => setShowSystemModal(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [systemOk]);
+//=============================================================
+
+  // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {
     if (!state.logado && !state.chvkey) {
       goto('/');
@@ -117,27 +201,6 @@ const Home: React.FC = () => {
       setMessageBottom( 'Acessos Modulos "NEGADOS"...');
     }
 
-    // seria aqui? a checagem?
-    if (!ischkdb) {
-      <PageModal
-        ptop={'1%'}
-        pwidth={'80%'}
-        pheight={'95%'}
-        imgbm={bt_close}
-        titbm="Fechar..."
-        titulo={'Checando Sistema.'}
-        onclose={() => setCloseChkDbHomePage(false)}
-        >
-          <CardImgNegSys
-            imgcard={esclamacaocirc}
-            onclick={() => setCloseChkDbHomePage(false)}
-          />
-      </PageModal>
-    }
-
-
-
-
     if (state.logado) {
       resetAcesso();
       setMsgPanelBottom('Acesso MODULO: "' + state.modulo +'"...');
@@ -150,8 +213,6 @@ const Home: React.FC = () => {
     setMessageBottom('Aguardando Seleção...');
     }
  }, [state.logado, state.chvkey, state.modulo, dispatch, resetAcesso]); 
-
-
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -506,21 +567,8 @@ const Home: React.FC = () => {
                 disabled={isdesable}
               />
             </ContentSidePageBottonLabel>
-          ): null}  
-
-          {/* SO para Teste */}
-          <ContentSidePageBottonLabel istitl={true} title={'Pageteste? : '}>
-            <ContentPageButtonDefImgEnabled 
-              pxheight={'40px'}
-              img={bt_enviar}
-              titbtn={'Pessoas...'}
-              onclick={() => goto('/modulos/recepcao')}
-              disabled={false}
-            />
-          </ContentSidePageBottonLabel>
-          <p>Chave Master: { dtCecular } </p>
-          <p>{state.chvkey}</p>
-        </ContentSidePagePanelBotton>
+          ): null} 
+        </ContentSidePagePanelBotton> 
 
         { cardnegadopage ? (
           <PageModal
@@ -575,6 +623,46 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
 
+        {showSystemModal && (
+           
+          <PageModal
+            ptop={'15%'}
+            pwidth={'40%'}
+            pheight={'50%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Verificação do Sistema'}
+            onclose={() => {
+              // se OK, deixa fechar automático; se erro, permite fechar manualmente
+              setShowSystemModal(false);
+            }}
+          >
+
+
+            <div style={{ maxHeight: '60vh', overflowY: 'auto', padding: 10 }}>
+              {systemMessages.map((msg, i) => (
+                <div key={i} style={{ marginBottom: 6, fontSize: 14 }}>
+                  {msg}
+                </div>
+                ))
+              }
+              {systemOk === true && (
+                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'green' }}>
+                  Fechando em 5 segundos...
+                </div>
+                )
+              }
+              {systemOk === false && (
+                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'red' }}>
+                  Verificação falhou. Entre em contato com o administrador.
+                </div>
+                )
+              }
+            </div>
+          </PageModal>
+          )
+        }
+
         <div>{ messagebottom }</div>
 
       </LayoutHome>
@@ -584,3 +672,23 @@ const Home: React.FC = () => {
 
 export default Home;
 
+
+
+    // chamada da pagina Modal para check de Serviço DB.
+
+    // if (!ischkdb) {
+    //   <PageModal
+    //     ptop={'1%'}
+    //     pwidth={'80%'}
+    //     pheight={'95%'}
+    //     imgbm={bt_close}
+    //     titbm="Fechar..."
+    //     titulo={'Checando Sistema.'}
+    //     onclose={() => setCloseChkDbHomePage(false)}
+    //     >
+    //       <CardImgNegSys
+    //         imgcard={esclamacaocirc}
+    //         onclick={() => setCloseChkDbHomePage(false)}
+    //       />
+    //   </PageModal>
+    // }
