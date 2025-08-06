@@ -31,7 +31,7 @@ import { PageModal } from './PageModal';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-//import { CardImgNegSys } from '@/cards/CardImgNegSys';
+import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
@@ -637,8 +637,8 @@ const Home: React.FC = () => {
               setShowSystemModal(false);
             }}
           >
-
-
+            <CardCheckingSystema />
+{/* 
             <div style={{ maxHeight: '60vh', overflowY: 'auto', padding: 10 }}>
               {systemMessages.map((msg, i) => (
                 <div key={i} style={{ marginBottom: 6, fontSize: 14 }}>
@@ -652,6 +652,7 @@ const Home: React.FC = () => {
                 </div>
                 )
               }
+               */}
               {systemOk === false && (
                 <div style={{ marginTop: 12, fontWeight: 'bold', color: 'red' }}>
                   Verificação falhou. Entre em contato com o administrador.
