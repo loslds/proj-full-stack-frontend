@@ -1,12 +1,7 @@
+ 
 import * as Pg from '../stylePages';
-
-///
 import { ContentPages } from '../ContentPages';
 import HeaderHome from '../hearders/headers/HearderHome';
-//import { FooterPage } from '../../footers/FooterPage';
-//import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
-//import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
-
 interface PropsLayoutHome {
   imgsys?: string;
   titbtnsys?: string;
@@ -17,13 +12,14 @@ interface PropsLayoutHome {
   onclickhlppg?: () => void;
   imgbtnlogin?: string;
   titbtnlogin?: string;
+  disabled?: boolean;
   onclicklogin?: () => void;
   imgbtnresg?: string;
   titbtnresg?: string;
   onclickresg?: () => void;
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
   open?: boolean;
 }
 const LayoutHome = ({
@@ -35,6 +31,7 @@ const LayoutHome = ({
   titbtnhlppg,
   onclickhlppg,
   imgbtnlogin,
+  disabled,
   titbtnlogin,
   onclicklogin,
   imgbtnresg,
@@ -55,6 +52,7 @@ const LayoutHome = ({
         titbtnhlppg={titbtnhlppg}
         onclickhlppg={onclickhlppg}
         imgbtnlogin={imgbtnlogin}
+        disabled={disabled}
         titbtnlogin={titbtnlogin}
         onclicklogin={onclicklogin}
         imgbtnresg={imgbtnresg}
@@ -79,3 +77,4 @@ const LayoutHome = ({
 };
 
 export default LayoutHome;
+ 

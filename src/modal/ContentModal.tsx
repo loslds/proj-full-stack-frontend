@@ -6,7 +6,7 @@ interface PropsContentModal {
   pheight?: string;
   pwidth?: string;
   onClick?: () => void;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 export const ContentModal = ({
   ptop,

@@ -1,7 +1,8 @@
+// import React from 'react';
 import * as Pg from './stylePages';
 interface PropsContentCardPage {
   pwidth?: string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 }
 
 export const ContentCardPage = ({ pwidth, children }: PropsContentCardPage) => {

@@ -2,7 +2,7 @@ import * as Pg from './stylePages';
 interface PropsContentCardPageMain {
   open?: boolean;
   pwidth?: string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 
 export const ContentCardPageMain = ({

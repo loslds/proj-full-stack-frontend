@@ -6,7 +6,7 @@ import {ContainerMainDropdownUl} from './stylesSidebar';
 type interfaceContentMainDropdownUl = {
   pxheigth?: string;
   pxwidth?: string;
-  children?: ReactNode | JSX.Element;
+  children?: ReactNode;
 };
 export const ContentMainDropdownUl = ({
   pxheigth,

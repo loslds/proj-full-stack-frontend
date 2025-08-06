@@ -6,7 +6,7 @@ interface PropsContentBoxPageSelect {
   open?: boolean;
   istitl?: boolean;
   title?: string;
-  children?: ReactNode | JSX.Element;
+  children?: ReactNode;
 }
 export const ContentBoxPageSelect = ({
   open,

@@ -1,7 +1,7 @@
 import * as S from './stylesSidebar';
 
 interface PropsContentSBMenuSide {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
   onoff: boolean;
 };
 

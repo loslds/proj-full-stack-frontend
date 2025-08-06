@@ -1,10 +1,10 @@
 import React from 'react';
-//import * as S from './stylesSidebar';
+import * as S from './stylesSidebar';
 import { ContentSBMain } from './ContentSBMain';
+import { ContainerSBButton } from './ContainerSBButton';
+import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 
-//import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 
-//import { ContainerSBButton } from './ContainerSBButton';
 
 
 // import { Dropdown } from './Dropdown';
@@ -17,16 +17,16 @@ import { ContentSBMain } from './ContentSBMain';
 export const BarMenuConfig = () => {  
   
   // abre ou fecha Menu Principal
-  //const [ismenu, setIsMenu] = React.useState(false);
-  //const handlerClickMenu = React.useCallback(() => {
-  //  setIsMenu((oldState) => !oldState);
-  //}, []);
-
+  
+  const [isopc, setIsOpc] = React.useState(false);
+  const [ismenu, setIsMenu] = React.useState(false);
+  
+  const handlerClickMenu = React.useCallback(() => {
+    setIsMenu((oldState) => !oldState);
+  }, []);
 
   return (
     <ContentSBMain>
-
-{/*       
       <S.ContainerButtonSRigth>
         <ContainerSBButton
           img={bt_menucirc}
@@ -38,7 +38,8 @@ export const BarMenuConfig = () => {
         <S.ButtonItemMn>
           Ferramentas.
         </S.ButtonItemMn>
-        <S.ContainerButtonMnItens open={true}>
+        
+        <S.ContainerButtonMnItens open={isopc}>
           <S.ContainerButtonSLeft>
             <S.ButtonItemMn title='Ferramentas.' onClick={() => alert('Opcbnt-1')} >
               btnItem-1
@@ -60,7 +61,8 @@ export const BarMenuConfig = () => {
 
           
         </S.ContainerButtonMnItens>
-      </S.ContainerMenuSide> */}
+      </S.ContainerMenuSide>
+      
 
       
     </ContentSBMain>

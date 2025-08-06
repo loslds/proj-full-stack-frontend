@@ -2,7 +2,7 @@ import React from 'react';
 import * as M from './stylesModal';
 
 interface PropsContentCardModal {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 }
 export const ContentCardModal = ({ children }: PropsContentCardModal) => {
   return (
