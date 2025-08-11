@@ -7,6 +7,7 @@ import * as M from '../modal/stylesModal';
 import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
+import {ContentCardPageMain} from '../components/ContentCardPageMain';
 import { ContentCardPrintText } from '../components/ContentCardPrintText';
 import { ContentCardPrintTextVerm } from '../components/ContentCardPrintTextVerm';
 import { ContentCardPrintTextVerde } from '../components/ContentCardPrintTextVerde';
@@ -16,41 +17,46 @@ import { CardHlpFooter } from './CardHlpFooter';
 interface CardCheckingServiceProps {
   imgchksrvpage?: string;
   onclosesair?: () => void;
-  checando?: boolean;
+  checado?: boolean;
 }
-const CardCheckingServices: React.FC = ({imgchksrvpage, checando, onclosesair}: CardCheckingServiceProps) => {
-  const [ischecando, setIsChecando] = React.useState<boolean | null>(null);
+const CardCheckingServices: React.FC = ({
+  imgchksrvpage, 
+  checado, 
+  onclosesair
+  }: CardCheckingServiceProps) => {
+  const [ischkServico, setIsChkServico] = React.useState(false);
+  const [ischecado, setIsChecado] = React.useState<boolean | null>(null);
   const [isConnected, setIsConnected] = React.useState<boolean | null>(null);
   const [tablesExist, setTablesExist] = React.useState<boolean | null>(null);
-  //const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
-  //const [status, setStatus] = React.useState<string | null>(null);
-  //const [error, setError] = React.useState<string | null>(null);
+ 
 
-  // UseEffect para verificar a conexão e as tabelas assim que o componente carregar
+
   React.useEffect(() => {
-    // Função para verificar a conexão com o banco
-    const verifyConnection = async () => {
-      const connectionResult = await checkConnection();
-      if (connectionResult.success) {
-        setIsConnected(true);
-        // Se estiver conectado, verifica as tabelas
-        const tablesResult = await checkTables();
-        if (tablesResult.success) {
-          setTablesExist(true);
-          setIsChecando(true);
+    if (ischkServico) {
+      // Função para verificar a conexão com o banco
+      const verifyConnection = async () => {
+        const connectionResult = await checkConnection();
+        if (connectionResult.success) {
+          setIsConnected(true);
+          // Se estiver conectado, verifica as tabelas
+          const tablesResult = await checkTables();
+          if (tablesResult.success) {
+            setTablesExist(true);
+            setIsChecado(true);
+          } else {
+            setTablesExist(false);
+            setIsChecado(false);
+            //setErrorMessage(tablesResult.message); // Mensagem de erro caso as tabelas não existam
+          }
         } else {
-          setTablesExist(false);
-          //setErrorMessage(tablesResult.message); // Mensagem de erro caso as tabelas não existam
+          setIsConnected(false);
+          setIsChecado(false);
+          //setErrorMessage(connectionResult.message); // Mensagem de erro caso a conexão falhe
         }
-      } else {
-        setIsConnected(false);
-        //setErrorMessage(connectionResult.message); // Mensagem de erro caso a conexão falhe
       }
-
-    };
-  
     // Chama a função
     verifyConnection();
+    };
   }, []);
 
   return (
@@ -62,40 +68,77 @@ const CardCheckingServices: React.FC = ({imgchksrvpage, checando, onclosesair}: 
           img={imgchksrvpage}
         />
       </CardModalAround>
-      <CardModalTextoColumn>
+
+      <ContentCardPageMain open={!ischkServico}>
+        <CardModalTextoColumn>
+          <ContentCardPrintText>
+            <h4>Aguarde Verificação em Sistema...</h4>
+              
+          </ContentCardPrintText>
+        </CardModalTextoColumn>
+      </ContentCardPageMain>
+      
+      <ContentCardPageMain open={ischkServico}>
+
+
+      </ContentCardPageMain>
+
+      {!ischecado && isConnected === null ? (
+          <ContentCardPrintText>
+            <h4>Verificando a conexão com o banco...</h4>  
+          </ContentCardPrintText>
+        ) : null 
+      }
+
+
+
+
+
+        <CardModalTextoColumn>
         {isConnected === null ? (
           <ContentCardPrintText>
             <h4>Verificando a conexão com o banco...</h4>  
           </ContentCardPrintText>
-        ) : null }
-        { !isConnected ? (
+        ) : (
           <ContentCardPrintTextVerm>
             <h4>Verificando a conexão com o banco...</h4>  
           </ContentCardPrintTextVerm>
-        ) : null }
+        ) }
+
         { isConnected ? (
           <ContentCardPrintTextVerde>
             <h4>Conexão de Rede Ativada com DataBase...</h4>  
           </ContentCardPrintTextVerde>
-        ) : null }
+        ) : (
+          <ContentCardPrintTextVerde>
+            <h4>Conexão não encontrada...</h4>
+          </ContentCardPrintTextVerde>  
+        ) }
+        
+        
         { tablesExist === null ? (
           <ContentCardPrintText>
             <h4>Verificando a existência dos Bancos de Dados...</h4>
           </ContentCardPrintText>
-        ) : null }
+        ) : (
+          <ContentCardPrintTextVerde>
+            <h4>Bancos de Dados "Completos".</h4>
+          </ContentCardPrintTextVerde>  
+        ) }
+
         { !tablesExist ? (
           <ContentCardPrintTextVerm>
             <h4>Bancos de Dados "Inexistênte" ou Deficitário".</h4>
           </ContentCardPrintTextVerm>  
-        ) : null }
-        { tablesExist ? (
+        ) : (
           <ContentCardPrintTextVerde>
             <h4>Bancos de Dados "Completos".</h4>
           </ContentCardPrintTextVerde>  
-        ) : null }
-        { isConnected && tablesExist ? (
-          checando = true
-        ): null}
+        ) }
+
+        { isConnected && tablesExist ? 
+          setIsChkServico(true) : setIsChkServico(false)
+        }
       
         <CardHlpFooter
           label="PÁGINA-> CHECKING SERVICE."

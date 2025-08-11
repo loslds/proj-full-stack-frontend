@@ -6,7 +6,7 @@ interface PropsCardHlpFooter {
   label?: string;
   texto?: string;
   onclosesair?: () => void;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 }
 export const CardHlpFooter = ({
   label,
