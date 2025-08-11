@@ -1,19 +1,16 @@
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { ContentHeaderButtonHelp } from '../components/hearders/ContentHeaderButtonHelp';
+import bt_abortar from '../assets/svgs/bt_abortar.svg';
 interface PropsCardHlpFooter1 {
   imghlpsair?: string;
   label?: string;
   texto?: string;
   onclosesair?: () => void;
-  //children?: React.ReactNode | JSX.Element;
 }
 export const CardHlpFooter1 = ({
-  imghlpsair,
   label,
   texto,
   onclosesair
-  //, children
-    
 }: PropsCardHlpFooter1) => {
   return (
     <CardModalTextoColumn>
@@ -26,7 +23,7 @@ export const CardHlpFooter1 = ({
         </a>
       </p>
       <ContentHeaderButtonHelp
-        imgbtnhlp={imghlpsair}
+        imgbtnhlp={bt_abortar}
         titbtnhlp={'FECHAR...'}
         onClickhlp={onclosesair}
       />

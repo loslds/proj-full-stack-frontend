@@ -1,14 +1,39 @@
 
 {
   "compilerOptions": {
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react-jsx", // ou "react" se for React 17 ou anterior
-    "types": ["react", "react-dom"]
+    "target": "ESNext",                        // Últimos recursos do JS
+    "useDefineForClassFields": true,           // Compatibilidade com nova sintaxe de campos de classe
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],  // Suporte ao DOM e funcionalidades modernas
+    "allowJs": false,                          // Não compilar .js
+    "skipLibCheck": true,                      // Ignora verificação de libs
+    "esModuleInterop": true,                   // Permite imports default
+    "allowSyntheticDefaultImports": true,      // Evita erro de import default
+    "strict": true,                            // Checagem rigorosa de tipos
+    "forceConsistentCasingInFileNames": true,  // Evita erros de maiúsc./minúsc.
+    "module": "ESNext",                        // Módulo moderno para Vite
+    "moduleResolution": "Node",                // Resolve imports estilo Node
+    "resolveJsonModule": true,                 // Permite importar arquivos .json
+    "isolatedModules": true,                   // Cada arquivo é tratado como módulo independente
+    "noEmit": true,                            // Não gerar JS (Vite cuida disso)
+    "jsx": "react-jsx"                         // JSX moderno do React 17+
   },
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
+
+
+
+
+// {
+//   "compilerOptions": {
+//     "strict": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "jsx": "react-jsx", // ou "react" se for React 17 ou anterior
+//     "types": ["react", "react-dom"]
+//   },
+//   "files": [],
+//   "references": [
+//     { "path": "./tsconfig.app.json" },
+//     { "path": "./tsconfig.node.json" }
+//   ]
+// }

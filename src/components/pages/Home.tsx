@@ -82,7 +82,8 @@ const Home: React.FC = () => {
   }, [navigate]);
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
-  //=============================================================================
+  //=======================================================================
+
   // === sistema de checagem inicial ===
   const [showSystemModal, setShowSystemModal] = React.useState(true);
   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
@@ -637,29 +638,7 @@ const Home: React.FC = () => {
               setShowSystemModal(false);
             }}
           >
-            <CardCheckingSystema />
-{/* 
-            <div style={{ maxHeight: '60vh', overflowY: 'auto', padding: 10 }}>
-              {systemMessages.map((msg, i) => (
-                <div key={i} style={{ marginBottom: 6, fontSize: 14 }}>
-                  {msg}
-                </div>
-                ))
-              }
-              {systemOk === true && (
-                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'green' }}>
-                  Fechando em 5 segundos...
-                </div>
-                )
-              }
-               */}
-              {systemOk === false && (
-                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'red' }}>
-                  Verificação falhou. Entre em contato com o administrador.
-                </div>
-                )
-              }
-            </div>
+            <CardCheckingSystema messages={systemMessages} systemOk={systemOk}/>
           </PageModal>
           )
         }
@@ -693,3 +672,28 @@ export default Home;
     //       />
     //   </PageModal>
     // }
+
+    {/* 
+            <div style={{ maxHeight: '60vh', overflowY: 'auto', padding: 10 }}>
+              {systemMessages.map((msg, i) => (
+                <div key={i} style={{ marginBottom: 6, fontSize: 14 }}>
+                  {msg}
+                </div>
+                ))
+              }
+              {systemOk === true && (
+                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'green' }}>
+                  Fechando em 5 segundos...
+                </div>
+                )
+              }
+               
+              {systemOk === false && (
+                <div style={{ marginTop: 12, fontWeight: 'bold', color: 'red' }}>
+                  Verificação falhou. Entre em contato com o administrador.
+                </div>
+                )
+              }
+            </div>
+            
+    */}

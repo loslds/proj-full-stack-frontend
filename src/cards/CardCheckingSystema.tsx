@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import * as Sy from './stylesSystem';
-import { ContentSysMain } from "./ContentSysMain";
+import * as Sy from './stylesSystem'; // seus estilos locais
+import { ContentSysMain } from "./ContentSysMain"; // seu layout principal
+import { CardHlpFooter1 } from "./CardHlpFooter1"; // rodapé com instruções
 
-// ✅ Corrigida a forma de declarar a interface
 interface PropsCardCheckingSystema {
   messages: string[];
-  systemOk?: boolean;
+  systemOk: boolean | null; 
   onAutoCloseCountdown?: (secondsLeft: number) => void;
 }
 
@@ -14,6 +14,8 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
   systemOk,
   onAutoCloseCountdown,
 }) => {
+
+  // Temporizador para auto fechamento do modal, se tudo estiver OK
   useEffect(() => {
     if (systemOk === true) {
       let counter = 5;
@@ -29,10 +31,13 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
 
   return (
     <ContentSysMain>
-      {messages.map((m: string, i: number) => (
-        <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
-      ))}
+      <Sy.DivMessageLine>
+        {messages.map((m: string, i: number) => (
+          <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
+        ))}
+      </Sy.DivMessageLine>
 
+      {/* Status final */}
       {systemOk === true && (
         <Sy.DivStatus success>
           ✅ Sistema pronto. Fechando em breve...
@@ -50,6 +55,12 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
           ⏳ Em progresso...
         </Sy.DivStatus>
       )}
+
+      {/* Rodapé de ajuda */}
+      <CardHlpFooter1
+        label="ROTINA → INICIAL"
+        texto="Para sair, aguarde a conclusão da verificação."
+      />
     </ContentSysMain>
   );
 };
