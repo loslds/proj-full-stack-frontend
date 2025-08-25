@@ -1,7 +1,7 @@
 
 import React from "react";
 
-import { checkConnection, checkTables } from '../api/dbApi'; // Importa as funções da API
+import { checkConnection, checkTables } from '../api/db/checkTables'; // Importa as funções da API
 
 import * as M from '../modal/stylesModal';
 import { CardModalCenter } from '../modal/CardModalCenter';

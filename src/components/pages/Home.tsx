@@ -1,8 +1,12 @@
 
 import React from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import { checkConnection } from '../../api/db/checkConnection';
+import { checkTables, syncsysTables} from '../../api/db/checkTables';
 
 import * as Pg from '../stylePages';
+
+import axios from 'axios';
 
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
@@ -85,90 +89,88 @@ const Home: React.FC = () => {
   //=======================================================================
 
   // === sistema de checagem inicial ===
-  const [showSystemModal, setShowSystemModal] = React.useState(true);
-  const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
-  const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
+  //=======================================================================
 
-  const appendMessage = (msg: string) =>
-    setSystemMessages((prev) => [...prev, msg]);
+// === sistema de checagem inicial ===
+const [showSystemModal, setShowSystemModal] = React.useState(true);
+const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
 
-  const performSystemCheck = React.useCallback(async () => {
-    const requiredTables = ['sys_data', 'pessoas', 'empresas']; // agora dentro
-    setSystemMessages([]);
-    setSystemOk(null);
-    try {
-      appendMessage('1. Verificando conexão com o banco de dados...');
-      const connRes = await axios.get('http://localhost:3001/api/db/check-connection');
-      if (!connRes.data?.success) {
-        appendMessage('❌ Conexão Deferida. Entre em contato com o Administrador.');
-        setSystemOk(false);
-        return;
-      }
-      appendMessage('✅ Conexão Ok.');
+const appendMessage = (msg: string) =>
+  setSystemMessages((prev) => [...prev, msg]);
 
-      appendMessage('2. Verificando flag chkdb em sys_data...');
-      try {
-        const chkdbRes = await axios.get('http://localhost:3001/api/db/check-chkdb');
-        if (chkdbRes.data?.success) {
-          appendMessage('✅ Liberado para Serviço (chkdb=true).');
-        } else {
-          appendMessage('❌ Requisitos não aceitáveis (chkdb).');
-          appendMessage('Solicitar contato com Administrador.');
-          setSystemOk(false);
-          return;
-        }
-      } catch (err) {
-        appendMessage('❌ Erro ao checar chkdb. Solicitar contato com Administrador.');
-        console.error('chkdb check error:', err);
-        setSystemOk(false);
-        return;
-      }
+const performSystemCheck = React.useCallback(async () => {
+  const requiredTables = ['systables', 'pessoas', 'empresas'];
+  setSystemMessages([]);
+  setSystemOk(null);
 
-      // 3. Verificar existência e contagem das tabelas necessárias
-      let anyFailure = false;
-      for (const tbl of requiredTables) {
-        appendMessage(`3. Verificando tabela "${tbl}"...`);
-        try {
-          const countRes = await axios.get(`http://localhost:3001/api/db/table-count/${tbl}`);
-          if (countRes.data?.success) {
-            const cnt: number = countRes.data.count;
-            if (cnt > 0) {
-              appendMessage(`✅ Tabela "${tbl}" presente com ${cnt} registros.`);
-            } else {
-              appendMessage(`⚠️ Tabela "${tbl}" presente, mas vazia.`);
-              anyFailure = true;
-            }
-          } else {
-            appendMessage(`❌ Tabela "${tbl}" ausente ou erro ao consultar.`);
-            anyFailure = true;
-          }
-        } catch (err) {
-          appendMessage(`❌ Falha ao verificar a tabela "${tbl}".`);
-          console.error(`table check error for ${tbl}:`, err);
-          anyFailure = true;
-        }
-      }
-
-      if (anyFailure) {
-        appendMessage('Solicitar contato com Administrador.');
-        setSystemOk(false);
-        return;
-      }
-
-      appendMessage('✅ Sistema pronto. Liberado para serviço.');
-      setSystemOk(true);
-    } catch (err) {
-      appendMessage('❌ Erro inesperado na checagem do sistema.');
-      console.error('performSystemCheck unexpected error:', err);
+  try {
+    // === Etapa 1: Conexão
+    appendMessage('⏳ Verificando conexão com o banco de dados...');
+    const connRes = await checkConnection();
+    if (!connRes.success) {
+      appendMessage('❌ Conexão falhou. Entre em contato com o Administrador.');
       setSystemOk(false);
+
+      // fecha modal em 5s e retorna à Home
+      setTimeout(() => setShowSystemModal(false), 5000);
+      return;
     }
-  }, []);
+    appendMessage('✅ Serviço de Rede Conectado com Sucesso.');
 
+    // === Etapa 2: Checagem das tabelas
+    appendMessage('⏳ Checando Banco de Dados...');
+    let anyFailure = false;
+    const tablesRes = await checkTables();
 
-  // dispara checagem ao montar
-  React.useEffect(() => {
-    performSystemCheck();
-  }, [performSystemCheck]);
+    for (const tbl of requiredTables) {
+      appendMessage(`⏳ Verificando tabela "${tbl}"...`);
+      const tableInfo = tablesRes[tbl]; // deve retornar { success: boolean, count: number }
+
+      if (tableInfo?.success) {
+        appendMessage(`✅ ${tbl} Sucesso. [${tableInfo.count} registros]`);
+      } else {
+        appendMessage(`❌ ${tbl} não foi possível constatar.`);
+        anyFailure = true;
+      }
+    }
+
+    if (anyFailure) {
+      appendMessage('❌ Verificação falhou. Solicite contato com o Administrador.');
+      setSystemOk(false);
+      return; // mantém modal aberto até administrador agir
+    }
+
+    // === Etapa 3: Sincronismo
+    appendMessage('⏳ Aguarde sincronismo do Sistema...');
+    try {
+      await syncsysTables(requiredTables); 
+        appendMessage('✅ Sincronismo concluído.');
+    } catch (err) {
+      console.error("Erro ao sincronizar:", err);
+      appendMessage('⚠️ Falha no sincronismo, mas sistema pode continuar.');
+    }
+
+    // Finalização
+    appendMessage('✅ Sistema pronto. Liberado para serviço.');
+    setSystemOk(true);
+
+    // fecha modal automaticamente em 5s
+    setTimeout(() => setShowSystemModal(false), 5000);
+
+  } catch (err) {
+    appendMessage('❌ Erro inesperado na checagem do sistema.');
+    console.error('performSystemCheck unexpected error:', err);
+    setSystemOk(false);
+  }
+}, []);
+
+// dispara checagem ao montar
+React.useEffect(() => {
+  performSystemCheck();
+}, [performSystemCheck]);
+
+//=======================================================================
 
   // fecha automático se tudo OK
   React.useEffect(() => {
@@ -177,7 +179,8 @@ const Home: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [systemOk]);
-//=============================================================
+  
+  //=============================================================
 
   // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {

@@ -1,8 +1,18 @@
 
 import { Routes, Route } from 'react-router-dom';
-import { MySQLProvider } from './components/contexts/MySQLContext';
 
-import Config from './components/pages/modulos/Config';
+const MySQLRoutes = () => {
+  return (
+      <Routes>
+        
+      </Routes>
+  );
+};
+export default MySQLRoutes;
+
+
+
+// import Config from './components/pages/modulos/Config';
 
 // import CheckDB from './components/pages/CheckDB';
 // import BackupDB from './components/pages/BackupDB';
@@ -16,17 +26,16 @@ import Config from './components/pages/modulos/Config';
 //   database: ''
 // };
 
-const MySQLRoutes = () => {
-  return (
-    <MySQLProvider>
-      <Routes>
-        <Route path="/config" element={<Config />} />
-        {/* <Route path="/checkdb" element={ <CheckDB />} />
-        <Route path="/backupdb" element={<BackupDB />} />
-        <Route path="/restoredb" element={<RestoreDB />} />
-        <Route path="/explorerdb" element={<ExplorerDB />} /> */}
-      </Routes>
-    </MySQLProvider>
-  );
-};
-export default MySQLRoutes;
+// const MySQLRoutes = () => {
+//   return (
+//     <MySQLProvider>
+//       <Routes>
+//         <Route path="/config" element={<Config />} />
+//         {/* <Route path="/checkdb" element={ <CheckDB />} />
+//         <Route path="/backupdb" element={<BackupDB />} />
+//         <Route path="/restoredb" element={<RestoreDB />} />
+//         <Route path="/explorerdb" element={<ExplorerDB />} /> */}
+//       </Routes>
+//     </MySQLProvider>
+//   );
+// };

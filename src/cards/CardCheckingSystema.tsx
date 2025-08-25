@@ -57,7 +57,8 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
       )}
 
       {/* Rodapé de ajuda */}
-      <CardHlpFooter1
+      <CardHlpFooter1 
+        onclosesair={() => onAutoCloseCountdown}
         label="ROTINA → INICIAL"
         texto="Para sair, aguarde a conclusão da verificação."
       />
