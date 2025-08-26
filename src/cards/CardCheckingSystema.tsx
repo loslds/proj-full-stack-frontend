@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import * as Sy from './stylesSystem'; // seus estilos locais
 import { ContentSysMain } from "./ContentSysMain"; // seu layout principal
@@ -7,27 +8,36 @@ interface PropsCardCheckingSystema {
   messages: string[];
   systemOk: boolean | null; 
   onAutoCloseCountdown?: (secondsLeft: number) => void;
+  onClose?: () => void; // 🔹 opcional
 }
 
 export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
   messages,
   systemOk,
   onAutoCloseCountdown,
+  onClose,
 }) => {
 
   // Temporizador para auto fechamento do modal, se tudo estiver OK
+  const [counter, setCounter] = React.useState(5);
   useEffect(() => {
     if (systemOk === true) {
-      let counter = 5;
+      setCounter(5); // reinicia contagem
       const interval = setInterval(() => {
-        counter -= 1;
-        onAutoCloseCountdown?.(counter);
-        if (counter <= 0) clearInterval(interval);
+        setCounter((prev) => {
+          const next = prev - 1;
+          onAutoCloseCountdown?.(next);
+          if (next <= 0) {
+            clearInterval(interval);
+            onClose?.(); // ✅ chamada segura
+          }
+          return next;
+        });
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [systemOk, onAutoCloseCountdown]);
+  }, [systemOk, onAutoCloseCountdown, onClose]);
 
   return (
     <ContentSysMain>
@@ -40,7 +50,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
       {/* Status final */}
       {systemOk === true && (
         <Sy.DivStatus success>
-          ✅ Sistema pronto. Fechando em breve...
+          ✅ Sistema pronto. Fechando em {counter}s...
         </Sy.DivStatus>
       )}
 
@@ -58,10 +68,16 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
 
       {/* Rodapé de ajuda */}
       <CardHlpFooter1 
-        onclosesair={() => onAutoCloseCountdown}
-        label="ROTINA → INICIAL"
-        texto="Para sair, aguarde a conclusão da verificação."
+        onclosesair={onClose}
+        label="ROTINA → INICIAL → HOME"
+        texto={
+          systemOk === false
+            ? "A verificação falhou. click na imagem abaixo ou aqui >"
+            : "Para sair, aguarde a conclusão da verificação."
+        }
+        // texto="Para sair, click na imagem abaixo ou aqui >"
       />
     </ContentSysMain>
   );
 };
+
