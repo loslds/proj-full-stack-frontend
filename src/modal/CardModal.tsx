@@ -4,7 +4,7 @@ import * as M from './stylesModal';
 
 interface PropsCardModal {
   id?: string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 };
 
 export const CardModal = ({ id, children }: PropsCardModal) => {

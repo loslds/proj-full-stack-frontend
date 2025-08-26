@@ -27,6 +27,7 @@ export const CardHlpFooter1 = ({
         titbtnhlp={'FECHAR...'}
         onClickhlp={onclosesair}
       />
+      
     </CardModalTextoColumn>
   );
 };

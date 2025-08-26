@@ -2,7 +2,7 @@ import React from 'react';
 import * as M from './stylesModal';
 
 interface PropsCardModalTextoColumn {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 }
 export const CardModalTextoColumn = ({children }: PropsCardModalTextoColumn) => {
   return (

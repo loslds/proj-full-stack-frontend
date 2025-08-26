@@ -150,7 +150,7 @@ export const ContainerCardFlex = styled.div`
   border: 3px silver groove ;
   height: 100%;
   width: 100%;
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 10px;
   margin: 0px 0px 0px 0px;
   background-color: transparent; //* black;*/
   display: flex;
@@ -257,7 +257,7 @@ export const ContainerModalColumn = styled.div`
   height: 100%;
   width: 100%;
   padding: 10px;
-  margin: 0px;
+  margin: 0px 0px 0px 0px;
   background-color: transparent; 
   display: flex;
   flex-direction: column;  /* Garantir que os itens sejam dispostos em coluna */

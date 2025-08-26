@@ -779,6 +779,8 @@ export const ContainerCustonBtnPage = styled.div<PropsContainerCustonBtnPage>`
 `;
 interface PropsButtonDefaulImgPage {
   img?: string;
+  title?: string;
+  onClick?: () => void;
 };
 export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
   border: none;

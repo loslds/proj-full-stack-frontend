@@ -1,26 +1,27 @@
 
 import React from 'react';
-//import axios from 'axios';
-import { checkConnection } from '../../api/db/checkConnection';
-import { checkTables, syncsysTables} from '../../api/db/checkTables';
 
-import * as Pg from '../stylePages';
-
-import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 
-import { useNavigate } from 'react-router-dom';
-
+import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext } from '../contexts/useAcessoContext';
 import { UseAcessoActions } from '../contexts/ContextAcesso';
 
-import LayoutHome from '../layouts/LayoutHome';
+import { checkConnection } from '../../api/db/checkConnection';
+import { checkTables} from '../../api/db/checkTables';
+import { sincronizarTabelas }from '../../api/db/sincronizarTabelas';
 
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
+import { PageModal } from './PageModal';
+import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
+
+import * as Pg from '../stylePages';
+
 import { ContentCardPage } from '../ContentCardPage';
 import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
 import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
@@ -31,11 +32,9 @@ import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 
-import { PageModal } from './PageModal';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
@@ -52,13 +51,11 @@ import pn_expedicao from '../../assets/svgs/pn_expedicao.svg';
 import pn_administracao from '../../assets/svgs/pn_administracao.svg';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
-//import bt_setaleft from '../../assets/pngs/bt_setaleft.png';
 import bt_refresca1 from '../../assets/pngs/bt_refresca1.png';
-//import esclamacaocirc from '@/assets/svgs/esclamacaocirc.svg';
+
 const Home: React.FC = () => {
  
   const { state, dispatch } = useAcessoContext();// procedimento para usar o context
-//  const [ischkdb, setIisChkDb] = React.useState(false);// state para gardar o valor do retorno para ser guardado no context
   const [startbtnchave, setStartBtnChave] = React.useState(false);// state para liberar a edição da chave master
   const [buscachave, setBuscaChave] = React.useState(false);//state para abrir procedimento de avaliação da chave master
   const [chavedigitada, setChaveDigitada] = React.useState('');// state para guardar chave master digitada
@@ -69,6 +66,8 @@ const Home: React.FC = () => {
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);// state para abrir e fechar modal negado acesso Pagina
   const [theme, setTheme] = React.useState(light);// state para tema THEME pagina 
   const [ischeck, setIscheck] = React.useState(false);// state para checar se existe edição  
+
+  //  const [ischkdb, setIisChkDb] = React.useState(false);// state para gardar o valor do retorno para ser guardado no context
   // procedimentos para troca de THEME
   const ToggleTheme = () => {
     if (theme.name === 'dark') {
@@ -87,9 +86,8 @@ const Home: React.FC = () => {
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
   //=======================================================================
-
-  // === sistema de checagem inicial ===
-  //=======================================================================
+// === sistema de checagem inicial ===
+//=======================================================================
 
 // === sistema de checagem inicial ===
 const [showSystemModal, setShowSystemModal] = React.useState(true);
@@ -102,8 +100,7 @@ const appendMessage = (msg: string) =>
 const performSystemCheck = React.useCallback(async () => {
   const requiredTables = ['systables', 'pessoas', 'empresas'];
   setSystemMessages([]);
-  setSystemOk(null);
-
+  setSystemOk(null); // em progresso
   try {
     // === Etapa 1: Conexão
     appendMessage('⏳ Verificando conexão com o banco de dados...');
@@ -111,10 +108,7 @@ const performSystemCheck = React.useCallback(async () => {
     if (!connRes.success) {
       appendMessage('❌ Conexão falhou. Entre em contato com o Administrador.');
       setSystemOk(false);
-
-      // fecha modal em 5s e retorna à Home
-      setTimeout(() => setShowSystemModal(false), 5000);
-      return;
+      return; // mantém modal aberto
     }
     appendMessage('✅ Serviço de Rede Conectado com Sucesso.');
 
@@ -137,50 +131,45 @@ const performSystemCheck = React.useCallback(async () => {
 
     if (anyFailure) {
       appendMessage('❌ Verificação falhou. Solicite contato com o Administrador.');
-      setSystemOk(false);
-      return; // mantém modal aberto até administrador agir
+      setSystemOk(false); // mantém modal aberto
+      return;
     }
 
     // === Etapa 3: Sincronismo
     appendMessage('⏳ Aguarde sincronismo do Sistema...');
     try {
-      await syncsysTables(requiredTables); 
-        appendMessage('✅ Sincronismo concluído.');
+      await sincronizarTabelas(requiredTables); 
+      appendMessage('✅ Sincronismo concluído.');
     } catch (err) {
       console.error("Erro ao sincronizar:", err);
       appendMessage('⚠️ Falha no sincronismo, mas sistema pode continuar.');
     }
 
-    // Finalização
+    // === Finalização
     appendMessage('✅ Sistema pronto. Liberado para serviço.');
-    setSystemOk(true);
-
-    // fecha modal automaticamente em 5s
-    setTimeout(() => setShowSystemModal(false), 5000);
+    setSystemOk(true); // dispara fechamento automático via CardCheckingSystema
 
   } catch (err) {
     appendMessage('❌ Erro inesperado na checagem do sistema.');
     console.error('performSystemCheck unexpected error:', err);
-    setSystemOk(false);
+    setSystemOk(false); // mantém modal aberto
   }
 }, []);
 
 // dispara checagem ao montar
 React.useEffect(() => {
   performSystemCheck();
-}, [performSystemCheck]);
+}, []);
 
-//=======================================================================
+// fecha automático somente se tudo OK
+React.useEffect(() => {
+  if (systemOk === true) {
+    const timer = setTimeout(() => setShowSystemModal(false), 5000);
+    return () => clearTimeout(timer);
+  }
+}, [systemOk]);
 
-  // fecha automático se tudo OK
-  React.useEffect(() => {
-    if (systemOk === true) {
-      const timer = setTimeout(() => setShowSystemModal(false), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [systemOk]);
-  
-  //=============================================================
+//=============================================================
 
   // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {
@@ -551,7 +540,7 @@ React.useEffect(() => {
               pxheight={'40px'}
               img={bt_refresca1}
               titbtn={'Refrescar...'}
-              onclick={() => window.location.reload()}
+              onClick={() => window.location.reload()}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
               onMouseLeave={() => {
                 if (!state.logado && !state.chvkey) {
@@ -628,23 +617,23 @@ React.useEffect(() => {
         ) : null}
 
         {showSystemModal && (
-           
           <PageModal
-            ptop={'15%'}
-            pwidth={'40%'}
-            pheight={'50%'}
+            ptop="15%" pwidth="43%" pheight="50%"
             imgbm={bt_close}
             titbm="Fechar..."
-            titulo={'Verificação do Sistema'}
-            onclose={() => {
-              // se OK, deixa fechar automático; se erro, permite fechar manualmente
-              setShowSystemModal(false);
-            }}
+            titulo="Verificação do Sistema"
+            onclose={() => setShowSystemModal(false)}
           >
-            <CardCheckingSystema messages={systemMessages} systemOk={systemOk}/>
+            <CardCheckingSystema
+              messages={systemMessages}
+              systemOk={systemOk}
+              onAutoCloseCountdown={(secondsLeft) => {
+                if (secondsLeft <= 0) setShowSystemModal(false);
+              }}
+            onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
+          />
           </PageModal>
-          )
-        }
+        )}
 
         <div>{ messagebottom }</div>
 
