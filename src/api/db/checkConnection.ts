@@ -10,3 +10,4 @@ export const checkConnection = async () => {
     return { success: false, message: "Erro ao verificar a conexão com o banco" };
   }
 };
+ 
