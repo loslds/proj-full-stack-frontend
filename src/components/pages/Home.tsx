@@ -11,8 +11,10 @@ import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext } from '../contexts/useAcessoContext';
 import { UseAcessoActions } from '../contexts/ContextAcesso';
 
+import { useLoadingStep } from "../../funcs/funcs/useLoadingStep";
 import { checkConnection } from '../../api/db/checkConnection';
-import { checkTables} from '../../api/db/checkTables';
+import { CheckTablesResponse, checkTables } from '../../api/db/checkTables';
+
 import { sincronizarTabelas }from '../../api/db/sincronizarTabelas';
 
 import { ContentItensBody } from '../ContentItensBody';
@@ -86,90 +88,105 @@ const Home: React.FC = () => {
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
   //=======================================================================
-// === sistema de checagem inicial ===
-//=======================================================================
+  // === sistema de checagem inicial ===
+  //=======================================================================
 
-// === sistema de checagem inicial ===
-const [showSystemModal, setShowSystemModal] = React.useState(true);
-const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
-const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
+  const [showSystemModal, setShowSystemModal] = React.useState(true);
+  const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+  const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
-const appendMessage = (msg: string) =>
-  setSystemMessages((prev) => [...prev, msg]);
+  // Nosso hook de steps
+  const { runStep } = useLoadingStep();
 
-const performSystemCheck = React.useCallback(async () => {
-  const requiredTables = ['systables', 'pessoas', 'empresas'];
-  setSystemMessages([]);
-  setSystemOk(null); // em progresso
-  try {
+  const appendMessage = (msg: string) =>
+    setSystemMessages((prev) => [...prev, msg]);
+
+  const performSystemCheck = React.useCallback(async () => {
+    setSystemMessages([]);
+    setSystemOk(null);
+
+    appendMessage("⏳ Checando Conexão com Banco de Dados...");
+
     // === Etapa 1: Conexão
-    appendMessage('⏳ Verificando conexão com o banco de dados...');
-    const connRes = await checkConnection();
-    if (!connRes.success) {
-      appendMessage('❌ Conexão falhou. Entre em contato com o Administrador.');
+    const step1 = await runStep(
+      async () => {
+        const connRes = await checkConnection();
+        return connRes.success;
+      },
+      "⏳ Verificando conexão com o banco de dados...",
+      "✅ Serviço de Rede Conectado com Sucesso.",
+      "❌ Conexão falhou. Entre em contato com o Administrador.",
+      "❌ Tempo excedido ao verificar conexão."
+    );
+    appendMessage(step1.message);
+
+    if (!step1.success) {
       setSystemOk(false);
-      return; // mantém modal aberto
-    }
-    appendMessage('✅ Serviço de Rede Conectado com Sucesso.');
-
-    // === Etapa 2: Checagem das tabelas
-    appendMessage('⏳ Checando Banco de Dados...');
-    let anyFailure = false;
-    const tablesRes = await checkTables();
-
-    for (const tbl of requiredTables) {
-      appendMessage(`⏳ Verificando tabela "${tbl}"...`);
-      const tableInfo = tablesRes[tbl]; // deve retornar { success: boolean, count: number }
-
-      if (tableInfo?.success) {
-        appendMessage(`✅ ${tbl} Sucesso. [${tableInfo.count} registros]`);
-      } else {
-        appendMessage(`❌ ${tbl} não foi possível constatar.`);
-        anyFailure = true;
-      }
-    }
-
-    if (anyFailure) {
-      appendMessage('❌ Verificação falhou. Solicite contato com o Administrador.');
-      setSystemOk(false); // mantém modal aberto
       return;
     }
 
-    // === Etapa 3: Sincronismo
-    appendMessage('⏳ Aguarde sincronismo do Sistema...');
-    try {
-      await sincronizarTabelas(requiredTables); 
-      appendMessage('✅ Sincronismo concluído.');
-    } catch (err) {
-      console.error("Erro ao sincronizar:", err);
-      appendMessage('⚠️ Falha no sincronismo, mas sistema pode continuar.');
+    // === Etapa 2: Tabelas
+    appendMessage("⏳ Checando Banco de Dados...");
+
+    const requiredTables: string[] = ["systables", "pessoas", "empresas"];
+    const tablesRes: CheckTablesResponse = await checkTables(); // já tipado
+
+    if (!tablesRes.success && tablesRes.missingTables?.length) {
+      // Para no primeiro erro encontrado
+      const missingTable = tablesRes.missingTables[0];
+      appendMessage(`❌ ${missingTable} não foi possível constatar.`);
+      appendMessage("❌ Verificação falhou. Solicite contato com o Administrador.");
+      setSystemOk(false);
+      return; // interrompe o processo aqui
     }
 
+    // Todas as tabelas existem
+    requiredTables.forEach((tbl) => {
+      appendMessage(`✅ ${tbl} Sucesso.`);
+    });
+
+    // === Etapa 3: Sincronismo
+    const step3 = await runStep(
+      async () => {
+        try {
+          await sincronizarTabelas(requiredTables);
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      "⏳ Aguarde sincronismo do Sistema...",
+      "✅ Sincronismo concluído.",
+      "⚠️ Falha no sincronismo, mas sistema pode continuar.",
+      "❌ Tempo excedido no sincronismo."
+    );
+    appendMessage(step3.message);
+
     // === Finalização
-    appendMessage('✅ Sistema pronto. Liberado para serviço.');
-    setSystemOk(true); // dispara fechamento automático via CardCheckingSystema
+    if (step3.success) {
+      appendMessage("✅ Sistema pronto. Liberado para serviço.");
+      setSystemOk(true);
+    } else {
+      appendMessage("⚠️ Sistema pronto com falhas, verificar sincronismo.");
+      setSystemOk(true); // mesmo com falha, continua
+    }
+  }, [runStep]);
 
-  } catch (err) {
-    appendMessage('❌ Erro inesperado na checagem do sistema.');
-    console.error('performSystemCheck unexpected error:', err);
-    setSystemOk(false); // mantém modal aberto
-  }
-}, []);
+  // dispara checagem ao montar
+  React.useEffect(() => {
+    performSystemCheck();
+  }, [performSystemCheck]);
 
-// dispara checagem ao montar
-React.useEffect(() => {
-  performSystemCheck();
-}, []);
-
-// fecha automático somente se tudo OK
-React.useEffect(() => {
-  if (systemOk === true) {
-    const timer = setTimeout(() => setShowSystemModal(false), 5000);
-    return () => clearTimeout(timer);
-  }
-}, [systemOk]);
-
+  // fecha modal se tudo OK
+  React.useEffect(() => {
+    if (systemOk === true) {
+      const timer = setTimeout(() => setShowSystemModal(true), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [systemOk]);
+  
 //=============================================================
+ 
 
   // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {
@@ -618,7 +635,7 @@ React.useEffect(() => {
 
         {showSystemModal && (
           <PageModal
-            ptop="15%" pwidth="43%" pheight="50%"
+            ptop="15%" pwidth="60%" pheight="80%"
             imgbm={bt_close}
             titbm="Fechar..."
             titulo="Verificação do Sistema"
@@ -689,3 +706,88 @@ export default Home;
             </div>
             
     */}
+
+
+    
+
+
+// // === sistema de checagem inicial ===
+// const [showSystemModal, setShowSystemModal] = React.useState(true);
+// const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+// const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
+
+// const appendMessage = (msg: string) =>
+//   setSystemMessages((prev) => [...prev, msg]);
+
+// const performSystemCheck = React.useCallback(async () => {
+//   const requiredTables = ['systables', 'pessoas', 'empresas'];
+//   setSystemMessages([]);
+//   setSystemOk(null); // em progresso
+//   try {
+//     // === Etapa 1: Conexão
+//     appendMessage('⏳ Verificando conexão com o banco de dados...');
+//     const connRes = await checkConnection();
+//     if (!connRes.success) {
+//       appendMessage('❌ Conexão falhou. Entre em contato com o Administrador.');
+//       setSystemOk(false);
+//       return; // mantém modal aberto
+//     }
+//     appendMessage('✅ Serviço de Rede Conectado com Sucesso.');
+
+//     // === Etapa 2: Checagem das tabelas
+//     appendMessage('⏳ Checando Banco de Dados...');
+//     let anyFailure = false;
+//     const tablesRes = await checkTables();
+
+//     for (const tbl of requiredTables) {
+//       appendMessage(`⏳ Verificando tabela "${tbl}"...`);
+//       const tableInfo = tablesRes[tbl]; // deve retornar { success: boolean, count: number }
+
+//       if (tableInfo?.success) {
+//         appendMessage(`✅ ${tbl} Sucesso. [${tableInfo.count} registros]`);
+//       } else {
+//         appendMessage(`❌ ${tbl} não foi possível constatar.`);
+//         anyFailure = true;
+//       }
+//     }
+
+//     if (anyFailure) {
+//       appendMessage('❌ Verificação falhou. Solicite contato com o Administrador.');
+//       setSystemOk(false); // mantém modal aberto
+//       return;
+//     }
+
+//     // === Etapa 3: Sincronismo
+//     appendMessage('⏳ Aguarde sincronismo do Sistema...');
+//     try {
+//       await sincronizarTabelas(requiredTables); 
+//       appendMessage('✅ Sincronismo concluído.');
+//     } catch (err) {
+//       console.error("Erro ao sincronizar:", err);
+//       appendMessage('⚠️ Falha no sincronismo, mas sistema pode continuar.');
+//     }
+
+//     // === Finalização
+//     appendMessage('✅ Sistema pronto. Liberado para serviço.');
+//     setSystemOk(true); // dispara fechamento automático via CardCheckingSystema
+
+//   } catch (err) {
+//     appendMessage('❌ Erro inesperado na checagem do sistema.');
+//     console.error('performSystemCheck unexpected error:', err);
+//     setSystemOk(false); // mantém modal aberto
+//   }
+// }, []);
+
+// // dispara checagem ao montar
+// React.useEffect(() => {
+//   performSystemCheck();
+// }, []);
+
+// // fecha automático somente se tudo OK
+// React.useEffect(() => {
+//   if (systemOk === true) {
+//     const timer = setTimeout(() => setShowSystemModal(false), 5000);
+//     return () => clearTimeout(timer);
+//   }
+// }, [systemOk]);
+

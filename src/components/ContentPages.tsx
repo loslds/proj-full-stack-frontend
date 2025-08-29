@@ -1,7 +1,7 @@
 import * as Pg from './stylePages';
 
 interface PropsContentPages {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 };
 export const ContentPages = ({ children }: PropsContentPages ) => {
   return (

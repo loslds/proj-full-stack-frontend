@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import * as Pg from './stylePages';
 
 type TypeContentInputMainPage = {
-  children?: ReactNode | JSX.Element;
+  children?: ReactNode ;
 };
 export const ContentInputMainPage = ({
   children

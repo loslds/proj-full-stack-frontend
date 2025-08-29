@@ -1,7 +1,7 @@
 import * as Pg from './stylePages';
 
 interface PropsContentCardDialogoTitle {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 export const ContentCardDialogoTitle = ({
   children

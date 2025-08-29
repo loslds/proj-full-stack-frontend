@@ -1,8 +1,9 @@
 
+
 import api from "./api"; // importa da mesma pasta
 
 const requiredTables = [
-  "systables",
+  "systable",
   "pessoas",
   "empresas",
   //"cadastros",
@@ -27,9 +28,17 @@ const requiredTables = [
   //"resgate",
 ];
 
-export const checkTables = async () => {
+export interface CheckTablesResponse {
+  success: boolean;
+  message: string;
+  missingTables?: string[];
+}
+
+export const checkTables = async (): Promise<CheckTablesResponse> => {
   try {
-    const response = await api.post("/systables/sync", { tables: requiredTables });
+    const response = await api.post<CheckTablesResponse>("/systable/sync", {
+      tables: requiredTables,
+    });
     return response.data;
   } catch (error) {
     console.error("Erro ao verificar tabelas", error);
