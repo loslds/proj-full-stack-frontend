@@ -33,11 +33,11 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
 
   return (
     <ContentSysMain>
-      <Sy.DivMessageLine>
+      <Sy.DivItensMessageMap>
         {messages.map((m: string, i: number) => (
           <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
         ))}
-      </Sy.DivMessageLine>
+      </Sy.DivItensMessageMap>
       {systemOk === true && (
         <Sy.DivStatus success>
           ✅ Sistema pronto, checado...
