@@ -6,11 +6,13 @@ interface PropsCardHlpFooter1 {
   label?: string;
   texto?: string;
   onclosesair?: () => void;
+  children?: React.ReactNode;
 }
 export const CardHlpFooter1 = ({
   label,
   texto,
-  onclosesair
+  onclosesair,
+  children
 }: PropsCardHlpFooter1) => {
   return (
     <CardModalTextoColumn>
@@ -27,7 +29,7 @@ export const CardHlpFooter1 = ({
         titbtnhlp={'FECHAR...'}
         onClickhlp={onclosesair}
       />
-      
+      {children}
     </CardModalTextoColumn>
   );
 };

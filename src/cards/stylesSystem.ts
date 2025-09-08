@@ -25,6 +25,19 @@ export const ContainerMainSystemFlex = styled.div<PropsContainerCardBoxFlexPage>
 `;
 // fim do ContentMainSystem
 //;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+export const ContainerSysMainItens = styled.div`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  width: '100%';
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  font-size: 14px;
+`;
+
 export const DivMessageLine = styled.div`
   margin-bottom: 6px;
   font-size: 14px;

@@ -87,6 +87,8 @@ const Home: React.FC = () => {
   }, [navigate]);
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
+
+
   //=======================================================================
   // === sistema de checagem inicial ===
   //=======================================================================
@@ -101,29 +103,28 @@ const Home: React.FC = () => {
   const appendMessage = (msg: string) =>
     setSystemMessages((prev) => [...prev, msg]);
 
-  const performSystemCheck = React.useCallback(async () => {
-    setSystemMessages([]);
-    setSystemOk(null);
+ const performSystemCheck = React.useCallback(async () => {
+  setSystemMessages([]); // limpa mensagens antigas
+  setSystemOk(null);     // reset status
 
-    appendMessage("⏳ Checando Conexão com Banco de Dados...");
+  // === Etapa 1: Conexão ===
+  const step1 = await runStep(
+    async () => {
+      const connRes = await checkConnection();
+      return connRes.success;
+    },
+    "⏳ Verificando conexão com o DATABASE...", // mensagem inicial (ampulheta)
+    "✅ Serviço de Rede Conectado com Sucesso.", // sucesso
+    "❌ Conexão falhou. Entre em contato com o Administrador.", // erro
+    "❌ Tempo excedido ao verificar conexão." // timeout
+  );
 
-    // === Etapa 1: Conexão
-    const step1 = await runStep(
-      async () => {
-        const connRes = await checkConnection();
-        return connRes.success;
-      },
-      "⏳ Verificando conexão com o banco de dados...",
-      "✅ Serviço de Rede Conectado com Sucesso.",
-      "❌ Conexão falhou. Entre em contato com o Administrador.",
-      "❌ Tempo excedido ao verificar conexão."
-    );
-    appendMessage(step1.message);
+  appendMessage(step1.message); // adiciona somente o resultado final
 
-    if (!step1.success) {
-      setSystemOk(false);
-      return;
-    }
+  if (!step1.success) {
+    setSystemOk(false);
+    return; // interrompe se falhou
+  }
 
     // === Etapa 2: Tabelas
     appendMessage("⏳ Checando Banco de Dados...");
@@ -140,8 +141,8 @@ const Home: React.FC = () => {
       return; // interrompe o processo aqui
     }
 
-    // Todas as tabelas existem
-    requiredTables.forEach((tbl) => {
+    // se sucesso, mostre só o que backend confirmou
+    tablesRes.checkedTables?.forEach((tbl: string) => {
       appendMessage(`✅ ${tbl} Sucesso.`);
     });
 
@@ -170,7 +171,8 @@ const Home: React.FC = () => {
       appendMessage("⚠️ Sistema pronto com falhas, verificar sincronismo.");
       setSystemOk(true); // mesmo com falha, continua
     }
-  }, [runStep]);
+    
+}, [runStep]);
 
   // dispara checagem ao montar
   React.useEffect(() => {

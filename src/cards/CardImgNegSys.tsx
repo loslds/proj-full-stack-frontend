@@ -1,7 +1,7 @@
 import * as MD from '../modal/stylesModal';
 
 import { ContentModaErroSys } from '../modal/ContentModaErroSys';
-import { ContentModalBetween } from '@/modal/ContentModalbetween';
+import { ContentModalbetween } from '../modal/ContentModalbetween';
 //import negado from '../../assets/svgs/negado.svg';
 
 interface PropsCardImgNegSys {
@@ -28,7 +28,7 @@ export const CardImgNegSys = ({
 }: PropsCardImgNegSys) => {
   return (
     <ContentModaErroSys ppwidth={ppwidth} bordas={bordas}>
-      <ContentModalBetween>
+      <ContentModalbetween>
         <MD.ContainerModalImg
           pminheight={pminheight}
           pwidth={pwidth}
@@ -42,7 +42,7 @@ export const CardImgNegSys = ({
         <p>{txtp}</p>  
         
         <br />
-      </ContentModalBetween>
+      </ContentModalbetween>
     </ContentModaErroSys>
   );
 };

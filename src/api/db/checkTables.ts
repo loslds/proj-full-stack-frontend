@@ -30,10 +30,10 @@ const requiredTables = [
 
 export interface CheckTablesResponse {
   success: boolean;
-  message: string;
   missingTables?: string[];
+  checkedTables?: string[]; // <== adicione isso
+  message?: string;
 }
-
 export const checkTables = async (): Promise<CheckTablesResponse> => {
   try {
     const response = await api.post<CheckTablesResponse>("/systable/sync", {
