@@ -1,32 +1,8 @@
-
-
+ 
+// C:\repository\proj-full-stack-frontend\src\api\db\checkTables.ts
 import api from "./api"; // importa da mesma pasta
+import { requiredTables } from './tables';
 
-const requiredTables = [
-  "systable",
-  "pessoas",
-  "empresas",
-  //"cadastros",
-  //"cidades",
-  //"emails",
-  //"docs",
-  //"fones",
-  //"codsegs",
-  //"perguntas",
-  //"respostas",
-  //"consumidores",
-  //"clientes",
-  //"fornecedores",
-  //"funcionarios",
-  //"avatares",
-  //"users",
-  //"avatar_users",
-  //"acesso",
-  //"chaves",
-  //"setores",
-  //"acoes",
-  //"resgate",
-];
 
 export interface CheckTablesResponse {
   success: boolean;

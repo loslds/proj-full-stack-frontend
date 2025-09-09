@@ -1,3 +1,5 @@
+
+// C:\repository\proj-full-stack-frontend\src\cards\CardCheckingSystema.tsx
 import React from "react";
 import * as Sy from './stylesSystem';
 import { ContentSysMainItens } from "./ContentSysMainItens"
@@ -38,6 +40,8 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
       ))}
       
       {systemOk === true && (
+        
+
         <Sy.DivStatus success>
           ✅ Sistema pronto, checado...
         </Sy.DivStatus>
@@ -70,3 +74,4 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
     </ContentSysMainItens>
   );
 };
+

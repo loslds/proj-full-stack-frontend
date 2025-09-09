@@ -1,4 +1,5 @@
 
+//C:\repository\proj-full-stack-frontend\src\api\db\sincronizarTabelas.ts
 import api from "./api"; // importa da mesma pasta
 
 // /api/db/sincronizarTabelas.ts
@@ -11,3 +12,4 @@ export async function sincronizarTabelas(requiredTables: string[]) {
     return { success: false, message: 'Falha na sincronização', tables: [] };
   }
 }
+
