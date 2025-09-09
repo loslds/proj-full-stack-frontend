@@ -112,9 +112,9 @@ const Home: React.FC = () => {
       // Atualiza estado final
       setSystemOk(data.success);
 
-      if (!data.success) {
-        appendMessage("❌ Inicialização incompleta. Contate o administrador.");
-      }
+      // if (!data.success) {
+      //   appendMessage("❌ Inicialização incompleta. Contate o administrador.");
+      // }
     } catch (error: unknown) {
       console.error(error);
       appendMessage("❌ Erro inesperado ao inicializar o sistema.");
