@@ -12,12 +12,7 @@ import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext } from '../contexts/useAcessoContext';
 import { UseAcessoActions } from '../contexts/ContextAcesso';
 
-import { useLoadingStep } from "../../funcs/funcs/useLoadingStep";
-
-import { checkConnection } from "../../api/db/checkConnection";
-import { checkTables, CheckTablesResponse } from "../../api/db/checkTables";
-import { sincronizarTabelas } from "../../api/db/sincronizarTabelas";
-import { requiredTables } from "../../api/db/tables";
+import { initSystemApi, InitResponse } from '../../api/db/init';
 
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -89,97 +84,50 @@ const Home: React.FC = () => {
   }, [navigate]);
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
-
-
-  //=======================================================================
-  // === sistema de checagem inicial ===
-  //=======================================================================
-
+////////////////////////////////////////////////////
+// === sistema de checagem inicial simplificado ===
+////////////////////////////////////////////////////  
   const [showSystemModal, setShowSystemModal] = React.useState(false);
   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
-  // Nosso hook de steps
-  const { runStep } = useLoadingStep();
-
   const appendMessage = (msg: string) =>
     setSystemMessages((prev) => [...prev, msg]);
 
+  // Função que chama a API de inicialização do backend
   const performSystemCheck = React.useCallback(async () => {
-    setSystemMessages([]); // limpa mensagens antigas
-    setSystemOk(null);     // reset status
+    setSystemMessages([]);
+    setSystemOk(null);
+    setShowSystemModal(true);
 
-    // === Etapa 1: Conexão ===
-    const step1 = await runStep(
-      async () => {
-        const connRes = await checkConnection();
-        return connRes.success;
-      },
-      "⏳ Verificando conexão com o DATABASE...", // mensagem inicial (ampulheta)
-      "✅ Serviço de Rede Conectado com Sucesso.", // sucesso
-      "❌ Conexão falhou. Entre em contato com o Administrador.", // erro
-      "❌ Tempo excedido ao verificar conexão." // timeout
-    );
+    try {
+      const data: InitResponse = await initSystemApi();
 
-    appendMessage(step1.message); // adiciona somente o resultado final
+      // Itera pelos passos recebidos do backend e adiciona ao modal
+      for (const step of data.steps) {
+        appendMessage(step.message);
+        if (step.delay) await new Promise((r) => setTimeout(r, step.delay));
+      }
 
-    if (!step1.success) {
+      // Atualiza estado final
+      setSystemOk(data.success);
+
+      if (!data.success) {
+        appendMessage("❌ Inicialização incompleta. Contate o administrador.");
+      }
+    } catch (error: unknown) {
+      console.error(error);
+      appendMessage("❌ Erro inesperado ao inicializar o sistema.");
       setSystemOk(false);
-      return; // interrompe se falhou
     }
+  }, []);
 
-    // === Etapa 2: Tabelas
-    appendMessage("⏳ Checando Banco de Dados...");
-
-    const tablesRes: CheckTablesResponse = await checkTables();
-
-    if (!tablesRes.success && tablesRes.missingTables?.length) {
-      const missingTable = tablesRes.missingTables[0];
-      appendMessage(`❌ ${missingTable} não foi possível constatar.`);
-      appendMessage("❌ Verificação falhou. Solicite contato com o Administrador.");
-      setSystemOk(false);
-      return;
-    }
-
-    // se sucesso, mostre só o que backend confirmou
-    tablesRes.checkedTables?.forEach((tbl: string) => {
-      appendMessage(`✅ ${tbl} Sucesso.`);
-    });
-
-    // === Etapa 3: Sincronismo
-    const step3 = await runStep(
-      async () => {
-        try {
-          await sincronizarTabelas(requiredTables);
-          return true;
-        } catch {
-          return false;
-        }
-      },
-      "⏳ Aguarde sincronismo do Sistema...",
-      "✅ Sincronismo concluído.",
-      "⚠️ Falha no sincronismo, mas sistema pode continuar.",
-      "❌ Tempo excedido no sincronismo."
-    );
-    appendMessage(step3.message);
-
-    // === Finalização
-    if (step3.success) {
-      appendMessage("✅ Sistema pronto. Liberado para serviço.");
-      setSystemOk(true);
-    } else {
-      appendMessage("⚠️ Sistema pronto com falhas, verificar sincronismo.");
-      setSystemOk(true); // mesmo com falha, continua
-    }
-    
-  }, [runStep]);
-
-  // dispara checagem ao montar
+  // Dispara a checagem ao montar a página
   React.useEffect(() => {
     performSystemCheck();
   }, [performSystemCheck]);
 
-  // fecha modal se tudo OK
+  // Atualiza o context e fecha modal se tudo OK
   React.useEffect(() => {
     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
     if (systemOk === true) {
@@ -187,10 +135,9 @@ const Home: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [systemOk, dispatch]);
-  
-  //=============================================================
- 
-
+///////////////////////////////////////////////////
+  //////////// fim da checagem inicial do sistema. 
+///////////////////////////////////////////////////
   // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {
     if (!state.logado && !state.chvkey) {
@@ -650,8 +597,8 @@ const Home: React.FC = () => {
               onAutoCloseCountdown={(secondsLeft) => {
                 if (secondsLeft <= 0) setShowSystemModal(false);
               }}
-            onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
-          />
+              onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
+            />
           </PageModal>
           )
         }
@@ -663,3 +610,101 @@ const Home: React.FC = () => {
 
 export default Home;
 
+// =======================================================================
+//   === sistema de checagem inicial === 
+//   =======================================================================
+
+//   const [showSystemModal, setShowSystemModal] = React.useState(false);
+//   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+//   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
+
+//   // Nosso hook de steps
+//   const { runStep } = useLoadingStep();
+
+//   const appendMessage = (msg: string) =>
+//     setSystemMessages((prev) => [...prev, msg]);
+
+//   const performSystemCheck = React.useCallback(async () => {
+//     setSystemMessages([]); // limpa mensagens antigas
+//     setSystemOk(null);     // reset status
+
+//     // === Etapa 1: Conexão ===
+//     const step1 = await runStep(
+//       async () => {
+//         const connRes = await checkConnection();
+//         return connRes.success;
+//       },
+//       "⏳ Verificando conexão com o DATABASE...", // mensagem inicial (ampulheta)
+//       "✅ Serviço de Rede Conectado com Sucesso.", // sucesso
+//       "❌ Conexão falhou. Entre em contato com o Administrador.", // erro
+//       "❌ Tempo excedido ao verificar conexão." // timeout
+//     );
+
+//     appendMessage(step1.message); // adiciona somente o resultado final
+
+//     if (!step1.success) {
+//       setSystemOk(false);
+//       return; // interrompe se falhou
+//     }
+
+//     // === Etapa 2: Tabelas
+//     appendMessage("⏳ Checando Banco de Dados...");
+
+//     const tablesRes: CheckTablesResponse = await checkTables();
+
+//     if (!tablesRes.success && tablesRes.missingTables?.length) {
+//       const missingTable = tablesRes.missingTables[0];
+//       appendMessage(`❌ ${missingTable} não foi possível constatar.`);
+//       appendMessage("❌ Verificação falhou. Solicite contato com o Administrador.");
+//       setSystemOk(false);
+//       return;
+//     }
+
+//     // se sucesso, mostre só o que backend confirmou
+//     tablesRes.checkedTables?.forEach((tbl: string) => {
+//       appendMessage(`✅ ${tbl} Sucesso.`);
+//     });
+
+//     // === Etapa 3: Sincronismo
+//     const step3 = await runStep(
+//       async () => {
+//         try {
+//           await sincronizarTabelas(requiredTables);
+//           return true;
+//         } catch {
+//           return false;
+//         }
+//       },
+//       "⏳ Aguarde sincronismo do Sistema...",
+//       "✅ Sincronismo concluído.",
+//       "⚠️ Falha no sincronismo, mas sistema pode continuar.",
+//       "❌ Tempo excedido no sincronismo."
+//     );
+//     appendMessage(step3.message);
+
+//     // === Finalização
+//     if (step3.success) {
+//       appendMessage("✅ Sistema pronto. Liberado para serviço.");
+//       setSystemOk(true);
+//     } else {
+//       appendMessage("⚠️ Sistema pronto com falhas, verificar sincronismo.");
+//       setSystemOk(true); // mesmo com falha, continua
+//     }
+    
+//   }, [runStep]);
+
+//   // dispara checagem ao montar
+//   React.useEffect(() => {
+//     performSystemCheck();
+//   }, [performSystemCheck]);
+
+//   // fecha modal se tudo OK
+//   React.useEffect(() => {
+//     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
+//     if (systemOk === true) {
+//       const timer = setTimeout(() => setShowSystemModal(false), 5000);
+//       return () => clearTimeout(timer);
+//     }
+//   }, [systemOk, dispatch]);
+  
+//   //=============================================================
