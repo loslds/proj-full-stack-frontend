@@ -123,9 +123,18 @@ const Home: React.FC = () => {
   }, []);
 
   // Dispara a checagem ao montar a página
+  const hasCheckedRef = React.useRef(false);
+
   React.useEffect(() => {
+  if (!hasCheckedRef.current) {
     performSystemCheck();
+    hasCheckedRef.current = true;
+  }
   }, [performSystemCheck]);
+  
+  // React.useEffect(() => {
+  //   performSystemCheck();
+  // }, [performSystemCheck]);
 
   // Atualiza o context e fecha modal se tudo OK
   React.useEffect(() => {
@@ -157,7 +166,7 @@ const Home: React.FC = () => {
         dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Inicial'});
         dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Opções'});
         setMsgPanelBottom('Aguardando Login Sistema...')
-        setMessageBottom( 'Acessos Modulos "NEGADOS"...');
+        setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
       }
 
       if (state.logado) {
