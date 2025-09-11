@@ -91,6 +91,7 @@ const Home: React.FC = () => {
   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
+  
   const appendMessage = (msg: string) =>
     setSystemMessages((prev) => [...prev, msg]);
 
@@ -131,11 +132,6 @@ const Home: React.FC = () => {
     hasCheckedRef.current = true;
   }
   }, [performSystemCheck]);
-  
-  // React.useEffect(() => {
-  //   performSystemCheck();
-  // }, [performSystemCheck]);
-
   // Atualiza o context e fecha modal se tudo OK
   React.useEffect(() => {
     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
