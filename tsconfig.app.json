@@ -1,4 +1,5 @@
 
+// C:\repository\proj-full-stack-frontend\tsconfig.app.json
 {
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
@@ -20,9 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "composite": true,       // ADICIONE ISSO
-    "noEmit": false          // OU REMOVA "noEmit"
+    /* Necessário para Vite + TS */
+    "composite": true,
+    "noEmit": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "src"]
 }
-

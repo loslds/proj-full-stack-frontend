@@ -12,6 +12,8 @@ import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext } from '../contexts/useAcessoContext';
 import { UseAcessoActions } from '../contexts/ContextAcesso';
 
+import { CardModalCheckingSys } from '../../cards/CardCheckingSys';
+
 import { initSystemApi, InitResponse } from '../../api/db/init';
 
 import { ContentItensBody } from '../ContentItensBody';
@@ -84,65 +86,69 @@ const Home: React.FC = () => {
   }, [navigate]);
   // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
-////////////////////////////////////////////////////
-// === sistema de checagem inicial simplificado ===
-////////////////////////////////////////////////////  
   const [showSystemModal, setShowSystemModal] = React.useState(false);
-  const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
-  const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
+//   ////////////////////////////////////////////////////
+// // === sistema de checagem inicial simplificado ===
+// ////////////////////////////////////////////////////  
+//   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
+//   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
+
+//   const appendMessage = (msg: string) =>
+//     setSystemMessages((prev) => [...prev, msg]);
+
+//   // Função que chama a API de inicialização do backend
+//   const performSystemCheck = React.useCallback(async () => {
+//     setSystemMessages([]);
+//     setSystemOk(null);
+//     setShowSystemModal(true);
+
+//     try {
+//       const data: InitResponse = await initSystemApi();
+
+//       // Itera pelos passos recebidos do backend e adiciona ao modal
+//       for (const step of data.steps) {
+//         appendMessage(step.message);
+//         if (step.delay) await new Promise((r) => setTimeout(r, step.delay));
+//       }
+
+//       // Atualiza estado final
+//       setSystemOk(data.success);
+
+//       // if (!data.success) {
+//       //   appendMessage("❌ Inicialização incompleta. Contate o administrador.");
+//       // }
+//     } catch (error: unknown) {
+//       console.error(error);
+//       appendMessage("❌ Erro inesperado ao inicializar o sistema.");
+//       setSystemOk(false);
+//     }
+//   }, []);
   
-  const appendMessage = (msg: string) =>
-    setSystemMessages((prev) => [...prev, msg]);
+//   // Dispara a checagem ao montar a página
+//   const hasCheckedRef = React.useRef(false);
 
-  // Função que chama a API de inicialização do backend
-  const performSystemCheck = React.useCallback(async () => {
-    setSystemMessages([]);
-    setSystemOk(null);
-    setShowSystemModal(true);
+//   React.useEffect(() => {
+//   if (!hasCheckedRef.current) {
+//     performSystemCheck();
+//     hasCheckedRef.current = true;
+//   }
+//   }, [performSystemCheck]);
 
-    try {
-      const data: InitResponse = await initSystemApi();
+//   // Atualiza o context e fecha modal se tudo OK
+//   React.useEffect(() => {
+//     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
+//     if (systemOk === true) {
+//       const timer = setTimeout(() => setShowSystemModal(false), 5000);
+//       return () => clearTimeout(timer);
+//     }
+//   }, [systemOk, dispatch]);
+// ///////////////////////////////////////////////////
+//   //////////// fim da checagem inicial do sistema. 
+// ///////////////////////////////////////////////////
 
-      // Itera pelos passos recebidos do backend e adiciona ao modal
-      for (const step of data.steps) {
-        appendMessage(step.message);
-        if (step.delay) await new Promise((r) => setTimeout(r, step.delay));
-      }
 
-      // Atualiza estado final
-      setSystemOk(data.success);
 
-      // if (!data.success) {
-      //   appendMessage("❌ Inicialização incompleta. Contate o administrador.");
-      // }
-    } catch (error: unknown) {
-      console.error(error);
-      appendMessage("❌ Erro inesperado ao inicializar o sistema.");
-      setSystemOk(false);
-    }
-  }, []);
-
-  // Dispara a checagem ao montar a página
-  const hasCheckedRef = React.useRef(false);
-
-  React.useEffect(() => {
-  if (!hasCheckedRef.current) {
-    performSystemCheck();
-    hasCheckedRef.current = true;
-  }
-  }, [performSystemCheck]);
-  // Atualiza o context e fecha modal se tudo OK
-  React.useEffect(() => {
-    dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
-    if (systemOk === true) {
-      const timer = setTimeout(() => setShowSystemModal(false), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [systemOk, dispatch]);
-///////////////////////////////////////////////////
-  //////////// fim da checagem inicial do sistema. 
-///////////////////////////////////////////////////
   // resetes state necessarios para liberação do Login e ou Chave Master
   const resetAcesso = React.useCallback(() => {
     if (!state.logado && !state.chvkey) {
@@ -176,6 +182,8 @@ const Home: React.FC = () => {
         setMsgPanelBottom('Acesso "MASTER" ao Sistema...');
         setMessageBottom('Aguardando Seleção...');
       }
+    } else {
+      setShowSystemModal(true);
     }
   }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch, resetAcesso]); 
 
@@ -589,24 +597,37 @@ const Home: React.FC = () => {
         ) : null}
 
         {showSystemModal && (
-          <PageModal
-            ptop="15%" pwidth="60%" pheight="80%"
-            imgbm={bt_close}
-            titbm="Fechar..."
-            titulo="Verificação do Sistema"
-            onclose={() => setShowSystemModal(false)}
-          >
-            <CardCheckingSystema
-              messages={systemMessages}
-              systemOk={systemOk}
-              onAutoCloseCountdown={(secondsLeft) => {
-                if (secondsLeft <= 0) setShowSystemModal(false);
-              }}
-              onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
-            />
-          </PageModal>
+          <CardModalCheckingSys
+            ptop="15%" 
+            pwidth="60%" 
+            pheight="80%"
+            titulo="Verificação de Sistema"
+            onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
+            onAutoCloseCountdown={(secondsLeft) => {
+              if (secondsLeft <= 0) setShowSystemModal(false);
+            }
+          }
+          />
+        // <PageModal
+        //     ptop="15%" pwidth="60%" pheight="80%"
+        //     imgbm={bt_close}
+        //     titbm="Fechar..."
+        //     titulo="Verificação do Sistema"
+        //     onclose={() => setShowSystemModal(false)}
+        //   >
+        //     <CardCheckingSystema
+        //       messages={systemMessages}                                     /**/
+        //       systemOk={systemOk}                                           /**/  
+        //       onAutoCloseCountdown={(secondsLeft) => {
+        //         if (secondsLeft <= 0) setShowSystemModal(false);
+        //       }}
+        //       onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
+        //     />
+        //   </PageModal>
+
           )
         }
+
         <div>{messagebottom}</div>
       </LayoutHome>
     </ThemeProvider>
