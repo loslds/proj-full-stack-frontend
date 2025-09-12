@@ -4,6 +4,7 @@ import React from "react";
 import * as Sy from './stylesSystem';
 import { ContentSysMainItens } from "./ContentSysMainItens"
 import { CardHlpFooter1 } from "./CardHlpFooter1";
+import {} from '../assets/svgs/bt_close.svg';
 interface PropsCardCheckingSystema {
   messages: string[];
   systemOk: boolean | null; 
@@ -34,6 +35,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
   }, [systemOk, onClose, onAutoCloseCountdown]);
 
   return (
+
     <ContentSysMainItens>
       {messages.map((m: string, i: number) => (
         <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>

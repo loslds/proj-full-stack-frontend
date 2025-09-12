@@ -7,22 +7,13 @@ import { ThemeProvider } from 'styled-components';
 
 import light from '../../themes/light';
 import dark from '../../themes/dark';
-
 import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext } from '../contexts/useAcessoContext';
 import { UseAcessoActions } from '../contexts/ContextAcesso';
-
-import { CardModalCheckingSys } from '../../cards/CardCheckingSys';
-
-import { initSystemApi, InitResponse } from '../../api/db/init';
-
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import { PageModal } from './PageModal';
-import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
-
 import * as Pg from '../stylePages';
-
 import { ContentCardPage } from '../ContentCardPage';
 import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
 import { ContentCardBoxChaveKey } from '../ContentCardBoxChaveKey';
@@ -32,11 +23,10 @@ import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
-
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-
+import { CardModalCheckingSys } from '../../cards/CardModalCheckingSys';
 import lg_sys from '../../assets/svgs/lg_sys.svg';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_avatar from '../../assets/pngs/bt_avatar.png';
@@ -88,105 +78,44 @@ const Home: React.FC = () => {
   const [messagebottom, setMessageBottom] = React.useState('');
   const [showSystemModal, setShowSystemModal] = React.useState(false);
 
-//   ////////////////////////////////////////////////////
-// // === sistema de checagem inicial simplificado ===
-// ////////////////////////////////////////////////////  
-//   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
-//   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
-
-//   const appendMessage = (msg: string) =>
-//     setSystemMessages((prev) => [...prev, msg]);
-
-//   // Função que chama a API de inicialização do backend
-//   const performSystemCheck = React.useCallback(async () => {
-//     setSystemMessages([]);
-//     setSystemOk(null);
-//     setShowSystemModal(true);
-
-//     try {
-//       const data: InitResponse = await initSystemApi();
-
-//       // Itera pelos passos recebidos do backend e adiciona ao modal
-//       for (const step of data.steps) {
-//         appendMessage(step.message);
-//         if (step.delay) await new Promise((r) => setTimeout(r, step.delay));
-//       }
-
-//       // Atualiza estado final
-//       setSystemOk(data.success);
-
-//       // if (!data.success) {
-//       //   appendMessage("❌ Inicialização incompleta. Contate o administrador.");
-//       // }
-//     } catch (error: unknown) {
-//       console.error(error);
-//       appendMessage("❌ Erro inesperado ao inicializar o sistema.");
-//       setSystemOk(false);
-//     }
-//   }, []);
-  
-//   // Dispara a checagem ao montar a página
-//   const hasCheckedRef = React.useRef(false);
-
-//   React.useEffect(() => {
-//   if (!hasCheckedRef.current) {
-//     performSystemCheck();
-//     hasCheckedRef.current = true;
-//   }
-//   }, [performSystemCheck]);
-
-//   // Atualiza o context e fecha modal se tudo OK
-//   React.useEffect(() => {
-//     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
-//     if (systemOk === true) {
-//       const timer = setTimeout(() => setShowSystemModal(false), 5000);
-//       return () => clearTimeout(timer);
-//     }
-//   }, [systemOk, dispatch]);
-// ///////////////////////////////////////////////////
-//   //////////// fim da checagem inicial do sistema. 
-// ///////////////////////////////////////////////////
-
-
-
-  // resetes state necessarios para liberação do Login e ou Chave Master
-  const resetAcesso = React.useCallback(() => {
-    if (!state.logado && !state.chvkey) {
-      goto('/');
-    }
-    dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false });
-    dispatch({ type: UseAcessoActions.SET_NIVEL, payload: 0 });
-    dispatch({ type: UseAcessoActions.SET_ACAO, payload: '' });
-  }, [dispatch, goto, state.logado, state.chvkey,]);
+  React.useEffect(() => {
+    dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home' });
+    dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'OPÇÃO' });
+}, [dispatch]);
 
   React.useEffect(() => {
-    if (state.chkdb){
-      setMessageBottom('');
-      dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home'  });
-      if (!state.logado && !state.chvkey) {
-        resetAcesso();
-        dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Inicial'});
-        dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'Opções'});
-        setMsgPanelBottom('Aguardando Login Sistema...')
-        setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
-      }
+    setMessageBottom('');
+    if (!state.chkdb) {
+      setShowSystemModal(true);
+      return;
+    }
 
-      if (state.logado) {
-        resetAcesso();
-        setMsgPanelBottom('Acesso MODULO: "' + state.modulo +'"...');
+    if (state.logado || state.chvkey) {
+      if (state.logado){
+        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false });
+        setMsgPanelBottom('Acesso  MODULO ["' + state.modulo + '" ao Sistema...');        
+        setMessageBottom( 'Aguardando Seleção...');
+      } else {
+        dispatch({ type: UseAcessoActions.SET_ID_NIVEL, payload: 4 });
+        dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'VIS/EDI/ALT/EXC' });
+        dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 5 });
+        dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'MASTER' });
+        setMsgPanelBottom('Acesso "MASTER" ao Sistema...');
         setMessageBottom( 'Aguardando Seleção...');
       }
-      if (state.chvkey) {
-        dispatch({ type: UseAcessoActions.SET_MODULO, payload: '' });
-        dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'MASTER' });
-        setMsgPanelBottom('Acesso "MASTER" ao Sistema...');
-        setMessageBottom('Aguardando Seleção...');
-      }
     } else {
-      setShowSystemModal(true);
-    }
-  }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch, resetAcesso]); 
+      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false });
+      dispatch({ type: UseAcessoActions.SET_ID_NIVEL, payload: 0 });
+      dispatch({ type: UseAcessoActions.SET_ACAO, payload: '' });
+      dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 0 });
+      dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Inicial'});
+      setMsgPanelBottom('Aguardando Login Sistema...')
+      setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
+      }
+    }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]); 
 
+  
+  // Acesso a Senha Master >>>>
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       // Verifica se a tecla pressionada é "Shift + Delete "
@@ -298,8 +227,22 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
+        
+          {/* Modal do Sistema */}
+          {showSystemModal && (
+            <CardModalCheckingSys
+              ptop="15%" 
+              pwidth="60%" 
+              pheight="80%"
+              titulo ={"Verificação de Sistema"}
+              onClose={() => setShowSystemModal(false)}
+              onAutoCloseCountdown={(secondsLeft: number) => {
+                if (secondsLeft <= 0) setShowSystemModal(false);
+              }}
+            />
+          )}
  
-        <ContentCustonImgPage
+          <ContentCustonImgPage
             num={1}
             open={true}
             pxheight={'100px'}
@@ -596,38 +539,6 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
 
-        {showSystemModal && (
-          <CardModalCheckingSys
-            ptop="15%" 
-            pwidth="60%" 
-            pheight="80%"
-            titulo="Verificação de Sistema"
-            onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
-            onAutoCloseCountdown={(secondsLeft) => {
-              if (secondsLeft <= 0) setShowSystemModal(false);
-            }
-          }
-          />
-        // <PageModal
-        //     ptop="15%" pwidth="60%" pheight="80%"
-        //     imgbm={bt_close}
-        //     titbm="Fechar..."
-        //     titulo="Verificação do Sistema"
-        //     onclose={() => setShowSystemModal(false)}
-        //   >
-        //     <CardCheckingSystema
-        //       messages={systemMessages}                                     /**/
-        //       systemOk={systemOk}                                           /**/  
-        //       onAutoCloseCountdown={(secondsLeft) => {
-        //         if (secondsLeft <= 0) setShowSystemModal(false);
-        //       }}
-        //       onClose={() => setShowSystemModal(false)} // 🔹 obrigatório
-        //     />
-        //   </PageModal>
-
-          )
-        }
-
         <div>{messagebottom}</div>
       </LayoutHome>
     </ThemeProvider>
@@ -636,101 +547,3 @@ const Home: React.FC = () => {
 
 export default Home;
 
-// =======================================================================
-//   === sistema de checagem inicial === 
-//   =======================================================================
-
-//   const [showSystemModal, setShowSystemModal] = React.useState(false);
-//   const [systemMessages, setSystemMessages] = React.useState<string[]>([]);
-//   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
-
-//   // Nosso hook de steps
-//   const { runStep } = useLoadingStep();
-
-//   const appendMessage = (msg: string) =>
-//     setSystemMessages((prev) => [...prev, msg]);
-
-//   const performSystemCheck = React.useCallback(async () => {
-//     setSystemMessages([]); // limpa mensagens antigas
-//     setSystemOk(null);     // reset status
-
-//     // === Etapa 1: Conexão ===
-//     const step1 = await runStep(
-//       async () => {
-//         const connRes = await checkConnection();
-//         return connRes.success;
-//       },
-//       "⏳ Verificando conexão com o DATABASE...", // mensagem inicial (ampulheta)
-//       "✅ Serviço de Rede Conectado com Sucesso.", // sucesso
-//       "❌ Conexão falhou. Entre em contato com o Administrador.", // erro
-//       "❌ Tempo excedido ao verificar conexão." // timeout
-//     );
-
-//     appendMessage(step1.message); // adiciona somente o resultado final
-
-//     if (!step1.success) {
-//       setSystemOk(false);
-//       return; // interrompe se falhou
-//     }
-
-//     // === Etapa 2: Tabelas
-//     appendMessage("⏳ Checando Banco de Dados...");
-
-//     const tablesRes: CheckTablesResponse = await checkTables();
-
-//     if (!tablesRes.success && tablesRes.missingTables?.length) {
-//       const missingTable = tablesRes.missingTables[0];
-//       appendMessage(`❌ ${missingTable} não foi possível constatar.`);
-//       appendMessage("❌ Verificação falhou. Solicite contato com o Administrador.");
-//       setSystemOk(false);
-//       return;
-//     }
-
-//     // se sucesso, mostre só o que backend confirmou
-//     tablesRes.checkedTables?.forEach((tbl: string) => {
-//       appendMessage(`✅ ${tbl} Sucesso.`);
-//     });
-
-//     // === Etapa 3: Sincronismo
-//     const step3 = await runStep(
-//       async () => {
-//         try {
-//           await sincronizarTabelas(requiredTables);
-//           return true;
-//         } catch {
-//           return false;
-//         }
-//       },
-//       "⏳ Aguarde sincronismo do Sistema...",
-//       "✅ Sincronismo concluído.",
-//       "⚠️ Falha no sincronismo, mas sistema pode continuar.",
-//       "❌ Tempo excedido no sincronismo."
-//     );
-//     appendMessage(step3.message);
-
-//     // === Finalização
-//     if (step3.success) {
-//       appendMessage("✅ Sistema pronto. Liberado para serviço.");
-//       setSystemOk(true);
-//     } else {
-//       appendMessage("⚠️ Sistema pronto com falhas, verificar sincronismo.");
-//       setSystemOk(true); // mesmo com falha, continua
-//     }
-    
-//   }, [runStep]);
-
-//   // dispara checagem ao montar
-//   React.useEffect(() => {
-//     performSystemCheck();
-//   }, [performSystemCheck]);
-
-//   // fecha modal se tudo OK
-//   React.useEffect(() => {
-//     dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
-//     if (systemOk === true) {
-//       const timer = setTimeout(() => setShowSystemModal(false), 5000);
-//       return () => clearTimeout(timer);
-//     }
-//   }, [systemOk, dispatch]);
-  
-//   //=============================================================
