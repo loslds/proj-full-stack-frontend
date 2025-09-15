@@ -21,3 +21,4 @@ export const checkTables = async (): Promise<CheckTablesResponse> => {
     return { success: false, message: "Erro ao verificar tabelas no banco" };
   }
 };
+

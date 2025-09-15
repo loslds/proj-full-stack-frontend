@@ -58,6 +58,17 @@ const Home: React.FC = () => {
   const [theme, setTheme] = React.useState(light);// state para tema THEME pagina 
   const [ischeck, setIscheck] = React.useState(false);// state para checar se existe edição  
 
+    // state pa menssagem no Painel em Botton da pagina
+  const [messagebottom, setMessageBottom] = React.useState('');
+  const [showSystemModal, setShowSystemModal] = React.useState(false);
+
+  // procedimentos para chamadas de Paginas
+  const navigate = useNavigate();
+  const goto = React.useCallback((path: string) => {
+    navigate(path);
+  }, [navigate]);
+
+
   //  const [ischkdb, setIisChkDb] = React.useState(false);// state para gardar o valor do retorno para ser guardado no context
   // procedimentos para troca de THEME
   const ToggleTheme = () => {
@@ -69,26 +80,19 @@ const Home: React.FC = () => {
       setIscheck(false);
     }
   };
-  // procedimentos para chamadas de Paginas
-  const navigate = useNavigate();
-  const goto = React.useCallback((path: string) => {
-    navigate(path);
-  }, [navigate]);
-  // state pa menssagem no Painel em Botton da pagina
-  const [messagebottom, setMessageBottom] = React.useState('');
-  const [showSystemModal, setShowSystemModal] = React.useState(false);
 
   React.useEffect(() => {
     dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home' });
     dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'OPÇÃO' });
-}, [dispatch]);
-
-  React.useEffect(() => {
     setMessageBottom('');
     if (!state.chkdb) {
       setShowSystemModal(true);
-      return;
     }
+
+  }, [dispatch, state.chkdb]);
+
+  React.useEffect(() => {
+    setMessageBottom('');
 
     if (state.logado || state.chvkey) {
       if (state.logado){
