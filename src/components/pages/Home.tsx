@@ -8,8 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 import LayoutHome from '../layouts/LayoutHome';
-import { useAcessoContext } from '../contexts/useAcessoContext';
-import { UseAcessoActions } from '../contexts/ContextAcesso';
+import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import { PageModal } from './PageModal';
@@ -27,7 +26,9 @@ import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 import { CardModalCheckingSys } from '../../cards/CardModalCheckingSys';
-import lg_sys from '../../assets/svgs/lg_sys.svg';
+
+import lg_sys from '@/assets/svgs/lg_sys.svg';
+import bt_refresca1 from '@/assets/pngs/bt_refresca1.png';
 import bt_helppg from '../../assets/svgs/bt_helppg.svg';
 import bt_avatar from '../../assets/pngs/bt_avatar.png';
 import bt_resgate from '../../assets/svgs/bt_resgate.svg';
@@ -42,7 +43,7 @@ import pn_expedicao from '../../assets/svgs/pn_expedicao.svg';
 import pn_administracao from '../../assets/svgs/pn_administracao.svg';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
-import bt_refresca1 from '../../assets/pngs/bt_refresca1.png';
+//import bt_refresca1 from ' '@/assets/pngs/bt_refresca1.png';
 
 const Home: React.FC = () => {
  
@@ -82,8 +83,8 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    dispatch({ type: UseAcessoActions.SET_PAGE, payload: 'Home' });
-    dispatch({ type: UseAcessoActions.SET_APLICACAO, payload: 'OPÇÃO' });
+    dispatch({ type: UseAcessoActions.set_PAGE, payload: 'Home' });
+    dispatch({ type: UseAcessoActions.set_APLICACAO, payload: 'OPÇÃO' });
     setMessageBottom('');
     if (!state.chkdb) {
       setShowSystemModal(true);
@@ -96,23 +97,23 @@ const Home: React.FC = () => {
 
     if (state.logado || state.chvkey) {
       if (state.logado){
-        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false });
+        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
         setMsgPanelBottom('Acesso  MODULO ["' + state.modulo + '" ao Sistema...');        
         setMessageBottom( 'Aguardando Seleção...');
       } else {
-        dispatch({ type: UseAcessoActions.SET_ID_NIVEL, payload: 4 });
-        dispatch({ type: UseAcessoActions.SET_ACAO, payload: 'VIS/EDI/ALT/EXC' });
-        dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 5 });
-        dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'MASTER' });
+        dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
+        dispatch({ type: UseAcessoActions.set_ACAO, payload: 'VIS/EDI/ALT/EXC' });
+        dispatch({ type: UseAcessoActions.set_ID_SETOR, payload: 5 });
+        dispatch({ type: UseAcessoActions.set_MODULO, payload: 'MASTER' });
         setMsgPanelBottom('Acesso "MASTER" ao Sistema...');
         setMessageBottom( 'Aguardando Seleção...');
       }
     } else {
-      dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: false });
-      dispatch({ type: UseAcessoActions.SET_ID_NIVEL, payload: 0 });
-      dispatch({ type: UseAcessoActions.SET_ACAO, payload: '' });
-      dispatch({ type: UseAcessoActions.SET_ID_SETOR, payload: 0 });
-      dispatch({ type: UseAcessoActions.SET_MODULO, payload: 'Inicial'});
+      dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+      dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
+      dispatch({ type: UseAcessoActions.set_ACAO, payload: '' });
+      dispatch({ type: UseAcessoActions.set_ID_SETOR, payload: 0 });
+      dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Inicial'});
       setMsgPanelBottom('Aguardando Login Sistema...')
       setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
       }
@@ -164,8 +165,8 @@ const Home: React.FC = () => {
     if (chavedigitada.length === 8) {
       const rtn = CheckDateToCecular(chavedigitada);
       if (rtn) {
-        dispatch({ type: UseAcessoActions.SET_LOGADO, payload: false });
-        dispatch({ type: UseAcessoActions.SET_CHVKEY, payload: true});
+        dispatch({ type: UseAcessoActions.set_LOGADO, payload: false });
+        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true});
         // Exibe a mensagem temporária por 5 segundos
         setMsgPanelBottom('Sucesso...');
       } else {

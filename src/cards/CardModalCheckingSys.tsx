@@ -1,18 +1,19 @@
-// C:\repository\proj-full-stack-frontend\src\cards\CardCheckingSystema.tsx
+// C:\repository\proj-full-stack-frontend\src\cards\CardCheckingSys.tsx
 import React from "react";
-import { useAcessoContext } from "../components/contexts/useAcessoContext";
-import { UseAcessoActions } from "../components/contexts/ContextAcesso";
+
+import { useAcessoContext } from "../components/contexts/useAcessoContext.tsx";
+
 import { initSystemApi, InitResponse } from "../api/db/init";
 import * as M from "../modal/stylesModal";
 import { ContentModal } from "../modal/ContentModal";
 import { CardModal } from "../modal/CardModal";
 import { TitleModal } from "../modal/TitleModal";
 import { CardButtonModal } from "../modal/CardButtonModal";
-import bt_close from "../../assets/svgs/bt_close.svg";
 import * as Sy from "./stylesSystem";
 import { ContentSysMainItens } from "./ContentSysMainItens";
 import { CardHlpFooter1 } from "./CardHlpFooter1";
 
+import bt_close from "../assets/svgs/bt_close.svg";
 interface PropsModalCardCheckingSys {
   ptop?: string;
   pwidth?: string;
@@ -32,7 +33,7 @@ export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
   onAutoCloseCountdown,
   messages = [],
 }) => {
-  const { dispatch } = useAcessoContext();
+  const { estate, dispatch } = useAcessoContext();
 
   const [systemMessages, setSystemMessages] = React.useState<string[]>([...messages]);
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null); // null = em progresso
@@ -40,28 +41,25 @@ export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
   const appendMessage = (msg: string) =>
     setSystemMessages((prev) => [...prev, msg]);
   
-  // Executa checagem apenas uma vez
   React.useEffect(() => {
   const performSystemCheck = async () => {
-    setSystemMessages([...messages]);
+    setSystemMessages([...messages]); // inicializa mensagens
     setSystemOk(null);
 
     try {
       const data: InitResponse = await initSystemApi();
 
       for (const step of data.steps) {
-        appendMessage(step.message);
+        setSystemMessages((prev) => [...prev, step.message]);
         if (step.delay) await new Promise((r) => setTimeout(r, step.delay));
       }
 
       setSystemOk(data.success);
     } catch (error: unknown) {
       console.error("Erro na verificação do sistema:", error);
-      // Exibe no modal
-      appendMessage("❌ Erro inesperado ao inicializar o sistema.");
+      setSystemMessages((prev) => [...prev, "❌ Erro inesperado ao inicializar o sistema."]);
       setSystemOk(false);
 
-      // Envia para backend
       const errMsg = error instanceof Error ? error.message : String(error);
       await fetch("../api/logs", {
         method: "POST",
@@ -75,30 +73,25 @@ export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
     }
   };
 
-  performSystemCheck(); // <- chamada correta
-}, [messages]);
+  performSystemCheck();
+}, []); // <-- nenhuma dependência, roda apenas na montagem
 
 
   // Atualiza contexto sempre que systemOk mudar
   React.useEffect(() => {
-    dispatch({ type: UseAcessoActions.SET_CHKDB, payload: systemOk });
-  }, [systemOk, dispatch]);
-
-  // Contador interno de auto-close
-  React.useEffect(() => {
-    if (systemOk === true) {
-      let counter = 15;
-      const interval = setInterval(() => {
-        counter -= 1;
-        onAutoCloseCountdown?.(counter);
-        if (counter <= 0) {
-          clearInterval(interval);
-          onClose?.();
-        }
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [systemOk, onClose, onAutoCloseCountdown]);
+  if (systemOk === true) {
+    let counter = 15;
+    const interval = setInterval(() => {
+      counter -= 1;
+      onAutoCloseCountdown?.(counter);
+      if (counter <= 0) {
+        clearInterval(interval);
+        onClose?.();
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }
+}, [systemOk, onClose, onAutoCloseCountdown]);
 
   return (
     <M.Content>

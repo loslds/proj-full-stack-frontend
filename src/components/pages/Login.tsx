@@ -2,7 +2,7 @@
 import React from "react";
 import * as Pg from '../stylePages';
 
-import { useAcessoContext } from '../contexts/useAcessoContext';
+import { useAcessoContext } from '../contexts/ContextAcesso';
 //import { UseAcessoActions } from '../contexts/ContextAcesso';
 
 //import axios from "axios";
