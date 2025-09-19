@@ -1,4 +1,5 @@
 
+//C:\repository\proj-full-stack-frontend\src\types\images.d.ts
 // Declara arquivos SVG como React components
 declare module '*.svg' {
   import * as React from 'react';
@@ -24,6 +25,11 @@ declare module '*.jpeg' {
 }
 
 declare module '*.gif' {
+  const value: string;
+  export default value;
+}
+
+declare module '*.ico' {
   const value: string;
   export default value;
 }

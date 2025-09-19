@@ -13,7 +13,7 @@ import { CardHlpFooter1 } from "./CardHlpFooter1";
 
 import bt_close from "../assets/svgs/bt_close.svg";
 
-interface PropsModalCardCheckingSys {
+interface PropsModalCardCheckingKey {
   ptop?: string;
   pwidth?: string;
   pheight?: string;
@@ -23,7 +23,7 @@ interface PropsModalCardCheckingSys {
   messages?: string[];
 }
 
-export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
+export const CardModalCheckingKey: React.FC<PropsModalCardCheckingKey> = ({
   ptop,
   pwidth,
   pheight,
@@ -71,12 +71,12 @@ export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
     };
 
     performSystemCheck();
-  }, []);
+  }, [messages]);
 
   // Contagem regressiva para fechamento automático
   React.useEffect(() => {
     if (systemOk === true) {
-      let counter = 5;
+      let counter = 15;
       const interval = setInterval(() => {
         counter -= 1;
         onAutoCloseCountdown?.(counter);
@@ -102,9 +102,13 @@ export const CardModalCheckingSys: React.FC<PropsModalCardCheckingSys> = ({
             <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
           ))}
 
-          <Sy.DivStatus success={!!systemOk}>✅ Sistema pronto, checado...</Sy.DivStatus>
+          {systemOk === true && (
+            <Sy.DivStatus success={true}>✅ Sistema pronto, checado...</Sy.DivStatus>
+          )}
 
-          <Sy.DivStatus success={systemOk === false}>❌ Verificação falhou. Entre em contato com o administrador.</Sy.DivStatus>
+          {systemOk === false && (
+            <Sy.DivStatus>❌ Verificação falhou. Entre em contato com o administrador.</Sy.DivStatus>
+          )}
 
           {systemOk === null && <Sy.DivStatus>⏳ Em progresso...</Sy.DivStatus>}
         </ContentSysMainItens>

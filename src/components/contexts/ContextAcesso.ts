@@ -265,13 +265,13 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
   }
 };
 
-export type AcessoContextType = {
+export interface AcessoContextType  {
   state: StateAcesso;
   dispatch: (action: AcessoAction) => void;
 };
 export const AcessoContext = React.createContext<AcessoContextType | undefined>(undefined);
 
-export function useAcessoContext() {
+export const useAcessoContext = () => {
   const context = React.useContext(AcessoContext);
   if (!context) {
     throw new Error('useAcessoContext must be used within AcessoProvider');
