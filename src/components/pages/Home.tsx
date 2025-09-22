@@ -12,6 +12,7 @@ import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 import { PageModal } from './PageModal';
+import { AutoCloseTimer } from '../AutoCloseTimer';
 import * as Pg from '../stylePages';
 import { ContentCardPage } from '../ContentCardPage';
 import { CheckDateToCecular } from '../../funcs/funcs/CheckDateToCecular';
@@ -25,7 +26,6 @@ import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton'
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-import { CardModalCheckingSys } from '../../cards/CardModalCheckingSys';
 
 import lg_sys from '@/assets/svgs/lg_sys.svg';
 import bt_refresca1 from '@/assets/pngs/bt_refresca1.png';
@@ -43,6 +43,7 @@ import pn_expedicao from '../../assets/svgs/pn_expedicao.svg';
 import pn_administracao from '../../assets/svgs/pn_administracao.svg';
 import pn_config from '../../assets/svgs/pn_config.svg';
 import bt_enviar from '../../assets/svgs/bt_enviar.svg';
+
 //import bt_refresca1 from ' '@/assets/pngs/bt_refresca1.png';
 
 const Home: React.FC = () => {
@@ -62,39 +63,32 @@ const Home: React.FC = () => {
     // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
   const [showSystemModal, setShowSystemModal] = React.useState(false);
+  const [notlogin, setNotLogin] = React.useState(false);
+
+
 
   // procedimentos para chamadas de Paginas
   const navigate = useNavigate();
-  const goto = React.useCallback((path: string) => {
-    navigate(path);
-  }, [navigate]);
-
-
-  //  const [ischkdb, setIisChkDb] = React.useState(false);// state para gardar o valor do retorno para ser guardado no context
+  const goto = React.useCallback((path: string) => { navigate(path);} , [navigate]);
+ 
   // procedimentos para troca de THEME
   const ToggleTheme = () => {
-    if (theme.name === 'dark') {
-      setTheme(light);
-      setIscheck(true);
-    } else {
-      setTheme(dark);
-      setIscheck(false);
-    }
+    setTheme(theme.name === 'dark' ? light : dark);
+    setIscheck((prev) => !prev);
   };
 
+  // inicia payloads do AcessoContext
   React.useEffect(() => {
+    setMessageBottom('');
     dispatch({ type: UseAcessoActions.set_PAGE, payload: 'Home' });
     dispatch({ type: UseAcessoActions.set_APLICACAO, payload: 'OPÇÃO' });
-    setMessageBottom('');
+    
     if (!state.chkdb) {
-      setShowSystemModal(true);
+      setShowSystemModal(true); // aqui habilita o modal
+      setMsgPanelBottom('Sistema Inoperante. Conexão ou tabelas não estão prontas.');
+      return; // não continua com o restante da lógica de acesso
     }
-
-  }, [dispatch, state.chkdb]);
-
-  React.useEffect(() => {
-    setMessageBottom('');
-
+    
     if (state.logado || state.chvkey) {
       if (state.logado){
         dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
@@ -116,101 +110,91 @@ const Home: React.FC = () => {
       dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Inicial'});
       setMsgPanelBottom('Aguardando Login Sistema...')
       setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
-      }
-    }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]); 
+    }
+  }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]); 
 
   
-  // Acesso a Senha Master >>>>
+  // Acesso a Chave_Key Master >>>>
   React.useEffect(() => {
+     if (!state.chkdb) {setShowSystemModal(true); return;} // bloqueia o efeito se sistema inoperante
     const handleKeyDown = (event: KeyboardEvent) => {
       // Verifica se a tecla pressionada é "Shift + Delete "
-      if (event.shiftKey && event.key === 'Delete') {
-        setBuscaChave((prev) => !prev); // Alterna o estado para mostrar ou esconder o valor
-      }
-      // Fechar com tecla Escape
-      if (event.key === 'Escape') {
-        setBuscaChave(false);
-      }
+      if (event.shiftKey && event.key === 'Delete') setBuscaChave((prev) => !prev); 
+      if (event.key === 'Escape') setBuscaChave(false);
     };
-    // Adiciona o listener para o evento de teclado
     window.addEventListener('keydown', handleKeyDown);
-    // Remove o listener quando o componente é desmontado
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  },[]);  
-
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  },[state.chkdb]); 
+  
   const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChaveDigitada(event.target.value);
-    if (chavedigitada.length === 0 ) {
-      setMsgPanelBottom('Aguardando...');
-      setStartBtnChave(false);
-      setIsDesable(true);
-    } else {
-      setMsgPanelBottom('Edite Chave...');  
-      setStartBtnChave(true);
-      setIsDesable(true);
+    if (state.chkdb) {
+      setChaveDigitada(event.target.value);
+      if (chavedigitada.length === 0 ) {
+        setMsgPanelBottom('Aguardando...');
+        setStartBtnChave(false);
+        setIsDesable(true);
+      } else {
+        setMsgPanelBottom('Edite Chave...');  
+        setStartBtnChave(true);
+        setIsDesable(true);
+      }
     }
   };
 
   React.useEffect(() => {
-    if (chavedigitada.length === 8) {
-      setMsgPanelBottom('Clique para Cofirmar.');
-      setStartBtnChave(true);
-      setIsDesable(false);
+    if (state.chkdb) {
+      if (chavedigitada.length === 8) {
+        setMsgPanelBottom('Clique para Cofirmar.');
+        setStartBtnChave(true);
+        setIsDesable(false);
+      }
     }
-  },[chavedigitada]);
+  },[state.chkdb, chavedigitada]);
 
   const handlerCheckBtnContinua = () => {
-    if (chavedigitada.length === 8) {
-      const rtn = CheckDateToCecular(chavedigitada);
-      if (rtn) {
-        dispatch({ type: UseAcessoActions.set_LOGADO, payload: false });
-        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true});
-        // Exibe a mensagem temporária por 5 segundos
-        setMsgPanelBottom('Sucesso...');
-      } else {
-        setChaveDigitada('');
-        // Exibe a mensagem temporária por 5 segundos
-        setMsgPanelBottom('Chave inválida!');
+    if (state.chkdb) {
+      if (chavedigitada.length === 8) {
+        const rtn = CheckDateToCecular(chavedigitada);
+        if (rtn) {
+          dispatch({ type: UseAcessoActions.set_LOGADO, payload: false });
+          dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true});
+          // Exibe a mensagem temporária por 5 segundos
+          setMsgPanelBottom('Sucesso...');
+        } else {
+          setChaveDigitada('');
+          // Exibe a mensagem temporária por 5 segundos
+          setMsgPanelBottom('Chave inválida!');
+        }
+        setTimeout(() => { setMsgPanelBottom(''); }, 5000); // 5 segundos
+        setStartBtnChave(false);
+        setIsDesable(true);
+        setBuscaChave(false);
       }
-      setTimeout(() => { setMsgPanelBottom(''); }, 5000); // 5 segundos
-      setStartBtnChave(false);
-      setIsDesable(true);
-      setBuscaChave(false);
     }
   };
   
-  const handlerCardLogo = React.useCallback(() => {
-    setCardLogo((oldState) => !oldState);
-  }, []);
-  
-  const handlerCardHlpPage = React.useCallback(() => {
-    setCardHlpPage((oldState) => !oldState);
-  }, []);
-
+  const handlerCardLogo = React.useCallback(() => { setCardLogo((oldState) => !oldState); }, []);
+  const handlerCardHlpPage = React.useCallback(() => { setCardHlpPage((oldState) => !oldState); }, []);
   const handlerClicEventNegadoPage = React.useCallback((num: number) => {
     if (num === undefined) return;
+    const routes: Record<number, string> = {
+      1: '/modulos/visitante',
+      2: '/modulos/recepcao',
+      3: '/modulos/design',
+      4: '/modulos/producao',
+      5: '/modulos/acabamento',
+      6: '/modulos/expedicao',
+      7: '/modulos/administracao',
+      8: '/modulos/config',
+    };
+    const targetRoute = routes[num];
+    if (!state.logado && !state.chvkey)  {
+      setCardNegadoPage(true);
+    } else if (targetRoute) {
+      goto(targetRoute); // importante: execute a função retornada por `goto`
+    }
+  }, [goto, state.logado, state.chvkey]);
 
-  const routes: Record<number, string> = {
-    1: '/modulos/visitante',
-    2: '/modulos/recepcao',
-    3: '/modulos/design',
-    4: '/modulos/producao',
-    5: '/modulos/acabamento',
-    6: '/modulos/expedicao',
-    7: '/modulos/administracao',
-    8: '/modulos/config',
-  };
-
-  const targetRoute = routes[num];
-
-  if (!state.logado && !state.chvkey)  {
-    setCardNegadoPage(true);
-  } else if (targetRoute) {
-    goto(targetRoute); // Importante: execute a função retornada por `goto`
-  }
-}, [goto, state.logado, state.chvkey]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -224,7 +208,15 @@ const Home: React.FC = () => {
         onclickhlppg={handlerCardHlpPage}
         imgbtnlogin={bt_avatar}
         titbtnlogin="Login..."
-        onclicklogin={() => goto('/login')}
+        //onclicklogin={() => goto('/login')}
+        onclicklogin={() => {
+          if (state.chkdb) {
+            goto('/login'); // sistema ok → vai para login
+          } else {
+            setNotLogin(true); // sistema inoperante → abre modal
+            setMsgPanelBottom('Sistema Inoperante!');
+          }
+        }}
         imgbtnresg={bt_resgate}
         titbtnresg="Resgatar Acesso..."
         onclickresg={() => goto('/resgate')}
@@ -232,21 +224,6 @@ const Home: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentItensBody>
-        
-          {/* Modal do Sistema */}
-          {showSystemModal && (
-            <CardModalCheckingSys
-              ptop="15%" 
-              pwidth="60%" 
-              pheight="80%"
-              titulo ={"Verificação de Sistema"}
-              onClose={() => setShowSystemModal(false)}
-              onAutoCloseCountdown={(secondsLeft: number) => {
-                if (secondsLeft <= 0) setShowSystemModal(false);
-              }}
-            />
-          )}
- 
           <ContentCustonImgPage
             num={1}
             open={true}
@@ -543,6 +520,66 @@ const Home: React.FC = () => {
             />
           </PageModal>
         ) : null}
+        
+        {showSystemModal ? (
+          <PageModal
+            ptop={'10%'}
+            pwidth={'70%'}
+            pheight={'50%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Sistema Inoperante'}
+            onclose={() => {setShowSystemModal(false)}}
+          >
+            <CardImgNeg 
+              imgcard={lg_negado} 
+              pminheight={'120px'} 
+              pwidth={'120px'} 
+              onclickimg={() => {setShowSystemModal(false)}}
+            />
+            <form>
+              <p>
+                O sistema não pode ser iniciado.  
+              </p>
+              <br />
+              <p>
+                Entre em contato com suporte.
+              </p>
+            </form>
+            {/* Contagem regressiva dentro do modal, Timer dentro do modal */}
+            <AutoCloseTimer onClose={() => setShowSystemModal(false)} seconds={10} />
+          </PageModal>
+        ) : null}
+
+        {notlogin ? (
+          <PageModal
+            ptop={'10%'}
+            pwidth={'70%'}
+            pheight={'50%'}
+            imgbm={bt_close}
+            titbm="Fechar..."
+            titulo={'Acesso Negado'}
+            onclose={() => {setNotLogin(false)}}
+          >
+            <CardImgNeg 
+              imgcard={lg_negado} 
+              pminheight={'120px'} 
+              pwidth={'120px'} 
+              onclickimg={() => {setNotLogin(false)}}
+            />
+            <form>
+              <p>
+                ACESSO SISTEMA INOPERANTE.  
+              </p>
+              <br />
+              <p>
+                Entre em contato com suporte.
+              </p>
+            </form>
+            {/* Contagem regressiva dentro do modal, Timer dentro do modal */}
+            <AutoCloseTimer onClose={() => setNotLogin(false)} seconds={5} />
+          </PageModal>
+        ) : null}
 
         <div>{messagebottom}</div>
       </LayoutHome>
@@ -552,3 +589,21 @@ const Home: React.FC = () => {
 
 export default Home;
 
+
+
+
+
+          // {/* Modal do Sistema */}
+          // {showSystemModal && (
+          //   <CardModalCheckingSys
+          //     ptop="15%" 
+          //     pwidth="60%" 
+          //     pheight="80%"
+          //     titulo ={"Verificação de Sistema"}
+          //     onClose={() => setShowSystemModal(false)}
+          //     onAutoCloseCountdown={(secondsLeft: number) => {
+          //       if (secondsLeft <= 0) setShowSystemModal(false);
+          //     }}
+          //   />
+          // )}
+  

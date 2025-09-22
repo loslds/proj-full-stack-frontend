@@ -1,4 +1,5 @@
 
+//C:\repository\proj-full-stack-frontend\src\AppRoutes.tsx
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
@@ -6,8 +7,6 @@ import Login from './components/pages/Login';
 import { CardDesenvolver } from './cards/CardDesenvolver';
 import Resgate from './components/pages/Resgate';
 
-// import MySQLRoutes from './MySQLRoutes';                 
- 
 const AppRoutes = () => {
   return (
     <Routes>
@@ -16,8 +15,7 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login />} /> {/* Rota para Login.tsx */}
       <Route path="/resgate" element={<Resgate />} /> {/* Rota para Resgate.tsx */}
       <Route path='./cards/CardDesenvolver' element={<CardDesenvolver/>} /> {/* Rota para Arq. à desenvolver.tsx */}
-      {/*<Route path='./*' element={<MySQLRoutes/>} /> {/* Rota para usar o Testes do MySql */}
-
+      
 
     </Routes>
   );
