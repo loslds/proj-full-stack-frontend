@@ -32,11 +32,11 @@ import { ContentCardBoxBorderPg } from "../ContentCardBoxBorderPg";
 import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
-import lg_login from "../../assets/svgs/lg_login.svg";
-import bt_helppg from "../../assets/svgs/bt_helppg.svg";
-import bt_refresca1 from '@/assets/pngs/bt_refresca1.png';
-import bt_abortar from "../../assets/svgs/bt_abortar.svg";
-import bt_close from "../../assets/svgs/bt_close.svg";
+import lg_login from 'c://SysBordados/default/botao/btn_def_300q_300c_/btn_c_def_login.svg';
+import bt_helppg from  'c://SysBordados/default/botao/btn_def_300q_300c_/btn_c_def_help.svg';
+import bt_refresca1 from 'c://SysBordados/default/botao/btn_def_300q_300c_/btn_c_def_refrescar.svg';
+import bt_abortar from 'c://SysBordados/default/botao/btn_def_300q_300c_/btn_c_def_sair.svg';
+import bt_close from 'c://SysBordados/default/botao/btn_def_300q_300c_/btn_c_def_close_modal.svg';
 //import bt_enviar from '../../assets/svgs/bt_enviar.svg';
 
 //import { ContentCardCollunsFormPage } from '../ContentCardCollunsFormPage';

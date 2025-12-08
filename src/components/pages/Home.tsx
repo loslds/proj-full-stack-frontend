@@ -1,10 +1,8 @@
  
 // C:\repository\proj-full-stack-frontend\src\components\pages\Home.tsx
 import React from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 import LayoutHome from '../layouts/LayoutHome';
@@ -26,25 +24,27 @@ import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton'
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import bt_refresca1 from '@/assets/pngs/bt_refresca1.png';
-import bt_helppg from '../../assets/svgs/bt_helppg.svg';
-import bt_avatar from '../../assets/pngs/bt_avatar.png';
-import bt_resgate from '../../assets/svgs/bt_resgate.svg';
-import lg_negado from '../../assets/svgs/lg_negado.svg';
-import bt_close from '../../assets/svgs/bt_close.svg';
-import pn_visitante from '../../assets/svgs/pn_visitante.svg';
-import pn_recepcao from '../../assets/svgs/pn_recepcao.svg';
-import pn_design from '../../assets/svgs/pn_design.svg';
-import pn_producao from '../../assets/svgs/pn_producao.svg';
-import pn_acabamento from '../../assets/svgs/pn_acabamento.svg';
-import pn_expedicao from '../../assets/svgs/pn_expedicao.svg';
-import pn_administracao from '../../assets/svgs/pn_administracao.svg';
-import pn_config from '../../assets/svgs/pn_config.svg';
-import bt_enviar from '../../assets/svgs/bt_enviar.svg';
-
-//import bt_refresca1 from ' '@/assets/pngs/bt_refresca1.png';
+// imgs do header
+import lg_default from '../../assets/defaut/logo/lg_default.svg'
+import btn_chelp from '../../assets/defaut/button/btn_300/btn_chelp.svg';
+import btn_clogin from '../../assets/defaut/button/btn_300/btn_clogin.svg';
+import btn_cresgatar from '../../assets/defaut/button/btn_300/btn_cresgatar.svg';
+// img do main painel
+import pnl_mvisitante from '../../assets/defaut/painel/pnl_mod_500/pnl_mvisitante.svg';
+import pnl_mrecepcao from '../../assets/defaut/painel/pnl_mod_500/pnl_mrecepcao.svg';
+import pnl_mdesign from '../../assets/defaut/painel/pnl_mod_500/pnl_mdesign.svg';
+import pnl_mproducao from '../../assets/defaut/painel/pnl_mod_500/pnl_mproducao.svg';
+import pnl_macabamento from '../../assets/defaut/painel/pnl_mod_500/pnl_macabamento.svg';
+import pnl_mexpedicao from '../../assets/defaut/painel/pnl_mod_500/pnl_mexpedicao.svg';
+import pnl_madministracao from '../../assets/defaut/painel/pnl_mod_500/pnl_madministracao.svg';
+import pnl_mconfig from '../../assets/defaut/painel/pnl_mod_500/pnl_mconfig.svg';
+// img do painel Bottom
+import btn_crefrescar from '../../assets/defaut/button/btn_300/btn_crefrescar.svg';
+import btn_cenviar from '../../assets/defaut/button/btn_300/btn_cenviar.svg';
+// img do modal
+import btn_cclose_modal from '../../assets/defaut/button/btn_300/btn_cclose_modal.svg';
+import pnl_negado from '../../assets/defaut/painel/pnl_mod_500/pnl_negado.svg';
+////////////////////////////////////////////
 
 const Home: React.FC = () => {
  
@@ -199,14 +199,14 @@ const Home: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutHome
-        imgsys={lg_sys}
+        imgsys={lg_default}
         titbtnsys="Home Sistema..."
         onclicksys={handlerCardLogo}
         titlepg="Home"
-        imgbtnhlppg={bt_helppg}
+        imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
-        imgbtnlogin={bt_avatar}
+        imgbtnlogin={btn_clogin}
         titbtnlogin="Login..."
         //onclicklogin={() => goto('/login')}
         onclicklogin={() => {
@@ -217,7 +217,7 @@ const Home: React.FC = () => {
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
-        imgbtnresg={bt_resgate}
+        imgbtnresg={btn_cresgatar}
         titbtnresg="Resgatar Acesso..."
         onclickresg={() => goto('/resgate')}
         onchange={ToggleTheme}
@@ -230,7 +230,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_visitante}
+            imgbtn={pnl_mvisitante}
             titlebtn={'Modulo Visitantes..'}
             onclick={() => {
               if ((state.modulo === 'Visitante' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -253,7 +253,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_recepcao}
+            imgbtn={pnl_mrecepcao}
             titlebtn={'Modulo Recepção...'}
             onclick={() => {
               if ((state.modulo === 'Recepcao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -276,7 +276,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_design}
+            imgbtn={pnl_mdesign}
             titlebtn={'Modulo Design...'}
             onclick={() => {
               if ((state.modulo === 'Design' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -299,7 +299,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_producao}
+            imgbtn={pnl_mproducao}
             titlebtn={'Modulo Produção...'}
             onclick={() => {
               if ((state.modulo === 'Producao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -321,7 +321,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_acabamento}
+            imgbtn={pnl_macabamento}
             titlebtn={'Modulo Acabamento...'}
             onclick={() => {
               if ((state.modulo === 'Acabamento' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -344,7 +344,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_expedicao}
+            imgbtn={pnl_mexpedicao}
             titlebtn={'Modulo Expedição...'}
             onclick={() => {
               if ((state.modulo === 'Expedicao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -366,7 +366,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_administracao}
+            imgbtn={pnl_madministracao}
             titlebtn={'Modulo Administração...'}
             onclick={() => {
               if ((state.modulo === 'Administracao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -389,7 +389,7 @@ const Home: React.FC = () => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pn_config}
+            imgbtn={pnl_mconfig}
             titlebtn={'Cadastros Config...'}
             onclick={() => {
               if ((state.modulo === 'Config' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
@@ -443,7 +443,7 @@ const Home: React.FC = () => {
           <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={bt_refresca1}
+              img={btn_crefrescar}
               titbtn={'Refrescar...'}
               onClick={() => window.location.reload()}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
@@ -459,7 +459,7 @@ const Home: React.FC = () => {
             <ContentSidePageBottonLabel open={true} istitl={true} title={'Confirmar? : '}>
               <ContentPageButtonDefImgEnabled 
                 pxheight={'40px'}
-                img={bt_enviar}
+                img={btn_cenviar}
                 titbtn={'Checar...'}
                 onclick={handlerCheckBtnContinua}
                 disabled={isdesable}
@@ -473,13 +473,13 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'30%'}
             pheight={'35%'}
-            imgbm={bt_close}
+            imgbm={btn_cclose_modal}
             titbm="Fechar..."
             titulo={'Acesso Negado.'}
             onclose={() => setCardNegadoPage(false)}
           >
             <CardImgNeg 
-              imgcard={lg_negado} 
+              imgcard={pnl_negado} 
               pminheight={'100px'} 
               pwidth={'100px'} 
               onclickimg={() => setCardNegadoPage(false)}
@@ -492,13 +492,13 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={bt_close}
+            imgbm={btn_cclose_modal}
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}
           >
             <CardHlpHomeLogo
-              imghlplogo={lg_sys}
+              imghlplogo={lg_default}
               onclosesair={() => setCardLogo(false)}
             />
           </PageModal>
@@ -509,13 +509,13 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={bt_close}
+            imgbm={btn_cclose_modal}
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}
           >
             <CardHlpHomePage
-              imgcardpage={lg_sys}
+              imgcardpage={lg_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>
@@ -526,13 +526,13 @@ const Home: React.FC = () => {
             ptop={'10%'}
             pwidth={'70%'}
             pheight={'50%'}
-            imgbm={bt_close}
+            imgbm={btn_cclose_modal}
             titbm="Fechar..."
             titulo={'Sistema Inoperante'}
             onclose={() => {setShowSystemModal(false)}}
           >
             <CardImgNeg 
-              imgcard={lg_negado} 
+              imgcard={pnl_negado} 
               pminheight={'120px'} 
               pwidth={'120px'} 
               onclickimg={() => {setShowSystemModal(false)}}
@@ -556,13 +556,13 @@ const Home: React.FC = () => {
             ptop={'10%'}
             pwidth={'70%'}
             pheight={'50%'}
-            imgbm={bt_close}
+            imgbm={btn_cclose_modal}
             titbm="Fechar..."
             titulo={'Acesso Negado'}
             onclose={() => {setNotLogin(false)}}
           >
             <CardImgNeg 
-              imgcard={lg_negado} 
+              imgcard={pnl_negado} 
               pminheight={'120px'} 
               pwidth={'120px'} 
               onclickimg={() => {setNotLogin(false)}}
