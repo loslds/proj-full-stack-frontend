@@ -22,7 +22,7 @@ import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
+import { CardHlpHomePage } from '../../cards/CardHlpHomePage'
 import { CardImgNeg } from '../../cards/CardImgNeg';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_default.svg'

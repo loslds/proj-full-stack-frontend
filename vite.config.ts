@@ -2,14 +2,14 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-
+import path from 'path';
 
 export default defineConfig({
   plugins: [react(), svgr()],
   resolve: {
     alias: {
-       '@': '/src', // Alias @ -> src (relativo ao root do projeto)
-
+      '@': path.resolve(__dirname, 'src'),          // Alias principal
+      '@assets': path.resolve(__dirname, 'src/assets'), // Alias para imagens
     },
   },
   server: {
