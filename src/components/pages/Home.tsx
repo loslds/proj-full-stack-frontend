@@ -23,27 +23,28 @@ import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage'
+import { CardCheckingSystema }from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 // imgs do header
-import lg_default from '../../assets/defaut/logo/lg_default.svg'
-import btn_chelp from '../../assets/defaut/button/btn_300/btn_chelp.svg';
-import btn_clogin from '../../assets/defaut/button/btn_300/btn_clogin.svg';
-import btn_cresgatar from '../../assets/defaut/button/btn_300/btn_cresgatar.svg';
+import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg'
+import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
+import btn_avatar from '../../assets/defaut/avatar/avt_default.svg';
+import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
 // img do main painel
-import pnl_mvisitante from '../../assets/defaut/painel/pnl_mod_500/pnl_mvisitante.svg';
-import pnl_mrecepcao from '../../assets/defaut/painel/pnl_mod_500/pnl_mrecepcao.svg';
-import pnl_mdesign from '../../assets/defaut/painel/pnl_mod_500/pnl_mdesign.svg';
-import pnl_mproducao from '../../assets/defaut/painel/pnl_mod_500/pnl_mproducao.svg';
-import pnl_macabamento from '../../assets/defaut/painel/pnl_mod_500/pnl_macabamento.svg';
-import pnl_mexpedicao from '../../assets/defaut/painel/pnl_mod_500/pnl_mexpedicao.svg';
-import pnl_madministracao from '../../assets/defaut/painel/pnl_mod_500/pnl_madministracao.svg';
-import pnl_mconfig from '../../assets/defaut/painel/pnl_mod_500/pnl_mconfig.svg';
+import pnl_mvisitante from '../../assets/defaut/painel/pnl_def_mod_visitantes.svg';
+import pnl_mrecepcao from '../../assets/defaut/painel/pnl_def_mod_recepcao.svg';
+import pnl_mdesign from '../../assets/defaut/painel/pnl_def_mod_design.svg';
+import pnl_mproducao from '../../assets/defaut/painel/pnl_def_mod_producao.svg';
+import pnl_macabamento from '../../assets/defaut/painel/pnl_def_mod_acabamento.svg';
+import pnl_mexpedicao from '../../assets/defaut/painel/pnl_def_mod_expedicao.svg';
+import pnl_madministracao from '../../assets/defaut/painel/pnl_def_mod_administracao.svg';
+import pnl_mconfig from '../../assets/defaut/painel/pnl_def_mod_config.svg';
 // img do painel Bottom
-import btn_crefrescar from '../../assets/defaut/button/btn_300/btn_crefrescar.svg';
-import btn_cenviar from '../../assets/defaut/button/btn_300/btn_cenviar.svg';
+import btn_qrefrescar from '../../assets/defaut/botao/btn_def_q_refrescar.svg';
+import btn_cenviar from '../../assets/defaut/botao/btn_def_q_enviar.svg';
 // img do modal
-import btn_cclose_modal from '../../assets/defaut/button/btn_300/btn_cclose_modal.svg';
-import pnl_negado from '../../assets/defaut/painel/pnl_mod_500/pnl_negado.svg';
+import btn_qclose from '../../assets/defaut/botao/btn_def_q_close.svg';
+import pnl_negado from '../../assets/defaut/painel/pnl_def_ope_negacao.svg';
 ////////////////////////////////////////////
 
 const Home: React.FC = () => {
@@ -60,12 +61,15 @@ const Home: React.FC = () => {
   const [theme, setTheme] = React.useState(light);// state para tema THEME pagina 
   const [ischeck, setIscheck] = React.useState(false);// state para checar se existe edição  
 
-    // state pa menssagem no Painel em Botton da pagina
+  // state pa menssagem no Painel em Botton da pagina
   const [messagebottom, setMessageBottom] = React.useState('');
-  const [showSystemModal, setShowSystemModal] = React.useState(false);
+  const [showInitSystem, setInitShowSystem] = React.useState(false);
+  const [showsystemcheckmodal, setShowSystemCheckModal] = React.useState(false);
+  
+  const [systemMessages, setSystemMessages] = React.useState<string[]>(['Iniciando verificação do sistema...']);
+  const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
+
   const [notlogin, setNotLogin] = React.useState(false);
-
-
 
   // procedimentos para chamadas de Paginas
   const navigate = useNavigate();
@@ -77,54 +81,193 @@ const Home: React.FC = () => {
     setIscheck((prev) => !prev);
   };
 
+//   // 🔹 1) Verificação do sistema (backend / database / tabelas)
+//   React.useEffect(() => {
+//     async function runCheck() {
+//       try {
+//         setSystemMessages([
+//           'Iniciando verificação do sistema...',
+//           'Verificando conexão com o servidor...'
+//         ]);
+//         setSystemOk(null);
+
+//         const res = await fetch('http://localhost:3000/install/status');
+//         const data = await res.json();
+
+//         setSystemMessages(data.messages);
+//         setSystemOk(data.ok);
+
+//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+//       } catch (err) {
+//           if (err instanceof Error) {
+//             //Se for um erro padrão do JS (Error), mostra a mensagem certinha.
+//             setSystemMessages([`❌ Erro durante instalação: ${err.message}`]); 
+//           } else {
+//             // Se for outra coisa (ex: string, objeto inesperado), mostra "Erro inesperado".
+//             setSystemMessages(["❌ Erro inesperado durante instalação."]);
+//           }
+//         setSystemOk(false);
+
+//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+//       }
+//     }
+
+//   // só executa se ainda não inicializou
+//   if (!state.initsys) {
+//     runCheck();
+//   }
+// }, [state.initsys, dispatch]);
+
+// ///////////////////////////////////////////////////////////
+
+// React.useEffect(() => {
+//   if (state.initsys) return;
+
+//   async function runSystemCheck() {
+//     try {
+//       setShowSystemCheckModal(true);
+//       setSystemOk(null);
+
+//       setSystemMessages([
+//         '🔍 Iniciando verificação do sistema...',
+//         '🔌 Verificando conexão com o servidor...'
+//       ]);
+
+//       const res = await fetch('http://localhost:3000/install/status');
+//       const data = await res.json();
+
+//       setSystemMessages(data.messages);
+//       setSystemOk(data.ok);
+
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+
+//     } catch {
+//       setSystemMessages([
+//         '❌ Servidor não encontrado.',
+//         '⛔ Sistema não pode ser iniciado.'
+//       ]);
+
+//       setSystemOk(false);
+      
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+//     }
+//   }
+
+//   runSystemCheck();
+// }, [state.initsys, dispatch]);
+
+React.useEffect(() => {
+  if (state.initsys) return; // já inicializado, não verifica de novo
+
+  let cancelled = false;
+
+  async function runSystemCheck() {
+    try {
+      setShowSystemCheckModal(true);
+      setSystemOk(null);
+
+      setSystemMessages([
+        '🔍 Iniciando verificação do sistema...',
+        '🔌 Verificando conexão com o servidor...'
+      ]);
+
+      const res = await fetch('http://localhost:3000/install/status');
+      const data = await res.json();
+
+      if (cancelled) return;
+
+      setSystemMessages(data.messages);
+      setSystemOk(data.ok);
+
+      dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+      dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+
+    } catch {
+
+      setSystemMessages([
+        '❌ Servidor não encontrado.',
+        '⛔ Sistema não pode ser iniciado.'
+      ]);
+
+      setSystemOk(false);
+
+      dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+      dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+    }
+  }
+
+  runSystemCheck();
+
+  return () => {
+    cancelled = true;
+  };
+}, [state.initsys, dispatch]);
+
+
   // inicia payloads do AcessoContext
   React.useEffect(() => {
     setMessageBottom('');
     dispatch({ type: UseAcessoActions.set_PAGE, payload: 'Home' });
     dispatch({ type: UseAcessoActions.set_APLICACAO, payload: 'OPÇÃO' });
     
-    if (!state.chkdb) {
-      setShowSystemModal(true); // aqui habilita o modal
-      setMsgPanelBottom('Sistema Inoperante. Conexão ou tabelas não estão prontas.');
-      return; // não continua com o restante da lógica de acesso
-    }
-    
-    if (state.logado || state.chvkey) {
-      if (state.logado){
-        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-        setMsgPanelBottom('Acesso  MODULO ["' + state.modulo + '" ao Sistema...');        
-        setMessageBottom( 'Aguardando Seleção...');
+    if (state.initsys){
+      if (state.chkdb) {
+        if ( (state.logado || state.chvkey ) ) {
+          if (state.logado){
+            dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+            setMsgPanelBottom('Acesso  MODULO ["' + state.modulo + '" ao Sistema...');        
+            setMessageBottom( 'Aguardando Seleção...');
+          } else { // acesso com a Chave Master oara entrar no Systema. 
+            dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
+            dispatch({ type: UseAcessoActions.set_ACAO, payload: 'VIS/EDI/ALT/EXC' });
+            dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 8 });
+            dispatch({ type: UseAcessoActions.set_MODULO, payload: 'CONFIG' });
+            setMsgPanelBottom('Acesso "Config" do Sistema...');
+            setMessageBottom( 'Aguardando Seleção...');
+          }
+        } else {
+          dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+          dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
+          dispatch({ type: UseAcessoActions.set_ACAO, payload: '' });
+          dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
+          dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Inicial'});
+          setMsgPanelBottom('Aguardando Login Sistema...')
+          setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
+        }
       } else {
-        dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
-        dispatch({ type: UseAcessoActions.set_ACAO, payload: 'VIS/EDI/ALT/EXC' });
-        dispatch({ type: UseAcessoActions.set_ID_SETOR, payload: 5 });
-        dispatch({ type: UseAcessoActions.set_MODULO, payload: 'MASTER' });
-        setMsgPanelBottom('Acesso "MASTER" ao Sistema...');
-        setMessageBottom( 'Aguardando Seleção...');
-      }
+         setShowSystemCheckModal(true); // aqui habilita o modal
+         setMsgPanelBottom('Sistema Inoperante. Conexão ou tabelas não estão prontas.');
+         return; // não continua com o restante da lógica de acesso
+      }  
     } else {
+      dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
       dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
       dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
       dispatch({ type: UseAcessoActions.set_ACAO, payload: '' });
-      dispatch({ type: UseAcessoActions.set_ID_SETOR, payload: 0 });
-      dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Inicial'});
-      setMsgPanelBottom('Aguardando Login Sistema...')
-      setMessageBottom( 'Acessos Modulos "NEGADOS", faça o Login...');
+      dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
+      dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Checagem Database'});
+      setInitShowSystem(true); // aqui habilita o modal para verificação
+      setMsgPanelBottom('Checando Sistema para operações...');
     }
-  }, [state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]); 
-
+  }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]); 
   
-  // Acesso a Chave_Key Master >>>>
+  
   React.useEffect(() => {
-     if (!state.chkdb) {setShowSystemModal(true); return;} // bloqueia o efeito se sistema inoperante
     const handleKeyDown = (event: KeyboardEvent) => {
       // Verifica se a tecla pressionada é "Shift + Delete "
       if (event.shiftKey && event.key === 'Delete') setBuscaChave((prev) => !prev); 
       if (event.key === 'Escape') setBuscaChave(false);
     };
+    
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  },[state.chkdb]); 
+
+  },[]);
+
   
   const handleChangeKey = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (state.chkdb) {
@@ -206,7 +349,7 @@ const Home: React.FC = () => {
         imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
-        imgbtnlogin={btn_clogin}
+        imgbtnlogin={btn_avatar}
         titbtnlogin="Login..."
         //onclicklogin={() => goto('/login')}
         onclicklogin={() => {
@@ -217,7 +360,7 @@ const Home: React.FC = () => {
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
-        imgbtnresg={btn_cresgatar}
+        imgbtnresg={btn_resgatar}
         titbtnresg="Resgatar Acesso..."
         onclickresg={() => goto('/resgate')}
         onchange={ToggleTheme}
@@ -407,7 +550,9 @@ const Home: React.FC = () => {
           />
         </ContentItensBody>
 
-        { buscachave ? (
+        
+        
+        { buscachave ? ( // busca pela chave Master
           <ContentCardPage>
           <Pg.DivisionPgHztal />
           <ContentCardBoxChaveKey open={buscachave}>
@@ -435,6 +580,7 @@ const Home: React.FC = () => {
           ) : null 
         }
 
+
         <Pg.DivisionPgHztal />
         <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
           
@@ -443,7 +589,7 @@ const Home: React.FC = () => {
           <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={btn_crefrescar}
+              img={btn_qrefrescar}
               titbtn={'Refrescar...'}
               onClick={() => window.location.reload()}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
@@ -473,7 +619,7 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'30%'}
             pheight={'35%'}
-            imgbm={btn_cclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Acesso Negado.'}
             onclose={() => setCardNegadoPage(false)}
@@ -492,7 +638,7 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_cclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}
@@ -509,7 +655,7 @@ const Home: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_cclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}
@@ -521,21 +667,44 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
         
-        {showSystemModal ? (
+        {!state.initsys ? (
+          <PageModal
+            ptop={'45%'}
+            pwidth={'70%'}
+            pheight={'50%'}
+            imgbm={btn_qclose}
+            titbm="Fechar..."
+            titulo={'Verificação do Sistema'}
+            onclose={() => { setInitShowSystem(false)}}
+          >
+            < CardCheckingSystema
+              messages={systemMessages}
+              systemOk={systemOk}
+               
+              onClose={() => setInitShowSystem(false)}
+              onAutoCloseCountdown={(secondsLeft: number) => {
+                if (secondsLeft <= 0) setInitShowSystem(false);
+              }}
+            />
+          </PageModal>
+        ): null }
+        
+        
+        {!showsystemcheckmodal && showInitSystem ? (
           <PageModal
             ptop={'10%'}
             pwidth={'70%'}
             pheight={'50%'}
-            imgbm={btn_cclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
-            titulo={'Sistema Inoperante'}
-            onclose={() => {setShowSystemModal(false)}}
+            titulo={'Verificação do Sistema'}
+            onclose={() => {setShowSystemCheckModal(false)}}
           >
             <CardImgNeg 
               imgcard={pnl_negado} 
               pminheight={'120px'} 
               pwidth={'120px'} 
-              onclickimg={() => {setShowSystemModal(false)}}
+              onclickimg={() => {setShowSystemCheckModal(false)}}
             />
             <form>
               <p>
@@ -547,16 +716,18 @@ const Home: React.FC = () => {
               </p>
             </form>
             {/* Contagem regressiva dentro do modal, Timer dentro do modal */}
-            <AutoCloseTimer onClose={() => setShowSystemModal(false)} seconds={10} />
+            <AutoCloseTimer onClose={() => setShowSystemCheckModal(false)} seconds={10} />
           </PageModal>
         ) : null}
+
+        
 
         {notlogin ? (
           <PageModal
             ptop={'10%'}
             pwidth={'70%'}
             pheight={'50%'}
-            imgbm={btn_cclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Acesso Negado'}
             onclose={() => {setNotLogin(false)}}

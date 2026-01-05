@@ -5,12 +5,13 @@ import React from "react";
 // ===================== Tipos =====================
 export type StateAcesso = {
   page: string | null;
+  initsys: boolean | null;
   chkdb: boolean | null;
   chvkey: boolean | null;
   logado: boolean | null;
   auth: string | null;
   aplicacao: string | null;
-  id_setor: number;
+  id_modulo: number;
   modulo: string | null;
   id_nivel: number;
   acao: string | null;
@@ -57,12 +58,13 @@ export type StateAcesso = {
 // ===================== Estado inicial =====================
 export const initialData: StateAcesso = {
   page: '',
+  initsys: false,
   chkdb: false,
   chvkey: false,
   logado: false,
   auth: '',
   aplicacao: '',
-  id_setor: 0,
+  id_modulo: 0,
   modulo: '',
   id_nivel: 0,
   acao: '',
@@ -109,12 +111,13 @@ export const initialData: StateAcesso = {
 // ===================== Enum de ações =====================
 export enum UseAcessoActions {
   set_PAGE,
+  set_INITSYS,
   set_CHKDB,
   set_CHVKEY,
   set_LOGADO,
   set_AUTH,
   set_APLICACAO,
-  set_ID_SETOR,
+  set_ID_MODULO,
   set_MODULO,
   set_ID_NIVEL,
   set_ACAO,
@@ -161,12 +164,13 @@ export enum UseAcessoActions {
 // ===================== Tipos de ações =====================
 export type AcessoAction =
   | { type: UseAcessoActions.set_PAGE; payload: string | null }
+  | { type: UseAcessoActions.set_INITSYS; payload: boolean | null }
   | { type: UseAcessoActions.set_CHKDB; payload: boolean | null }
   | { type: UseAcessoActions.set_CHVKEY; payload: boolean | null }
   | { type: UseAcessoActions.set_LOGADO; payload: boolean | null }
   | { type: UseAcessoActions.set_AUTH; payload: string | null }
   | { type: UseAcessoActions.set_APLICACAO; payload: string }
-  | { type: UseAcessoActions.set_ID_SETOR; payload: number }
+  | { type: UseAcessoActions.set_ID_MODULO; payload: number }
   | { type: UseAcessoActions.set_MODULO; payload: string }
   | { type: UseAcessoActions.set_ID_NIVEL; payload: number }
   | { type: UseAcessoActions.set_ACAO; payload: string }
@@ -214,6 +218,7 @@ export type AcessoAction =
 export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
   switch (action.type) {  
     case UseAcessoActions.set_PAGE: return { ...state, page: action.payload };
+    case UseAcessoActions.set_INITSYS: return { ...state, initsys: action.payload };
     case UseAcessoActions.set_CHKDB: return { ...state, chkdb: action.payload };
     case UseAcessoActions.set_CHVKEY: return { ...state, chvkey: action.payload };
     case UseAcessoActions.set_LOGADO: return { ...state, logado: action.payload };
@@ -221,7 +226,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_APLICACAO: return { ...state, aplicacao: action.payload };
     case UseAcessoActions.set_ID_NIVEL: return { ...state, id_nivel: action.payload };
     case UseAcessoActions.set_ACAO: return { ...state, acao: action.payload };
-    case UseAcessoActions.set_ID_SETOR: return { ...state, id_setor: action.payload };
+    case UseAcessoActions.set_ID_MODULO: return { ...state, id_modulo: action.payload };
     case UseAcessoActions.set_MODULO: return { ...state, modulo: action.payload };
     case UseAcessoActions.set_ID_EMP: return { ...state, id_emp: action.payload };
     case UseAcessoActions.set_NOMEEMP: return { ...state, nomeemp: action.payload };

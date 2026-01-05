@@ -2,8 +2,8 @@
 // src/db/tables.ts
 export const requiredTables = [
   "systable",
-  "pessoas",
-  "empresas",
+  //"pessoas",
+  //"empresas",
   //"cadastros",
   //"cidades",
   //"emails",

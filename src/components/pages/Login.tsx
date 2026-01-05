@@ -34,15 +34,15 @@ import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
 // imgs do header
-import lg_login from '../../assets/defaut/tabelas/lg_login.svg';
-import btn_chelp from '../../assets/defaut/button/btn_300/btn_chelp.svg';
-import btn_csair from '../../assets/defaut/button/btn_300/btn_csair.svg';
+import lg_login from '../../assets/defaut/logo/lg_def_ope_login.svg';
+import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
+import btn_csair from '../../assets/defaut/botao/btn_def_c_sair.svg';
 // img do painel Bottom
-import btn_refrescar from '../../assets/defaut/button/btn_300/btn_crefrescar.svg';
+import btn_refrescar from '../../assets/defaut//botao/btn_def_c_refrescar.svg';
 //import btn_qenviar from '../../assets/default/button/btn_qenviar.svg';
 
 // img do painel Modal
-import btn_qclose_modal from '../../assets/defaut/button/btn_300/btn_qclose_modal.svg';
+import btn_qclose_modal from '../../assets/defaut//botao/btn_def_c_close.svg';
 
 
 

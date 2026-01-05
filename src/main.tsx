@@ -1,4 +1,4 @@
-
+ 
 //C:\repository\proj-full-stack-frontend\src\main.tsx
 import React from 'react'; // Import padrão do React
 import ReactDOM from 'react-dom/client'; // Import de ReactDOM

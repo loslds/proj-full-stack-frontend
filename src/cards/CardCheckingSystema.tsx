@@ -4,7 +4,7 @@ import React from "react";
 import * as Sy from './stylesSystem';
 import { ContentSysMainItens } from "./ContentSysMainItens"
 import { CardHlpFooter1 } from "./CardHlpFooter1";
-import {} from '../assets/svgs/bt_close.svg';
+//import {bt_close} from '../assets/svgs/bt_close.svg';
 interface PropsCardCheckingSystema {
   messages: string[];
   systemOk: boolean | null; 
@@ -20,7 +20,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
   // Temporizador interno para auto fechamento do modal
   React.useEffect(() => {
     if (systemOk === true) {
-      let counter = 15; // contador interno
+      let counter = 3000; // contador interno
       const interval = setInterval(() => {
         counter -= 1;
         onAutoCloseCountdown?.(counter); // callback para Home ou outro lugar
