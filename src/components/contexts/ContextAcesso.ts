@@ -1,7 +1,6 @@
 
 // C:\repository\proj-full-stack-frontend\src\components\contexts\ContextAcesso.ts
 import React from "react";
-
 // ===================== Tipos =====================
 export type StateAcesso = {
   page: string | null;
@@ -53,6 +52,7 @@ export type StateAcesso = {
   nmlogin: string | null;
   nrcont: number | null;
   nmcont: string | null;
+  systemMode: 'LEVE' | 'DEV' | 'LEVE';
 };
 
 // ===================== Estado inicial =====================
@@ -106,6 +106,7 @@ export const initialData: StateAcesso = {
   nmlogin: '',
   nrcont: 0,
   nmcont: '',
+  systemMode: 'DEV', // ou 'LEVE' por padrão
 };
 
 // ===================== Enum de ações =====================
@@ -158,7 +159,8 @@ export enum UseAcessoActions {
   set_NRCONT,
   set_NMCONT,
   set_MDLOGIN,
-  set_NMLOGIN
+  set_NMLOGIN,
+  set_SYSTEM_MODE,
 }
 
 // ===================== Tipos de ações =====================
@@ -211,7 +213,8 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_NRCONT; payload: number }
   | { type: UseAcessoActions.set_NMCONT; payload: string }
   | { type: UseAcessoActions.set_MDLOGIN; payload: number }
-  | { type: UseAcessoActions.set_NMLOGIN; payload: string };
+  | { type: UseAcessoActions.set_NMLOGIN; payload: string }
+  | { type: UseAcessoActions.set_SYSTEM_MODE; payload: 'DEV' | 'LEVE' };
 
   // ===================== Reducer =====================
 
@@ -266,6 +269,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_NMCONT: return { ...state, nmcont: action.payload };
     case UseAcessoActions.set_MDLOGIN: return { ...state, mdlogin: action.payload };
     case UseAcessoActions.set_NMLOGIN: return { ...state, nmlogin: action.payload };
+    case UseAcessoActions.set_SYSTEM_MODE: return { ...state, systemMode: action.payload };
     default: return state;
   }
 };
