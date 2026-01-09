@@ -46,6 +46,7 @@ import btn_cenviar from '../../assets/defaut/botao/btn_def_q_enviar.svg';
 import btn_qclose from '../../assets/defaut/botao/btn_def_q_close.svg';
 import pnl_negado from '../../assets/defaut/painel/pnl_def_ope_negacao.svg';
 ////////////////////////////////////////////
+import { SystemHealthResult } from '../../types/SystemHealth';
 
 const Home: React.FC = () => {
  
@@ -69,8 +70,8 @@ const Home: React.FC = () => {
   const [systemMessages, setSystemMessages] = React.useState<string[]>(['Iniciando verificação do sistema...']);
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
-  const [notlogin, setNotLogin] = React.useState(false);
-
+  const [notOperation, setNotOperation] = React.useState(false);
+  
   // procedimentos para chamadas de Paginas
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => { navigate(path);} , [navigate]);
@@ -80,88 +81,12 @@ const Home: React.FC = () => {
     setTheme(theme.name === 'dark' ? light : dark);
     setIscheck((prev) => !prev);
   };
-
-//   // 🔹 1) Verificação do sistema (backend / database / tabelas)
-//   React.useEffect(() => {
-//     async function runCheck() {
-//       try {
-//         setSystemMessages([
-//           'Iniciando verificação do sistema...',
-//           'Verificando conexão com o servidor...'
-//         ]);
-//         setSystemOk(null);
-
-//         const res = await fetch('http://localhost:3000/install/status');
-//         const data = await res.json();
-
-//         setSystemMessages(data.messages);
-//         setSystemOk(data.ok);
-
-//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
-//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
-//       } catch (err) {
-//           if (err instanceof Error) {
-//             //Se for um erro padrão do JS (Error), mostra a mensagem certinha.
-//             setSystemMessages([`❌ Erro durante instalação: ${err.message}`]); 
-//           } else {
-//             // Se for outra coisa (ex: string, objeto inesperado), mostra "Erro inesperado".
-//             setSystemMessages(["❌ Erro inesperado durante instalação."]);
-//           }
-//         setSystemOk(false);
-
-//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
-//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
-//       }
-//     }
-
-//   // só executa se ainda não inicializou
-//   if (!state.initsys) {
-//     runCheck();
-//   }
-// }, [state.initsys, dispatch]);
-
-// ///////////////////////////////////////////////////////////
-
-// React.useEffect(() => {
-//   if (state.initsys) return;
-
-//   async function runSystemCheck() {
-//     try {
-//       setShowSystemCheckModal(true);
-//       setSystemOk(null);
-
-//       setSystemMessages([
-//         '🔍 Iniciando verificação do sistema...',
-//         '🔌 Verificando conexão com o servidor...'
-//       ]);
-
-//       const res = await fetch('http://localhost:3000/install/status');
-//       const data = await res.json();
-
-//       setSystemMessages(data.messages);
-//       setSystemOk(data.ok);
-
-//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
-//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
-
-//     } catch {
-//       setSystemMessages([
-//         '❌ Servidor não encontrado.',
-//         '⛔ Sistema não pode ser iniciado.'
-//       ]);
-
-//       setSystemOk(false);
-      
-//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
-//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
-//     }
-//   }
-
-//   runSystemCheck();
-// }, [state.initsys, dispatch]);
+//////////////////////////////////////////////////////////////
+// iniciando Serviços do Backend
+//////////////////////////////////////////////////////////////
 
 React.useEffect(() => {
-  if (state.initsys) return; // já inicializado, não verifica de novo
+  if (state.initsys) return;
 
   let cancelled = false;
 
@@ -172,29 +97,44 @@ React.useEffect(() => {
 
       setSystemMessages([
         '🔍 Iniciando verificação do sistema...',
-        '🔌 Verificando conexão com o servidor...'
+        '🔌 Consultando estado do backend...'
       ]);
 
-      const res = await fetch('http://localhost:3000/install/status');
-      const data = await res.json();
+      const res = await fetch('http://localhost:3000/api/system/health');
+      const data: SystemHealthResult = await res.json();
 
       if (cancelled) return;
 
-      setSystemMessages(data.messages);
-      setSystemOk(data.ok);
+      // 🔁 ADAPTAÇÃO PARA O FORMATO ANTIGO DO HOME
+      const ok = data.success && data.missingTables.length === 0;
+      const chkdb = data.initialized;
 
-      dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
-      dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+      const messages: string[] = [
+        `🧭 Modo do sistema: ${data.mode}`,
+        `📦 Tabelas encontradas: ${data.existingTables.length}`,
+      ];
+
+      if (data.missingTables.length > 0) {
+        messages.push(
+          `⚠️ Tabelas ausentes: ${data.missingTables.join(', ')}`
+        );
+      } else {
+        messages.push('✅ Todas as tabelas necessárias estão presentes.');
+      }
+
+      setSystemMessages(messages);
+      setSystemOk(ok);
+
+      dispatch({ type: UseAcessoActions.set_INITSYS, payload: ok });
+      dispatch({ type: UseAcessoActions.set_CHKDB, payload: chkdb });
 
     } catch {
-
       setSystemMessages([
-        '❌ Servidor não encontrado.',
-        '⛔ Sistema não pode ser iniciado.'
+        '❌ Backend não respondeu.',
+        '⛔ Não foi possível verificar o sistema.'
       ]);
 
       setSystemOk(false);
-
       dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
       dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
     }
@@ -207,6 +147,8 @@ React.useEffect(() => {
   };
 }, [state.initsys, dispatch]);
 
+////////////////////////////////////////
+////////////////////////////////////////
 
   // inicia payloads do AcessoContext
   React.useEffect(() => {
@@ -351,18 +293,24 @@ React.useEffect(() => {
         onclickhlppg={handlerCardHlpPage}
         imgbtnlogin={btn_avatar}
         titbtnlogin="Login..."
-        //onclicklogin={() => goto('/login')}
         onclicklogin={() => {
           if (state.chkdb) {
             goto('/login'); // sistema ok → vai para login
           } else {
-            setNotLogin(true); // sistema inoperante → abre modal
+            setNotOperation(true); // sistema inoperante → abre modal
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
         imgbtnresg={btn_resgatar}
         titbtnresg="Resgatar Acesso..."
-        onclickresg={() => goto('/resgate')}
+        onclickresg={() =>  {
+          if (state.chkdb) {
+            goto('/resgate'); // sistema ok → vai para resgate
+          } else {
+            setNotOperation(true); // sistema inoperante → abre modal
+            setMsgPanelBottom('Sistema Inoperante!');
+          }
+        }}
         onchange={ToggleTheme}
         ischeck={ischeck}
       >
@@ -720,9 +668,8 @@ React.useEffect(() => {
           </PageModal>
         ) : null}
 
-        
 
-        {notlogin ? (
+        { notOperation ? (
           <PageModal
             ptop={'10%'}
             pwidth={'70%'}
@@ -730,25 +677,21 @@ React.useEffect(() => {
             imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Acesso Negado'}
-            onclose={() => {setNotLogin(false)}}
+            onclose={() => {setNotOperation(false)}}
           >
             <CardImgNeg 
               imgcard={pnl_negado} 
               pminheight={'120px'} 
               pwidth={'120px'} 
-              onclickimg={() => {setNotLogin(false)}}
+              onclickimg={() => {setNotOperation(false)}}
             />
             <form>
-              <p>
-                ACESSO SISTEMA INOPERANTE.  
-              </p>
+              <p> '⛔ ACESSO SISTEMA INOPERANTE.'</p>
               <br />
-              <p>
-                Entre em contato com suporte.
-              </p>
+              <p> Entre em contato com suporte. </p>
             </form>
             {/* Contagem regressiva dentro do modal, Timer dentro do modal */}
-            <AutoCloseTimer onClose={() => setNotLogin(false)} seconds={5} />
+            <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
 
@@ -760,6 +703,134 @@ React.useEffect(() => {
 
 export default Home;
 
+
+
+// React.useEffect(() => {
+//   if (state.initsys) return; // já inicializado, não verifica de novo
+
+//   let cancelled = false;
+
+//   async function runSystemCheck() {
+//     try {
+//       setShowSystemCheckModal(true);
+//       setSystemOk(null);
+
+//       setSystemMessages([
+//         '🔍 Iniciando verificação do sistema...',
+//         '🔌 Verificando conexão com o servidor...'
+//       ]);
+
+//       const res = await fetch('http://localhost:3000/install/status');
+//       const data = await res.json();
+
+//       if (cancelled) return;
+
+//       setSystemMessages(data.messages);
+//       setSystemOk(data.ok);
+
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+
+//     } catch {
+
+//       setSystemMessages([
+//         '❌ Servidor não encontrado.',
+//         '⛔ Sistema não pode ser iniciado.'
+//       ]);
+
+//       setSystemOk(false);
+
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+//     }
+//   }
+
+//   runSystemCheck();
+
+//   return () => {
+//     cancelled = true;
+//   };
+// }, [state.initsys, dispatch]);
+
+
+//   // 🔹 1) Verificação do sistema (backend / database / tabelas)
+//   React.useEffect(() => {
+//     async function runCheck() {
+//       try {
+//         setSystemMessages([
+//           'Iniciando verificação do sistema...',
+//           'Verificando conexão com o servidor...'
+//         ]);
+//         setSystemOk(null);
+
+//         const res = await fetch('http://localhost:3000/install/status');
+//         const data = await res.json();
+
+//         setSystemMessages(data.messages);
+//         setSystemOk(data.ok);
+
+//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+//       } catch (err) {
+//           if (err instanceof Error) {
+//             //Se for um erro padrão do JS (Error), mostra a mensagem certinha.
+//             setSystemMessages([`❌ Erro durante instalação: ${err.message}`]); 
+//           } else {
+//             // Se for outra coisa (ex: string, objeto inesperado), mostra "Erro inesperado".
+//             setSystemMessages(["❌ Erro inesperado durante instalação."]);
+//           }
+//         setSystemOk(false);
+
+//         dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+//         dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+//       }
+//     }
+
+//   // só executa se ainda não inicializou
+//   if (!state.initsys) {
+//     runCheck();
+//   }
+// }, [state.initsys, dispatch]);
+
+// ///////////////////////////////////////////////////////////
+
+// React.useEffect(() => {
+//   if (state.initsys) return;
+
+//   async function runSystemCheck() {
+//     try {
+//       setShowSystemCheckModal(true);
+//       setSystemOk(null);
+
+//       setSystemMessages([
+//         '🔍 Iniciando verificação do sistema...',
+//         '🔌 Verificando conexão com o servidor...'
+//       ]);
+
+//       const res = await fetch('http://localhost:3000/install/status');
+//       const data = await res.json();
+
+//       setSystemMessages(data.messages);
+//       setSystemOk(data.ok);
+
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: data.ok });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: data.chkdb });
+
+//     } catch {
+//       setSystemMessages([
+//         '❌ Servidor não encontrado.',
+//         '⛔ Sistema não pode ser iniciado.'
+//       ]);
+
+//       setSystemOk(false);
+      
+//       dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+//       dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+//     }
+//   }
+
+//   runSystemCheck();
+// }, [state.initsys, dispatch]);
 
 
 

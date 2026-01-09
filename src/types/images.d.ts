@@ -33,3 +33,8 @@ declare module '*.ico' {
   const value: string;
   export default value;
 }
+declare module '*.sgv' {
+  const value: string;
+  export default value;
+}
+
