@@ -6,6 +6,9 @@ import Global from './styles/Global';
 import { AcessoProvider } from './components/contexts/AcessoProvider';
 import AppRoutes from './AppRoutes';
 
+// ✅ overlay global da chave-master
+import { ChaveMasterOverlay } from './components/ChaveMasterOverlay';
+
 const App: React.FC = () => {
 
   return (
@@ -13,9 +16,13 @@ const App: React.FC = () => {
       <Global />
       <AcessoProvider>
         <AppRoutes />
+        {/* ✅ fica fora da Home, mas dentro do provider */}
+        <ChaveMasterOverlay />
       </AcessoProvider>
     </BrowserRouter>
   );
 };
 
 export default App;
+
+
