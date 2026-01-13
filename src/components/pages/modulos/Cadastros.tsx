@@ -3,10 +3,13 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";
 import dark from "../../../themes/dark";
+
 import { useNavigate } from "react-router-dom";
 import LayoutAdministracao from "../../layouts/LayoutAdministracao";
 import { ContentCardPage } from "../../ContentCardPage";
+
 import { PageModal } from '../PageModal';
+
 //import { CardHlpAdministracaoPage } from "@/cards/CardHlpAdministracaoPage";
 //import  { BarMenuConfig } from "../../sidebar/BarMenuConfig"; 
 //import lg_Administracao from "@/assets/svgs/lg_Administracao.svg";

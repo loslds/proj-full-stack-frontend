@@ -1,6 +1,10 @@
 
 // C:\repository\proj-full-stack-frontend\src\cards\CardCheckingSystema.tsx
 import React from "react";
+
+import { ThemeProvider } from "styled-components";
+import light from "../themes/light"; // ajuste o caminho se necessário
+
 import * as Sy from './stylesSystem';
 import { ContentSysMainItens } from "./ContentSysMainItens"
 import { CardHlpFooter1 } from "./CardHlpFooter1";
@@ -35,7 +39,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
   }, [systemOk, onClose, onAutoCloseCountdown]);
 
   return (
-
+    <ThemeProvider theme={light}>
     <ContentSysMainItens>
       {messages.map((m: string, i: number) => (
         <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
@@ -74,6 +78,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
           ⚠️ Para sair, aguarde a conclusão da verificação..
       </Sy.DivStatus>
     </ContentSysMainItens>
+    </ThemeProvider>
   );
 };
 

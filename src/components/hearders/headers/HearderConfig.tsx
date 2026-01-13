@@ -8,6 +8,7 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
 import { ContentHeaderButtonAbortar } from '../ContentHeaderButtonAbortar';
+import { ContentHeaderButtonChk } from '../ContentHeaderButtonChk';
 
 interface PropsHearderConfig {
   imgsys?: string;
@@ -24,9 +25,13 @@ interface PropsHearderConfig {
   titbtnaborta?: string;
   onclickaborta?: () => void;
 
+  imgbtnchk?: string;
+  titbtnchk?: string;
+  onclickchk?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 const HearderConfig = ({
   imgsys,
@@ -43,9 +48,13 @@ const HearderConfig = ({
   titbtnaborta,
   onclickaborta,
 
-
+  imgbtnchk,
+  titbtnchk,
+  onclickchk,
+  
   onchange,
   ischeck,
+
 }: PropsHearderConfig) => {
   return (
     <ContentHearderMain>
@@ -74,7 +83,12 @@ const HearderConfig = ({
             titbtnaborta={titbtnaborta}
             onClickaborta={onclickaborta}
           />
-          
+          <ContentHeaderButtonChk
+            imgbtnchk={imgbtnchk}
+            titbtnchk={titbtnchk}
+            onClickchk={onclickchk}
+          />
+
           <H.ContainerHeaderButton>
             <Switch
               onChange={onchange}

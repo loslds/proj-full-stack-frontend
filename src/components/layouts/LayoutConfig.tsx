@@ -22,9 +22,13 @@ interface PropsLayoutConfig {
   titbtnaborta?: string;
   onclickaborta?: () => void;
   
+  imgbtnchk?: string;
+  titbtnchk?: string;
+  onclickchk?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
   open?: boolean;
 
 }
@@ -42,6 +46,10 @@ const LayoutConfig = ({
   imgbtnaborta,
   titbtnaborta,
   onclickaborta,
+
+  imgbtnchk,
+  titbtnchk,
+  onclickchk,
 
   onchange,
   ischeck,
@@ -64,6 +72,10 @@ const LayoutConfig = ({
         imgbtnaborta={imgbtnaborta}
         titbtnaborta={titbtnaborta}
         onclickaborta={onclickaborta}
+        imgbtnchk={imgbtnchk}
+        titbtnchk={titbtnchk}
+        onclickchk={onclickchk}
+
         onchange={onchange}
         ischeck={ischeck}
       />

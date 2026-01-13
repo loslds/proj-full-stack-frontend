@@ -13,7 +13,7 @@ import lg_resgate from "../../assets/svgs/lg_resgate.svg";
 import bt_helppg from "../../assets/svgs/bt_helppg.svg";
 import bt_abortar from "../../assets/svgs/bt_abortar.svg";
 
-import { CardHlpResgateLogo } from '../../cards/CardHlpResgateLogo';
+//import { CardHlpResgateLogo } from '../../cards/CardHlpResgateLogo';
 //import bt_close from "../../assets/svgs/bt_close.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";

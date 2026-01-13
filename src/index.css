@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.cm_overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cm_box {
+  background: #111;
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  min-width: 320px;
+}
+
+.cm_box label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.cm_box input {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0 10px;
+}

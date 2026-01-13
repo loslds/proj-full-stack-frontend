@@ -1,6 +1,6 @@
 import * as H from './styledHeader';
 interface PropsContentHearderRight {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 export const ContentHearderRight = ({ children }: PropsContentHearderRight) => {
   return (

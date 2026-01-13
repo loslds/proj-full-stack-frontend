@@ -26,7 +26,7 @@ interface PropsHearderResgates {
   
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 const HearderResgates = ({
   imgsys,

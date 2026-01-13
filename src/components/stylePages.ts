@@ -488,6 +488,60 @@ export const ContainerCardBoxInput = styled.div`
     height: 40px;
   }
 `;
+
+export const ContainerCardBoxInputChave = styled.div`
+  border: none;
+  padding: 2px 2px 2px 2px;
+  margin: 3px 5px 0px 0px;
+  min-width: 35%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  label {
+    padding: 2px 2px 2px 2px;
+    margin: 0px 5px 0px 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: normal;
+  }
+  
+  input {
+    padding: 2px 2px 2px 2px;
+    margin: 0px 0px 0px 0px;
+    min-width: 48%;
+    display: flex;
+    //flex-direction: column;
+    flex-wrap: wrap;
+        
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  img {
+    padding: 2px 2px 2px 2px;
+    margin: 0px 0px 0px 0px;
+    height: 40px;
+    height: 40px;
+  }
+  
+  button {
+    padding: 2px 2px 2px 2px;
+    margin: 0px 0px 0px 0px;
+    height: 40px;
+    height: 40px;
+  }
+`;
 //////////////////////////////////////
 // fim do Container-> ContainerCardBoxInput
 // inicio do Styled -> Select Option 

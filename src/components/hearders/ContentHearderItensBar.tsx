@@ -1,7 +1,7 @@
 import * as Pg from '../../components/stylePages';
 
 interface PropsContentHearderItensBar {
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 export const ContentHearderItensBar = ({
   children,
