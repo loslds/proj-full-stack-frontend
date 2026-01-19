@@ -7,8 +7,8 @@ import avatar001 from '../../assets/svgs/avatar001.svg';
 import portaon from '../../assets/svgs/portaon.svg';
 
 import { ContainerSBMain } from './ContentSBMain';
-import { ContainerSBButton } from './ContainerSBButton';
-import { ContainerSBItensLogado } from './ContainerSBItensLogado';
+import { ContainerSBButton } from './ContentSBButton';
+import { ContainerSBItensLogado } from './ContentSBItensLogado';
 
 import { PageModal } from '../Modal/PageModal';
 

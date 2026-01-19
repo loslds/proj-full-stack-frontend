@@ -64,9 +64,6 @@ const LayoutHome = ({
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
-          {/* <BarSideMenuPage /> */}
-          {/* <BarSideMenuDados open={open} />  
-          <Pg.DivisionPgHztal />*/}
           {children}
         </Pg.ContainerPage>
       </Pg.ContainerBody>

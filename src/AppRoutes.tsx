@@ -1,27 +1,50 @@
 
-//C:\repository\proj-full-stack-frontend\src\AppRoutes.tsx
-import { Routes, Route } from 'react-router-dom';
-import Home from './components/pages/Home';
-import Login from './components/pages/Login';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { RouteList } from "./routeList";
 
-import { CardDesenvolver } from './cards/CardDesenvolver';
-import Resgate from './components/pages/Resgate';
-
-const AppRoutes = () => {
+const AppRoutes: React.FC = () => {
   return (
     <Routes>
-      
-      <Route path="/" element={<Home />} /> {/* Rota para Home.tsx */}
-      <Route path="/login" element={<Login />} /> {/* Rota para Login.tsx */}
-      <Route path="/resgate" element={<Resgate />} /> {/* Rota para Resgate.tsx */}
-      <Route path='./cards/CardDesenvolver' element={<CardDesenvolver/>} /> {/* Rota para Arq. à desenvolver.tsx */}
-      
-
+      {RouteList.map((r) => (
+        <Route key={r.path} path={r.path} element={r.element} />
+      ))}
     </Routes>
   );
 };
 
 export default AppRoutes;
+
+
+
+
+
+// //C:\repository\proj-full-stack-frontend\src\AppRoutes.tsx
+// import { Routes, Route } from "react-router-dom";
+// import Home from './components/pages/Home';
+// import Login from './components/pages/Login';
+
+// import { CardDesenvolver } from './cards/CardDesenvolver';
+// import Resgate from './components/pages/Resgate';
+// import  MyModulosRoutes  from './MyModulosRoutes'
+
+// const AppRoutes = () => {
+//   return (
+//     <Routes>
+      
+//       <Route path="/" element={<Home />} /> {/* Rota para Home.tsx */}
+//       <Route path="/login" element={<Login />} /> {/* Rota para Login.tsx */}
+//       <Route path="/resgate" element={<Resgate />} /> {/* Rota para Resgate.tsx */}
+//       <Route path='./cards/CardDesenvolver' element={<CardDesenvolver/>} /> {/* Rota para Arq. à desenvolver.tsx */}
+      
+//       {/* 🔽 módulos */}
+//       <Route path="/modulos/" element={<MyModulosRoutes />} />
+
+//     </Routes>
+//   );
+// };
+
+// export default AppRoutes;
 
  
 

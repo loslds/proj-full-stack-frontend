@@ -8,7 +8,7 @@ import { CardModalCenter } from '../modal/CardModalCenter';
 //import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { ContentCardCarCollunsFormPage } from '../components/ContentCardCollunsFormPage.tsx';
 import { ContentInputMainPage } from '../components/ContentInputMainPage';
-import { ContentSidePageBottonLabel } from '../components/ContentSidePageBottonLabel.tsx';
+import { ContentSidePageBottonLabel } from '../components/sidebar/ContentSidePageBottonLabel';
 import { ContentSidePageBottonEnabled } from '../components/ContentPageButtonDefImgEnabled.tsx'
 import bt_enviar from '../assets/svgs/bt_enviar.svg';
 

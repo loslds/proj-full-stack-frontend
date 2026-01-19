@@ -69,20 +69,18 @@ const ChaveMasterOverlay: React.FC = () => {
     validateKey: (key: string) => CheckDateToCecular(key),
     maxKeyFails: MAX_FAILS,
     timeoutSeconds: TIMEOUT_SECONDS,
-
     
     debug: true, // 👈 ATIVA LOGS
 
     onResult: (ok: boolean) => {
-      // não ativa Master se sistema não estiver pronto
-      if (state.initsys !== true || state.chkdb !== true) {
-        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-        return;
-      }
+      console.log("[CM] onResult chamado", {
+        ok,
+        initsys: state.initsys,
+        chkdb: state.chkdb,
+      });
 
       if (ok) {
         dispatch({ type: UseAcessoActions.set_LOGADO, payload: false });
-        
         // se existir no reducer:
         dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true });
 
@@ -90,11 +88,12 @@ const ChaveMasterOverlay: React.FC = () => {
         dispatch({ type: UseAcessoActions.set_ACAO, payload: "VIS/EDI/ALT/EXC" });
         dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 8 });
         dispatch({ type: UseAcessoActions.set_MODULO, payload: "Master" });
+
+        console.log("[CM] MASTER ATIVO (chvkey=true)");
       } else {
         dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-
-        // se existir no reducer:
-        dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+       
+        console.log("[CM] MASTER ATIVO (chvkey=fase)");
       }
     },
   });

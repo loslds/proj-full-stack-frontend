@@ -13,7 +13,7 @@ import bt_menu from '../../assets/svgs/bt_menu.svg';
 //import config from "../../assets/svgs/config.svg";
 
 import { ContainerSBMain } from './ContentSBMain';
-import { ContainerSBButton } from './ContainerSBButton';
+import { ContainerSBButton } from './ContentSBButton';
 
 //import { ContainerSBItensModMn } from './ContainerSBItensModMn';
 //import { ContentSBButtonTitleMenu } from './ContentSBButtonTitleMenu';

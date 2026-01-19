@@ -1,6 +1,6 @@
 import React from 'react';
 import * as M from './stylesModal';
-import { ContentSidePageBottonButton } from '../components/ContentSidePageBottonButton';
+import { ContentSidePageBottonButton } from '../components/sidebar/ContentSidePageBottonButton';
 
 interface PropsCardModalTextoFooter {
   pwidth?:string;

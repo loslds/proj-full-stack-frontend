@@ -58,9 +58,9 @@ import { ContentCardPage } from "../ContentCardPage";
 import { ContentCardPageTitle } from "../ContentCardPageTitle";
 import { ContentCardBoxDialogo } from "../ContentCardBoxDialogo";
 import { ContentCardDialogoTitle } from "../ContentCardDialogoTitle";
-import { ContainerSBItensModMn } from "../sidebar/ContainerSBItensModMn";
-import { ContentSidePageBottonLabel } from "../ContentSidePageBottonLabel";
-import { ContentSidePageBottonButton } from "../ContentSidePageBottonButton";
+import { ContainerSBItensModMn } from "../sidebar/ContentSBItensModMn";
+import { ContentSidePageBottonLabel } from "../sidebar/ContentSidePageBottonLabel";
+import { ContentSidePageBottonButton } from "../sidebar/ContentSidePageBottonButton";
 import { PageModal } from "./PageModal";
 
 const Resgatar: React.FC = () => {

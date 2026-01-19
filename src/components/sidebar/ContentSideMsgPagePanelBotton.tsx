@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-import * as Pg from './stylePages';
+import * as Pg from '../stylePages';
 
 
 interface PropsContentSideMsgPagePanelBotton {
   bordas?: string;
   label?: string;
-  msg?: any;
+  msg?: string;
   children?: ReactNode;
 };
 export const ContentSideMsgPagePanelBotton = ({

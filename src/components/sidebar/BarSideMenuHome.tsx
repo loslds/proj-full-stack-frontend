@@ -14,7 +14,7 @@ import master from '../../assets/svgs/master.svg';
 import config from '../../assets/svgs/config.svg';
 
 import { ContentSBMain } from './ContentSBMain';
-import { ContainerSBButton } from './ContainerSBButton';
+import { ContainerSBButton } from './ContentSBButton';
 import { ContentSBItensMenu } from './ContentSBItensMenu';
 import { PageModal } from '../pages/PageModal';
 import { CardHlpRecepcaoPage } from '../../cards/CardHlpRecepcaoPage';

@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-import semimg from "../../assets/svgs/semimg.svg"
+import semimg from "../../assets/svgs/btn_def_q_semimg.svg"
 
 export const ContainerSBMain = styled.div`
-  border: 2px solid red;
+  //border: 2px solid red;
+  border: none;
   margin: 5x 5px 5px 5px;
   padding: 0px 0px 0px 0px;
   min-height: 45px;
@@ -59,14 +60,15 @@ export const ContainerButtonSLeft = styled.div`
 
 // ContainerSideButton
 export const ContainerSideButton = styled.div`
-  border: 2px;
-  border-color: blue;
+  border: 1px;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   background: transparent;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -218,13 +220,13 @@ interface PropsContainerSBItensModulo {
   open?: boolean;
 };
 export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
-  border: 1px solid;
+  border: 1px solid green;
   border-color:  ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 5px 10px 5px 10px;
   background: transparent;
-  max-height: fit-content;
+  min-height: 48px;
   display: ${({open}) => open ? 'flex' : 'none' };
   flex-wrap: wrap;
   align-items: center;
@@ -580,19 +582,23 @@ interface PropsMenuSB {
 }
 
 export const ContainerMenuSB = styled.div<PropsMenuSB>`
-  //position: fixed;
-  //top: 0;
-  //right: 0;
-  //width: 180px;
+  /* border: 1px gree solid;
+  border-radius: 5px;
+  margin: 2px 5px 2px 5px; */
+  color: ${(props) => props.theme.colors.textColor};
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+
   min-height: 50px;
-  background-color: white;
+  background-color: transparent;
+
   border-left: 2px solid #ccc;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   padding: 10px 2x 10px 2px;
   transition: transform 0.3s ease-in-out;
   font-size: 20px;
   line-height: 22px;
-
   transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
   display: ${(props) => (props.open ? "block" : "none")};
 `;

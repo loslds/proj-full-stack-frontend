@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import * as Pg from './stylePages';
+import * as Pg from '../stylePages';
 
 interface PropsContentSidePagePanelBotton {
   bordas?: string;

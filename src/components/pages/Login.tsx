@@ -15,8 +15,8 @@ import LayoutLogin from "../layouts/LayoutLogin";
 
 import { ContentCardPageMain } from '../ContentCardPageMain';
 
-import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
-import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
+import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotton';
+import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
 
 import { PageModal } from './PageModal';
 import { CardHlpLoginLogo } from '../../cards/CardHlpLoginLogo';
@@ -29,20 +29,20 @@ import { ContentCardBoxBorderPg } from "../ContentCardBoxBorderPg";
 //import { ContentCardBoxDialogo } from '../ContentCardBoxDialogo';
 
 //
-import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
-import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
+import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
 // imgs do header
 import lg_login from '../../assets/defaut/logo/lg_def_ope_login.svg';
-import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
-import btn_csair from '../../assets/defaut/botao/btn_def_c_sair.svg';
+import btn_qhelp from '../../assets/defaut/botao/btn_def_c_help.svg';
+import btn_qsair from '../../assets/defaut/botao/btn_def_c_sair.svg';
 // img do painel Bottom
-import btn_refrescar from '../../assets/defaut//botao/btn_def_c_refrescar.svg';
+import btn_qrefrescar from '../../assets/defaut//botao/btn_def_q_refrescar.svg';
 //import btn_qenviar from '../../assets/default/button/btn_qenviar.svg';
 
-// img do painel Modal
-import btn_qclose_modal from '../../assets/defaut//botao/btn_def_c_close.svg';
+// img do painel Modal       
+import btn_qclose from '../../assets/defaut//botao/btn_def_c_close.svg';
 
 
 
@@ -142,15 +142,19 @@ const Login: React.FC = () => {
     <ThemeProvider theme={theme}>
       <LayoutLogin
         imgsys={lg_login}
-        titbtnsys="Acesso Sistema..."
+        titbtnsys="Sobre Login..."
         onclicksys={handlerCardHlpLoginLogo}
+
         titlepg="Login"
-        imgbtnhlppg={btn_chelp}
+
+        imgbtnhlppg={btn_qhelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpLoginPage }
-        imgbtnaborta={btn_csair}
+
+        imgbtnaborta={btn_qsair}
         titbtnaborta="Abortar..."
         onclickaborta={() => goto('/') }
+        
         onchange={ToggleTheme}
         ischeck={ischeck}
         >
@@ -181,7 +185,7 @@ const Login: React.FC = () => {
           <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={btn_refrescar}
+              img={btn_qrefrescar}
               titbtn={'Refrescar...'}
               onClick={() => window.location.reload()}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
@@ -200,7 +204,7 @@ const Login: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Help Conteúdo Login.'}
             onclose={() => setCardHlpLoginPage(false)}
@@ -216,7 +220,7 @@ const Login: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose_modal}
+            imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Sintese Login...'}
             onclose={() => setCardHlpLoginLogo(false)}

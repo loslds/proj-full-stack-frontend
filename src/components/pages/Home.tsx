@@ -3,25 +3,25 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
+import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
 
 import LayoutHome from '../layouts/LayoutHome';
 import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
-
 import * as Pg from '../stylePages';
+
 // main page
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 // bottom page
 import { PageModal } from './PageModal';
 import { AutoCloseTimer } from '../AutoCloseTimer';
-import { ContentSidePagePanelBotton } from '../ContentSidePagePanelBotton';
-import { ContentSidePageBottonLabel } from '../ContentSidePageBottonLabel';
-import { ContentSidePageBottonButton } from '../ContentSidePageBottonButton';
-import { ContentSideMsgPagePanelBotton } from '../ContentSideMsgPagePanelBotton';
+import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotton';
+import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
+import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
 // component para help butom 
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
@@ -82,10 +82,8 @@ const Home: React.FC = () => {
     setIscheck((prev) => !prev);
   };
 
-  //////////////////////////////////////////////////////////////
-  // iniciando Serviços do Backend
-  //////////////////////////////////////////////////////////////
   React.useEffect(() => {
+    if (state.chvkey) return;
     if (state.initsys) return;
 
     let cancelled = false;
@@ -137,59 +135,66 @@ const Home: React.FC = () => {
     };
   }, [state.initsys, dispatch]);
 
-  ////////////////////////////////////////
-  // inicia payloads do AcessoContext
-  ////////////////////////////////////////
   React.useEffect(() => {
-    setMessageBottom('');
-    dispatch({ type: UseAcessoActions.set_PAGE, payload: 'Home' });
-    dispatch({ type: UseAcessoActions.set_APLICACAO, payload: 'OPÇÃO' });
+  setMessageBottom("");
+  dispatch({ type: UseAcessoActions.set_PAGE, payload: "Home" });
+  dispatch({ type: UseAcessoActions.set_APLICACAO, payload: "OPÇÃO" });
 
-    if (state.initsys) {
-      if (state.chkdb) {
-        if (state.logado || state.chvkey) {
-          if (state.logado) {
-            dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-            setMsgPanelBottom('Acesso  MODULO ["' + state.modulo + '" ao Sistema...');
-            setMessageBottom('Aguardando Seleção...');
-          } else {
-            dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
-            dispatch({ type: UseAcessoActions.set_ACAO, payload: 'VIS/EDI/ALT/EXC' });
-            dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 8 });
-            dispatch({ type: UseAcessoActions.set_MODULO, payload: 'CONFIG' });
-            setMsgPanelBottom('Acesso "Config" do Sistema...');
-            setMessageBottom('Aguardando Seleção...');
-          }
-        } else {
-          dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-          dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
-          dispatch({ type: UseAcessoActions.set_ACAO, payload: '' });
-          dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
-          dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Inicial' });
-          setMsgPanelBottom('Aguardando Login Sistema...');
-          setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
-        }
-      } else {
-        // sistema inoperante / db não inicializada
-        setShowSystemCheckModal(true);
-        setMsgPanelBottom('Sistema Inoperante. Conexão ou tabelas não estão prontas.');
-        return;
-      }
-    } else {
-      dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
-      dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-      dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
-      dispatch({ type: UseAcessoActions.set_ACAO, payload: '' });
-      dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
-      dispatch({ type: UseAcessoActions.set_MODULO, payload: 'Checagem Database' });
+  // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
+  if (state.chvkey) {
+    setMsgPanelBottom('Acesso "Master" ativo.');
+    setMessageBottom("Aguardando Seleção...");
+    return;
+  }
 
-      // Mantido, mas não prende a Home: o modal deste flag é fechável.
-      setInitShowSystem(true);
-      setMsgPanelBottom('Checando Sistema para operações...');
-    }
-  }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
+  // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
+  if (!state.initsys) {
+    dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
+    dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+    dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
+    dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
+    dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
+    dispatch({ type: UseAcessoActions.set_MODULO, payload: "Checagem Database" });
+
+    setMsgPanelBottom("Check DataBase...");
+    setMessageBottom("Sistema com DataBase Inconsistente...");
+    setInitShowSystem(true);
+    return;
+  }
+
+  // ✅ 3) Sistema iniciou, mas DB não pronto
+  if (!state.chkdb) {
+    setShowSystemCheckModal(true);
+    setMsgPanelBottom("Sistema Inoperante. Conexão ou tabelas não estão prontas.");
+    return;
+  }
+
+  // ✅ 4) Usuário logado (login normal)
+  if (state.logado) {
+    setMsgPanelBottom(`Acesso MODULO ["${state.modulo}"] ao Sistema...`);
+    setMessageBottom("Aguardando Seleção...");
+    return;
+  }
+
+  // ✅ 5) Sem login e sem master
+  dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+  dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
+  dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
+  dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
+  dispatch({ type: UseAcessoActions.set_MODULO, payload: "Inicial" });
+
+  setMsgPanelBottom("Aguardando Login Sistema...");
+  setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
+}, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
+
+
+  React.useEffect(() => {
+    console.log("[HOME] chvkey mudou:", state.chvkey);
+  }, [state.chvkey]);
+
 
   const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
+  
   const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
 
   const handlerClicEventNegadoPage = React.useCallback(
@@ -222,7 +227,7 @@ const Home: React.FC = () => {
     <ThemeProvider theme={theme}>
       <LayoutHome
         imgsys={lg_default}
-        titbtnsys="Home Sistema..."
+        titbtnsys="Quen Somos..."
         onclicksys={handlerCardLogo}
         titlepg="Home"
         imgbtnhlppg={btn_chelp}
@@ -262,7 +267,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mvisitante}
             titlebtn={'Modulo Visitantes..'}
             onclick={() => {
-              if ((state.modulo === 'Visitante' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Visitante' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/visitante');
               } else {
                 handlerClicEventNegadoPage(1);
@@ -283,7 +288,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mrecepcao}
             titlebtn={'Modulo Recepção...'}
             onclick={() => {
-              if ((state.modulo === 'Recepcao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Recepcao' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/recepcao');
               } else {
                 handlerClicEventNegadoPage(2);
@@ -304,7 +309,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mdesign}
             titlebtn={'Modulo Design...'}
             onclick={() => {
-              if ((state.modulo === 'Design' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Design' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/design');
               } else {
                 handlerClicEventNegadoPage(3);
@@ -325,7 +330,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mproducao}
             titlebtn={'Modulo Produção...'}
             onclick={() => {
-              if ((state.modulo === 'Producao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Producao' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/producao');
               } else {
                 handlerClicEventNegadoPage(4);
@@ -345,7 +350,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_macabamento}
             titlebtn={'Modulo Acabamento...'}
             onclick={() => {
-              if ((state.modulo === 'Acabamento' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Acabamento' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/acabamento');
               } else {
                 handlerClicEventNegadoPage(5);
@@ -366,7 +371,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mexpedicao}
             titlebtn={'Modulo Expedição...'}
             onclick={() => {
-              if ((state.modulo === 'Expedicao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Expedicao' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/expedicao');
               } else {
                 handlerClicEventNegadoPage(6);
@@ -386,7 +391,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_madministracao}
             titlebtn={'Modulo Administração...'}
             onclick={() => {
-              if ((state.modulo === 'Administracao' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Administracao' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/administracao');
               } else {
                 handlerClicEventNegadoPage(7);
@@ -407,7 +412,7 @@ const Home: React.FC = () => {
             imgbtn={pnl_mconfig}
             titlebtn={'Cadastros Config...'}
             onclick={() => {
-              if ((state.modulo === 'Config' || state.modulo === 'Master') && (state.logado || state.chvkey)) {
+              if (state.modulo === 'Config' || state.modulo === 'Master' || state.chvkey || state.logado) {
                 goto('/modulos/config');
               } else {
                 handlerClicEventNegadoPage(8);
@@ -430,13 +435,15 @@ const Home: React.FC = () => {
               pxheight={'40px'}
               img={btn_qrefrescar}
               titbtn={'Refrescar...'}
-              onClick={() => window.location.reload()}
+              // onClick={() => window.location.reload()}
+              onClick={() => goto('/')}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...')}
               onMouseLeave={() => {
                 if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
               }}
             />
           </ContentSidePageBottonLabel>
+          <div><label>ATENÇÃO...{messagebottom}</label></div>
         </ContentSidePagePanelBotton>
 
         {cardnegadopage ? (
@@ -559,7 +566,8 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
 
-        <div>{messagebottom}</div>
+        <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
+
       </LayoutHome>
     </ThemeProvider>
   );

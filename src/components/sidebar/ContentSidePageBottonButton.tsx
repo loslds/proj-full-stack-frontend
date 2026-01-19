@@ -1,6 +1,6 @@
 
 
-import * as Pg from './stylePages';
+import * as Pg from '../stylePages';
 
 interface PropsContentSidePageBottonButton {
   pxheight?: string;

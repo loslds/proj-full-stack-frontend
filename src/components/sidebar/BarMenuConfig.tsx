@@ -1,8 +1,14 @@
 import React from 'react';
 import * as S from './stylesSidebar';
 import { ContentSBMain } from './ContentSBMain';
-import { ContainerSBButton } from './ContainerSBButton';
-import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
+import { ContentSBItensMenu } from './ContentSBItensMenu';
+
+// import { ContentSBButtonOnOff } from './ContentSBButtonOnOff';
+import { ContentSBButton } from './ContentSBButton';
+
+
+import btn_cmenuoff from '../../assets/defaut/botao/btn_def_c_menuoff.svg';
+import btn_cmenuon from '../../assets/defaut/botao/btn_def_c_menuon.svg';
 
 
 
@@ -16,30 +22,79 @@ import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 
 export const BarMenuConfig = () => {  
   
+  //const [ msgpanelbottom , setMsgPanelBottom ] = React.useState('');
+  
+  
   // abre ou fecha Menu Principal
   
-  const [isopc, setIsOpc] = React.useState(false);
-  const [ismenu, setIsMenu] = React.useState(false);
   
-  const handlerClickMenu = React.useCallback(() => {
-    setIsMenu((oldState) => !oldState);
+
+  //const [isitensmenu, setIsItensMenu] = React.useState(false);
+  
+  const [ismenu, setIsMenu] = React.useState(false);
+  const handlerClickIsMenu = React.useCallback(() => {
+    setIsMenu( (oldState) => !oldState);
   }, []);
 
   return (
+    /** CONTEINER SIBER */
     <ContentSBMain>
+      
       <S.ContainerButtonSRigth>
-        <ContainerSBButton
-          img={bt_menucirc}
-          titbtn={"Menu..."}
-          onClick={handlerClickMenu}
+        <ContentSBButton
+          img={ !ismenu ? ( btn_cmenuon ) : (btn_cmenuoff) } 
+          titbtn= { ismenu ? ( "Abre Menu..." ) : ("Fecha Menu...") }
+          onClick={handlerClickIsMenu}
         />
-      </S.ContainerButtonSRigth>
-      <S.ContainerMenuSide open={ismenu}>
+      </S.ContainerButtonSRigth> 
+
+      <S.ContainerMenuSB open={ismenu}>
+        
+        <S.ContainerSBItensMenu open={ismenu}>
+
+          <ContentSBButton
+            img={''} 
+            titbtn= { '111111' }
+            onClick={ () =>{} }
+          />
+        </S.ContainerSBItensMenu>
+
+
+<S.ContainerSBItensMenu open={ismenu}>
+
+          <ContentSBButton
+            img={''} 
+            titbtn= { '222222' }
+            onClick={ () =>{} }
+          />
+        </S.ContainerSBItensMenu>
+        
+
+      </S.ContainerMenuSB>
+      {/** BOTÃO MENU */}
+
+{/* 
+       <ContentSBButtonOnOff 
+        titbtn='Menu.' 
+        img={ismenu ? btn_cmenuon : btn_cmenuoff} 
+        onClick={handlerClickIsMenu}
+      >
+        <ContentSBItensMenu onoff={ismenu}>
+          <ContentSBButton
+            img={''}
+            titbtn='Menu.'  
+            onClick={handlerClickIsMenu }
+          />
+
+        </ContentSBItensMenu>  
+      </ContentSBButtonOnOff> 
+ 
+      <ContentMenuSide open={ismenu}>
         <S.ButtonItemMn>
           Ferramentas.
         </S.ButtonItemMn>
         
-        <S.ContainerButtonMnItens open={isopc}>
+        <S.ContainerButtonMnItens open={true}>
           <S.ContainerButtonSLeft>
             <S.ButtonItemMn title='Ferramentas.' onClick={() => alert('Opcbnt-1')} >
               btnItem-1
@@ -61,8 +116,8 @@ export const BarMenuConfig = () => {
 
           
         </S.ContainerButtonMnItens>
-      </S.ContainerMenuSide>
-      
+       </ContentMenuSide> 
+       */}
 
       
     </ContentSBMain>

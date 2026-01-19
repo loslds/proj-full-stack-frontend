@@ -1094,6 +1094,7 @@ interface PropsContainerCardMainFlex {
 };
 export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
   border: 1px solid red;
+  //border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   width: ${({ pwidth }) => pwidth || '100%'};
