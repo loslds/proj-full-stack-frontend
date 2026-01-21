@@ -31,7 +31,6 @@ export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveC
         />
       </S.ContainerButtonSRigth>
       <S.ContainerMenuSB open={isitensmenu}>
-
       <Dropdown
           pxheight="30px"
           pxwidth="200px"

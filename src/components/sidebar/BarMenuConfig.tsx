@@ -1,165 +1,114 @@
-import React from 'react';
-import * as S from './stylesSidebar';
-import { ContentSBMain } from './ContentSBMain';
+
+// C:\repository\proj-full-stack-frontend\src\components\sidebar\BarMenuConfig.tsx
+import React from "react";
+import * as S from "./stylesSidebar";
+
+import { ContentSBMain } from "./ContentSBMain";
+import { ContentSBMenuSide } from "./ContentSBMenuSide";
+import { ContentSBButtonMenu } from "./ContentSBButtonMenu";
+import { Dropdown, DropdownOption } from "./Dropdown";
 import { ContentSBItensMenu } from './ContentSBItensMenu';
+// ✅ hook que monta a lista (existentes / faltantes)
+import { useSystemTables } from "../../funcs/funcs/useSystemTAbles";
 
-// import { ContentSBButtonOnOff } from './ContentSBButtonOnOff';
-import { ContentSBButton } from './ContentSBButton';
-
-
-import btn_cmenuoff from '../../assets/defaut/botao/btn_def_c_menuoff.svg';
-import btn_cmenuon from '../../assets/defaut/botao/btn_def_c_menuon.svg';
-
+import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
+import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
+import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
 
 
+interface BarMenuConfigProps {
+  setActiveComponent: (component: string | null) => void;
+}
 
-// import { Dropdown } from './Dropdown';
+export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({ setActiveComponent }) => {
+  // ação do context
+  const { state, dispatch } = useAcessoContext();
 
-// interface BarMenuConfigProps {
-//   setActiveComponent: (component: string | null) => void;
-// }
-// export const BarSideMenuConfig: React.FC<BarSideMenuConfigProps> = ({ setActiveComponent }) => {
-
-export const BarMenuConfig = () => {  
-  
-  //const [ msgpanelbottom , setMsgPanelBottom ] = React.useState('');
-  
-  
-  // abre ou fecha Menu Principal
-  
-  
-
-  //const [isitensmenu, setIsItensMenu] = React.useState(false);
-  
+  // abre/fecha Menu Principal
   const [ismenu, setIsMenu] = React.useState(false);
+
+  // mostra/esconde dropdown quando menu está aberto
+  const [isdrop, setIsDrop] = React.useState(false);
   const handlerClickIsMenu = React.useCallback(() => {
-    setIsMenu( (oldState) => !oldState);
+    setIsMenu((oldState) => !oldState);
   }, []);
 
+  React.useEffect(() => {
+    setIsDrop(ismenu);
+  }, [ismenu]);
+
+  // ✅ busca lista de tabelas só quando menu está aberto
+  const { options, loading, error } = useSystemTables(ismenu);
+
+  // ✅ converte para o formato exigido pelo Dropdown (DropdownOption[])
+  const dropdownOptions: DropdownOption[] = React.useMemo(() => {
+    return options.map((t) => ({
+      label: t.label, // ex: "✅ systables" / "⚠️ pessoas"
+      value: t.value, // ex: "systables" / "pessoas"
+    }));
+  }, [options]);
+
+
+  const handleSelectOption = React.useCallback(
+  (tableName: string) => {
+    console.log('[BarMenuConfig] tabela selecionada:', tableName);
+
+    dispatch({type: UseAcessoActions.set_NAME_TABLE, payload: tableName, });
+
+    // opcional: se ainda quiser manter controle local
+    if (setActiveComponent) {
+      setActiveComponent(tableName);
+    }
+  }, [dispatch, setActiveComponent]);
+
+  
+  const [isgrigtable, setIsGrigTable] = React.useState(false);
+  const handlerClickIsGrigTable = React.useCallback(() => {
+    setIsGrigTable((oldState) => !oldState);
+  }, []);
+
+
+  React.useEffect(() => {
+    console.log("[CONFIG] Name tabela : =>", state.nametable);
+  }, [state.nametable]);
+
   return (
-    /** CONTEINER SIBER */
     <ContentSBMain>
-      
-      <S.ContainerButtonSRigth>
-        <ContentSBButton
-          img={ !ismenu ? ( btn_cmenuon ) : (btn_cmenuoff) } 
-          titbtn= { ismenu ? ( "Abre Menu..." ) : ("Fecha Menu...") }
+      {/* Botão Menu */}
+      <ContentSBMenuSide onoff={true}>
+        <ContentSBButtonMenu
+          img={!ismenu ? btn_cmenuon : btn_cmenuoff}
+          titbtn={!ismenu ? "Abre Menu..." : "Fecha Menu..."}
           onClick={handlerClickIsMenu}
         />
-      </S.ContainerButtonSRigth> 
+      </ContentSBMenuSide>
 
-      <S.ContainerMenuSB open={ismenu}>
+      {/* Dropdown lista de tabelas */}
+      <S.ContainerMenuSB open={isdrop}>
+        <Dropdown
+          pxheight="30px"
+          pxwidth="170px"
+          labelbtn="Arq.Sistema."
+          options={dropdownOptions}
+          onSelect={handleSelectOption}
+        />
+       
+          <ContentSBItensMenu onoff={isgrigtable}>
+            <S.ContainerButtonMn>
+              <S.ButtonItemMn 
+                title="Tab.em Ação..."
+                onClick={() => handlerClickIsGrigTable }
+              >
+                Nometable
+              </S.ButtonItemMn>
+            </S.ContainerButtonMn>
         
-        <S.ContainerSBItensMenu open={ismenu}>
+          </ContentSBItensMenu>
 
-          <ContentSBButton
-            img={''} 
-            titbtn= { '111111' }
-            onClick={ () =>{} }
-          />
-        </S.ContainerSBItensMenu>
-
-
-<S.ContainerSBItensMenu open={ismenu}>
-
-          <ContentSBButton
-            img={''} 
-            titbtn= { '222222' }
-            onClick={ () =>{} }
-          />
-        </S.ContainerSBItensMenu>
         
-
-      </S.ContainerMenuSB>
-      {/** BOTÃO MENU */}
-
-{/* 
-       <ContentSBButtonOnOff 
-        titbtn='Menu.' 
-        img={ismenu ? btn_cmenuon : btn_cmenuoff} 
-        onClick={handlerClickIsMenu}
-      >
-        <ContentSBItensMenu onoff={ismenu}>
-          <ContentSBButton
-            img={''}
-            titbtn='Menu.'  
-            onClick={handlerClickIsMenu }
-          />
-
-        </ContentSBItensMenu>  
-      </ContentSBButtonOnOff> 
- 
-      <ContentMenuSide open={ismenu}>
-        <S.ButtonItemMn>
-          Ferramentas.
-        </S.ButtonItemMn>
-        
-        <S.ContainerButtonMnItens open={true}>
-          <S.ContainerButtonSLeft>
-            <S.ButtonItemMn title='Ferramentas.' onClick={() => alert('Opcbnt-1')} >
-              btnItem-1
-            </S.ButtonItemMn>
-          </S.ContainerButtonSLeft>
-          <S.ContainerButtonSLeft>
-            <S.ButtonItemMn title='Ferramentas.' onClick={() => alert('Opcbnt-2')} >
-              btnItem-2
-            </S.ButtonItemMn>
-          </S.ContainerButtonSLeft>
-          <S.ContainerButtonSLeft>
-            <S.ButtonItemMn title='Ferramentas.' onClick={() => alert('Opcbnt-3')} >
-              btnItem-3
-            </S.ButtonItemMn>
-          </S.ContainerButtonSLeft>
-
-      
-          
-
-          
-        </S.ContainerButtonMnItens>
-       </ContentMenuSide> 
-       */}
-
-      
+        {loading ? <small>Carregando...</small> : null}
+        {error ? <small>{error}</small> : null}
+      </S.ContainerMenuSB>  
     </ContentSBMain>
   );
 };
-
-
-
-/* {
-
-  // const handleSelectOption = (value: string) => {
-  //   setActiveComponent(value);
-  // };
-
-  // const handleSelectOption = (value: string) => {
-  //   if (value === "checkdb") setActiveComponent("CheckDB");
-  //   if (value === "backupdb") setActiveComponent("BackupDB");
-  //   if (value === "restoredb") setActiveComponent("RestoreDB");
-  //   if (value === "explorerdb") setActiveComponent("ExplorerDB");
-  // };
-
-
-<Dropdown
-  pxheight="30px"
-  pxwidth="200px"
-  labelbtn="Ferramentas."
-  options={[
-  {
-    label: "Checking DB", value: "Checking DB",
-    // label: "Checking DB", value: "heckingdb",
-    //subOptions: [{ label: "Check DB", value: "checkdb" }],
-  },
-  {
-    label: "Manutenção DB", value: "Manutenção DB",
-    // label: "Manutenção DB", value: "keepingdb",
-    // subOptions: [
-    //   { label: "Backup", value: "backupdb" },
-    //   { label: "Restore", value: "restoredb" },
-    // ],
-  },
-  { label: "Explorer DB", value: "explorerdb" },
-]}
-onSelect={handleSelectOption}
-/>
- }*/

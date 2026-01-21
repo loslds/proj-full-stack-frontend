@@ -1,4 +1,115 @@
 
+//C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
+
+import React from "react";
+import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
+import { ButtonDropdown } from "./stylesSidebar";
+
+export interface DropdownOption {
+  label: string;
+  value: string;
+  subOptions?: DropdownOption[];
+  onClick?: () => void;
+}
+
+interface PropsDropdown {
+  pxheight?: string;
+  pxwidth?: string;
+  labelbtn?: string;
+  options: DropdownOption[];
+  onSelect: (value: string) => void;
+}
+
+export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
+  const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
+
+  const selectValue = React.useCallback(
+    (opt: DropdownOption) => {
+      opt.onClick?.();
+      onSelect(opt.value);
+      setIsOpen(false);
+      setOpenSubmenu(null);
+      setOpenSubSubmenu(null);
+    },
+    [onSelect]
+  );
+
+  return (
+    <ContentMainDropdownUl pxheigth={pxheight} pxwidth={pxwidth}>
+      <ButtonDropdown onClick={() => setIsOpen((v) => !v)}>{labelbtn}</ButtonDropdown>
+
+      {isOpen && (
+        <ul>
+          {options.map((option) => {
+            const hasChildren = !!option.subOptions?.length;
+
+            return (
+              <li
+                key={option.value}
+                onMouseEnter={() => setOpenSubmenu(option.value)}
+                onMouseLeave={() => setOpenSubmenu(null)}
+                onClick={() => {
+                  if (!hasChildren) selectValue(option); // ✅ nível 1 clicável
+                }}
+              >
+                {option.label}
+
+                {hasChildren && openSubmenu === option.value && (
+                  <ul>
+                    {option.subOptions!.map((subOption) => {
+                      const hasChildren2 = !!subOption.subOptions?.length;
+
+                      return (
+                        <li
+                          key={subOption.value}
+                          onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
+                          onMouseLeave={() => setOpenSubSubmenu(null)}
+                          onClick={() => {
+                            if (!hasChildren2) selectValue(subOption); // ✅ nível 2 clicável
+                          }}
+                        >
+                          {subOption.label}
+
+                          {hasChildren2 && openSubSubmenu === subOption.value && (
+                            <ul>
+                              {subOption.subOptions!.map((subSubOption) => (
+                                <li
+                                  key={subSubOption.value}
+                                  onClick={() => selectValue(subSubOption)} // ✅ nível 3 clicável (como já era)
+                                >
+                                  {subSubOption.label}
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </ContentMainDropdownUl>
+  );
+};
+
+
+
+
+
+
+
+
+
+
+
+
+{/**
 import React from "react";
 import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
 import { ButtonDropdown } from "./stylesSidebar";
@@ -75,8 +186,8 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
   );
 };
 
+//////////////////////////////////////////////////////////
 
-{/**
   
 import React, { useState } from "react";
 

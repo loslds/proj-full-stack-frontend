@@ -6,7 +6,7 @@ import dark from "../../../themes/dark";
 
 import { useNavigate } from 'react-router-dom';
 import LayoutConfig from '../../layouts/LayoutConfig';
-//import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
+import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
 //import * as Pg from '../stylePages';
 
 // main page
@@ -25,6 +25,7 @@ import { ContentSidePageBottonButton } from '../../sidebar/ContentSidePageBotton
 import { ContentSideMsgPagePanelBotton } from '../../sidebar/ContentSideMsgPagePanelBotton';
 import { CardHlpConfigPage } from '../../../cards/CardHlpConfigPage';
 import { CardDesenvolver } from '@/cards/CardDesenvolver';
+import { BarMenuConfig } from '../../sidebar/BarMenuConfig';
 
 // img do painel Bottom
 // img do modal
@@ -40,7 +41,7 @@ import btn_qclose from '@/assets/defaut/botao/btn_def_q_close.svg';
 
 
 const Config: React.FC = () => {
-  //const { state } = useAcessoContext();
+  const { state } = useAcessoContext();
   
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
@@ -67,22 +68,12 @@ const Config: React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
-  //** Manipulação do botão em BarMenuConfig
-  // Ativa/Desativa o Modal com a Lista de Tabelas existêntes/inexistêntes
-  // */ 
-  //const [listchecksys, setListCheckSys] = React.useState(false);
-  //
-  ////** Chamada para criar a lista das tabela existentes/inexistentes
-  ////  */
-  //const handlerListCheckSys = React.useCallback(() => {
-  //   setListCheckSys((oldState) => !oldState);
-  //}, []);
-
-  //** Caso a criação da lista sucesso,
-  // islistchecked = true senão islistchecked = false
-  //  */
-  //const [islistchecked, setIsListChecked] = React.useState(false);
-
+  React.useEffect(() => {
+    if (state.nametable !== '' || null) {
+      setMessageBottom("Tabela em Uso :" + state.nametable);
+      console.log("[CONFIG] nametable mudou:", state.nametable);
+    }
+  }, [state.nametable]);
   
   return (
     <ThemeProvider theme={theme}>
@@ -90,7 +81,7 @@ const Config: React.FC = () => {
         imgsys={lg_config}
         titbtnsys="Modulo Config..."
         onclicksys={() => {}}
-        titlepg="Config Databases."
+        titlepg="Config."
         
         imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
@@ -136,9 +127,6 @@ const Config: React.FC = () => {
         </ContentCardPageMain>
        
         {/* chama Página para trabalho */}
-        
-
-
         {chksistema ? (
           <PageModal
             ptop={'1%'}
@@ -155,11 +143,7 @@ const Config: React.FC = () => {
             />
           </PageModal>
         ) : null}
-          {/* <BarMenuConfig /> */}
-
         
-
-
         {cardhplpage && (
           <PageModal
             ptop={'1%'}
@@ -184,24 +168,3 @@ const Config: React.FC = () => {
 
 export default Config;
 
-
-
-  // React.useEffect(() => {
-  //   if (state.chvkey) {
-  //     let checado = state.chkdb;
-  //     setIsChkDb(checado);
-      
-
-  //     if (state.chkdb){
-
-  //     }
-  //     if (!ischkdb){ 
-  //       setIsChkDb(true);
-  //     }
-  //   } else {
-  //     setIsChkDb(false);
-  //   }
-  //   if (ischkdb){
-  //     handlerChecagemSysPage();
-  //   }
-  // },[]);

@@ -71,7 +71,7 @@ const Home: React.FC = () => {
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
   const [notOperation, setNotOperation] = React.useState(false);
-
+  const [nottables, setNotTables] = React.useState(false);
   // navegação
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => navigate(path), [navigate]);
@@ -133,7 +133,7 @@ const Home: React.FC = () => {
     return () => {
       cancelled = true;
     };
-  }, [state.initsys, dispatch]);
+  }, [state.initsys, state.chvkey,dispatch]);
 
   React.useEffect(() => {
   setMessageBottom("");
@@ -222,6 +222,13 @@ const Home: React.FC = () => {
     },
     [goto, state.logado, state.chvkey]
   );
+
+
+
+  
+  React.useEffect(() => {
+    console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
+  }, [state.nametable]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -563,6 +570,31 @@ const Home: React.FC = () => {
               <p> Entre em contato com suporte. </p>
             </form>
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
+          </PageModal>
+        ) : null}
+
+        {nottables ? (
+          <PageModal
+            ptop={'10%'}
+            pwidth={'70%'}
+            pheight={'50%'}
+            imgbm={btn_qclose}
+            titbm="Fechar..."
+            titulo={'Acesso Negado'}
+            onclose={() => setNotTables(false)}
+          >
+            <CardImgNeg
+              imgcard={pnl_negado}
+              pminheight={'120px'}
+              pwidth={'120px'}
+              onclickimg={() => setNotTables(false)}
+            />
+            <form>
+              <p> ⛔ Tabela inacessível...</p>
+              <br />
+              <p> ACESSO SISTEMA INOPERANTE.</p>
+            </form>
+            <AutoCloseTimer onClose={() => setNotTables(false)} seconds={5} />
           </PageModal>
         ) : null}
 

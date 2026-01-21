@@ -53,6 +53,7 @@ export type StateAcesso = {
   nrcont: number | null;
   nmcont: string | null;
   systemMode: 'LEVE' | 'DEV' | 'LEVE';
+  nametable: string | null;
 };
 
 // ===================== Estado inicial =====================
@@ -107,6 +108,7 @@ export const initialData: StateAcesso = {
   nrcont: 0,
   nmcont: '',
   systemMode: 'DEV', // ou 'LEVE' por padrão
+  nametable: '',
 };
 
 // ===================== Enum de ações =====================
@@ -161,6 +163,7 @@ export enum UseAcessoActions {
   set_MDLOGIN,
   set_NMLOGIN,
   set_SYSTEM_MODE,
+  set_NAME_TABLE,
 }
 
 // ===================== Tipos de ações =====================
@@ -214,7 +217,8 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_NMCONT; payload: string }
   | { type: UseAcessoActions.set_MDLOGIN; payload: number }
   | { type: UseAcessoActions.set_NMLOGIN; payload: string }
-  | { type: UseAcessoActions.set_SYSTEM_MODE; payload: 'DEV' | 'LEVE' };
+  | { type: UseAcessoActions.set_SYSTEM_MODE; payload: 'DEV' | 'LEVE' }
+  | { type: UseAcessoActions.set_NAME_TABLE; payload: string };
 
   // ===================== Reducer =====================
 
@@ -270,6 +274,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_MDLOGIN: return { ...state, mdlogin: action.payload };
     case UseAcessoActions.set_NMLOGIN: return { ...state, nmlogin: action.payload };
     case UseAcessoActions.set_SYSTEM_MODE: return { ...state, systemMode: action.payload };
+    case UseAcessoActions.set_NAME_TABLE: return { ...state, nametable: action.payload };
     default: return state;
   }
 };

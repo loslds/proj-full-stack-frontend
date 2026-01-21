@@ -56,11 +56,50 @@ export const ContainerButtonSLeft = styled.div`
     background-color: #e4e4e4;
   }
 `;
+// botão defaul para Label como titulo interno
+export const ContainerSideButtonLabel = styled.div`
+  border: 1px;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background: transparent;
+  min-height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  &:hover {
+    background-color: #e4e4e4;
+   }
+`;
+export const ButtonSideBarLabel = styled.button`
+  border: none;
+  margin: 5px 5px 5px 5px;
+  color:  ${props => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+
 /// rotina do botão para menu principal
 
 // ContainerSideButton
 export const ContainerSideButton = styled.div`
-  border: 1px;
+  //border: 1px;
   border-style: solid;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
@@ -165,7 +204,7 @@ export const ContainerBtnMnSRigth = styled.div`
   color:  ${props => props.theme.colors.textColor};
 `;
 export const ContainerButtonMn = styled.div`
-  border: 5px solid red ;
+  border: 2px solid red ;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 0px 2px 10px 2px;
@@ -220,11 +259,11 @@ interface PropsContainerSBItensModulo {
   open?: boolean;
 };
 export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
-  border: 1px solid green;
+  border: none;
   border-color:  ${props => props.theme.colors.textColor};
   border-radius: 5px;
-  padding: 0px 0px 0px 0px;
-  margin: 5px 10px 5px 10px;
+  padding: 0px 5px 0px 5px;
+  margin: 5px 10px 5px 10x; 
   background: transparent;
   min-height: 48px;
   display: ${({open}) => open ? 'flex' : 'none' };
@@ -462,8 +501,8 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   border: 2px solid;
   border-radius: 10px;
   border-color: ${(props) => props.theme.colors.textColor};
-  padding: 0px;
-  margin: 5px 0px;
+  padding: 0px 10px 0px 10px;
+  margin: 5px 10px 5px 10px;
   min-height: ${({ pxheight }) => pxheight || '30px'};
   width: ${({ pxwidth }) => pxwidth || '100%'};
   position: relative;
@@ -474,7 +513,7 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   align-items: center;
   align-content: center;
   color: ${(props) => props.theme.colors.textColor};
-  background-color: #007bff;
+  background-color: transparent;
   font-size: 20px;
   line-height: 22px;
   font-family: 'Courier New', Courier, monospace;
@@ -484,13 +523,13 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     top: 100%;
     left: 0;
     margin-top: 5px;
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: #7ca7f5;
+    border: 1px solid #3e3e3f;
     border-radius: 5px;
     list-style: none;
     padding: 0;
-    min-width: 150px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    min-width: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.8);
     z-index: 1000;
     font-size: 20px;
     line-height: 22px;
@@ -498,12 +537,12 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     li {
       padding: 10px;
       cursor: pointer;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #918e8e;
       position: relative;
       transition: background-color 0.2s ease-in-out;
 
       &:hover {
-        background-color: #f5f5f5;
+        background-color: #e05252;
       }
 
       ul {
@@ -517,7 +556,7 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
         list-style: none;
         padding: 0;
         min-width: 150px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.8);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -562,7 +601,7 @@ export const ButtonDropdown = styled.button`
   font-size: 20px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
-  background-color: #007bff;
+  background-color: transparent;
   cursor: pointer;
   outline: none;
   height: 30px;
