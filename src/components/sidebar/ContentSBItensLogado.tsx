@@ -2,7 +2,7 @@ import * as S from './stylesSidebar';
 
 type TypeContainerSBItensLogado = {
   open?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 };
 export const ContainerSBItensLogado = ({
   open,

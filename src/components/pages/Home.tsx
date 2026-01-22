@@ -1,6 +1,5 @@
  
 // C:\repository\proj-full-stack-frontend\src\components\pages\Home.tsx
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -71,7 +70,7 @@ const Home: React.FC = () => {
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
 
   const [notOperation, setNotOperation] = React.useState(false);
-  const [nottables, setNotTables] = React.useState(false);
+  
   // navegação
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => navigate(path), [navigate]);
@@ -222,9 +221,6 @@ const Home: React.FC = () => {
     },
     [goto, state.logado, state.chvkey]
   );
-
-
-
   
   React.useEffect(() => {
     console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
@@ -572,7 +568,7 @@ const Home: React.FC = () => {
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
-
+{/* 
         {nottables ? (
           <PageModal
             ptop={'10%'}
@@ -597,7 +593,7 @@ const Home: React.FC = () => {
             <AutoCloseTimer onClose={() => setNotTables(false)} seconds={5} />
           </PageModal>
         ) : null}
-
+ */}
         <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
 
       </LayoutHome>
@@ -606,3 +602,8 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+////////////////////////////////////////////////////////
+
+
+

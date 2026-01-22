@@ -14,7 +14,7 @@ import master from '../../assets/svgs/master.svg';
 import config from '../../assets/svgs/config.svg';
 
 import { ContentSBMain } from './ContentSBMain';
-import { ContainerSBButton } from './ContentSBButton';
+import { ContentSBButton } from './ContentSBButton';
 import { ContentSBItensMenu } from './ContentSBItensMenu';
 import { PageModal } from '../pages/PageModal';
 import { CardHlpRecepcaoPage } from '../../cards/CardHlpRecepcaoPage';
@@ -41,7 +41,7 @@ export const BarSideMenuHome = () => {
   return (
     <ContentSBMain>
       <S.ContainerButtonSRigth>
-        <ContainerSBButton
+        <ContentSBButton
           img={menuh}
           titbtn={'Menu Help...'}
           onClick={handlerClickItensMenu}
@@ -49,56 +49,56 @@ export const BarSideMenuHome = () => {
       </S.ContainerButtonSRigth>
 
       <ContentSBItensMenu onoff={isitensmenu}>
-        <ContainerSBButton
+        <ContentSBButton
           img={servicos}
           titbtn="Help Recepção..."
           onClick={() => {
             setIsMdRecep(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={design}
           titbtn="Help Design..."
           onClick={() => {
             setIsMdDesig(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={producao}
           titbtn="Help Produção..."
           onClick={() => {
             setIsMdProdu(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={acabamento}
           titbtn="Help Acabamento..."
           onClick={() => {
             setIsMdAcaba(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={expedicao}
           titbtn="Help Expedição..."
           onClick={() => {
             setIsMdExped(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={administracao}
           titbtn="Help Administração..."
           onClick={() => {
             setIsMdAdmin(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={master}
           titbtn="Help Master..."
           onClick={() => {
             setIsMdMaste(true);
           }}
         />
-        <ContainerSBButton
+        <ContentSBButton
           img={config}
           titbtn="Help Config..."
           onClick={() => {

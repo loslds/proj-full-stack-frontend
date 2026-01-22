@@ -54,6 +54,12 @@ export type StateAcesso = {
   nmcont: string | null;
   systemMode: 'LEVE' | 'DEV' | 'LEVE';
   nametable: string | null;
+  regtable: boolean | null;
+  inctable: boolean | null;
+  alttable: boolean | null;
+  exctable: boolean | null;
+  reltable: boolean | null;
+
 };
 
 // ===================== Estado inicial =====================
@@ -109,6 +115,12 @@ export const initialData: StateAcesso = {
   nmcont: '',
   systemMode: 'DEV', // ou 'LEVE' por padrão
   nametable: '',
+  regtable: false,
+  inctable: false,
+  alttable: false,
+  exctable: false,
+  reltable: false,
+
 };
 
 // ===================== Enum de ações =====================
@@ -164,6 +176,12 @@ export enum UseAcessoActions {
   set_NMLOGIN,
   set_SYSTEM_MODE,
   set_NAME_TABLE,
+  set_REG_TABLE,
+  set_INC_TABLE,
+  set_ALT_TABLE,
+  set_EXC_TABLE,
+  set_REL_TABLE,
+
 }
 
 // ===================== Tipos de ações =====================
@@ -218,7 +236,12 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_MDLOGIN; payload: number }
   | { type: UseAcessoActions.set_NMLOGIN; payload: string }
   | { type: UseAcessoActions.set_SYSTEM_MODE; payload: 'DEV' | 'LEVE' }
-  | { type: UseAcessoActions.set_NAME_TABLE; payload: string };
+  | { type: UseAcessoActions.set_NAME_TABLE; payload: string }
+  | { type: UseAcessoActions.set_REG_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_INC_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_ALT_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_EXC_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_REL_TABLE; payload: boolean | null };
 
   // ===================== Reducer =====================
 
@@ -275,6 +298,11 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_NMLOGIN: return { ...state, nmlogin: action.payload };
     case UseAcessoActions.set_SYSTEM_MODE: return { ...state, systemMode: action.payload };
     case UseAcessoActions.set_NAME_TABLE: return { ...state, nametable: action.payload };
+    case UseAcessoActions.set_REG_TABLE: return { ...state, regtable: action.payload };
+    case UseAcessoActions.set_INC_TABLE: return { ...state, inctable: action.payload };
+    case UseAcessoActions.set_ALT_TABLE: return { ...state, inctable: action.payload };
+    case UseAcessoActions.set_EXC_TABLE: return { ...state, alttable: action.payload };
+    case UseAcessoActions.set_REL_TABLE: return { ...state, reltable: action.payload };
     default: return state;
   }
 };

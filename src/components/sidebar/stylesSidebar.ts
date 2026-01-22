@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import semimg from "../../assets/svgs/btn_def_q_semimg.svg"
+import React from 'react';
 
 export const ContainerSBMain = styled.div`
   //border: 2px solid red;
@@ -146,6 +147,7 @@ export const ButtonSideBarImg = styled.button<{ img?: string }>`
 type PropsContainerButtonMnItens = {
   open?: boolean;
 };
+
 export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
   border-color: ${props => props.theme.colors.textColor};
   border-left: 4px solid;
@@ -203,14 +205,19 @@ export const ContainerBtnMnSRigth = styled.div`
   align-content: center;
   color:  ${props => props.theme.colors.textColor};
 `;
+
+
+
 export const ContainerButtonMn = styled.div`
-  border: 2px solid red ;
-  border-radius: 5px;
+  border: 2px;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 10px;
   padding: 0px 0px 0px 0px;
-  margin: 0px 2px 10px 2px;
+  margin:  8px 10px 10px 10px;
   background: transparent;
-  font-size: 18px;
-  min-height: 40px;
+  font-size: 20px;
+  height: 40px;
   display: flex; 
   flex-wrap: wrap;
   align-items: center;
@@ -220,31 +227,81 @@ export const ContainerButtonMn = styled.div`
 
 export const ButtonItemMn = styled.button`
   border: 2px;
-  border-color: ${props => props.theme.colors.primary};
-  border-radius: 3px;
-  margin: 2px 5px 2px 15px;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 10px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 2px 10px 2px;
   color:  ${props => props.theme.colors.textColor};
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Courier', monospace;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  height: 40px;
+  display: flex;
+  //flex-wrap: nowrap;
+  flex-flow: nowrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+`;
+
+
+////////////==================
+type TypeContainerSideButtonItem = {
+  isbrder?: boolean;
+};
+export const ContainerSideButtonItem = styled.div<TypeContainerSideButtonItem>`
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 1px;
+  border-style: ${props => (props.isbrder ? 'solid' : 'none')};
+  border-radius: 10px;
+  border-color: red;
+  //border-color: ${props => props.theme.colors.textColor};
+  background: transparent;
+  display: 'flex';
+  flex-flow: row wrap;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props?.theme?.colors?.textColor};
+  `;
+
+type TypeButtomSBButtonItem = {
+  isborder?: boolean;
+  titbtn?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
+};
+export const ButtomSBButtonItem = styled.button<TypeButtomSBButtonItem>`
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border: 2px;
+  border-style: ${props => (props.isborder ? 'solid' : 'none')};
+  border-radius: 10px;
+  border-color: ${props => props.theme.colors.textColor};
+  margin: 5px 5px 5px 5px;
+  color:  ${props => props.theme.colors.textColor};
+  font-size: 20px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
   cursor: pointer;
   outline: none;
-  min-width: 37px;
+  min-width: 40px;
+  min-height: 40px;
   display: flex;
   flex-flow: nowrap;
-  align-items: center;
-  align-content: center;
   justify-content: center;
-  &:active {
-    border: 2px solid; 
-    border-radius: 3px;
-    margin: 2px 5px 2px 15px;
-    color:  ${props => props.theme.colors.secundary};
-  }
+  align-items: center;
+  &:hover {
+    background-color: #91a888;
+   }
+
 `;
-
-
 
 
 
@@ -259,6 +316,7 @@ interface PropsContainerSBItensModulo {
   open?: boolean;
 };
 export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
+  border: 1px solid blueviolet;
   border: none;
   border-color:  ${props => props.theme.colors.textColor};
   border-radius: 5px;
