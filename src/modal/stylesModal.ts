@@ -355,6 +355,7 @@ export const ContainerModalTexto = styled.div`
   font-size: 12px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: normal;
+  color: ${props => props.theme.colors.textColor}; 
 `;
 
 export const ContainerHeardModalMain = styled.div`
@@ -369,7 +370,7 @@ export const ContainerHeardModalMain = styled.div`
   justify-content: center;
   align-content: center;
   align-items: center;
-  color: black;
+  color: ${props => props.theme.colors.textColor};
 `;
 /////// contente para erro
 interface PropsContainerModalPanelErroPage {
@@ -385,6 +386,7 @@ export const ContainerModalPanelErroPage = styled.div<PropsContainerModalPanelEr
   min-height: 50px;
   flex-wrap: wrap;
   justify-content: center;
+  color: ${props => props.theme.colors.textColor};
 `;
 
 interface PropsContainerModalPanelPageErroFlex {
@@ -405,18 +407,21 @@ export const ContainerModalPanelErroFlex = styled.div<PropsContainerModalPanelPa
   justify-content: space-between;
   align-content: center;
   align-items: center;
+  color: ${props => props.theme.colors.textColor};
     
   h1, h2, h3, h4, h5 {
     margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
     padding: 0px 0px 0px 0px;
     font-style: normal;
     text-decoration-color: #ff0000ff;
+    color: ${props => props.theme.colors.textColor};
   }
   label {
     font-size: 12px;
     line-height: 12px;
     //font-style: normal;
     text-decoration: underline 0.5px;
+    color: ${props => props.theme.colors.textColor};
   }
 `;
 

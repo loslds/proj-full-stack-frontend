@@ -17,6 +17,10 @@ interface PropsLayoutHome {
   imgbtnresg?: string;
   titbtnresg?: string;
   onclickresg?: () => void;
+  imgbtnmst?: string;
+  titbtnmst?: string;
+  onclickmst?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode;
@@ -37,6 +41,10 @@ const LayoutHome = ({
   imgbtnresg,
   titbtnresg,
   onclickresg,
+  imgbtnmst,
+  titbtnmst,
+  onclickmst,
+
   onchange,
   ischeck,
   children,
@@ -58,6 +66,9 @@ const LayoutHome = ({
         imgbtnresg={imgbtnresg}
         titbtnresg={titbtnresg}
         onclickresg={onclickresg}
+        imgbtnmst={imgbtnmst}
+        titbtnmst={titbtnmst}
+        onclickmst={onclickmst}
         onchange={onchange}
         ischeck={ischeck}
       />

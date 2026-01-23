@@ -31,6 +31,7 @@ import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
 import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
 import btn_avatar from '../../assets/defaut/avatar/avt_default.svg';
 import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
+import btn_master from '../../assets/defaut/botao/bnt_def_q_master.svg';
 // img do main painel
 import pnl_mvisitante from '../../assets/defaut/painel/pnl_def_mod_visitantes.svg';
 import pnl_mrecepcao from '../../assets/defaut/painel/pnl_def_mod_recepcao.svg';
@@ -57,7 +58,8 @@ const Home: React.FC = () => {
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
-
+  const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
+  const [isabortachvkey, setIsAbortaChvkey] = React.useState(false);
   const [messagebottom, setMessageBottom] = React.useState('');
 
   // Mantidos (você usa para sinalizar alguns fluxos), mas agora SEM travar Home
@@ -82,8 +84,9 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (state.chvkey) return;
+    if (state.chvkey) {setIsAbortaChvkey(false); return;}
     if (state.initsys) return;
+
 
     let cancelled = false;
 
@@ -146,6 +149,8 @@ const Home: React.FC = () => {
     return;
   }
 
+  
+
   // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
   if (!state.initsys) {
     dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
@@ -185,7 +190,6 @@ const Home: React.FC = () => {
   setMsgPanelBottom("Aguardando Login Sistema...");
   setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
-
 
   React.useEffect(() => {
     console.log("[HOME] chvkey mudou:", state.chvkey);
@@ -256,6 +260,16 @@ const Home: React.FC = () => {
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
+        imgbtnmst={btn_master}
+        titbtnmst="Segurança..."
+        onclickmst={() => {
+          if (state.chvkey && !isabortachvkey) {
+            setIsMsgChvkey(true);
+          } else {
+            setNotOperation(true);
+            setMsgPanelBottom('Sistema Inoperante!');
+          }
+        }}
         
         onchange={ToggleTheme}
         ischeck={ischeck}
@@ -278,7 +292,7 @@ const Home: React.FC = () => {
             }}
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.')}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Login Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Login Sistema...');
             }}
           />
 
@@ -299,7 +313,7 @@ const Home: React.FC = () => {
             }}
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Recepção.')}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 
@@ -340,7 +354,7 @@ const Home: React.FC = () => {
               }
             }}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 
@@ -381,7 +395,7 @@ const Home: React.FC = () => {
               }
             }}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 
@@ -402,7 +416,7 @@ const Home: React.FC = () => {
             }}
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Administração.')}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 
@@ -421,10 +435,20 @@ const Home: React.FC = () => {
                 handlerClicEventNegadoPage(8);
               }
             }}
-            onMouseEnter={() => setMsgPanelBottom('Abre Cadastros Config.')}
-            onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
-            }}
+            onMouseEnter={ () => {
+                if ( (!state.logado && !state.chvkey && state.modulo !== 'Config' && state.modulo !== 'Master' ) )
+                setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
+                else setMsgPanelBottom('✅ Abre Modulo Config.');  
+                }
+              }
+              
+              
+              //() => setMsgPanelBottom('Abre Cadastros Config.')}
+            onMouseLeave={ () => {
+                if (!state.logado && !state.chvkey ) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
+                else setMsgPanelBottom('✅ Acesso Permitido...');  
+                }
+              }
           />
         </ContentItensBody>
 
@@ -440,10 +464,8 @@ const Home: React.FC = () => {
               titbtn={'Refrescar...'}
               // onClick={() => window.location.reload()}
               onClick={() => goto('/')}
-              onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...')}
-              onMouseLeave={() => {
-                if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
-              }}
+              onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
+              onMouseLeave={() => setMsgPanelBottom('Restaurar Page...') }
             />
           </ContentSidePageBottonLabel>
           <div><label>ATENÇÃO...{messagebottom}</label></div>
@@ -568,6 +590,42 @@ const Home: React.FC = () => {
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
+
+        { ismsgchvkey ? (
+          <PageModal
+            ptop={'10%'}
+            pwidth={'70%'}
+            pheight={'70%'}
+            imgbm={btn_qclose}
+            titbm="Fechar..."
+            titulo={'Acesso Negado'}
+            onclose={() => setIsMsgChvkey(false)}
+          >
+            <CardImgNeg
+              imgcard={pnl_negado}
+              pminheight={'120px'}
+              pwidth={'120px'}
+              onclickimg={() => setIsMsgChvkey(false)}
+            />
+            <form>
+              <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
+              <br />
+              <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
+              <br />
+              <p> Clique "SIM" para Descatar Recurso. :  </p>
+                <button onClick={ () => window.location.reload()}>SIM.</button>
+              <br />  
+              <p> Clique "NÂO" para Continuar com Recurso. : </p> 
+                <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
+              <br />
+              <br />
+            </form>
+            <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
+          </PageModal>
+        ) : null}
+
+
+
 {/* 
         {nottables ? (
           <PageModal

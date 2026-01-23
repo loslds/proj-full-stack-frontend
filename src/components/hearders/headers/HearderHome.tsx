@@ -9,22 +9,31 @@ import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
 import { ContentHeaderButtonLoginOnOff } from '../ContentHeaderButtonLoginOnOff';
 import { ContentHeaderButtonResgate } from '../ContentHeaderButtonResgate';
+import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
 
 interface PropsHearderHome {
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
+  
   titlepg?: string;
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
+  
   imgbtnlogin?: string;
   disabled?: boolean;
   titbtnlogin?: string;
   onclicklogin?: () => void;
+  
   imgbtnresg?: string;
   titbtnresg?: string;
   onclickresg?: () => void;
+  
+  imgbtnmst?: string;
+  titbtnmst?: string;
+  onclickmst?: () => void;
+  
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode;
@@ -33,17 +42,25 @@ const HearderHome = ({
   imgsys,
   titbtnsys,
   onclicksys,
+  
   titlepg,
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
+  
   imgbtnlogin,
   disabled,
   titbtnlogin,
   onclicklogin,
+  
   imgbtnresg,
   titbtnresg,
   onclickresg,
+  
+  imgbtnmst,
+  titbtnmst,
+  onclickmst,
+  
   onchange,
   ischeck,
 }: PropsHearderHome) => {
@@ -80,6 +97,12 @@ const HearderHome = ({
             titbtnresg={titbtnresg}
             onClickresg={onclickresg}
           />
+          <ContentHeaderButtonMaster
+            imgbtnmst={imgbtnmst}
+            titbtnmst={titbtnmst}
+            onClickmst={onclickmst}
+          />
+
           <H.ContainerHeaderButton>
             <Switch
               onChange={onchange}
