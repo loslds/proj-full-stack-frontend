@@ -2,19 +2,19 @@
 
 import * as S from './stylesSidebar';
 
-type TypeContainerSBButtonOnOff = {
+type TypeContentSBButtonOnOff = {
   img?: string;
   titbtn?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
-export const ContainerSBButtonOnOff = ({
+export const ContentSBButtonOnOff = ({
   titbtn,
   img,
   onClick
-}: TypeContainerSBButtonOnOff) => {
+}: TypeContentSBButtonOnOff) => {
   return (
     <S.ContainerSideOnOffButton>
-      <S.ButtonOnOffImg img={img} title={titbtn} onClick={onClick} />
+      <S.ButtonOnOffImg img={img} title={titbtn} onClick={onClick}/>
     </S.ContainerSideOnOffButton>
   );
 };

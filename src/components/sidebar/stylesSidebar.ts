@@ -5,7 +5,7 @@ import React from 'react';
 
 export const ContainerSBMain = styled.div`
   //border: 2px solid red;
-  border: none;
+  //border: none;
   margin: 5x 5px 5px 5px;
   padding: 0px 0px 0px 0px;
   min-height: 45px;
@@ -164,12 +164,24 @@ export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
 
 //container Butto Side lado esquero
 // usa o mesmo div
-
-
-
-
-
-
+type TypeContainerSBItensButtonOnOff = {
+  open?: boolean;
+}
+export const ContainerSBItensButtonOnOff = styled.div<TypeContainerSBItensButtonOnOff>`
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  border-radius: 5px;
+  background: transparent;
+  display: ${({open}) => open ? 'flex' : 'none' };
+  flex-flow: row wrap;
+  justify-content: left;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  &:hover {
+    background-color: #e4e4e4;
+  }
+`;
 
 
 
@@ -360,7 +372,7 @@ export const ContainerItensModBntMn = styled.div<PropsItensBntMn>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   background: transparent;
-  max-height: fit-content;
+  max-height: 50px;
   display: ${({open}) => open ? 'flex' : 'none' };
   flex-wrap: wrap;
   align-items: center;

@@ -59,6 +59,7 @@ export type StateAcesso = {
   alttable: boolean | null;
   exctable: boolean | null;
   reltable: boolean | null;
+  filttable: boolean | null;
 
 };
 
@@ -120,6 +121,7 @@ export const initialData: StateAcesso = {
   alttable: false,
   exctable: false,
   reltable: false,
+  filttable: false,
 
 };
 
@@ -181,7 +183,7 @@ export enum UseAcessoActions {
   set_ALT_TABLE,
   set_EXC_TABLE,
   set_REL_TABLE,
-
+  set_FILT_TABLE,
 }
 
 // ===================== Tipos de ações =====================
@@ -241,7 +243,8 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_INC_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_ALT_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_EXC_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_REL_TABLE; payload: boolean | null };
+  | { type: UseAcessoActions.set_REL_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_FILT_TABLE; payload: boolean | null };
 
   // ===================== Reducer =====================
 
@@ -303,6 +306,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_ALT_TABLE: return { ...state, inctable: action.payload };
     case UseAcessoActions.set_EXC_TABLE: return { ...state, alttable: action.payload };
     case UseAcessoActions.set_REL_TABLE: return { ...state, reltable: action.payload };
+    case UseAcessoActions.set_FILT_TABLE: return { ...state, filttable: action.payload };
     default: return state;
   }
 };

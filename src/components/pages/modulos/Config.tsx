@@ -44,6 +44,7 @@ import btn_qclose from '../../../assets/defaut/botao/btn_def_q_close.svg';
 import pnl_negado from '../../../assets/defaut/painel/pnl_def_ope_negacao.svg';
 
 const Config: React.FC = () => {
+  
   const { state } = useAcessoContext();
   
   const [theme, setTheme] = React.useState(light);
@@ -61,8 +62,8 @@ const Config: React.FC = () => {
 
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');// menssagem de aviso dentro do painel bottom
   const [messagebottom, setMessageBottom] = React.useState('Aguardando Seleção...'); // menssagem da apliação do botão
+
   const [chksistema, setChkSistema] = React.useState(false);
-  
   const handlerCardChkSistema = React.useCallback(() => {
       setChkSistema((oldState) => !oldState);
   }, []);
@@ -71,19 +72,111 @@ const Config: React.FC = () => {
   const handlerCardHlpPage = React.useCallback(() => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
-
-  const [nottables, setNotTables] = React.useState(false);
   
+  
+
+  // para abrir PanelModal => tabela inexistente
+  const [nottables, setNotTables] = React.useState(false);
+
+  // para abrir PanelModal => tabela sem registro
+  const [notregstable, setNotRegsTable] = React.useState(false);
+
+  // para abrir no Main o grid da tabela com ou sem registro
   const [isgridtable, setIsGrigTables] = React.useState(false);
-  React.useEffect(() => {
-    if (state.nametable !== '' || null) {
-      setMessageBottom("Tabela em Uso :" + state.nametable);
-      setIsGrigTables(true);
-      console.log("[CONFIG] nametable mudou:", state.nametable);
-    } else {
-      setIsGrigTables(false);
-    } 
+
+  // (opcional) controle de carregamento/erro do grid
+  const [gridLoading, setGridLoading] = React.useState(false);
+  const [gridError, setGridError] = React.useState<string | null>(null);
+
+  // -------------------------
+  // REGRAS DO FLUXO
+  // grid só abre quando:
+  // - existe nametable selecionada
+  // - E o usuário clicou no botão da tabela (aqui inferimos isso pelos flags de manutenção TRUE)
+  // -------------------------
+  const hasTableSelected = React.useMemo(() => {
+    return !!state.nametable && String(state.nametable).trim() !== "";
   }, [state.nametable]);
+
+  const hasOpenIntent = React.useMemo(() => {
+    // quando você clica no botão com nome da tabela, o BarMenuConfig liga esses flags.
+    // isso vira o “gatilho” correto para abrir o grid.
+    return !!(state.inctable || state.alttable || state.exctable || state.reltable);
+  }, [state.inctable, state.alttable, state.exctable, state.reltable]);
+
+  // -------------------------
+  // PLUGAR AQUI O FETCH REAL
+  // Esta função deve:
+  // - verificar se a tabela existe (ou se backend retornou 404/erro)
+  // - trazer registros (com filtro state.filttable se houver)
+  // - se não existir: setNotTables(true)
+  // - se existir e não tiver registros: setNotRegsTable(true)
+  // - se tiver registros: renderiza grid (você vai colocar componente do grid no JSX)
+
+  // -------------------------
+  type GridRow = Record<string, unknown>;
+  interface LoadTableResult {
+    exists: boolean;
+    rows: GridRow[];
+  }
+
+  const loadTable = React.useCallback(async (): Promise<void> => {
+    if (!hasTableSelected || !hasOpenIntent) return;
+
+    setGridLoading(true);
+    setGridError(null);
+    setNotTables(false);
+    setNotRegsTable(false);
+
+    try {
+      // TODO: substituir pela chamada real:
+      // const result = await fetchTableRows(state.nametable, state.filttable)
+      const result: LoadTableResult = {
+        exists: true,
+        rows: [],
+      };
+
+      if (!result.exists) {
+        setIsGrigTables(false);
+        setMessageBottom(`Tabela em Uso: ${state.nametable} inexistente.`);
+        setNotTables(true);
+        return;
+      }
+
+      setIsGrigTables(true);
+      setMessageBottom(`Tabela em Uso: ${state.nametable}`);
+
+      if (result.rows.length === 0) {
+        setNotRegsTable(true);
+      }
+
+      // TODO: guardar as linhas para o grid
+      // setGridRows(result.rows);
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "Erro ao carregar tabela.";
+      setIsGrigTables(false);
+      setGridError(message);
+      setMessageBottom(`Erro ao carregar: ${state.nametable}`);
+      setNotTables(true);
+    } finally {
+      setGridLoading(false);
+    }
+  }, [hasTableSelected, hasOpenIntent, state.nametable]);
+
+  React.useEffect(() => {
+    if (!hasTableSelected || !hasOpenIntent) {
+      setIsGrigTables(false);
+      setNotTables(false);
+      setNotRegsTable(false);
+      setGridError(null);
+
+      if (!hasTableSelected) setMessageBottom("Aguardando Seleção...");
+      return;
+    }
+
+    void loadTable();
+  }, [hasTableSelected, hasOpenIntent, loadTable]);
+
   
   return (
     <ThemeProvider theme={theme}>
@@ -118,8 +211,12 @@ const Config: React.FC = () => {
             {isgridtable ? <DivisionPgHztal/>: null}
             
             {isgridtable ? (
-              <h2>aqui entra o Main grid</h2>
-            ): null}
+            <>
+              {gridLoading ? <h2>Carregando grid...</h2> : null}
+              {gridError ? <h2>{gridError}</h2> : null}
+              {!gridLoading && !gridError ? <h2>aqui entra o Main grid</h2> : null}
+            </>
+          ) : null}
            
             <DivisionPgHztal/>
         
@@ -192,14 +289,43 @@ const Config: React.FC = () => {
                   onclickimg={() => setNotTables(false)}
                 />
                 <form>
-                  <p> ⛔ Tabela inacessível...</p>
                   <br />
-                  <p> ACESSO SISTEMA INOPERANTE.</p>
+                  <p> ⛔ Tabela Ineistênte ou inacessível...</p>
+                  <br />
                 </form>
                 <AutoCloseTimer onClose={() => setNotTables(false)} seconds={5} />
               </PageModal>
             ) : null}
-          
+
+            {notregstable ? (
+              <PageModal
+                ptop={'10%'}
+                pwidth={'70%'}
+                pheight={'50%'}
+                imgbm={btn_qclose}
+                titbm="Fechar..."
+                titulo="Tabela Ativa..."
+                onclose={() => setNotTables(false)}
+              >
+                <CardImgNeg
+                  imgcard={pnl_negado}
+                  pminheight={'120px'}
+                  pwidth={'120px'}
+                  onclickimg={() => setNotRegsTable(false)}
+                />
+                <form>
+                  <br />
+                  <p>⚠️ {state.nametable} sem registros.</p>
+                  <br />
+                  <p> Podendo ser Manipulada.</p>
+                  <br />
+
+                </form>
+                <AutoCloseTimer onClose={() => setNotRegsTable(false)} seconds={5} />
+              </PageModal>
+            ) : null}
+
+
           </ContentCardPageMain>
         
       </LayoutConfig>
