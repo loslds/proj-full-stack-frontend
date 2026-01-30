@@ -624,35 +624,7 @@ const Home: React.FC = () => {
           </PageModal>
         ) : null}
 
-
-
-{/* 
-        {nottables ? (
-          <PageModal
-            ptop={'10%'}
-            pwidth={'70%'}
-            pheight={'50%'}
-            imgbm={btn_qclose}
-            titbm="Fechar..."
-            titulo={'Acesso Negado'}
-            onclose={() => setNotTables(false)}
-          >
-            <CardImgNeg
-              imgcard={pnl_negado}
-              pminheight={'120px'}
-              pwidth={'120px'}
-              onclickimg={() => setNotTables(false)}
-            />
-            <form>
-              <p> ⛔ Tabela inacessível...</p>
-              <br />
-              <p> ACESSO SISTEMA INOPERANTE.</p>
-            </form>
-            <AutoCloseTimer onClose={() => setNotTables(false)} seconds={5} />
-          </PageModal>
-        ) : null}
- */}
-        <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
+      <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
 
       </LayoutHome>
     </ThemeProvider>

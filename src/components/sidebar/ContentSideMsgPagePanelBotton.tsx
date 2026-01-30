@@ -17,7 +17,7 @@ export const ContentSideMsgPagePanelBotton = ({
   return (
     <Pg.ContainerMsgSidePanelBottonText bordas={bordas} >
       <label>{label}</label>
-      <h3>{msg}</h3>
+      {msg ? <h3>{msg}</h3> : null}
       {children}
     </Pg.ContainerMsgSidePanelBottonText>
   );

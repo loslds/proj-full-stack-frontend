@@ -65,8 +65,9 @@ export const Content = styled.div`
   top: 0px;
   left: 0px;
   z-index: 1000;
-  color: white;
-  background-color: rgba(0,0,0,0.2);
+  color: ${props => props.theme.colors.textColor};
+  background-color: transparent;
+  //rgba(0,0,0,0.2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,23 +107,25 @@ interface PropsContainerModal {
   onClick?: () => void;
 };
 export const ContainerModal = styled.div<PropsContainerModal>`
-  border: 3px double #727272;
+  border: 3px; 
+  border-style: double; 
+  border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 8px 10px 8px 10px;
-  color: ${props => props.theme.colors.textColor};
   top: ${({ ptop }) => ptop ||'62px'};
   position: fixed;
   width: ${({ pwidth }) => pwidth || '66.3%'};
   height: ${({ pheight }) => pheight || '85%'};
   min-height: auto;
   overflow-y: auto;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
   display: flex row;
   flex-wrap: nowrap;
   flex-direction: center;
   justify-content: center;
   align-items: center;
-  background-color: #fcfceb;
 `;
 //*
 // content card modal
@@ -135,7 +138,6 @@ export const ContainerCard = styled.div<PropsContainerCard>`
   margin: 0px 0px 0px 0px;
   width: 100%;
   min-height: 30px;
-  background-color: #e3e3e3;
   display: flex;
   flex-flow: wrap;
   justify-content: center;
@@ -144,21 +146,23 @@ export const ContainerCard = styled.div<PropsContainerCard>`
   font-size: 16px;
   font-style: normal;
   color: ${props => props.theme.colors.textColor};
+  background-color: #999999;
 `;
 //*
 export const ContainerCardFlex = styled.div`
   border: 3px silver groove ;
   height: 100%;
   width: 100%;
-  padding: 0px 0px 0px 10px;
+  padding: 3px 0px 0px 10px;
   margin: 0px 0px 0px 0px;
-  background-color: transparent; //* black;*/
+  
   display: flex;
   flex-flow: wrap;
   flex-wrap: wrap;
   justify-content: space-between; /*space-around;*/
   align-content: center;
   //align-items: center;
+  background-color: transparent; //* black;*/
   color: ${props => props.theme.colors.textColor};
 `;
 interface PropsContainerCardFlexWidth {
@@ -222,6 +226,7 @@ export const ContainerModalTitle = styled.div`
   align-items: center;
   align-content: center;
   color: ${props => props.theme.colors.textColor};
+  background-color: transparent;
 `;
 //*
 ///////////////// fim CardModal

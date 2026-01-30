@@ -133,25 +133,25 @@ export const BarMenuConfig: React.FC = () => {
         {/* <ContentSBButtonItemMenu> */}
           <ContentSBItensButtonOnOff open={true}>
             <S.ButtomSBButtonItem isborder title="Inclusão Reg...">
-              <label>Inclusão.</label>
+              <label>Incluir.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
 
           <ContentSBItensButtonOnOff open={true}>
             <S.ButtomSBButtonItem isborder title="Alteração Reg...">
-              <label>Alteração.</label>
+              <label>Alterar.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
 
           <ContentSBItensButtonOnOff open={true}>
             <S.ButtomSBButtonItem isborder title="Exclusão Reg...">
-              <label>Exclusão.</label>
+              <label>Excluir.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
 
           <ContentSBItensButtonOnOff open={true}>
             <S.ButtomSBButtonItem isborder title="Listagem Reg...">
-              <label>Listagem.</label>
+              <label>Listar.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
         {/* </ContentSBButtonItemMenu> */}

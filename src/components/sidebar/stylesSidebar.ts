@@ -6,7 +6,7 @@ import React from 'react';
 export const ContainerSBMain = styled.div`
   //border: 2px solid red;
   //border: none;
-  margin: 5x 5px 5px 5px;
+  margin: 5x 0px 5px 0px;
   padding: 0px 0px 0px 0px;
   min-height: 45px;
   display: flex;
@@ -685,33 +685,25 @@ export const ButtonDropdown = styled.button`
     border-color: #fc0303;
   }
 `;
-
+/////////////////////////////////////
 interface PropsMenuSB {
   open: boolean;
 }
-
 export const ContainerMenuSB = styled.div<PropsMenuSB>`
-  /* border: 1px gree solid;
-  border-radius: 5px;
-  margin: 2px 5px 2px 5px; */
-  color: ${(props) => props.theme.colors.textColor};
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
-
+  padding: 10px 2x 10px 2px;
   min-height: 50px;
-  background-color: transparent;
-
   border-left: 2px solid #ccc;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
-  padding: 10px 2x 10px 2px;
-  transition: transform 0.3s ease-in-out;
+  color: ${(props) => props.theme.colors.textColor};
+  background-color: transparent;
+  display: ${(props) => (props.open ? "block" : "none")};
   font-size: 20px;
   line-height: 22px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  transition: transform 0.3s ease-in-out;
   transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
-  display: ${(props) => (props.open ? "block" : "none")};
 `;
-
 /////////////////////////////////////
 
 

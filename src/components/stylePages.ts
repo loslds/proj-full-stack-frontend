@@ -949,7 +949,7 @@ export const ContainerCustonButton = styled.div<PropsContainerCustonButton>`
    }
 `;
 ////////////////////////////////////////////////////////
-// inicio
+// main apos sidebar
 // ContentCardPage -> {ContainerCardPage,ContainerCardPageFlex}
 /////////////////////////////////////////////////////////
 export const ContainerCardPage = styled.div`
@@ -969,26 +969,23 @@ interface PropsContainerCardMainFlex {
   pwidth? : string;
 };
 export const ContainerCardPageFlex = styled.div<PropsContainerCardMainFlex>`
-  border: 1px solid; 
-  border-radius: 10px;
-  border-color: ${props => props.theme.colors.textColor};
+  border: none; 
   padding: 0px 0px 0px 0px;
   margin: 2px 0px 2px 0px;
-  width: ${({ pwidth }) => pwidth || '65%'};
+  width: ${({ pwidth }) => pwidth || '100%'};
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: center;
-`;
-////////////////////////////////////////////////////////
+`;////////////////////////////////////////////////////////
 // fim ContentCardPage
 // inicio ContentCardPageTitle -> ContainerCardPageTitle
 /////////////////////////////////////////////////////////
 export const ContainerCardPageTitle = styled.div`
-  border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
+  border: 3px; //none;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom: 3px double;
@@ -1003,9 +1000,80 @@ export const ContainerCardPageTitle = styled.div`
   align-items: center;
   align-content: center;
 `;
+////////////////////////////////////////////////////////
+// main apos sidebar
+// ContentCardMainGrig -> {ContainerCardMainGrid,ContainerCardMainGrigFlex}
+/////////////////////////////////////////////////////////
+export const ContainerCardMaiGrid = styled.div`
+  //border: none;
+  border: none; 
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  min-height: 20px;
+  display: flex;
+  flex-flow: column;
+  //flex-wrap: nowrap;
+  //justify-content: space-between;
+  gap: 12;
+  //align-content: center;
+  //justify-content: center;
+  color: ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+`;
+interface PropsContainerCardMainFlexGrid {
+  pwidth? : string;
+};
+export const ContainerCardMainFlexGrig = styled.div<PropsContainerCardMainFlexGrid>`
+  border: 3px;
+  border-style: double;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 10px;
+  padding: 0px 0px 0px 0px;
+  margin: 3px 10px 3px 5px;
+  width: ${({ pwidth }) => pwidth || '99%'};
+  display: flex;
+  justify-content: space-between;
+  gap: 12;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  //flex-wrap: nowrap;
+  //flex-flow: column;
+  //align-content: center;
+`;
+// fim do painel grid
+////////////////////////////////////////////////////////
+export const ContainerMainTitle = styled.div`
+  border-bottom: 3px;
+  border-style: double;
+  border-color: ${props => props.theme.colors.textColor};
+  border-top: none;
+  border-top-left-radius: 8px;
+  border-left: none;
+  border-top-right-radius: 8px;
+  border-right: none;
+  
+  
+  background-color: #bbbbbb;
+  padding: 0px 0px 0px 0px;
+  margin: -10px 0px 0px 0px;
+  min-height: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
+
+
+
+
 // inicio ContentCardPageLabel -> ContainerCardPageLabel
 /////////////////////////////////////////////////////////
-export const ContainerCardPageLabel = styled.div`
+export const ContainerCardMPageLabel = styled.div`
   border: 1px solid red;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
@@ -1434,6 +1502,49 @@ interface PropsContainerPanelHlpFlex {
   justify-content: center;
   align-items: center;
   align-content: center;
+  
+
 `;
   
+/////////////////////////////////
+
+interface PropsContainerMainPage {
+  open?: boolean;
+  pwidth? : string;
+}
+export const ContainerMainPage = styled.div<PropsContainerMainPage>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  min-width: ${({ pwidth }) => pwidth || '28%'};
+  display: ${({open}) => open ? 'flex' : 'none' };
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+interface PropsContainerMainPageFlex {
+  bordas?: string;
+  }
+  export const ContainerMainlPageFlex = styled.div<PropsContainerPanelPageFlex>`
+    padding: 10px 0px 10px 0px;
+    margin: 5px 0px 5px 0px;
+    
+    width: 100%;
+    min-height: 40px;
+
+    border: ${({ bordas }) => bordas || '3px'};
+    border-style: double;
+    border-radius: 10px;
+    border-color: ${props => props.theme.colors.textColor};
+    background-color: #ecf200;;
+    
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  `;
 

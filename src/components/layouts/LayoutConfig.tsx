@@ -83,9 +83,6 @@ const LayoutConfig = ({
       <Pg.ContainerBody>
         <Pg.ContainerPage>
           <Pg.ContainerPage>
-            {/* <BarSideMenuPage /> */}
-            {/* <BarSideMenuDados open={open} />  
-            <Pg.DivisionPgHztal />*/}
             {children}
           </Pg.ContainerPage>
         </Pg.ContainerPage>
