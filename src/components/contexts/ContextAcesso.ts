@@ -9,6 +9,7 @@ export type StateAcesso = {
   chvkey: boolean | null;
   logado: boolean | null;
   auth: string | null;
+  auth_admin: string | null;
   aplicacao: string | null;
   id_modulo: number;
   modulo: string | null;
@@ -71,6 +72,7 @@ export const initialData: StateAcesso = {
   chvkey: false,
   logado: false,
   auth: '',
+  auth_admin: '',
   aplicacao: '',
   id_modulo: 0,
   modulo: '',
@@ -133,6 +135,7 @@ export enum UseAcessoActions {
   set_CHVKEY,
   set_LOGADO,
   set_AUTH,
+  set_AUTH_ADMIN,
   set_APLICACAO,
   set_ID_MODULO,
   set_MODULO,
@@ -194,6 +197,7 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_CHVKEY; payload: boolean | null }
   | { type: UseAcessoActions.set_LOGADO; payload: boolean | null }
   | { type: UseAcessoActions.set_AUTH; payload: string | null }
+  | { type: UseAcessoActions.set_AUTH_ADMIN; payload: string | null }
   | { type: UseAcessoActions.set_APLICACAO; payload: string }
   | { type: UseAcessoActions.set_ID_MODULO; payload: number }
   | { type: UseAcessoActions.set_MODULO; payload: string }
@@ -256,6 +260,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_CHVKEY: return { ...state, chvkey: action.payload };
     case UseAcessoActions.set_LOGADO: return { ...state, logado: action.payload };
     case UseAcessoActions.set_AUTH: return { ...state, auth: action.payload };
+    case UseAcessoActions.set_AUTH_ADMIN: return { ...state, auth_admin: action.payload };
     case UseAcessoActions.set_APLICACAO: return { ...state, aplicacao: action.payload };
     case UseAcessoActions.set_ID_NIVEL: return { ...state, id_nivel: action.payload };
     case UseAcessoActions.set_ACAO: return { ...state, acao: action.payload };

@@ -17,6 +17,8 @@ interface PropsLayoutHome {
   imgbtnresg?: string;
   titbtnresg?: string;
   onclickresg?: () => void;
+
+  mstonoff?: boolean;
   imgbtnmst?: string;
   titbtnmst?: string;
   onclickmst?: () => void;
@@ -41,6 +43,7 @@ const LayoutHome = ({
   imgbtnresg,
   titbtnresg,
   onclickresg,
+  mstonoff,
   imgbtnmst,
   titbtnmst,
   onclickmst,
@@ -66,6 +69,7 @@ const LayoutHome = ({
         imgbtnresg={imgbtnresg}
         titbtnresg={titbtnresg}
         onclickresg={onclickresg}
+        mstonoff={mstonoff}
         imgbtnmst={imgbtnmst}
         titbtnmst={titbtnmst}
         onclickmst={onclickmst}

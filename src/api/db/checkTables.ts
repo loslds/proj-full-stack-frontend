@@ -1,6 +1,6 @@
  
 // C:\repository\proj-full-stack-frontend\src\api\db\checkTables.ts
-import api from "./api"; // importa da mesma pasta
+import api from "../api"; // importa da mesma pasta
 import { requiredTables } from './tables';
 export interface CheckTablesResponse {
   success: boolean;

@@ -12,6 +12,8 @@ import { ContentHeaderButtonResgate } from '../ContentHeaderButtonResgate';
 import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
 
 interface PropsHearderHome {
+  mstonoff?: boolean;
+
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
@@ -39,6 +41,9 @@ interface PropsHearderHome {
   children?: React.ReactNode;
 }
 const HearderHome = ({
+
+  mstonoff,
+
   imgsys,
   titbtnsys,
   onclicksys,
@@ -98,6 +103,7 @@ const HearderHome = ({
             onClickresg={onclickresg}
           />
           <ContentHeaderButtonMaster
+            mstonoff={mstonoff}
             imgbtnmst={imgbtnmst}
             titbtnmst={titbtnmst}
             onClickmst={onclickmst}

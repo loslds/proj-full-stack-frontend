@@ -1,6 +1,6 @@
  
 // C:\repository\proj-full-stack-frontend\src\api\db\init.ts
-import api from "./api"; // ajustei o caminho para subir um nível (saindo de db)
+import api from "../api"; // ajustei o caminho para subir um nível (saindo de db)
 
 export interface InitStep {
   message: string;

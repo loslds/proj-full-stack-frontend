@@ -1,6 +1,6 @@
 
 // C:\repository\proj-full-stack-frontend\src\api\db\checkConnection.ts
-import api from "./api";
+import api from "../api";
 
 export const checkConnection = async () => {
   try {

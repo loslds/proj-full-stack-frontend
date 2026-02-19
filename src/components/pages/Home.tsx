@@ -58,9 +58,11 @@ const Home: React.FC = () => {
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
+  
   const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
   const [isabortachvkey, setIsAbortaChvkey] = React.useState(false);
   const [messagebottom, setMessageBottom] = React.useState('');
+  const [chavemst, setChaveMst ] = React.useState(false);
 
   // Mantidos (você usa para sinalizar alguns fluxos), mas agora SEM travar Home
   const [showInitSystem, setInitShowSystem] = React.useState(false);
@@ -192,6 +194,9 @@ const Home: React.FC = () => {
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
 
   React.useEffect(() => {
+    if (state.chvkey) {
+      setChaveMst(!!state.chvkey);
+    }
     console.log("[HOME] chvkey mudou:", state.chvkey);
   }, [state.chvkey]);
 
@@ -250,6 +255,7 @@ const Home: React.FC = () => {
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
+        
         imgbtnresg={btn_resgatar}
         titbtnresg="Resgatar Acesso..."
         onclickresg={() => {
@@ -260,6 +266,8 @@ const Home: React.FC = () => {
             setMsgPanelBottom('Sistema Inoperante!');
           }
         }}
+
+        mstonoff={chavemst}
         imgbtnmst={btn_master}
         titbtnmst="Segurança..."
         onclickmst={() => {

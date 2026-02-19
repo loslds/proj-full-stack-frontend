@@ -1527,7 +1527,7 @@ export const ContainerMainPage = styled.div<PropsContainerMainPage>`
 interface PropsContainerMainPageFlex {
   bordas?: string;
   }
-  export const ContainerMainlPageFlex = styled.div<PropsContainerPanelPageFlex>`
+  export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
     padding: 10px 0px 10px 0px;
     margin: 5px 0px 5px 0px;
     
