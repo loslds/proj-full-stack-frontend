@@ -138,27 +138,51 @@ export const ContainerHeaderButton = styled.div`
    }
 `;
 
-// Conteiner de botões das paginas Header Right
+// Conteiner de botões das paginas Header Botão Logoff Master Right
 interface PropsContainerHeaderButtonMaster {
   mstonoff?: boolean;
 }
-export const ContainerHeaderButtonMaster = styled.div<PropsContainerHeaderButtonMaster>`
+
+export const ContainerHeaderButtonMaster = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "mstonoff",
+})<PropsContainerHeaderButtonMaster>`
   border: none;
-  border-color: ${props => props.theme.colors.textColor};
+  border-color: ${(props) => props.theme.colors.textColor};
   border-radius: 5px;
-  padding: 0px 0px 0px 0px;
-  margin: 2px 2px 2px 2px;
+  padding: 0px;
+  margin: 2px;
   min-height: 40px;
-  display: ${({mstonoff}) => mstonoff ? 'flex' : 'none' };
+
+  display: ${({ mstonoff }) => (mstonoff ? "flex" : "none")};
+
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
-  color:  ${props => props.theme.colors.textColor};
+  color: ${(props) => props.theme.colors.textColor};
+
   &:hover {
     background-color: #e4e4e4;
-   }
+  }
 `;
+
+// export const ContainerHeaderButtonMaster = styled.div<PropsContainerHeaderButtonMaster>`
+//   border: none;
+//   border-color: ${props => props.theme.colors.textColor};
+//   border-radius: 5px;
+//   padding: 0px 0px 0px 0px;
+//   margin: 2px 2px 2px 2px;
+//   min-height: 40px;
+//   display: ${({ mstonoff }) => mstonoff ? "flex" : "none"};
+//   flex-wrap: wrap;
+//   justify-content: center;
+//   align-items: center;
+//   align-content: center;
+//   color:  ${props => props.theme.colors.textColor};
+//   &:hover {
+//     background-color: #e4e4e4;
+//    }
+// `;
 
 
 // Botões das paginas com Imagens

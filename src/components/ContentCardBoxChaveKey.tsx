@@ -5,7 +5,7 @@ interface PropsContentCardBoxChaveKey {
   pwidth?: string;
   p1width? : string;
   p1height? : string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 }
 
 export const ContentCardBoxChaveKey = ({

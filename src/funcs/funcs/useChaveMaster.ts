@@ -1,4 +1,5 @@
 
+
 // C:\repository\proj-full-stack-frontend\src\funcs\funcs\useChaveMaster.ts
 import React from "react";
 
@@ -7,17 +8,11 @@ type KeyMatcher = (e: KeyboardEvent) => boolean;
 export type UseChaveMasterOptions = {
   enabled: boolean;
   blocked?: boolean;
-
-  // Default: Shift + Delete (com fallback Backspace)
   hotkey?: KeyMatcher;
-
   validateKey: (key: string) => boolean;
-
   maxKeyFails?: number;
   timeoutSeconds?: number;
-
   onResult?: (ok: boolean) => void;
-
   debug?: boolean;
 };
 
@@ -26,14 +21,22 @@ export type UseChaveMasterReturn = {
   keyValue: string;
   setKeyValue: (v: string) => void;
   fails: number;
+
   submit: () => void;
+
   close: () => void;
   reset: () => void;
+
+  closeAfter: (ms: number) => void;
+
+  locked: boolean;
+  setLocked: (v: boolean) => void;
+
+  // ✅ contador para UI
+  secondsLeft: number | null;
 };
 
 export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterReturn {
-  console.log("[CM] hook executado");
-
   const {
     enabled,
     blocked = false,
@@ -45,7 +48,7 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
         e.code === "Backspace"),
     validateKey,
     maxKeyFails = 5,
-    timeoutSeconds,
+    timeoutSeconds = 30,
     onResult,
     debug = false,
   } = opts;
@@ -53,8 +56,10 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
   const [open, setOpen] = React.useState(false);
   const [keyValue, setKeyValueState] = React.useState("");
   const [fails, setFails] = React.useState(0);
+  const [locked, setLockedState] = React.useState(false);
+  const [secondsLeft, setSecondsLeft] = React.useState<number | null>(null);
 
-  // ---- refs (evitar closures antigas no listener global) ----
+  // refs
   const enabledRef = React.useRef(enabled);
   const blockedRef = React.useRef(blocked);
   const hotkeyRef = React.useRef(hotkey);
@@ -66,6 +71,7 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
   const openRef = React.useRef(open);
   const keyRef = React.useRef(keyValue);
   const failsRef = React.useRef(fails);
+  const lockedRef = React.useRef(locked);
 
   React.useEffect(() => void (enabledRef.current = enabled), [enabled]);
   React.useEffect(() => void (blockedRef.current = blocked), [blocked]);
@@ -78,32 +84,52 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
   React.useEffect(() => void (openRef.current = open), [open]);
   React.useEffect(() => void (keyRef.current = keyValue), [keyValue]);
   React.useEffect(() => void (failsRef.current = fails), [fails]);
+  React.useEffect(() => void (lockedRef.current = locked), [locked]);
+
+  const closeTimerRef = React.useRef<number | null>(null);
+
+  const clearCloseTimer = React.useCallback(() => {
+    if (closeTimerRef.current != null) {
+      window.clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
 
   const setKeyValue = React.useCallback((v: string) => {
     setKeyValueState(v);
   }, []);
 
-  const reset = React.useCallback(() => {
-    setKeyValueState("");
-    setFails(0);
+  const setLocked = React.useCallback((v: boolean) => {
+    setLockedState(v);
   }, []);
 
+  const reset = React.useCallback(() => {
+    clearCloseTimer();
+    setKeyValueState("");
+    setFails(0);
+    setLockedState(false);
+    setSecondsLeft(null);
+  }, [clearCloseTimer]);
+
   const close = React.useCallback(() => {
+    clearCloseTimer();
     setOpen(false);
     reset();
-  }, [reset]);
+  }, [clearCloseTimer, reset]);
 
-  const finish = React.useCallback(
-    (ok: boolean) => {
-      setOpen(false);
-      reset();
-      onResultRef.current?.(ok);
+  const closeAfter = React.useCallback(
+    (ms: number) => {
+      clearCloseTimer();
+      const safeMs = Math.max(0, ms | 0);
+      closeTimerRef.current = window.setTimeout(() => close(), safeMs);
     },
-    [reset]
+    [clearCloseTimer, close]
   );
 
   const submit = React.useCallback(() => {
-    const currentKey = keyRef.current;
+    if (lockedRef.current) return;
+
+    const currentKey = keyRef.current.trim();
     if (!currentKey) return;
 
     const ok = validateRef.current(currentKey);
@@ -118,64 +144,71 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
     }
 
     if (ok) {
-      finish(true);
+      // ✅ trava para evitar submit repetido; overlay decide fechar depois do backend
+      setLockedState(true);
+      onResultRef.current?.(true);
       return;
     }
 
     setFails((prev) => {
       const next = prev + 1;
-      if (next >= maxFailsRef.current) finish(false);
+      if (next >= maxFailsRef.current) {
+        setOpen(false);
+        reset();
+        onResultRef.current?.(false);
+      }
       return next;
     });
 
     setKeyValueState("");
-  }, [finish, debug]);
+    onResultRef.current?.(false);
+  }, [debug, reset]);
 
-  // ⏱ timeout: reinicia sempre que abre
+  // ⏱ contador + timeout real
   React.useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setSecondsLeft(null);
+      return;
+    }
 
     const secs = timeoutRef.current;
-    if (!secs || secs <= 0) return;
+    if (!secs || secs <= 0) {
+      setSecondsLeft(null);
+      return;
+    }
+
+    setSecondsLeft(secs);
 
     if (debug) console.log("[CM] timeout start", secs);
 
-    const t = window.setTimeout(() => {
-      if (debug) console.log("[CM] timeout fired");
-      finish(false);
-    }, secs * 1000);
+    const interval = window.setInterval(() => {
+      setSecondsLeft((prev) => {
+        if (prev == null) return prev;
+        // ✅ se já enviou/validou e travou (locked=true), PARA o contador
+        // (o fechamento pós-sucesso fica por conta do overlay via closeAfter)
+        if (lockedRef.current) return prev;
+        const next = prev - 1;
+        if (next <= 0) {
+          window.clearInterval(interval);
+          setOpen(false);
+          reset();
+          onResultRef.current?.(false);
+          return 0;
+        }
+        return next;
+        });
+      }, 1000);
 
-    return () => window.clearTimeout(t);
-  }, [open, finish, debug]);
+    return () => window.clearInterval(interval);
+
+  }, [open, reset, debug]);
 
   // ⌨️ listener global
   React.useEffect(() => {
-    if (debug) console.log("[CM] instalando keydown listener");
-
     const onKeyDown = (e: KeyboardEvent) => {
-      if (debug) {
-        console.log("[CM] keydown", {
-          key: e.key,
-          code: e.code,
-          shift: e.shiftKey,
-          ctrl: e.ctrlKey,
-          alt: e.altKey,
-          enabled: enabledRef.current,
-          blocked: blockedRef.current,
-          open: openRef.current,
-        });
-      }
-
       if (!enabledRef.current) return;
+      if (blockedRef.current) return;
 
-      if (blockedRef.current) {
-        if (debug && hotkeyRef.current(e)) {
-          console.log("[CM] blocked -> hotkey ignorada");
-        }
-        return;
-      }
-
-      // ESC fecha se estiver aberto
       if (e.key === "Escape") {
         if (openRef.current) {
           e.preventDefault();
@@ -184,36 +217,27 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
         return;
       }
 
-      // hotkey abre/fecha
       if (hotkeyRef.current(e)) {
-        if (debug) console.log("[CM] HOTKEY DETECTADA -> toggle overlay");
         e.preventDefault();
         setOpen((prev) => {
           const next = !prev;
-          if (debug) console.log("[CM] overlay open =", next);
           if (next) reset();
           return next;
         });
         return;
       }
 
-      // Enter confirma somente se aberto
       if (e.key === "Enter") {
-        if (openRef.current) {
+        if (openRef.current && !lockedRef.current) {
           e.preventDefault();
           submit();
         }
       }
     };
 
-    // capture=true para pegar mesmo com foco em input/rotas
     window.addEventListener("keydown", onKeyDown, true);
-
-    return () => {
-      if (debug) console.log("[CM] removendo keydown listener");
-      window.removeEventListener("keydown", onKeyDown, true);
-    };
-  }, [close, reset, submit, debug]);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [close, reset, submit]);
 
   return {
     open,
@@ -223,5 +247,10 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
     submit,
     close,
     reset,
+    closeAfter,
+    locked,
+    setLocked,
+    secondsLeft,
   };
 }
+

@@ -1,4 +1,5 @@
 
+// C:\repository\proj-full-stack-frontend\src\components\hearders\ContentHeaderButtonMaster.tsx
 import * as H from './styledHeader';
 
 interface PropsContentHeaderButtonMaster {
@@ -14,7 +15,7 @@ export const ContentHeaderButtonMaster = ({
   onClickmst,
 }: PropsContentHeaderButtonMaster) => {
   return (
-    <H.ContainerHeaderButtonMaster mstonoff={mstonoff}>
+    <H.ContainerHeaderButtonMaster mstonoff={mstonoff ?? false}>
       <H.ButtonHeaderImg
         img={imgbtnmst}
         title={titbtnmst}
@@ -23,3 +24,4 @@ export const ContentHeaderButtonMaster = ({
     </H.ContainerHeaderButtonMaster>
   );
 };
+

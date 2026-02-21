@@ -203,7 +203,7 @@ export const ContainerHeaderButton = styled.div`
 `;
 // Botão HEADER Imagem Right
 interface PropsButtonHeaderImg {
-  img?: string;
+  $img?: string;
 }
 export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   border: none;
@@ -213,7 +213,7 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${(props) => props.$img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -227,6 +227,8 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   align-items: center;
 `;
 ///////////container do swith/////////////////////
+//   background-image: url(${({ $img }) => $img || semimg});
+
 // interface proprio do switch
 /////////////////////////////////////////////
 

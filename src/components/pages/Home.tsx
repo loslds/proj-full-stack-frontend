@@ -168,6 +168,8 @@ const Home: React.FC = () => {
     return;
   }
 
+  console.log("[HOME0] chvkey =", state.chvkey);
+
   // ✅ 3) Sistema iniciou, mas DB não pronto
   if (!state.chkdb) {
     setShowSystemCheckModal(true);
@@ -182,6 +184,8 @@ const Home: React.FC = () => {
     return;
   }
 
+  console.log("[HOME1] chvkey =", state.chvkey);
+
   // ✅ 5) Sem login e sem master
   dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
   dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
@@ -193,13 +197,16 @@ const Home: React.FC = () => {
   setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
 
-  React.useEffect(() => {
-    if (state.chvkey) {
-      setChaveMst(!!state.chvkey);
-    }
-    console.log("[HOME] chvkey mudou:", state.chvkey);
-  }, [state.chvkey]);
 
+React.useEffect(() => {
+  console.log("[HOME2] chvkey =", state.chvkey);
+}, [state.chvkey]);
+
+React.useEffect(() => {
+  setChaveMst(Boolean(state.chvkey));
+}, [state.chvkey]);
+
+console.log("[HOME3] chvkey depois:", state.chvkey);
 
   const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
   
@@ -645,3 +652,12 @@ export default Home;
 
 
 
+
+// console.log("[HOME] chvkey antes:", state.chvkey);
+//   React.useEffect(() => {
+//     if (state.chvkey) {
+//       setChaveMst(!!state.chvkey);
+//     }
+//     console.log("[HOME] chvkey mudou:", state.chvkey);
+//   }, [state.chvkey]);
+// console.log("[HOME] chvkey depois:", state.chvkey);
