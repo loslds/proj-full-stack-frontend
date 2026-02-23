@@ -5,11 +5,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { CardModalCenter } from '../modal/CardModalCenter';
-//import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-import { ContentCardCarCollunsFormPage } from '../components/ContentCardCollunsFormPage.tsx';
+     //import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
+import { ContentCardCollunsFormPage } from '@/components/ContentCardCollunsFormPage';
 import { ContentInputMainPage } from '../components/ContentInputMainPage';
 import { ContentSidePageBottonLabel } from '../components/sidebar/ContentSidePageBottonLabel';
-import { ContentSidePageBottonEnabled } from '../components/ContentPageButtonDefImgEnabled.tsx'
+//import { ContentSidePageBottonEnabled } from '../components/ContentPageButtonDefImgEnabled.tsx'
+
 import bt_enviar from '../assets/svgs/bt_enviar.svg';
 
 interface PropsCardKeyMaster {
@@ -51,7 +52,7 @@ export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
 
   return (
     <CardModalCenter>
-      <ContentCardCarCollunsFormPage
+      <ContentCardCollunsFormPage 
         open={true}
         pwidth={'100%'}
         pheight={'35%'}
@@ -90,7 +91,7 @@ export const CardKeyMaster = ({ chave }: PropsCardKeyMaster) => {
           ) : (<p> Aguardando Edição...</p> ) }
 
         </ContentInputMainPage>
-      </ContentCardCarCollunsFormPage>
+      </ContentCardCollunsFormPage>
     </CardModalCenter>
   );
 };

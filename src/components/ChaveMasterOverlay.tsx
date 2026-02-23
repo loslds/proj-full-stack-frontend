@@ -5,7 +5,7 @@ import "./ChaveMasterOverlay.css";
 import styled, { ThemeProvider } from "styled-components";
 
 import light from "../themes/light";
-import { useChaveMaster } from "../funcs/funcs/useChaveMaster";
+import { useChaveMaster } from "./contexts/hooks/useChaveMaster";
 
 import { useAcessoContext, UseAcessoActions } from "./contexts/ContextAcesso";
 
@@ -39,6 +39,9 @@ const CMFormWrapper = styled.div`
   }
 `;
 
+const MAX_SERVER_TRIES = 3;
+
+
 const MAX_FAILS = 5;
 const TIMEOUT_SECONDS = 30;
 const CLOSE_AFTER_SUCCESS_MS = 10_000;
@@ -51,19 +54,13 @@ const ChaveMasterOverlay: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
 
   const hardBlocked = state.logado === true;
-
+  const [serverTries, setServerTries] = React.useState(0);
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [serverInfo, setServerInfo] = React.useState<string | null>(null);
   const [authLoading, setAuthLoading] = React.useState(false);
 
   // chave capturada no submit (evita stale value se o hook limpar)
   const [pendingKey, setPendingKey] = React.useState<string>("");
-
-  const exitMaster = React.useCallback(() => {
-    localStorage.removeItem("token_admin");
-    dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: "" });
-    dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-  }, [dispatch]);
 
   const enterMaster = React.useCallback(
     (tokenAdmin: string) => {
@@ -73,7 +70,7 @@ const ChaveMasterOverlay: React.FC = () => {
       dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true });
       dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
       dispatch({ type: UseAcessoActions.set_ACAO, payload: "VIS/EDI/ALT/EXC" });
-      dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 8 });
+      dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
       dispatch({ type: UseAcessoActions.set_MODULO, payload: "Master" });
     },
     [dispatch]
@@ -101,64 +98,100 @@ const ChaveMasterOverlay: React.FC = () => {
   });
 
   const handleSubmit = React.useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    (e: React.SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
+
       setServerError(null);
       setServerInfo(null);
+
       const k = cm.keyValue.trim();
       setPendingKey(k);
+
       cm.submit();
     },
     [cm]
   );
 
   // ✅ autenticação no backend ocorre aqui (após locked=true)
-  React.useEffect(() => {
-    if (!cm.open) return;
-    if (!cm.locked) return;
-    if (authLoading) return;
-    const keyToSend = pendingKey.trim();
-    if (!minimalLocalValidate(keyToSend)) {
-      cm.setLocked(false);
-      return;
-    }
-    let cancelled = false;
-    (async () => {
-      try {
-        setAuthLoading(true);
-        setServerError(null);
-        setServerInfo("Autenticando no servidor...");
-        const r = await masterLogin(keyToSend);
-        if (cancelled) return;
-        if (!r.success || !r.token) {
-          // garante que NÃO fica “preso” em locked após erro
-          exitMaster();
-          setServerInfo(null);
-          setServerError(r.message ?? "Chave master inválida (servidor).");
-          cm.setLocked(false);
-          return;
-        }
-        // ✅ aplica estado master (dispatch) APENAS aqui (efeito), evitando warning de render
-        enterMaster(r.token);
-        setServerError(null);
-        setServerInfo(`Master ativo. Fechando em ${CLOSE_AFTER_SUCCESS_MS / 1000}s...`);
-        // ✅ fecha em 10s após sucesso (o contador de 30s deve parar quando locked=true no hook)
-        cm.closeAfter(CLOSE_AFTER_SUCCESS_MS);
-      } catch {
-        if (cancelled) return;
-        exitMaster();
-        setServerInfo(null);
-        setServerError("Falha ao autenticar no servidor.");
-        cm.setLocked(false);
-      } finally {
-        if (!cancelled) setAuthLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster, exitMaster]);
+React.useEffect(() => {
+  if (!cm.open) return;
+  if (!cm.locked) return;          // só roda após submit OK local (locked=true)
+  if (authLoading) return;
 
+  const keyToSend = pendingKey.trim();
+
+  // proteção extra
+  if (!minimalLocalValidate(keyToSend)) {
+    setServerInfo(null);
+    setServerError("Chave muito curta.");
+    cm.setLocked(false);
+    return;
+  }
+
+  let cancelled = false;
+
+  (async () => {
+    try {
+      setAuthLoading(true);
+      setServerError(null);
+      setServerInfo("Autenticando no servidor...");
+
+      const r = await masterLogin(keyToSend);
+      if (cancelled) return;
+
+      if (!r.success || !r.token) {
+        // ❗ NÃO chama exitMaster aqui (você ainda nem está master)
+        setServerInfo(null);
+        setServerError(r.message ?? "Chave master inválida (servidor).");
+
+        // conta tentativa (máx 3)
+        setServerTries((prev) => {
+          const next = prev + 1;
+
+          // estourou tentativas: fecha overlay
+          if (next >= MAX_SERVER_TRIES) {
+            cm.close(); // fecha e reseta o hook
+            return 0;   // zera contador de tentativas para próxima vez
+          }
+
+          return next;
+        });
+
+        // libera para tentar novamente (reabre edição)
+        cm.setLocked(false);
+        return;
+      }
+
+      // ✅ sucesso: ativa master no contexto
+      enterMaster(r.token);
+
+      // zera tentativas
+      setServerTries(0);
+
+      setServerError(null);
+      setServerInfo(`Master ativo. Fechando em ${CLOSE_AFTER_SUCCESS_MS / 1000}s...`);
+
+      // ✅ fecha em 10s após sucesso
+      cm.closeAfter(CLOSE_AFTER_SUCCESS_MS);
+    } catch {
+      if (cancelled) return;
+
+      // ❗ não derrube master aqui (apenas erro de rede/servidor)
+      setServerInfo(null);
+      setServerError("Falha ao autenticar no servidor.");
+
+      // libera tentativa novamente (sem consumir tentativa se você preferir)
+      cm.setLocked(false);
+    } finally {
+      if (!cancelled) setAuthLoading(false);
+    }
+  })();
+
+  return () => {
+    cancelled = true;
+  };
+}, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster]);  
+  
   if (!cm.open) return null;
   const inputDisabled = authLoading || cm.locked;
   return (
@@ -186,6 +219,11 @@ const ChaveMasterOverlay: React.FC = () => {
                 <small>
                   Tentativas: {cm.fails} / {MAX_FAILS}
                 </small>
+
+                <small>
+                  Tentativas servidor: {serverTries} / {MAX_SERVER_TRIES}
+                </small>
+
                 {cm.secondsLeft != null ? (
                   <small>Tempo: {cm.secondsLeft}s</small>
                 ) : (

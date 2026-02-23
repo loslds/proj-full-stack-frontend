@@ -60,7 +60,7 @@ const Home: React.FC = () => {
   const [ischeck, setIscheck] = React.useState(false);
   
   const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
-  const [isabortachvkey, setIsAbortaChvkey] = React.useState(false);
+  //const [isabortachvkey, setIsAbortaChvkey] = React.useState(false);
   const [messagebottom, setMessageBottom] = React.useState('');
   const [chavemst, setChaveMst ] = React.useState(false);
 
@@ -86,9 +86,13 @@ const Home: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (state.chvkey) {setIsAbortaChvkey(false); return;}
-    if (state.initsys) return;
+    if (state.chvkey) {
+      setMsgPanelBottom('Acesso "Master" ativo.');
+      setMessageBottom("Aguardando Seleção...");
+      return;
+    }
 
+    if (state.initsys) return;
 
     let cancelled = false;
 
@@ -146,6 +150,7 @@ const Home: React.FC = () => {
 
   // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
   if (state.chvkey) {
+    
     setMsgPanelBottom('Acesso "Master" ativo.');
     setMessageBottom("Aguardando Seleção...");
     return;
@@ -278,7 +283,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
         imgbtnmst={btn_master}
         titbtnmst="Segurança..."
         onclickmst={() => {
-          if (state.chvkey && !isabortachvkey) {
+          if (state.chvkey) {
             setIsMsgChvkey(true);
           } else {
             setNotOperation(true);
@@ -616,6 +621,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             titulo={'Acesso Negado'}
             onclose={() => setIsMsgChvkey(false)}
           >
+            {/** criar um card para mostrar botões sim ou não  */}
             <CardImgNeg
               imgcard={pnl_negado}
               pminheight={'120px'}
@@ -635,7 +641,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
               <br />
               <br />
             </form>
-            <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
+            <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
           </PageModal>
         ) : null}
 
