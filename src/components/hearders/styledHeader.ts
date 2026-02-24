@@ -132,7 +132,7 @@ export const ContainerHeaderButton = styled.div`
   justify-content: center;
   align-items: center;
   align-content: center;
-  color:  ${props => props.theme.colors.textColor};
+  color: ${props => props.theme.colors.textColor};
   &:hover {
     background-color: #e4e4e4;
    }

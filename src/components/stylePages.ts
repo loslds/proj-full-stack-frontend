@@ -30,41 +30,6 @@ export const ButtonCustonImg = styled.button<PropsButtonCustonImg>`
   align-items: center;
 `;
 
-// interface ButtonProps {
-//   bgColor?: string; // Cor de fundo
-//   color?: string;   // Cor do texto
-//   padding?: string; // Espaçamento interno
-//   fontSize?: string; // Tamanho da fonte
-//   borderRadius?: string; // Arredondamento das bordas
-//   pxheight?: string; // Altura-> ou 50px
-//   pxwidth?: string; // lagura
-// }
-// export const Button = styled.button<ButtonProps>`
-//   background-color: ${(props) => props.bgColor || "#007BFF"};
-//   color: ${(props) => props.color || "#000"};
-//   padding: ${(props) => props.padding || "5px 20px 5px 20px"};
-//   margin: ${(props) => props.padding || "5px 5px"};
-//   font-size: ${(props) => props.fontSize || "16px"};
-//   border: none;
-//   border-radius: ${(props) => props.borderRadius || "4px"};
-//   min-height: ${({ pxheight }) => pxheight || '35px'};
-//   width: ${({ pxwidth }) => pxwidth || '35px'};
-//   display: flex;
-//   flex-wrap: wrap;
-//   cursor: pointer;
-//   outline: none;
-//   transition: background-color 0.3s;
-
-//   &:hover {
-//     background-color: ${(props) => props.bgColor ? darken(0.1, props.bgColor) : "#0056b3"};
-//   }
-
-//   &:disabled {
-//     background-color: #ccc;
-//     cursor: not-allowed;
-//   }
-// `;
-
 // containers do conteudo para paginas
 // Conatiner INICIAL
 export const ContainerPg = styled.div`
@@ -524,7 +489,7 @@ export const ContainerCardBoxInputChave = styled.div`
     display: flex;
     //flex-direction: column;
     flex-wrap: wrap;
-        
+     
     justify-content: center;
     align-items: center;
     align-content: center;

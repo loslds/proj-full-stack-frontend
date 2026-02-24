@@ -22,16 +22,20 @@ import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabe
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
 // component para help butom 
-import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
+//import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
+
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
+
+import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
 import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
 import btn_avatar from '../../assets/defaut/avatar/avt_default.svg';
 import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
 import btn_master from '../../assets/defaut/botao/bnt_def_q_master.svg';
+import pnl_master from '../../assets/defaut/painel/pnl_def_ope_esclamacao.svg'
 // img do main painel
 import pnl_mvisitante from '../../assets/defaut/painel/pnl_def_mod_visitantes.svg';
 import pnl_mrecepcao from '../../assets/defaut/painel/pnl_def_mod_recepcao.svg';
@@ -512,15 +516,36 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
 
         {cardlogo ? (
           <PageModal
-            ptop={'1%'}
-            pwidth={'80%'}
-            pheight={'95%'}
+            ptop='330px'
+            pwidth={'400px'}
+            pheight={'40%'}
             imgbm={btn_qclose}
             titbm="Fechar..."
-            titulo={'Home Sistema.'}
+            titulo={'Abortar Master.'}
             onclose={() => setCardLogo(false)}
           >
-            <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} />
+            <CardLogoffMaster
+              pptop='300px'
+              bordas="4px"
+              pxheight="60px"
+              pxwidth="65px"
+              imgpnl={pnl_master}
+              onclickpnl={() => alert("estou aqui...")}
+              txtH1="Confirme opção de Logoff."
+              txtlabel="SIM para Logoff."
+              txtlabel1="NÃO para Abortar."
+              txtp="Aguardando..."
+              seconds={30}
+              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
+              onConfirm={() => {
+    
+              // aqui você chama logoutMaster()
+              // logoutMaster();
+              setCardLogo(false);
+            }}
+            onCancel={() => setCardLogo(false)}
+            onClose={() => setCardLogo(false)}
+          />
           </PageModal>
         ) : null}
 
@@ -618,30 +643,14 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             pheight={'70%'}
             imgbm={btn_qclose}
             titbm="Fechar..."
-            titulo={'Acesso Negado'}
+            titulo={'Logo-Off Master'}
             onclose={() => setIsMsgChvkey(false)}
           >
             {/** criar um card para mostrar botões sim ou não  */}
-            <CardImgNeg
-              imgcard={pnl_negado}
-              pminheight={'120px'}
-              pwidth={'120px'}
-              onclickimg={() => setIsMsgChvkey(false)}
-            />
-            <form>
-              <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
-              <br />
-              <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
-              <br />
-              <p> Clique "SIM" para Descatar Recurso. :  </p>
-                <button onClick={ () => window.location.reload()}>SIM.</button>
-              <br />  
-              <p> Clique "NÂO" para Continuar com Recurso. : </p> 
-                <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
-              <br />
-              <br />
-            </form>
-            <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
+
+
+
+
           </PageModal>
         ) : null}
 
@@ -657,13 +666,70 @@ export default Home;
 ////////////////////////////////////////////////////////
 
 
+        // {cardlogo ? (
+        //   <PageModal
+        //     ptop={'1%'}
+        //     pwidth={'80%'}
+        //     pheight={'95%'}
+        //     imgbm={btn_qclose}
+        //     titbm="Fechar..."
+        //     titulo={'Home Sistema.'}
+        //     onclose={() => setCardLogo(false)}
+        //   >
+        //     <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} /> 
+        //   </PageModal>
+        // ) : null}
 
 
-// console.log("[HOME] chvkey antes:", state.chvkey);
-//   React.useEffect(() => {
-//     if (state.chvkey) {
-//       setChaveMst(!!state.chvkey);
-//     }
-//     console.log("[HOME] chvkey mudou:", state.chvkey);
-//   }, [state.chvkey]);
-// console.log("[HOME] chvkey depois:", state.chvkey);
+        ////////////////////////////////////////////////
+            // <CardImgNeg
+            //   imgcard={pnl_negado}
+            //   pminheight={'120px'}
+            //   pwidth={'120px'}
+            //   onclickimg={() => setIsMsgChvkey(false)}
+            // />
+            // <form>
+            //   <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
+            //   <br />
+            //   <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
+            //   <br />
+            //   <p> Clique "SIM" para Descatar Recurso. :  </p>
+            //     <button onClick={ () => window.location.reload()}>SIM.</button>
+            //   <br />  
+            //   <p> Clique "NÂO" para Continuar com Recurso. : </p> 
+            //     <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
+            //   <br />
+            //   <br />
+            // </form>
+            // <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
+
+
+
+
+
+
+
+
+
+
+            // <CardImgNeg
+            //   imgcard={pnl_negado}
+            //   pminheight={'120px'}
+            //   pwidth={'120px'}
+            //   onclickimg={() => setIsMsgChvkey(false)}
+            // />
+            // <form>
+            //   <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
+            //   <br />
+            //   <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
+            //   <br />
+            //   <p> Clique "SIM" para Descatar Recurso. :  </p>
+            //     <button onClick={ () => window.location.reload()}>SIM.</button>
+            //   <br />  
+            //   <p> Clique "NÂO" para Continuar com Recurso. : </p> 
+            //     <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
+            //   <br />
+            //   <br />
+            // </form>
+            // <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
+

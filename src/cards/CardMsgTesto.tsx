@@ -6,7 +6,7 @@ import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 interface PropsCardMsgTesto {
   imgcardmsg?: string;
   titTxt?: string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
 
 }
 export const CardCardMsgTesto = ({ imgcardmsg, titTxt,children, }: PropsCardMsgTesto) => {
