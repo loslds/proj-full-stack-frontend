@@ -1,4 +1,4 @@
-
+// C:\repository\proj-full-stack-frontend\src\components\ChaveMasterOverlay.tsx
 // C:\repository\proj-full-stack-frontend\src\components\ChaveMasterOverlay.tsx
 import React from "react";
 import "./ChaveMasterOverlay.css";
@@ -40,34 +40,56 @@ const CMFormWrapper = styled.div`
 `;
 
 const MAX_SERVER_TRIES = 3;
-
-
 const MAX_FAILS = 5;
 const TIMEOUT_SECONDS = 30;
 const CLOSE_AFTER_SUCCESS_MS = 10_000;
 
+// validação mínima (UX)
 function minimalLocalValidate(key: string): boolean {
-  return key.trim().length >= 4;
+  const k = key.trim();
+
+  // PIN (4 números)
+  if (/^\d{4}$/.test(k)) return true;
+
+  // DateSecular (8 números)
+  if (/^\d{8}$/.test(k)) return true;
+
+  // String fixa:
+  // - mínimo 4 caracteres
+  // - contém pelo menos 1 letra ou símbolo
+  // - permite letras, números e símbolos seguros
+  if (k.length >= 4 &&
+    /^[A-Za-z0-9@#_><-]+$/.test(k) &&   // ✔ corrigido aqui
+    /[A-Za-z@#_><-]/.test(k)
+  ) {
+    return true;
+  }
+  return false;
 }
+
+
 
 const ChaveMasterOverlay: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
 
   const hardBlocked = state.logado === true;
+
   const [serverTries, setServerTries] = React.useState(0);
   const [serverError, setServerError] = React.useState<string | null>(null);
   const [serverInfo, setServerInfo] = React.useState<string | null>(null);
   const [authLoading, setAuthLoading] = React.useState(false);
 
-  // chave capturada no submit (evita stale value se o hook limpar)
+  // chave capturada no submit (agora confiável)
   const [pendingKey, setPendingKey] = React.useState<string>("");
 
   const enterMaster = React.useCallback(
     (tokenAdmin: string) => {
       localStorage.setItem("token_admin", tokenAdmin);
+
       dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: tokenAdmin });
       dispatch({ type: UseAcessoActions.set_LOGADO, payload: false });
       dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true });
+
       dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
       dispatch({ type: UseAcessoActions.set_ACAO, payload: "VIS/EDI/ALT/EXC" });
       dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
@@ -84,19 +106,19 @@ const ChaveMasterOverlay: React.FC = () => {
     timeoutSeconds: TIMEOUT_SECONDS,
     debug: false,
 
-    // ⚠️ NUNCA faça dispatch aqui (pode disparar durante render em alguns fluxos).
-    // Apenas mensagens locais de UI.
     onResult: (ok: boolean) => {
       if (!ok) {
         setServerInfo(null);
         setServerError("Chave inválida.");
         return;
       }
+
       setServerError(null);
-      setServerInfo("Autenticando no servidor...");
+      setServerInfo("Validando...");
     },
   });
 
+  // ✅ submit único (sem interferência do hook)
   const handleSubmit = React.useCallback(
     (e: React.SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -104,133 +126,136 @@ const ChaveMasterOverlay: React.FC = () => {
       setServerError(null);
       setServerInfo(null);
 
-      const k = cm.keyValue.trim();
-      setPendingKey(k);
+      const key = cm.keyValue.trim();
 
-      cm.submit();
+      // validação mínima
+      if (!minimalLocalValidate(key)) {
+        setServerError("Chave muito curta.");
+        cm.setKeyValue(""); // limpa input
+        return;
+      }
+
+      setPendingKey(key);
+
+      cm.submit(); // apenas valida/trava
     },
     [cm]
   );
 
-  // ✅ autenticação no backend ocorre aqui (após locked=true)
-React.useEffect(() => {
-  if (!cm.open) return;
-  if (!cm.locked) return;          // só roda após submit OK local (locked=true)
-  if (authLoading) return;
+  // ✅ autenticação backend após locked=true
+  React.useEffect(() => {
+    if (!cm.open) return;
+    if (!cm.locked) return;
+    if (authLoading) return;
 
-  const keyToSend = pendingKey.trim();
+    const keyToSend = pendingKey.trim();
 
-  // proteção extra
-  if (!minimalLocalValidate(keyToSend)) {
-    setServerInfo(null);
-    setServerError("Chave muito curta.");
-    cm.setLocked(false);
-    return;
-  }
-
-  let cancelled = false;
-
-  (async () => {
-    try {
-      setAuthLoading(true);
-      setServerError(null);
-      setServerInfo("Autenticando no servidor...");
-
-      const r = await masterLogin(keyToSend);
-      if (cancelled) return;
-
-      if (!r.success || !r.token) {
-        // ❗ NÃO chama exitMaster aqui (você ainda nem está master)
-        setServerInfo(null);
-        setServerError(r.message ?? "Chave master inválida (servidor).");
-
-        // conta tentativa (máx 3)
-        setServerTries((prev) => {
-          const next = prev + 1;
-
-          // estourou tentativas: fecha overlay
-          if (next >= MAX_SERVER_TRIES) {
-            cm.close(); // fecha e reseta o hook
-            return 0;   // zera contador de tentativas para próxima vez
-          }
-
-          return next;
-        });
-
-        // libera para tentar novamente (reabre edição)
-        cm.setLocked(false);
-        return;
-      }
-
-      // ✅ sucesso: ativa master no contexto
-      enterMaster(r.token);
-
-      // zera tentativas
-      setServerTries(0);
-
-      setServerError(null);
-      setServerInfo(`Master ativo. Fechando em ${CLOSE_AFTER_SUCCESS_MS / 1000}s...`);
-
-      // ✅ fecha em 10s após sucesso
-      cm.closeAfter(CLOSE_AFTER_SUCCESS_MS);
-    } catch {
-      if (cancelled) return;
-
-      // ❗ não derrube master aqui (apenas erro de rede/servidor)
-      setServerInfo(null);
-      setServerError("Falha ao autenticar no servidor.");
-
-      // libera tentativa novamente (sem consumir tentativa se você preferir)
+    if (!minimalLocalValidate(keyToSend)) {
+      setServerError("Chave muito curta.");
       cm.setLocked(false);
-    } finally {
-      if (!cancelled) setAuthLoading(false);
+      cm.setKeyValue("");
+      return;
     }
-  })();
 
-  return () => {
-    cancelled = true;
-  };
-}, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster]);  
-  
+    let cancelled = false;
+
+    (async () => {
+      try {
+        setAuthLoading(true);
+        setServerError(null);
+        setServerInfo("Autenticando no servidor...");
+
+console.log("ENVIANDO PARA BACKEND:", keyToSend);
+
+        const r = await masterLogin(keyToSend);
+        if (cancelled) return;
+
+        if (!r.success || !r.token) {
+          setServerError(r.message ?? "Chave inválida (servidor).");
+          setServerInfo(null);
+
+          cm.setLocked(false);
+          cm.setKeyValue("");
+
+          setServerTries((prev) => {
+            const next = prev + 1;
+
+            if (next >= MAX_SERVER_TRIES) {
+              cm.close();
+              return 0;
+            }
+
+            return next;
+          });
+
+          return;
+        }
+
+        // ✅ sucesso
+        enterMaster(r.token);
+
+        setServerTries(0);
+        setServerError(null);
+        setServerInfo(`Master ativo. Fechando em ${CLOSE_AFTER_SUCCESS_MS / 1000}s...`);
+
+        cm.closeAfter(CLOSE_AFTER_SUCCESS_MS);
+      } catch {
+        if (cancelled) return;
+
+        setServerError("Erro de conexão com servidor.");
+        setServerInfo(null);
+
+        cm.setLocked(false);
+      } finally {
+        if (!cancelled) setAuthLoading(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster]);
+
   if (!cm.open) return null;
+
   const inputDisabled = authLoading || cm.locked;
+
   return (
     <ThemeProvider theme={light}>
       <ContentCardPage>
         <ContentCardBoxChaveKey open={true}>
           <ContentCardBoxInput>
             <CMFormWrapper>
-              <form name="chave-master" onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
                 <label htmlFor="cm_key">Acesso Master</label>
 
                 <input
                   id="cm_key"
-                  name="cm_key"
                   type="password"
-                  size={10}
+                  size={12}
                   maxLength={32}
                   autoFocus
                   autoComplete="new-password"
-                  placeholder="Chave..."
+                  placeholder="Password..."
                   value={cm.keyValue}
-                  onChange={(ev) => cm.setKeyValue(ev.target.value)}
+                  onChange={(e) => cm.setKeyValue(e.target.value)}
                   disabled={inputDisabled}
                 />
+
                 <small>
                   Tentativas: {cm.fails} / {MAX_FAILS}
                 </small>
 
                 <small>
-                  Tentativas servidor: {serverTries} / {MAX_SERVER_TRIES}
+                  Servidor: {serverTries} / {MAX_SERVER_TRIES}
                 </small>
 
-                {cm.secondsLeft != null ? (
+                {cm.secondsLeft != null && !cm.locked ? (
                   <small>Tempo: {cm.secondsLeft}s</small>
-                ) : (
-                  <small>Timeout: {TIMEOUT_SECONDS}s</small>
-                )}
-                {serverInfo ? <small className="cm-info">{serverInfo}</small> : null}
-                {serverError ? <small className="cm-error">{serverError}</small> : null}
+                ) : null}
+
+                {serverInfo && <small className="cm-info">{serverInfo}</small>}
+                {serverError && <small className="cm-error">{serverError}</small>}
               </form>
             </CMFormWrapper>
           </ContentCardBoxInput>

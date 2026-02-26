@@ -89,6 +89,8 @@ const Home: React.FC = () => {
     setIscheck((prev) => !prev);
   };
 
+  console.log("[HOME-Inicio] chvkey =", state.chvkey);
+
   React.useEffect(() => {
     if (state.chvkey) {
       setMsgPanelBottom('Acesso "Master" ativo.');
@@ -476,10 +478,21 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
 
         <Pg.DivisionPgHztal />
 
-        <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
-          <ContentSideMsgPagePanelBotton bordas="3px" label={'Menssagens : '} msg={msgpanelbottom} />
-
-          <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
+        <ContentSidePagePanelBotton 
+          bordas="3px" 
+          open={true} 
+          pwidth="100%"
+        >
+          <ContentSideMsgPagePanelBotton 
+            bordas="3px"
+            label={'Menssagens : '} 
+            msg={msgpanelbottom} 
+          />
+          <ContentSidePageBottonLabel 
+            open={true} 
+            istitl={true} 
+            title={'Refrescar.: '}
+          >
             <ContentSidePageBottonButton
               pxheight={'40px'}
               img={btn_qrefrescar}
@@ -491,6 +504,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             />
           </ContentSidePageBottonLabel>
           <div><label>ATENÇÃO...{messagebottom}</label></div>
+        
         </ContentSidePagePanelBotton>
 
         {cardnegadopage ? (
@@ -499,7 +513,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             pwidth={'30%'}
             pheight={'35%'}
             imgbm={btn_qclose}
-            titbm="Fechar..."
+            titbm={"Fechar..."}
             titulo={'Acesso Negado.'}
             onclose={() => setCardNegadoPage(false)}
           >
@@ -522,6 +536,9 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             titulo={'Abortar Master.'}
             onclose={() => setCardLogo(false)}
           >
+          </PageModal>
+        ) : null}
+
         {cardlogo ? (
           <PageModal
             ptop={'1%'}
@@ -546,7 +563,10 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}
           >
-            <CardHlpHomePage imgcardpage={lg_default} onclosesair={() => setCardHlpPage(false)} />
+            <CardHlpHomePage 
+              imgcardpage={lg_default} 
+              onclosesair={() => setCardHlpPage(false)} 
+            />
           </PageModal>
         ) : null}
 
@@ -631,7 +651,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             imgbm={btn_qclose}
             titbm="Fechar..."
             titulo={'Abortar Master.'}
-            onclose={() => setCardLogo(false)}
+            onclose={() => setIsMsgChvkey(false)}
           >
             <CardLogoffMaster
               pptop="300px"
@@ -641,18 +661,18 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
               imgpnl={pnl_master}
               onclickpnl={() => alert("estou aqui...")}
               open={true}
-              titulo="Acesso Logo-off."
-              msg="Confirme opção de Logoff."
-              labelConfirm="SIM para Logoff."
-              labelCancel="NÃO para Abortar."
+              titulo={"Acesso Logo-off."}
+              msg={"Confirme opção de Logoff."}
+              labelConfirm={"SIM para Logoff."}
+              labelCancel={"NÃO para Abortar."}
               seconds={30}
               resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
               onConfirm={() => {
                 // logoutMaster();  // ✅ chame aqui quando estiver pronto
-                setCardLogo(false);
+                setIsMsgChvkey(false);
               }}
-              onCancel={() => setCardLogo(false)}
-              onClose={() => setCardLogo(false)}
+              onCancel={() => setIsMsgChvkey(false)}
+              onClose={() => setIsMsgChvkey(false)}
             />
           </PageModal>
         ) : null}

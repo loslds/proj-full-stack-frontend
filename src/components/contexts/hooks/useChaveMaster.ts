@@ -1,5 +1,3 @@
-
-
 // C:\repository\proj-full-stack-frontend\src\funcs\funcs\useChaveMaster.ts
 import React from "react";
 
@@ -20,19 +18,17 @@ export type UseChaveMasterReturn = {
   open: boolean;
   keyValue: string;
   setKeyValue: (v: string) => void;
+
   fails: number;
+  locked: boolean;
+  setLocked: (v: boolean) => void;
 
   submit: () => void;
-
   close: () => void;
   reset: () => void;
 
   closeAfter: (ms: number) => void;
 
-  locked: boolean;
-  setLocked: (v: boolean) => void;
-
-  // ✅ contador para UI
   secondsLeft: number | null;
 };
 
@@ -47,7 +43,7 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
         e.key === "Backspace" ||
         e.code === "Backspace"),
     validateKey,
-    maxKeyFails = 5,
+    maxKeyFails = 3,
     timeoutSeconds = 30,
     onResult,
     debug = false,
@@ -59,7 +55,6 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
   const [locked, setLockedState] = React.useState(false);
   const [secondsLeft, setSecondsLeft] = React.useState<number | null>(null);
 
-  // refs
   const enabledRef = React.useRef(enabled);
   const blockedRef = React.useRef(blocked);
   const hotkeyRef = React.useRef(hotkey);
@@ -87,11 +82,19 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
   React.useEffect(() => void (lockedRef.current = locked), [locked]);
 
   const closeTimerRef = React.useRef<number | null>(null);
+  const intervalRef = React.useRef<number | null>(null);
 
   const clearCloseTimer = React.useCallback(() => {
     if (closeTimerRef.current != null) {
       window.clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
+    }
+  }, []);
+
+  const clearIntervalTimer = React.useCallback(() => {
+    if (intervalRef.current != null) {
+      window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
   }, []);
 
@@ -105,22 +108,24 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
 
   const reset = React.useCallback(() => {
     clearCloseTimer();
+    clearIntervalTimer();
     setKeyValueState("");
     setFails(0);
     setLockedState(false);
     setSecondsLeft(null);
-  }, [clearCloseTimer]);
+  }, [clearCloseTimer, clearIntervalTimer]);
 
   const close = React.useCallback(() => {
     clearCloseTimer();
+    clearIntervalTimer();
     setOpen(false);
     reset();
-  }, [clearCloseTimer, reset]);
+  }, [clearCloseTimer, clearIntervalTimer, reset]);
 
   const closeAfter = React.useCallback(
     (ms: number) => {
       clearCloseTimer();
-      const safeMs = Math.max(0, ms | 0);
+      const safeMs = Math.max(0, Math.floor(ms));
       closeTimerRef.current = window.setTimeout(() => close(), safeMs);
     },
     [clearCloseTimer, close]
@@ -144,36 +149,47 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
     }
 
     if (ok) {
-      // ✅ trava para evitar submit repetido; overlay decide fechar depois do backend
+      // ✅ trava e PARA o timer de 30s
       setLockedState(true);
+      clearIntervalTimer();
       onResultRef.current?.(true);
       return;
     }
 
     setFails((prev) => {
       const next = prev + 1;
+
+      setKeyValueState("");
+
       if (next >= maxFailsRef.current) {
         setOpen(false);
         reset();
-        onResultRef.current?.(false);
       }
+
       return next;
     });
 
-    setKeyValueState("");
     onResultRef.current?.(false);
-  }, [debug, reset]);
+  }, [debug, reset, clearIntervalTimer]);
 
-  // ⏱ contador + timeout real
+  // ⏱ timer de 30s (só enquanto open && !locked)
   React.useEffect(() => {
     if (!open) {
       setSecondsLeft(null);
+      clearIntervalTimer();
+      return;
+    }
+
+    if (locked) {
+      // ✅ garantido: se travou, para timer
+      clearIntervalTimer();
       return;
     }
 
     const secs = timeoutRef.current;
     if (!secs || secs <= 0) {
       setSecondsLeft(null);
+      clearIntervalTimer();
       return;
     }
 
@@ -181,29 +197,35 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
 
     if (debug) console.log("[CM] timeout start", secs);
 
-    const interval = window.setInterval(() => {
+    clearIntervalTimer();
+    intervalRef.current = window.setInterval(() => {
       setSecondsLeft((prev) => {
         if (prev == null) return prev;
-        // ✅ se já enviou/validou e travou (locked=true), PARA o contador
-        // (o fechamento pós-sucesso fica por conta do overlay via closeAfter)
-        if (lockedRef.current) return prev;
+
+        // se travou no meio, interrompe
+        if (lockedRef.current) {
+          clearIntervalTimer();
+          return prev;
+        }
+
         const next = prev - 1;
         if (next <= 0) {
-          window.clearInterval(interval);
+          clearIntervalTimer();
           setOpen(false);
           reset();
           onResultRef.current?.(false);
           return 0;
         }
         return next;
-        });
-      }, 1000);
+      });
+    }, 1000);
 
-    return () => window.clearInterval(interval);
+    return () => {
+      clearIntervalTimer();
+    };
+  }, [open, locked, reset, debug, clearIntervalTimer]);
 
-  }, [open, reset, debug]);
-
-  // ⌨️ listener global
+  // ⌨️ listener global (SEM Enter submit)
   React.useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (!enabledRef.current) return;
@@ -224,33 +246,24 @@ export function useChaveMaster(opts: UseChaveMasterOptions): UseChaveMasterRetur
           if (next) reset();
           return next;
         });
-        return;
-      }
-
-      if (e.key === "Enter") {
-        if (openRef.current && !lockedRef.current) {
-          e.preventDefault();
-          submit();
-        }
       }
     };
 
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
-  }, [close, reset, submit]);
+  }, [close, reset]);
 
   return {
     open,
     keyValue,
     setKeyValue,
     fails,
+    locked,
+    setLocked,
     submit,
     close,
     reset,
     closeAfter,
-    locked,
-    setLocked,
     secondsLeft,
   };
 }
-

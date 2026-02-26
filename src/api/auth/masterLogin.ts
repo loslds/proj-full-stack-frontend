@@ -1,6 +1,6 @@
 
 //C:\repository\proj-full-stack-frontend\src\api\auth\masterLogin.ts
-// src/api/auth/masterLogin.ts
+
 import api from "../api";
 
 export interface MasterLoginResponse {

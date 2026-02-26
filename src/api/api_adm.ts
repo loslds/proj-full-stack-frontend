@@ -1,6 +1,6 @@
 
 //C:\repository\proj-full-stack-frontend\src\api\api_adm.ts
-// src/api/api_adm.ts
+
 import axios from "axios";
 
 const api_adm = axios.create({
@@ -16,3 +16,5 @@ api_adm.interceptors.request.use((config) => {
 });
 
 export default api_adm;
+
+
