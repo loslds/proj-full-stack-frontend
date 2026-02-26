@@ -5,7 +5,7 @@ type TypeCardCollunsCenterPage = {
   openccp?: boolean;
   pheight?: string;
   pwidth?: string;
-  children?: ReactNode | JSX.Element;
+  children?: ReactNode;
 };
 export const ContentCardCollunsCenterPage = ({
   openccp,

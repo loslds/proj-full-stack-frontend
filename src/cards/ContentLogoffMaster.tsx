@@ -8,9 +8,6 @@ interface PropsContentLogoffMaster {
   children?: React.ReactNode;
 }
 export const ContentLogoffMaster = ({ pptop, ppwidth, bordas, children }: PropsContentLogoffMaster) => {
-
-  
-
   return (
     <Sy.ContainerLogoffMaster pptop={pptop} ppwidth={ppwidth}>
       <Sy.ContainerLogoffMasterFlex bordas={bordas}>

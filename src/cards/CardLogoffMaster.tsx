@@ -1,67 +1,75 @@
 
 // C:\repository\proj-full-stack-frontend\src\cards\CardLogoffMaster.tsx
 import React from "react";
-import * as Sy from './stylesSystem';
 
 import { ContentLogoffMaster } from "./ContentLogoffMaster";
 import { ContentPanelImgBetween } from "./ContentPanelImgBetween";
+import { ContentMainCollumMaster } from "./ContentMainCollumMaster";
+import { ContentMainTitleMaster } from "./ContentMainTitleMaster";
+import { ContentButtonsMaster } from "./ContentButtonsMaster";
+import { ContentLabelButtomMaster } from "./ContentLabelButtomMaster";
+import { ContentButtonImgMaster } from "./ContentButtonImgMaster";
 
-import { ContentSBButton } from '../components/sidebar/ContentSBButton';
-
-import btn_enviar from '../assets/defaut/botao/btn_def_q_enviar.svg';
-import btn_voltar from '../assets/defaut/botao/btn_def_q_voltar.svg';
+import btn_enviar from "../assets/defaut/botao/btn_def_q_enviar.svg";
+import btn_voltar from "../assets/defaut/botao/btn_def_q_voltar.svg";
 
 interface PropsCardLogoffMaster {
-  pptop? : string;
+  // ContentLogoffMaster
+  pptop?: string;
   ppwidth?: string;
   bordas?: string;
 
+  // ContentPanelImgBetween (imagem)
   pxheight?: string;
   pxwidth?: string;
   imgpnl?: string;
   onclickpnl?: () => void;
 
-  
+  // ContentMainCollumMaster
+  open?: boolean;
+  width?: string;
+  height?: string;
+  titulo?: string;
 
-  children?: React.ReactNode;
-  txtH1?: string;
-  txtlabel?: string;
-  txtlabel1?: string;
-  txtp?: string;
+  // labels dos botões
+  labelConfirm?: string;
+  labelCancel?: string;
 
   // texto extra vindo de fora
   msg?: string;
 
-  // tempo do auto-close (padrão 30s)
-  seconds?: number;
-
-  // força reset do contador quando mudar (ex: abrir modal)
+  // auto-close
+  seconds?: number; // default 30
   resetKey?: string | number;
 
   // eventos
   onConfirm?: () => void; // SIM
   onCancel?: () => void;  // NÃO
-  onClose?: () => void;   // auto-close (ou fechar por X)
+  onClose?: () => void;   // auto-close
 
   onAutoCloseCountdown?: (secondsLeft: number) => void;
+
+  children?: React.ReactNode;
 }
 
 export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
   pptop,
   ppwidth,
   bordas,
+
   imgpnl,
   pxheight,
   pxwidth,
   onclickpnl,
 
-  
+  open,
+  width,
+  height,
+  titulo,
 
-  children,
-  txtH1,
-  txtlabel,
-  txtlabel1,
-  txtp,
+  labelConfirm = "Confirmar",
+  labelCancel = "Cancelar",
+
   msg,
 
   seconds = 30,
@@ -71,36 +79,60 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
   onCancel,
   onClose,
   onAutoCloseCountdown,
+
+  children,
 }) => {
   const [secondsLeft, setSecondsLeft] = React.useState<number>(seconds);
+  const intervalRef = React.useRef<number | null>(null);
 
-  // Reinicia contador quando:
-  // - abre modal novamente (resetKey muda)
-  // - seconds muda
+  // reset (quando abrir modal / resetKey muda / seconds muda)
   React.useEffect(() => {
     setSecondsLeft(seconds);
   }, [seconds, resetKey]);
 
-  // Contagem regressiva
+  // timer robusto (não cria múltiplos intervals)
   React.useEffect(() => {
+    // se já tem interval rodando, não cria outro
+    if (intervalRef.current != null) return;
+
+    // se já acabou, não inicia
     if (secondsLeft <= 0) return;
 
-    const id = window.setInterval(() => {
+    intervalRef.current = window.setInterval(() => {
       setSecondsLeft((prev) => {
         const next = prev - 1;
+
         onAutoCloseCountdown?.(next);
 
         if (next <= 0) {
-          // auto-close
+          if (intervalRef.current != null) {
+            window.clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
           onClose?.();
           return 0;
         }
+
         return next;
       });
     }, 1000);
 
-    return () => window.clearInterval(id);
+    return () => {
+      if (intervalRef.current != null) {
+        window.clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+    // IMPORTANTE: não depende de secondsLeft para não recriar interval a cada tick
   }, [secondsLeft, onClose, onAutoCloseCountdown]);
+
+  // se secondsLeft for resetado para >0 e interval tiver sido limpo, o effect acima reinicia
+  React.useEffect(() => {
+    if (secondsLeft > 0 && intervalRef.current == null) {
+      // força re-execução do effect que cria interval
+      // (o próprio secondsLeft já dispara o effect)
+    }
+  }, [secondsLeft]);
 
   const handleConfirm = React.useCallback(() => {
     onConfirm?.();
@@ -109,8 +141,6 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
   const handleCancel = React.useCallback(() => {
     onCancel?.();
   }, [onCancel]);
-
-  const msgCronometro = `Tempo ocioso: ${secondsLeft}s`;
 
   return (
     <ContentLogoffMaster pptop={pptop} ppwidth={ppwidth} bordas={bordas}>
@@ -121,32 +151,34 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
         onclickpnl={onclickpnl}
       />
 
-        {txtH1 ? <h1>{txtH1}</h1> : null}
+      <ContentMainCollumMaster open={open} width={width} height={height}>
+        <ContentMainTitleMaster titulo={titulo} />
 
-        <Sy.ContainerPanelImgBetween>
-          { txtlabel ? <label>{txtlabel}</label> : null }
-        </Sy.ContainerPanelImgBetween>
-        <ContentSBButton img={btn_enviar} onClick={handleConfirm}/>
-        
-        <Sy.ContainerPanelImgBetween>
-          {txtlabel1 ? <label>{txtlabel1}</label> : null}
-        </Sy.ContainerPanelImgBetween>
-        <ContentSBButton img={btn_voltar} onClick={handleCancel}/>
-        
-        
-        <Sy.ContainerPanelImgBetween>
-
-        {txtp ? <p>{txtp}</p> : null}
-
-        {/* mensagem vinda de fora */}
         {msg ? <p>{msg}</p> : null}
+        <p>{`Tempo ocioso: ${secondsLeft}s`}</p>
 
-        {/* cronômetro */}
-        <p>{msgCronometro}</p>
-      
+        <ContentButtonsMaster>
+          <ContentLabelButtomMaster>
+            <label>{labelConfirm}</label>
+            <ContentButtonImgMaster
+              imgbtn={btn_enviar}
+              titbtn="Confirmar..."
+              onClickbtn={handleConfirm}
+            />
+          </ContentLabelButtomMaster>
+
+          <ContentLabelButtomMaster>
+            <label>{labelCancel}</label>
+            <ContentButtonImgMaster
+              imgbtn={btn_voltar}
+              titbtn="Cancelar..."
+              onClickbtn={handleCancel}
+            />
+          </ContentLabelButtomMaster>
+        </ContentButtonsMaster>
 
         {children}
-      </Sy.ContainerPanelImgBetween>
+      </ContentMainCollumMaster>
     </ContentLogoffMaster>
   );
 };

@@ -20,7 +20,7 @@ interface PropsLayoutExpedicao {
   onclickaborta?: () => void;
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
   open?: boolean;
 }
 const LayoutExpedicao = ({

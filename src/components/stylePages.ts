@@ -1040,7 +1040,7 @@ export const ContainerMainTitle = styled.div`
 
 // inicio ContentCardPageLabel -> ContainerCardPageLabel
 /////////////////////////////////////////////////////////
-export const ContainerCardMPageLabel = styled.div`
+export const ContainerCardPageLabel = styled.div`
   border: 1px solid red;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;

@@ -8,6 +8,7 @@ import light from '../../themes/light';
 import dark from '../../themes/dark';
 
 import LayoutHome from '../layouts/LayoutHome';
+
 import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
 import * as Pg from '../stylePages';
 
@@ -22,12 +23,10 @@ import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabe
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
 // component para help butom 
-//import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-
+import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
-
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
@@ -52,6 +51,7 @@ import btn_qclose from '../../assets/defaut/botao/btn_def_q_close.svg';
 import pnl_negado from '../../assets/defaut/painel/pnl_def_ope_negacao.svg';
 ////////////////////////////////////////////
 import { SystemHealthResult } from '../../types/SystemHealth';
+
 
 const Home: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
@@ -159,8 +159,6 @@ const Home: React.FC = () => {
     setMessageBottom("Aguardando Seleção...");
     return;
   }
-
-  
 
   // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
   if (!state.initsys) {
@@ -524,28 +522,17 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
             titulo={'Abortar Master.'}
             onclose={() => setCardLogo(false)}
           >
-            <CardLogoffMaster
-              pptop='300px'
-              bordas="4px"
-              pxheight="60px"
-              pxwidth="65px"
-              imgpnl={pnl_master}
-              onclickpnl={() => alert("estou aqui...")}
-              txtH1="Confirme opção de Logoff."
-              txtlabel="SIM para Logoff."
-              txtlabel1="NÃO para Abortar."
-              txtp="Aguardando..."
-              seconds={30}
-              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
-              onConfirm={() => {
-    
-              // aqui você chama logoutMaster()
-              // logoutMaster();
-              setCardLogo(false);
-            }}
-            onCancel={() => setCardLogo(false)}
-            onClose={() => setCardLogo(false)}
-          />
+        {cardlogo ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={btn_qclose}
+            titbm="Fechar..."
+            titulo={'Home Sistema.'}
+            onclose={() => setCardLogo(false)}
+          >
+            <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} /> 
           </PageModal>
         ) : null}
 
@@ -638,19 +625,35 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
 
         { ismsgchvkey ? (
           <PageModal
-            ptop={'10%'}
-            pwidth={'70%'}
-            pheight={'70%'}
+            ptop='330px'
+            pwidth={'400px'}
+            pheight={'40%'}
             imgbm={btn_qclose}
             titbm="Fechar..."
-            titulo={'Logo-Off Master'}
-            onclose={() => setIsMsgChvkey(false)}
+            titulo={'Abortar Master.'}
+            onclose={() => setCardLogo(false)}
           >
-            {/** criar um card para mostrar botões sim ou não  */}
-
-
-
-
+            <CardLogoffMaster
+              pptop="300px"
+              bordas="4px"
+              pxheight="57px"
+              pxwidth="65px"
+              imgpnl={pnl_master}
+              onclickpnl={() => alert("estou aqui...")}
+              open={true}
+              titulo="Acesso Logo-off."
+              msg="Confirme opção de Logoff."
+              labelConfirm="SIM para Logoff."
+              labelCancel="NÃO para Abortar."
+              seconds={30}
+              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
+              onConfirm={() => {
+                // logoutMaster();  // ✅ chame aqui quando estiver pronto
+                setCardLogo(false);
+              }}
+              onCancel={() => setCardLogo(false)}
+              onClose={() => setCardLogo(false)}
+            />
           </PageModal>
         ) : null}
 
@@ -664,22 +667,6 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
 export default Home;
 
 ////////////////////////////////////////////////////////
-
-
-        // {cardlogo ? (
-        //   <PageModal
-        //     ptop={'1%'}
-        //     pwidth={'80%'}
-        //     pheight={'95%'}
-        //     imgbm={btn_qclose}
-        //     titbm="Fechar..."
-        //     titulo={'Home Sistema.'}
-        //     onclose={() => setCardLogo(false)}
-        //   >
-        //     <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} /> 
-        //   </PageModal>
-        // ) : null}
-
 
         ////////////////////////////////////////////////
             // <CardImgNeg

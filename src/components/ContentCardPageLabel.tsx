@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import * as Pg from './stylePages';
 
 interface PropsContentCardPageLabel {
   label?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 };
 export const ContentCardPageLabel = ({
   label,
