@@ -1,12 +1,11 @@
 // C:\repository\proj-full-stack-frontend\src\components\ChaveMasterOverlay.tsx
-// C:\repository\proj-full-stack-frontend\src\components\ChaveMasterOverlay.tsx
+
 import React from "react";
 import "./ChaveMasterOverlay.css";
 import styled, { ThemeProvider } from "styled-components";
 
 import light from "../themes/light";
 import { useChaveMaster } from "./contexts/hooks/useChaveMaster";
-
 import { useAcessoContext, UseAcessoActions } from "./contexts/ContextAcesso";
 
 import { ContentCardPage } from "./ContentCardPage";
@@ -42,9 +41,11 @@ const CMFormWrapper = styled.div`
 const MAX_SERVER_TRIES = 3;
 const MAX_FAILS = 5;
 const TIMEOUT_SECONDS = 30;
-const CLOSE_AFTER_SUCCESS_MS = 10_000;
 
-// validação mínima (UX)
+// ✅ contador pós-sucesso (overlay)
+//const SUCCESS_SECONDS = 10;
+
+// validação mínima (UX) — deve apenas permitir formatos plausíveis
 function minimalLocalValidate(key: string): boolean {
   const k = key.trim();
 
@@ -55,19 +56,13 @@ function minimalLocalValidate(key: string): boolean {
   if (/^\d{8}$/.test(k)) return true;
 
   // String fixa:
-  // - mínimo 4 caracteres
+  // - mínimo 4
+  // - só caracteres permitidos
   // - contém pelo menos 1 letra ou símbolo
-  // - permite letras, números e símbolos seguros
-  if (k.length >= 4 &&
-    /^[A-Za-z0-9@#_><-]+$/.test(k) &&   // ✔ corrigido aqui
-    /[A-Za-z@#_><-]/.test(k)
-  ) {
-    return true;
-  }
+  if (k.length >= 4 && /^[A-Za-z0-9@#_]+$/.test(k) && /[A-Za-z@#_]/.test(k)) return true;
+
   return false;
 }
-
-
 
 const ChaveMasterOverlay: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
@@ -79,11 +74,16 @@ const ChaveMasterOverlay: React.FC = () => {
   const [serverInfo, setServerInfo] = React.useState<string | null>(null);
   const [authLoading, setAuthLoading] = React.useState(false);
 
-  // chave capturada no submit (agora confiável)
+  // chave capturada no submit (não depende do hook limpar)
   const [pendingKey, setPendingKey] = React.useState<string>("");
+
+  // ✅ countdown pós-sucesso (independente do hook)
+  const [successLeft, setSuccessLeft] = React.useState<number | null>(null);
 
   const enterMaster = React.useCallback(
     (tokenAdmin: string) => {
+console.log("[CM] enterMaster() -> dispatch CHVKEY true");
+
       localStorage.setItem("token_admin", tokenAdmin);
 
       dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: tokenAdmin });
@@ -98,6 +98,7 @@ const ChaveMasterOverlay: React.FC = () => {
     [dispatch]
   );
 
+  // ✅ Hook: use apenas para abrir/fechar + tentativas + timeout de 30s
   const cm = useChaveMaster({
     enabled: true,
     blocked: hardBlocked,
@@ -106,19 +107,23 @@ const ChaveMasterOverlay: React.FC = () => {
     timeoutSeconds: TIMEOUT_SECONDS,
     debug: false,
 
+    // ⚠️ não coloque "Autenticando..." aqui (isso sobrescreve mensagens do fluxo)
     onResult: (ok: boolean) => {
+console.log("[CM] onResult(ok) =", ok);
+
       if (!ok) {
         setServerInfo(null);
         setServerError("Chave inválida.");
         return;
       }
 
+      // ok local → o efeito vai autenticar no backend
       setServerError(null);
       setServerInfo("Validando...");
     },
   });
 
-  // ✅ submit único (sem interferência do hook)
+  // ✅ submit único
   const handleSubmit = React.useCallback(
     (e: React.SyntheticEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -128,93 +133,144 @@ const ChaveMasterOverlay: React.FC = () => {
 
       const key = cm.keyValue.trim();
 
-      // validação mínima
+console.log("[CM] submit pressed. key =", key);
+
       if (!minimalLocalValidate(key)) {
-        setServerError("Chave muito curta.");
-        cm.setKeyValue(""); // limpa input
+        setServerError("Chave inválida (formato).");
+        cm.setKeyValue("");
         return;
       }
 
       setPendingKey(key);
-
-      cm.submit(); // apenas valida/trava
+      cm.submit(); // valida + trava (locked=true em sucesso local)
     },
     [cm]
   );
 
-  // ✅ autenticação backend após locked=true
+  // ✅ autenticação backend após locked=true (roda uma vez por submit OK)
+  // ✅ autenticação backend após locked=true (sem loop/cancel por re-render)
+  // ✅ autenticação backend após locked=true (sem cancelamento por re-render)
+const inFlightRef = React.useRef(false);
+
+const { open, locked, setLocked, setKeyValue, close } = cm;
+
+React.useEffect(() => {
+  if (!open) return;
+  if (!locked) return;
+
+  if (inFlightRef.current) return;
+
+  const keyToSend = pendingKey.trim();
+
+  console.log("[CM] effect auth start", { open, locked, keyToSend });
+
+  if (!minimalLocalValidate(keyToSend)) {
+    console.log("[CM] effect auth: key invalid -> unlock");
+    setServerError("Chave inválida (formato).");
+    setServerInfo(null);
+    setLocked(false);
+    setKeyValue("");
+    return;
+  }
+
+  let cancelled = false;
+  inFlightRef.current = true;
+
+  (async () => {
+    try {
+      setAuthLoading(true);
+      setServerError(null);
+      setServerInfo("Autenticando no servidor...");
+
+      console.log("[CM] ENVIANDO PARA BACKEND:", keyToSend);
+
+      const r = await masterLogin(keyToSend);
+
+      console.log("[CM] masterLogin response =", r);
+
+      if (cancelled) {
+        console.log("[CM] CANCELLED TRUE -> aborting success path");
+        return;
+      }
+
+      if (!r.success || !r.token) {
+        console.log("[CM] masterLogin failed");
+        setServerError(r.message ?? "Chave inválida (servidor).");
+        setServerInfo(null);
+
+        setLocked(false);
+        setKeyValue("");
+
+        setServerTries((prev) => {
+          const next = prev + 1;
+          if (next >= MAX_SERVER_TRIES) {
+            console.log("[CM] max server tries -> close overlay");
+            close();
+            return 0;
+          }
+          return next;
+        });
+
+        return;
+      }
+
+      console.log("[CM] masterLogin SUCCESS -> enterMaster");
+      enterMaster(r.token);
+
+      setServerTries(0);
+      setServerError(null);
+      setServerInfo("Master ativo.");
+
+      // ✅ inicia o seu countdown de 10s aqui (se você estiver usando successLeft)
+      setSuccessLeft(10);
+    } catch (err: unknown) {
+      if (cancelled) return;
+
+      console.error("[CM] masterLogin exception:", err);
+
+      setServerError("Erro de conexão com servidor.");
+      setServerInfo(null);
+      setLocked(false);
+    } finally {
+      if (!cancelled) setAuthLoading(false);
+      inFlightRef.current = false;
+    }
+  })();
+
+  return () => {
+    cancelled = true;
+  };
+  // ⚠️ deps só com primitivos e callbacks estáveis (sem "cm")
+}, [open, locked, pendingKey, enterMaster, setLocked, setKeyValue, close]);
+
+  // ✅ contador pós-sucesso: fecha overlay com cm.close() em 10s
   React.useEffect(() => {
-    if (!cm.open) return;
-    if (!cm.locked) return;
-    if (authLoading) return;
+    if (successLeft == null) return;
 
-    const keyToSend = pendingKey.trim();
+console.log("[CM] success countdown =", successLeft);
 
-    if (!minimalLocalValidate(keyToSend)) {
-      setServerError("Chave muito curta.");
-      cm.setLocked(false);
-      cm.setKeyValue("");
+    if (successLeft <= 0) {
+      setSuccessLeft(null);
+
+console.log("[CM] success countdown end -> close overlay");
+
+      cm.close(); // fecha de verdade
       return;
     }
 
-    let cancelled = false;
+    const id = window.setTimeout(() => {
+      setSuccessLeft((v) => (v == null ? v : v - 1));
+    }, 1000);
 
-    (async () => {
-      try {
-        setAuthLoading(true);
-        setServerError(null);
-        setServerInfo("Autenticando no servidor...");
+    return () => window.clearTimeout(id);
+  }, [successLeft, cm]);
 
-console.log("ENVIANDO PARA BACKEND:", keyToSend);
+  // debug: verificar se chvkey atualiza no contexto
+  React.useEffect(() => {
 
-        const r = await masterLogin(keyToSend);
-        if (cancelled) return;
+console.log("[CM] ctx chvkey changed:", state.chvkey);
 
-        if (!r.success || !r.token) {
-          setServerError(r.message ?? "Chave inválida (servidor).");
-          setServerInfo(null);
-
-          cm.setLocked(false);
-          cm.setKeyValue("");
-
-          setServerTries((prev) => {
-            const next = prev + 1;
-
-            if (next >= MAX_SERVER_TRIES) {
-              cm.close();
-              return 0;
-            }
-
-            return next;
-          });
-
-          return;
-        }
-
-        // ✅ sucesso
-        enterMaster(r.token);
-
-        setServerTries(0);
-        setServerError(null);
-        setServerInfo(`Master ativo. Fechando em ${CLOSE_AFTER_SUCCESS_MS / 1000}s...`);
-
-        cm.closeAfter(CLOSE_AFTER_SUCCESS_MS);
-      } catch {
-        if (cancelled) return;
-
-        setServerError("Erro de conexão com servidor.");
-        setServerInfo(null);
-
-        cm.setLocked(false);
-      } finally {
-        if (!cancelled) setAuthLoading(false);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster]);
+  }, [state.chvkey]);
 
   if (!cm.open) return null;
 
@@ -250,12 +306,16 @@ console.log("ENVIANDO PARA BACKEND:", keyToSend);
                   Servidor: {serverTries} / {MAX_SERVER_TRIES}
                 </small>
 
-                {cm.secondsLeft != null && !cm.locked ? (
+                {/* 1) após sucesso: mostra countdown 10s */}
+                {successLeft != null ? <small>Fechando em: {successLeft}s</small> : null}
+
+                {/* 2) se NÃO estiver locked nem em sucesso: mostra timeout 30s */}
+                {successLeft == null && cm.secondsLeft != null && !cm.locked ? (
                   <small>Tempo: {cm.secondsLeft}s</small>
                 ) : null}
 
-                {serverInfo && <small className="cm-info">{serverInfo}</small>}
-                {serverError && <small className="cm-error">{serverError}</small>}
+                {serverInfo ? <small className="cm-info">{serverInfo}</small> : null}
+                {serverError ? <small className="cm-error">{serverError}</small> : null}
               </form>
             </CMFormWrapper>
           </ContentCardBoxInput>
@@ -266,3 +326,198 @@ console.log("ENVIANDO PARA BACKEND:", keyToSend);
 };
 
 export default ChaveMasterOverlay;
+
+
+
+
+
+
+// const inFlightRef = React.useRef(false);
+
+// React.useEffect(() => {
+//   if (!cm.open) return;
+//   if (!cm.locked) return;
+
+//   // impede disparo duplicado
+//   if (inFlightRef.current) return;
+
+//   const keyToSend = pendingKey.trim();
+
+// console.log("[CM] effect auth start", { open: cm.open, locked: cm.locked, keyToSend });
+
+//   if (!minimalLocalValidate(keyToSend)) {
+
+// console.log("[CM] effect auth: key invalid -> unlock");
+
+//     setServerError("Chave inválida (formato).");
+//     setServerInfo(null);
+//     cm.setLocked(false);
+//     cm.setKeyValue("");
+//     return;
+//   }
+
+//   let cancelled = false;
+//   inFlightRef.current = true;
+
+//   (async () => {
+//     try {
+//       setAuthLoading(true);
+//       setServerError(null);
+//       setServerInfo("Autenticando no servidor...");
+
+// console.log("[CM] ENVIANDO PARA BACKEND:", keyToSend);
+
+//       const r = await masterLogin(keyToSend);
+
+// console.log("[CM] masterLogin response =", r);
+
+//       if (cancelled) return;
+
+//       if (!r.success || !r.token) {
+
+// console.log("[CM] masterLogin failed");
+
+//         setServerError(r.message ?? "Chave inválida (servidor).");
+//         setServerInfo(null);
+
+//         cm.setLocked(false);
+//         cm.setKeyValue("");
+
+//         setServerTries((prev) => {
+//           const next = prev + 1;
+//           if (next >= MAX_SERVER_TRIES) {
+//             console.log("[CM] max server tries -> close overlay");
+//             cm.close();
+//             return 0;
+//           }
+//           return next;
+//         });
+
+//         return;
+//       }
+
+// console.log("[CM] masterLogin SUCCESS -> enterMaster");
+
+//       enterMaster(r.token);
+
+//       setServerTries(0);
+//       setServerError(null);
+//       setServerInfo("Master ativo.");
+
+//       // dispara countdown de sucesso (se você estiver usando successLeft)
+//       setSuccessLeft(10);
+//     } catch (err: unknown) {
+//       if (cancelled) return;
+
+// console.error("[CM] masterLogin exception:", err);
+
+//       setServerError("Erro de conexão com servidor.");
+//       setServerInfo(null);
+//       cm.setLocked(false);
+//     } finally {
+//       if (!cancelled) {
+//         setAuthLoading(false);
+//       }
+//       inFlightRef.current = false;
+//     }
+//   })();
+
+//   return () => {
+//     cancelled = true;
+//   };
+
+//   // ⚠️ IMPORTANTE: NÃO COLOQUE authLoading AQUI
+// }, [cm.open, cm.locked, pendingKey, cm, enterMaster]);
+
+
+//   React.useEffect(() => {
+//     if (!cm.open) return;
+//     if (!cm.locked) return;
+//     if (authLoading) return;
+
+//     const keyToSend = pendingKey.trim();
+
+// console.log("[CM] effect auth start", { open: cm.open, locked: cm.locked, keyToSend });
+
+//     if (!minimalLocalValidate(keyToSend)) {
+
+// console.log("[CM] effect auth: key invalid -> unlock");
+
+//       setServerError("Chave inválida (formato).");
+//       setServerInfo(null);
+//       cm.setLocked(false);
+//       cm.setKeyValue("");
+//       return;
+//     }
+
+//     let cancelled = false;
+
+//     (async () => {
+//       try {
+//         setAuthLoading(true);
+//         setServerError(null);
+//         setServerInfo("Autenticando no servidor...");
+
+// console.log("[CM] ENVIANDO PARA BACKEND:", keyToSend);
+
+//         const r = await masterLogin(keyToSend);
+
+// console.log("[CM] masterLogin response =", r);
+
+//         if (cancelled) return;
+
+//         if (!r.success || !r.token) {
+
+// console.log("[CM] masterLogin failed");
+
+//           setServerError(r.message ?? "Chave inválida (servidor).");
+//           setServerInfo(null);
+
+//           cm.setLocked(false);
+//           cm.setKeyValue("");
+
+//           setServerTries((prev) => {
+//             const next = prev + 1;
+//             if (next >= MAX_SERVER_TRIES) {
+
+// console.log("[CM] max server tries -> close overlay");
+
+//               cm.close();
+//               return 0;
+//             }
+//             return next;
+//           });
+
+//           return;
+//         }
+
+//         // ✅ sucesso
+// console.log("[CM] masterLogin SUCCESS -> enterMaster");
+
+//         enterMaster(r.token);
+
+//         setServerTries(0);
+//         setServerError(null);
+//         setServerInfo("Master ativo.");
+
+//         // ✅ para o contador de 30s do hook (porque locked=true); agora usamos o contador do overlay
+//         setSuccessLeft(SUCCESS_SECONDS);
+//       } catch (err: unknown) {
+//         if (cancelled) return;
+
+// console.error("[CM] masterLogin exception:", err);
+
+//         setServerError("Erro de conexão com servidor.");
+//         setServerInfo(null);
+
+//         cm.setLocked(false);
+//       } finally {
+//         if (!cancelled) setAuthLoading(false);
+//       }
+//     })();
+
+//     return () => {
+//       cancelled = true;
+//     };
+//   }, [cm.open, cm.locked, pendingKey, authLoading, cm, enterMaster]);
+

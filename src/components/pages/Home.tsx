@@ -93,10 +93,12 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     if (state.chvkey) {
+      
       setMsgPanelBottom('Acesso "Master" ativo.');
       setMessageBottom("Aguardando Seleção...");
       return;
     }
+console.log("[HOME-após-Inicio] chvkey =", state.chvkey);
 
     if (state.initsys) return;
 
@@ -155,8 +157,8 @@ const Home: React.FC = () => {
   dispatch({ type: UseAcessoActions.set_APLICACAO, payload: "OPÇÃO" });
 
   // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
+console.log("[HOME-state.chvkey]=", state.chvkey);
   if (state.chvkey) {
-    
     setMsgPanelBottom('Acesso "Master" ativo.');
     setMessageBottom("Aguardando Seleção...");
     return;
@@ -177,7 +179,7 @@ const Home: React.FC = () => {
     return;
   }
 
-  console.log("[HOME0] chvkey =", state.chvkey);
+console.log("[HOME0] chvkey =", state.chvkey);
 
   // ✅ 3) Sistema iniciou, mas DB não pronto
   if (!state.chkdb) {
@@ -208,7 +210,7 @@ const Home: React.FC = () => {
 
 
 React.useEffect(() => {
-  console.log("[HOME2] chvkey =", state.chvkey);
+console.log("[HOME2] chvkey =", state.chvkey);
 }, [state.chvkey]);
 
 React.useEffect(() => {
@@ -248,7 +250,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
   );
   
   React.useEffect(() => {
-    console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
+console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
   }, [state.nametable]);
 
   return (

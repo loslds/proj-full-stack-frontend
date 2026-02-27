@@ -1,6 +1,5 @@
 
 //C:\repository\proj-full-stack-frontend\src\api\auth\masterLogin.ts
-
 import api from "../api";
 
 export interface MasterLoginResponse {
@@ -10,6 +9,28 @@ export interface MasterLoginResponse {
 }
 
 export async function masterLogin(masterKey: string): Promise<MasterLoginResponse> {
-  const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
-  return res.data;
+  try {
+    const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
+    return res.data;
+  }
+  catch (err: unknown) {
+    console.error(err);
+    return { success: false, message: "Falha de rede/servidor ao autenticar." };
+  }
 }
+
+
+// export async function masterLogin(masterKey: string): Promise<MasterLoginResponse> {
+//   const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
+//   return res.data;
+// }
+
+
+// export async function masterLogin(masterKey: string): Promise<MasterLoginResponse> {
+//   try {
+//     const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
+//     return res.data;
+//   }
+// catch (err: unknown) {
+//     return { success: false, message: "Falha de rede/servidor ao autenticar." };
+//   }

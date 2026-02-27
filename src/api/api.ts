@@ -3,8 +3,17 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/api", // ideal: aponta já para /api ref a porta do backend
+  baseURL: "http://localhost:3000/api",
+  timeout: 10000, // ✅ 10s: evita travar para sempre
 });
 
 export default api;
+
+// import axios from "axios";
+
+// const api = axios.create({
+//   baseURL: "http://localhost:3000/api", // ideal: aponta já para /api ref a porta do backend
+// });
+
+// export default api;
 

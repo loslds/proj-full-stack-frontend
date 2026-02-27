@@ -15,8 +15,22 @@ export function ErroEdicao(nrerro: number) {
   return isrtn;
 }
 ///////////////////////////////////////////////////////
+/**------------funções com EMAIL -----------
+ * NormalizeEmail -> apos edição no retrata a edição
+ * ValidarEmail   -> Valida se existe erro na formatação do email
+ * MaskSEmail     -> Mascara email com * para não aparecer o totalmente
+ */
+// Função para normalizar email
+export function NormalizeEmail(email: string): string {
+  const normalizedEmail = email.toLowerCase();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailRegex.test(normalizedEmail)) {
+    return normalizedEmail;
+  }
+  return '';
+}
 // Função para validar email
-export function isValidarEmail(email: string): boolean {
+export function ValidarEmail(email: string): boolean {
   // normaliza email para caracteres caixa baixa
   const normalizedEmail = email.toLowerCase();
   // Expressão regular para email no seu formato xxxx?xxxx@xxxx.xxx???
@@ -25,17 +39,66 @@ export function isValidarEmail(email: string): boolean {
   // Verifica se o email tem os caracteres desejados
   return emailRegex.test(normalizedEmail);
 }
-// Funçao para Validar celular
-export function isValidarCell(cell: string): boolean {
+/**
+ * Função para USAR MASCARA PARA NÃO APARECER CONTEUDO TOTAL
+ * @param email - O número de CPF como string.
+ * @returns A string mascarada se válida, caso contrário uma mensagem de erro.
+ * Exemplo de uso
+ * const email = "joaodasilva@hotmail.com";
+ * const emailMascarado = mascararEmail(email);
+ * console.log(emailMascarado);  // Saída: "****da**lva@****mail.com"
+ */
+export function MaskSEmail(email: string): string {
+  const [localPart, domain] = email.split('@');
+  const domainParts = domain.split('.');
+  // Mascarar tudo menos os dois últimos caracteres da parte local antes do "@"
+  const localMasked =
+    localPart.slice(0, -2).replace(/./g, '*') + localPart.slice(-2);
+  // Mascarar o domínio, mantendo o provedor oculto
+  const domainMasked =
+    domainParts[0].slice(0, -4).replace(/./g, '*') +
+    domainParts[0].slice(-4) +
+    '.' +
+    domainParts.slice(1).join('.');
+  const emailmascarado = `${localMasked}@${domainMasked}`;
+  return emailmascarado;
+}
+// Exemplo de uso
+// console.log(maskEmail("los.sbrissa@hotmail.com")); // "*********sa@***mail.com"
+// console.log(maskEmail("loslds7@gmail.com"));       // "******s7@**mail.com"
+///////////////////////////////////////////////////////////////////////////////
+/**------------funções com Nr CELILAR NACIONAL-BR -----------
+ * NormalizeCelll -> apos edição no retrata a edição
+ * ValidarEmail   -> Valida se existe erro na formatação do email
+ * MaskSEmail     -> Mascara email com * para não aparecer o totalmente
+ */
+// Função para normalizar celular
+export function NormalizeCell(fonec: string): boolean {
+  const existAlfa = /[a-z]/i.test(fonec);
+  if ( existAlfa ) return false;
+  return true;
+}
+
+// Funçao para Validar celular para gravar em Tabela
+export function FormatCell(fonec: string): boolean {
   // normaliza nr cell dos espaços em branco
-  const cleaned = cell.replace(/\D/g, '');
+  const cleaned = fonec.replace(/\D/g, '');
   // Expressão regular verificar se são somente numeros
   const cellRegex = /^\d{11}$/;
   // Verifica se o número tem exatamente 11 dígitos
   return cellRegex.test(cleaned);
 }
+
+
+
+
+
+
+
+
+
 // validar Documento CPF
-export function isValidarCpf(cpf: string): boolean {
+export function ValidarCpf(cpf: string): boolean {
   // normaliza nr cell dos espaços em branco
   const cleaned = cpf.replace(/\D/g, '');
   // Expressão regular verificar se são somente numeros
@@ -72,7 +135,7 @@ export function MasckedEmail(email: string): string {
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Validar telefone 0800
-export function isFone0800Valid(fone0800: string): boolean {
+export function Fone0800Valid(fone0800: string): boolean {
   // Remove todos os caracteres não numéricos
   const cleaned = fone0800.replace(/\D/g, '');
   // Expressão regular para telefone 0800 no formato 0800-XXXXXXX
@@ -96,7 +159,7 @@ export function MasckedFone0800(fone0800: string): string {
 }
 
 // Validar telefone fixo
-export function isFoneFxValid(fonefx: string): boolean {
+export function FoneFxValid(fonefx: string): boolean {
   // Remove todos os caracteres não numéricos
   const cleaned = fonefx.replace(/\D/g, '');
   // Expressão regular para telefone fixo no formato (XX) XXXX-XXXX
@@ -120,7 +183,7 @@ export function MasckedFoneFx(fonefx: string): string {
 }
 
 // Validar telefone celular
-export function isFoneCValid(fonec: string): boolean {
+export function FoneCValid(fonec: string): boolean {
   const cleaned = fonec.replace(/\D/g, '');
   // Expressão regular para telefone celular no formato (XX) XXXXX-XXXX
   const fonecRegex = /^\d{11}$/;
@@ -143,7 +206,7 @@ export function MasckedFoneC(fonec: string): string {
 }
 
 // Validar telefone WhatsApp
-export function isFoneZValid(fonez: string): boolean {
+export function FoneZValid(fonez: string): boolean {
   const cleaned = fonez.replace(/\D/g, '');
   // Expressão regular para WhatsApp no formato DDI + DDD + Número (XX) XXXXX-XXXX
   const fonezRegex = /^\d{13}$/;
@@ -169,21 +232,21 @@ export function MasckedFoneZ(fonez: string): string {
 // (usando a biblioteca "libphonenumber-js")
 // A função isTelefoneValid usa a biblioteca libphonenumber-js para validar
 // qualquer número de telefone no formato internacional.
-export function isTelefoneValid(fone: string): boolean {
+export function TelefoneValid(fone: string): boolean {
   const phoneNumber = parsePhoneNumberFromString(fone);
   return phoneNumber?.isValid() ?? false;
 }
 
 ////////////////////////////////////////////////////////////
 // testa se foi editado somente numeros
-export function isNumber(str: string): boolean {
+export function ValidarNumber(str: string): boolean {
   const strRegex = /^[0-9]+$/; // Apenas números
   return strRegex.test(str);
 }
 
 /////////////////////////////////////////////////////////////
 // validar Documento CPF
-export function isCpfValid(cpf: string): boolean {
+export function ValidarCpf(cpf: string): boolean {
   const cleaned = cpf.replace(/\D/g, '');
   const cpfRegex = /^(\d{3})(\d{3})(\d{3})(\d{2})$/;
   return cpfRegex.test(cleaned);
@@ -258,37 +321,6 @@ export function maskCPF(cpf: string): string {
   const masked = cleaned.replace(cpfRegex, '$1.$2.$3-$4');
   return masked;
 }
-///////////////////////////////////////////////////////////////////////////////
-/**
- * Função para USAR MASCARA PARA NÃO APARECER CONTEUDO TOTAL
- * @param email - O número de CPF como string.
- * @returns A string mascarada se válida, caso contrário uma mensagem de erro.
- * Exemplo de uso
- * const email = "joaodasilva@hotmail.com";
- * const emailMascarado = mascararEmail(email);
- * console.log(emailMascarado);  // Saída: "****da**lva@****mail.com"
- */
-export function MaskSEmail(email: string): string {
-  const [localPart, domain] = email.split('@');
-  const domainParts = domain.split('.');
-
-  // Mascarar tudo menos os dois últimos caracteres da parte local antes do "@"
-  const localMasked =
-    localPart.slice(0, -2).replace(/./g, '*') + localPart.slice(-2);
-
-  // Mascarar o domínio, mantendo o provedor oculto
-  const domainMasked =
-    domainParts[0].slice(0, -4).replace(/./g, '*') +
-    domainParts[0].slice(-4) +
-    '.' +
-    domainParts.slice(1).join('.');
-  const emailmascarado = `${localMasked}@${domainMasked}`;
-
-  return emailmascarado;
-}
-// Exemplo de uso
-// console.log(maskEmail("los.sbrissa@hotmail.com")); // "*********sa@***mail.com"
-// console.log(maskEmail("loslds7@gmail.com"));       // "******s7@**mail.com"
 ///////////////////////////////////////////////////////////////////////////////
 /*
  * Função para USAR MASCARA PARA NÃO APARECER CONTEUDO TOTAL
