@@ -9,6 +9,7 @@ import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
 import { ContentHeaderButtonAbortar } from '../ContentHeaderButtonAbortar';
 import { ContentHeaderButtonChk } from '../ContentHeaderButtonChk';
+import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
 
 interface PropsHearderConfig {
   imgsys?: string;
@@ -28,6 +29,11 @@ interface PropsHearderConfig {
   imgbtnchk?: string;
   titbtnchk?: string;
   onclickchk?: () => void;
+  
+  mstonoff?: boolean;
+  imgbtnmst?: string;
+  titbtnmst?: string;
+  onclickmst?: () => void;
 
   onchange: () => void;
   ischeck?: boolean;
@@ -51,7 +57,12 @@ const HearderConfig = ({
   imgbtnchk,
   titbtnchk,
   onclickchk,
-  
+
+  mstonoff,
+  imgbtnmst,
+  titbtnmst,
+  onclickmst,
+    
   onchange,
   ischeck,
 
@@ -88,6 +99,14 @@ const HearderConfig = ({
             titbtnchk={titbtnchk}
             onClickchk={onclickchk}
           />
+
+          <ContentHeaderButtonMaster
+            mstonoff={mstonoff}
+            imgbtnmst={imgbtnmst}
+            titbtnmst={titbtnmst}
+            onClickmst={onclickmst}
+          />
+
 
           <H.ContainerHeaderButton>
             <Switch

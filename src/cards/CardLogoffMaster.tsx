@@ -135,10 +135,12 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
   }, [secondsLeft]);
 
   const handleConfirm = React.useCallback(() => {
+    console.log("[LOGOFF MASTER] Confirm clicado");
     onConfirm?.();
   }, [onConfirm]);
 
   const handleCancel = React.useCallback(() => {
+    console.log("[LOGOFF MASTER] Cancel clicado");
     onCancel?.();
   }, [onCancel]);
 

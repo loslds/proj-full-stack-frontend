@@ -28,6 +28,7 @@ import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
+import { logoutMaster } from '../contexts/helpers/logoutMaster';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
 import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
@@ -263,6 +264,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
         imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
+
         imgbtnlogin={btn_avatar}
         titbtnlogin="Login..."
         onclicklogin={() => {
@@ -310,7 +312,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mvisitante}
             titlebtn={'Modulo Visitantes..'}
             onclick={() => {
-              if (state.modulo === 'Visitante' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Visitante' && state.logado && state.auth !== '') ) {
                 goto('/modulos/visitante');
               } else {
                 handlerClicEventNegadoPage(1);
@@ -331,7 +334,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mrecepcao}
             titlebtn={'Modulo Recepção...'}
             onclick={() => {
-              if (state.modulo === 'Recepcao' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Recepcao' && state.logado && state.auth !== '') ) {
                 goto('/modulos/recepcao');
               } else {
                 handlerClicEventNegadoPage(2);
@@ -352,7 +356,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mdesign}
             titlebtn={'Modulo Design...'}
             onclick={() => {
-              if (state.modulo === 'Design' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Design' && state.logado && state.auth !== '') ) {
                 goto('/modulos/design');
               } else {
                 handlerClicEventNegadoPage(3);
@@ -373,7 +378,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mproducao}
             titlebtn={'Modulo Produção...'}
             onclick={() => {
-              if (state.modulo === 'Producao' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Producao' && state.logado && state.auth !== '') ) {
                 goto('/modulos/producao');
               } else {
                 handlerClicEventNegadoPage(4);
@@ -393,7 +399,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_macabamento}
             titlebtn={'Modulo Acabamento...'}
             onclick={() => {
-              if (state.modulo === 'Acabamento' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Acabamento' && state.logado && state.auth !== '') ) {
                 goto('/modulos/acabamento');
               } else {
                 handlerClicEventNegadoPage(5);
@@ -414,7 +421,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mexpedicao}
             titlebtn={'Modulo Expedição...'}
             onclick={() => {
-              if (state.modulo === 'Expedicao' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Expedicao' && state.logado && state.auth !== '') ) {
                 goto('/modulos/expedicao');
               } else {
                 handlerClicEventNegadoPage(6);
@@ -434,7 +442,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_madministracao}
             titlebtn={'Modulo Administração...'}
             onclick={() => {
-              if (state.modulo === 'Administracao' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Administracao' && state.logado && state.auth !== '') ) {
                 goto('/modulos/administracao');
               } else {
                 handlerClicEventNegadoPage(7);
@@ -455,7 +464,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             imgbtn={pnl_mconfig}
             titlebtn={'Cadastros Config...'}
             onclick={() => {
-              if (state.modulo === 'Config' || state.modulo === 'Master' || state.chvkey || state.logado) {
+              if ( (state.chvkey && state.auth_admin !== '') || 
+                (state.modulo === 'Config' && state.logado && state.auth !== '') ) {
                 goto('/modulos/config');
               } else {
                 handlerClicEventNegadoPage(8);
@@ -467,9 +477,6 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
                 else setMsgPanelBottom('✅ Abre Modulo Config.');  
                 }
               }
-              
-              
-              //() => setMsgPanelBottom('Abre Cadastros Config.')}
             onMouseLeave={ () => {
                 if (!state.logado && !state.chvkey ) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
                 else setMsgPanelBottom('✅ Acesso Permitido...');  
@@ -670,7 +677,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
               seconds={30}
               resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
               onConfirm={() => {
-                // logoutMaster();  // ✅ chame aqui quando estiver pronto
+                logoutMaster(dispatch);
                 setIsMsgChvkey(false);
               }}
               onCancel={() => setIsMsgChvkey(false)}

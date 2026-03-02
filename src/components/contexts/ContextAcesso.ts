@@ -11,13 +11,16 @@ export type StateAcesso = {
   auth: string | null;
   auth_admin: string | null;
   aplicacao: string | null;
+
   id_modulo: number;
   modulo: string | null;
   id_nivel: number;
   acao: string | null;
+
   id_emp: number;
   nomeemp: string | null;
   fantemp: string | null;
+
   id_vis: number;
   nomevis: string | null;
   fantvis: string | null;
@@ -35,10 +38,12 @@ export type StateAcesso = {
   img_avatar: Blob | null;
   img_path: string | null;
   img_nmarq: string | null;
+
   id_acesso: number;
   qdd_acesso: number;
   ult_acesso: string | null;
   cadeado: boolean | null;
+  
   id_user: number;
   nomeuser: string | null;
   mail: string | null;
@@ -48,7 +53,7 @@ export type StateAcesso = {
   pinchar: string | null;
   dataini: string | null;
   datafim: string | null;
-  tempo: string | null;
+  tempo?: string | null;
   mdlogin: number | null;
   nmlogin: string | null;
   nrcont: number | null;
@@ -56,9 +61,12 @@ export type StateAcesso = {
   systemMode: 'LEVE' | 'DEV' | 'LEVE';
   nametable: string | null;
   regtable: boolean | null;
+
   inctable: boolean | null;
   alttable: boolean | null;
   exctable: boolean | null;
+
+  vistable: boolean | null;
   reltable: boolean | null;
   filttable: boolean | null;
 
@@ -122,6 +130,7 @@ export const initialData: StateAcesso = {
   inctable: false,
   alttable: false,
   exctable: false,
+  vistable: false,
   reltable: false,
   filttable: false,
 
@@ -185,6 +194,7 @@ export enum UseAcessoActions {
   set_INC_TABLE,
   set_ALT_TABLE,
   set_EXC_TABLE,
+  set_VIS_TABLE,
   set_REL_TABLE,
   set_FILT_TABLE,
 }
@@ -247,6 +257,7 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_INC_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_ALT_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_EXC_TABLE; payload: boolean | null }
+  | { type: UseAcessoActions.set_VIS_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_REL_TABLE; payload: boolean | null }
   | { type: UseAcessoActions.set_FILT_TABLE; payload: boolean | null };
 
@@ -311,6 +322,7 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_ALT_TABLE: return { ...state, inctable: action.payload };
     case UseAcessoActions.set_EXC_TABLE: return { ...state, alttable: action.payload };
     case UseAcessoActions.set_REL_TABLE: return { ...state, reltable: action.payload };
+    case UseAcessoActions.set_VIS_TABLE: return { ...state, vistable: action.payload };
     case UseAcessoActions.set_FILT_TABLE: return { ...state, filttable: action.payload };
     default: return state;
   }

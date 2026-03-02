@@ -108,6 +108,8 @@ const Config: React.FC = () => {
     setTheme(theme.name === "dark" ? light : dark);
     setIscheck(theme.name === "dark");
   };
+  // só acessa se tiver usando o set_AUTH 
+
 
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => navigate(path), [navigate]);
