@@ -25,7 +25,7 @@ interface PropsLayoutHome {
 
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode;
   open?: boolean;
 }
 const LayoutHome = ({

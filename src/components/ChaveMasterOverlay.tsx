@@ -70,14 +70,7 @@ const ChaveMasterOverlay: React.FC = () => {
       localStorage.setItem("token_admin", tokenAdmin);
     
       dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: tokenAdmin });
- {/**     dispatch({ type: UseAcessoActions.set_LOGADO, payload: false }); */}
       dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true });
-{/**
-      dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 4 });
-      dispatch({ type: UseAcessoActions.set_ACAO, payload: "VIS/EDI/ALT/EXC" });
-      dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
-      dispatch({ type: UseAcessoActions.set_MODULO, payload: "Master" });
- */}
     },
     [dispatch]
   );

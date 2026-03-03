@@ -26,6 +26,11 @@ interface PropsLayoutConfig {
   titbtnchk?: string;
   onclickchk?: () => void;
 
+  mstonoff?: boolean;
+  imgbtnmst?: string;
+  titbtnmst?: string;
+  onclickmst?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode ;
@@ -51,6 +56,13 @@ const LayoutConfig = ({
   titbtnchk,
   onclickchk,
 
+  
+  mstonoff,
+  imgbtnmst,
+  titbtnmst,
+  onclickmst,
+
+
   onchange,
   ischeck,
   children,
@@ -75,7 +87,10 @@ const LayoutConfig = ({
         imgbtnchk={imgbtnchk}
         titbtnchk={titbtnchk}
         onclickchk={onclickchk}
-
+        mstonoff={mstonoff}
+        imgbtnmst={imgbtnmst}
+        titbtnmst={titbtnmst}
+        onclickmst={onclickmst}
         onchange={onchange}
         ischeck={ischeck}
       />

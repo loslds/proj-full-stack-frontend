@@ -1,17 +1,16 @@
  
 // C:\repository\proj-full-stack-frontend\src\components\pages\Home.tsx
 import React from 'react';
+import * as Pg from '../stylePages';
 import { useNavigate } from 'react-router-dom';
-
+// theme
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
-
+// layout page
 import LayoutHome from '../layouts/LayoutHome';
-
+// uso do context
 import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
-import * as Pg from '../stylePages';
-
 // main page
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -22,12 +21,13 @@ import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotto
 import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
-// component para help butom 
+// component ação botão help 
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
+// component ação botão Fechar Master 
 import { logoutMaster } from '../contexts/helpers/logoutMaster';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
@@ -56,17 +56,22 @@ import { SystemHealthResult } from '../../types/SystemHealth';
 
 const Home: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
-
+  const [theme, setTheme] = React.useState(light);
+  // mudança em THEME
+  const [ischeck, setIscheck] = React.useState(false);
+  // menssagem em heard do Panel Booton
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
+  // menssagem em Panel Booton
+  const [messagebottom, setMessageBottom] = React.useState('');
+
   const [cardlogo, setCardLogo] = React.useState(false);
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
-  const [theme, setTheme] = React.useState(light);
-  const [ischeck, setIscheck] = React.useState(false);
+  
+  
   
   const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
-  //const [isabortachvkey, setIsAbortaChvkey] = React.useState(false);
-  const [messagebottom, setMessageBottom] = React.useState('');
+  
   const [chavemst, setChaveMst ] = React.useState(false);
 
   // Mantidos (você usa para sinalizar alguns fluxos), mas agora SEM travar Home
@@ -90,19 +95,13 @@ const Home: React.FC = () => {
     setIscheck((prev) => !prev);
   };
 
-  console.log("[HOME-Inicio] chvkey =", state.chvkey);
-
   React.useEffect(() => {
     if (state.chvkey) {
-      
       setMsgPanelBottom('Acesso "Master" ativo.');
       setMessageBottom("Aguardando Seleção...");
       return;
     }
-console.log("[HOME-após-Inicio] chvkey =", state.chvkey);
-
     if (state.initsys) return;
-
     let cancelled = false;
 
     async function runSystemCheck() {
@@ -110,17 +109,12 @@ console.log("[HOME-após-Inicio] chvkey =", state.chvkey);
         // abre modal informativo de verificação (fechável)
         setShowSystemCheckModal(true);
         setSystemOk(null);
-
         setSystemMessages(['🔍 Iniciando verificação do sistema...', '🔌 Consultando estado do backend...']);
-
         const res = await fetch('http://localhost:3000/api/system/health');
         const data: SystemHealthResult = await res.json();
-
         if (cancelled) return;
-
         const ok = data.success && data.missingTables.length === 0;
         const chkdb = data.initialized;
-
         const messages: string[] = [
           `🧭 Modo do sistema: ${data.mode}`,
           `📦 Tabelas encontradas: ${data.existingTables.length}`,
@@ -131,21 +125,17 @@ console.log("[HOME-após-Inicio] chvkey =", state.chvkey);
         } else {
           messages.push('✅ Todas as tabelas necessárias estão presentes.');
         }
-
         setSystemMessages(messages);
         setSystemOk(ok);
-
         dispatch({ type: UseAcessoActions.set_INITSYS, payload: ok });
         dispatch({ type: UseAcessoActions.set_CHKDB, payload: chkdb });
       } catch {
         setSystemMessages(['❌ Backend não respondeu.', '⛔ Não foi possível verificar o sistema.']);
         setSystemOk(false);
-
         dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
         dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
       }
     }
-
     runSystemCheck();
     return () => {
       cancelled = true;
@@ -156,15 +146,12 @@ console.log("[HOME-após-Inicio] chvkey =", state.chvkey);
   setMessageBottom("");
   dispatch({ type: UseAcessoActions.set_PAGE, payload: "Home" });
   dispatch({ type: UseAcessoActions.set_APLICACAO, payload: "OPÇÃO" });
-
   // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
-console.log("[HOME-state.chvkey]=", state.chvkey);
   if (state.chvkey) {
     setMsgPanelBottom('Acesso "Master" ativo.');
     setMessageBottom("Aguardando Seleção...");
     return;
   }
-
   // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
   if (!state.initsys) {
     dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
@@ -173,61 +160,42 @@ console.log("[HOME-state.chvkey]=", state.chvkey);
     dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
     dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
     dispatch({ type: UseAcessoActions.set_MODULO, payload: "Checagem Database" });
-
     setMsgPanelBottom("Check DataBase...");
     setMessageBottom("Sistema com DataBase Inconsistente...");
     setInitShowSystem(true);
     return;
   }
-
-console.log("[HOME0] chvkey =", state.chvkey);
-
   // ✅ 3) Sistema iniciou, mas DB não pronto
   if (!state.chkdb) {
     setShowSystemCheckModal(true);
     setMsgPanelBottom("Sistema Inoperante. Conexão ou tabelas não estão prontas.");
     return;
   }
-
   // ✅ 4) Usuário logado (login normal)
   if (state.logado) {
     setMsgPanelBottom(`Acesso MODULO ["${state.modulo}"] ao Sistema...`);
     setMessageBottom("Aguardando Seleção...");
     return;
   }
-
-  console.log("[HOME1] chvkey =", state.chvkey);
-
   // ✅ 5) Sem login e sem master
   dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
   dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
   dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
   dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
   dispatch({ type: UseAcessoActions.set_MODULO, payload: "Inicial" });
-
   setMsgPanelBottom("Aguardando Login Sistema...");
   setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
-
-
-React.useEffect(() => {
-console.log("[HOME2] chvkey =", state.chvkey);
-}, [state.chvkey]);
 
 React.useEffect(() => {
   setChaveMst(Boolean(state.chvkey));
 }, [state.chvkey]);
 
-console.log("[HOME3] chvkey depois:", state.chvkey);
-
   const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
-  
   const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
-
   const handlerClicEventNegadoPage = React.useCallback(
     (num: number) => {
       if (num === undefined) return;
-
       const routes: Record<number, string> = {
         1: '/modulos/visitante',
         2: '/modulos/recepcao',
@@ -238,9 +206,7 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
         7: '/modulos/administracao',
         8: '/modulos/config',
       };
-
       const targetRoute = routes[num];
-
       if (!state.logado && !state.chvkey) {
         setCardNegadoPage(true);
       } else if (targetRoute) {
@@ -250,17 +216,15 @@ console.log("[HOME3] chvkey depois:", state.chvkey);
     [goto, state.logado, state.chvkey]
   );
   
-  React.useEffect(() => {
-console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
-  }, [state.nametable]);
-
   return (
     <ThemeProvider theme={theme}>
       <LayoutHome
         imgsys={lg_default}
         titbtnsys="Quen Somos..."
         onclicksys={handlerCardLogo}
+
         titlepg="Home"
+
         imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
@@ -486,22 +450,25 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
         </ContentItensBody>
 
         <Pg.DivisionPgHztal />
-
+        {/* Monta o painel bootom */}
         <ContentSidePagePanelBotton 
           bordas="3px" 
           open={true} 
           pwidth="100%"
         >
+          {/* Mostra mensagem painel bootom */}
           <ContentSideMsgPagePanelBotton 
             bordas="3px"
             label={'Menssagens : '} 
             msg={msgpanelbottom} 
           />
+          {/* Refaz a pagina atual */}
           <ContentSidePageBottonLabel 
             open={true} 
             istitl={true} 
             title={'Refrescar.: '}
           >
+            {/* Mostra, ação botão a esquerda do Panel */}
             <ContentSidePageBottonButton
               pxheight={'40px'}
               img={btn_qrefrescar}
@@ -513,9 +480,8 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             />
           </ContentSidePageBottonLabel>
           <div><label>ATENÇÃO...{messagebottom}</label></div>
-        
         </ContentSidePagePanelBotton>
-
+        {/** Abre Modal para Acesso Negado na pagina atual */ }
         {cardnegadopage ? (
           <PageModal
             ptop={'1%'}
@@ -534,20 +500,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             />
           </PageModal>
         ) : null}
-
-        {cardlogo ? (
-          <PageModal
-            ptop='330px'
-            pwidth={'400px'}
-            pheight={'40%'}
-            imgbm={btn_qclose}
-            titbm="Fechar..."
-            titulo={'Abortar Master.'}
-            onclose={() => setCardLogo(false)}
-          >
-          </PageModal>
-        ) : null}
-
+        {/** Abre Modal help ao clicar na imagem LOGO da Pagina */ }
         {cardlogo ? (
           <PageModal
             ptop={'1%'}
@@ -561,7 +514,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} /> 
           </PageModal>
         ) : null}
-
+        {/* Abre Modal help ao clicar no Botão Help da Pagina */ }
         {cardhplpage ? (
           <PageModal
             ptop={'1%'}
@@ -578,8 +531,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             />
           </PageModal>
         ) : null}
-
-        {/* ✅ Modal de verificação (fechável) */}
+        {/* Abre Modal da Verificação do Sistema (fechável) */ }
         {showsystemcheckmodal ? (
           <PageModal
             ptop={'45%'}
@@ -600,8 +552,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             />
           </PageModal>
         ) : null}
-
-        {/* ✅ Modal "negado / não pode iniciar" (agora FECHA de verdade e não trava a Home) */}
+        {/* Abre Modal da anunciando a Verificação "negado / não pode iniciar" do Sistema (fechável) */ }
         {!showsystemcheckmodal && showInitSystem ? (
           <PageModal
             ptop={'10%'}
@@ -626,7 +577,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             <AutoCloseTimer onClose={() => setInitShowSystem(false)} seconds={10} />
           </PageModal>
         ) : null}
-
+        {/* Abre Modal da anunciando "negado / não pode operar" o Sistema (fechável) */ }
         {notOperation ? (
           <PageModal
             ptop={'10%'}
@@ -651,7 +602,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
-
+        {/* Abre Modal da fazer o logo-off do anunciando "negado / não pode operar" o Sistema (fechável) */ }
         { ismsgchvkey ? (
           <PageModal
             ptop='330px'
@@ -668,7 +619,7 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
               pxheight="57px"
               pxwidth="65px"
               imgpnl={pnl_master}
-              onclickpnl={() => alert("estou aqui...")}
+              onclickpnl={() => {}}
               open={true}
               titulo={"Acesso Logo-off."}
               msg={"Confirme opção de Logoff."}
@@ -685,67 +636,10 @@ console.log('[HOME/CONFIG] nametable mudou:', state.nametable);
             />
           </PageModal>
         ) : null}
-
-      <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
-
+      {/* <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div> */}
       </LayoutHome>
     </ThemeProvider>
   );
 };
 
 export default Home;
-
-////////////////////////////////////////////////////////
-
-        ////////////////////////////////////////////////
-            // <CardImgNeg
-            //   imgcard={pnl_negado}
-            //   pminheight={'120px'}
-            //   pwidth={'120px'}
-            //   onclickimg={() => setIsMsgChvkey(false)}
-            // />
-            // <form>
-            //   <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
-            //   <br />
-            //   <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
-            //   <br />
-            //   <p> Clique "SIM" para Descatar Recurso. :  </p>
-            //     <button onClick={ () => window.location.reload()}>SIM.</button>
-            //   <br />  
-            //   <p> Clique "NÂO" para Continuar com Recurso. : </p> 
-            //     <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
-            //   <br />
-            //   <br />
-            // </form>
-            // <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
-
-
-
-
-
-
-
-
-
-
-            // <CardImgNeg
-            //   imgcard={pnl_negado}
-            //   pminheight={'120px'}
-            //   pwidth={'120px'}
-            //   onclickimg={() => setIsMsgChvkey(false)}
-            // />
-            // <form>
-            //   <h3> ⛔ ATENÇÂO SISTEMA EM APOIO.</h3>
-            //   <br />
-            //   <h2> Deseja Realmente descartar Chave de Apoio Gerencial ? </h2>
-            //   <br />
-            //   <p> Clique "SIM" para Descatar Recurso. :  </p>
-            //     <button onClick={ () => window.location.reload()}>SIM.</button>
-            //   <br />  
-            //   <p> Clique "NÂO" para Continuar com Recurso. : </p> 
-            //     <button onClick={ () => setIsMsgChvkey(false) }>NÂO.</button>
-            //   <br />
-            //   <br />
-            // </form>
-            // <AutoCloseTimer onClose={() => setIsMsgChvkey(false)} seconds={5} />
-
