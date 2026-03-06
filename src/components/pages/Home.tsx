@@ -115,17 +115,30 @@ const Home: React.FC = () => {
         if (cancelled) return;
         const ok = data.success && data.missingTables.length === 0;
         const chkdb = data.initialized;
+
         const messages: string[] = [
           `🧭 Modo do sistema: ${data.mode}`,
+          `🗄️ Database: ${data.database}`,
           `📦 Tabelas encontradas: ${data.existingTables.length}`,
         ];
 
+        // mantém o resumo de ausentes
         if (data.missingTables.length > 0) {
           messages.push(`⚠️ Tabelas ausentes: ${data.missingTables.join(', ')}`);
         } else {
           messages.push('✅ Todas as tabelas necessárias estão presentes.');
         }
+
+        // adiciona o detalhamento tabela a tabela
+        if (Array.isArray(data.steps)) {
+          messages.push('— Detalhes das tabelas —');
+          data.steps.forEach(step => {
+          messages.push(step.message);
+          });
+        }
+
         setSystemMessages(messages);
+        
         setSystemOk(ok);
         dispatch({ type: UseAcessoActions.set_INITSYS, payload: ok });
         dispatch({ type: UseAcessoActions.set_CHKDB, payload: chkdb });
