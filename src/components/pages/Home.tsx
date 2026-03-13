@@ -312,7 +312,7 @@ React.useEffect(() => {
             titlebtn={'Modulo Recepção...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
-                (state.modulo === 'Recepcao' && state.logado && state.auth !== '') ) {
+                (state.modulo === 'Recepção' && state.logado && state.auth !== '') ) {
                 goto('/modulos/recepcao');
               } else {
                 handlerClicEventNegadoPage(2);
@@ -356,7 +356,7 @@ React.useEffect(() => {
             titlebtn={'Modulo Produção...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
-                (state.modulo === 'Producao' && state.logado && state.auth !== '') ) {
+                (state.modulo === 'Produção' && state.logado && state.auth !== '') ) {
                 goto('/modulos/producao');
               } else {
                 handlerClicEventNegadoPage(4);
@@ -399,7 +399,7 @@ React.useEffect(() => {
             titlebtn={'Modulo Expedição...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
-                (state.modulo === 'Expedicao' && state.logado && state.auth !== '') ) {
+                (state.modulo === 'Expedição' && state.logado && state.auth !== '') ) {
                 goto('/modulos/expedicao');
               } else {
                 handlerClicEventNegadoPage(6);
@@ -420,7 +420,7 @@ React.useEffect(() => {
             titlebtn={'Modulo Administração...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
-                (state.modulo === 'Administracao' && state.logado && state.auth !== '') ) {
+                (state.modulo === 'Administração' && state.logado && state.auth !== '') ) {
                 goto('/modulos/administracao');
               } else {
                 handlerClicEventNegadoPage(7);
