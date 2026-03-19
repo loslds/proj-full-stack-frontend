@@ -32,7 +32,7 @@ import { logoutMaster } from '../contexts/helpers/logoutMaster';
 // imgs do header
 import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
 import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
-import btn_avatar from '../../assets/defaut/avatar/avt_default.svg';
+import btn_avatar from '../../assets/defaut/avatar/avt_def_default.svg';
 import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
 import btn_master from '../../assets/defaut/botao/bnt_def_q_master.svg';
 import pnl_master from '../../assets/defaut/painel/pnl_def_ope_esclamacao.svg'

@@ -7,15 +7,15 @@ export type StateAcesso = {
   initsys: boolean | null;
   chkdb: boolean | null;
   chvkey: boolean | null;
+  ismaster: boolean | null;
   logado: boolean | null;
   auth: string | null;
   auth_admin: string | null;
   aplicacao: string | null;
 
-  id_modulo: number;
-  modulo: string | null;
-  id_nivel: number;
-  acao: string | null;
+  id_modulo: number; modulo: string | null;
+  id_nivel: number; nivel: string | null; cor: string | null;
+  id_acao: number; acao: string | null;
 
   id_emp: number;
   nomeemp: string | null;
@@ -78,14 +78,16 @@ export const initialData: StateAcesso = {
   initsys: false,
   chkdb: false,
   chvkey: false,
+  ismaster: false,
   logado: false,
   auth: '',
   auth_admin: '',
   aplicacao: '',
-  id_modulo: 0,
-  modulo: '',
-  id_nivel: 0,
-  acao: '',
+
+  id_modulo: 0, modulo: '',
+  id_nivel: 0, nivel: '',  cor: '',
+  id_acao: 0, acao: '',
+  
   id_emp: 0,
   nomeemp: '',
   fantemp: '',
@@ -142,14 +144,14 @@ export enum UseAcessoActions {
   set_INITSYS,
   set_CHKDB,
   set_CHVKEY,
+  set_ISMASTER,
   set_LOGADO,
   set_AUTH,
   set_AUTH_ADMIN,
   set_APLICACAO,
-  set_ID_MODULO,
-  set_MODULO,
-  set_ID_NIVEL,
-  set_ACAO,
+  set_ID_MODULO, set_MODULO,
+  set_ID_NIVEL, set_NIVEL, set_COR,
+  set_ID_ACAO, set_ACAO,
   set_ID_EMP,
   set_NOMEEMP,
   set_FANTEMP,
@@ -205,14 +207,21 @@ export type AcessoAction =
   | { type: UseAcessoActions.set_INITSYS; payload: boolean | null }
   | { type: UseAcessoActions.set_CHKDB; payload: boolean | null }
   | { type: UseAcessoActions.set_CHVKEY; payload: boolean | null }
+  | { type: UseAcessoActions.set_ISMASTER; payload: boolean | null }
   | { type: UseAcessoActions.set_LOGADO; payload: boolean | null }
   | { type: UseAcessoActions.set_AUTH; payload: string | null }
   | { type: UseAcessoActions.set_AUTH_ADMIN; payload: string | null }
+
   | { type: UseAcessoActions.set_APLICACAO; payload: string }
+
   | { type: UseAcessoActions.set_ID_MODULO; payload: number }
   | { type: UseAcessoActions.set_MODULO; payload: string }
   | { type: UseAcessoActions.set_ID_NIVEL; payload: number }
+  | { type: UseAcessoActions.set_NIVEL; payload: string }
+  | { type: UseAcessoActions.set_COR; payload: string }
+  | { type: UseAcessoActions.set_ID_ACAO; payload: number }
   | { type: UseAcessoActions.set_ACAO; payload: string }
+
   | { type: UseAcessoActions.set_ID_EMP; payload: number }
   | { type: UseAcessoActions.set_NOMEEMP; payload: string }
   | { type: UseAcessoActions.set_FANTEMP; payload: string }
@@ -273,10 +282,14 @@ export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
     case UseAcessoActions.set_AUTH: return { ...state, auth: action.payload };
     case UseAcessoActions.set_AUTH_ADMIN: return { ...state, auth_admin: action.payload };
     case UseAcessoActions.set_APLICACAO: return { ...state, aplicacao: action.payload };
-    case UseAcessoActions.set_ID_NIVEL: return { ...state, id_nivel: action.payload };
-    case UseAcessoActions.set_ACAO: return { ...state, acao: action.payload };
     case UseAcessoActions.set_ID_MODULO: return { ...state, id_modulo: action.payload };
+    
     case UseAcessoActions.set_MODULO: return { ...state, modulo: action.payload };
+    case UseAcessoActions.set_ID_NIVEL: return { ...state, id_nivel: action.payload };
+    case UseAcessoActions.set_NIVEL: return { ...state, nivel: action.payload };
+    case UseAcessoActions.set_ID_ACAO: return { ...state, id_acao: action.payload };
+    case UseAcessoActions.set_ACAO: return { ...state, acao: action.payload };
+
     case UseAcessoActions.set_ID_EMP: return { ...state, id_emp: action.payload };
     case UseAcessoActions.set_NOMEEMP: return { ...state, nomeemp: action.payload };
     case UseAcessoActions.set_FANTEMP: return { ...state, fantemp: action.payload };
