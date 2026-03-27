@@ -10,7 +10,7 @@ import dark from '../../themes/dark';
 // layout page
 import LayoutHome from '../layouts/LayoutHome';
 // uso do context
-import { useAcessoContext, UseAcessoActions } from '../contexts/ContextAcesso';
+import { useAcessoContext } from "../contexts/ContextAcesso";
 // main page
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -56,6 +56,7 @@ import { SystemHealthResult } from '../../types/SystemHealth';
 
 const Home: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
+
   const [theme, setTheme] = React.useState(light);
   // mudança em THEME
   const [ischeck, setIscheck] = React.useState(false);
@@ -140,13 +141,13 @@ const Home: React.FC = () => {
         setSystemMessages(messages);
         
         setSystemOk(ok);
-        dispatch({ type: UseAcessoActions.set_INITSYS, payload: ok });
-        dispatch({ type: UseAcessoActions.set_CHKDB, payload: chkdb });
+        dispatch({ type: "initsys", payload: ok });
+        dispatch({ type: "chkdb", payload: chkdb });
       } catch {
         setSystemMessages(['❌ Backend não respondeu.', '⛔ Não foi possível verificar o sistema.']);
         setSystemOk(false);
-        dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
-        dispatch({ type: UseAcessoActions.set_CHKDB, payload: false });
+        dispatch({ type: "initsys", payload: false });
+        dispatch({ type: "chkdb", payload: false });
       }
     }
     runSystemCheck();
@@ -157,8 +158,8 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
   setMessageBottom("");
-  dispatch({ type: UseAcessoActions.set_PAGE, payload: "Home" });
-  dispatch({ type: UseAcessoActions.set_APLICACAO, payload: "OPÇÃO" });
+  dispatch({ type: "page", payload: "Home" });
+  dispatch({ type: "aplicacao", payload: "OPÇÃO" });
   // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
   if (state.chvkey) {
     setMsgPanelBottom('Acesso "Master" ativo.');
@@ -167,12 +168,13 @@ const Home: React.FC = () => {
   }
   // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
   if (!state.initsys) {
-    dispatch({ type: UseAcessoActions.set_INITSYS, payload: false });
-    dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-    dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
-    dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
-    dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
-    dispatch({ type: UseAcessoActions.set_MODULO, payload: "Checagem Database" });
+    dispatch({ type: "initsys", payload: false });
+    dispatch({ type: "chkdb", payload: false });
+    dispatch({ type: "modulo", payload: "Checagem Database" });
+    dispatch({ type: "cor",payload: "" });
+    dispatch({ type: "nivel", payload: 0 });
+    dispatch({ type: "acao", payload: "" });
+        
     setMsgPanelBottom("Check DataBase...");
     setMessageBottom("Sistema com DataBase Inconsistente...");
     setInitShowSystem(true);
@@ -191,11 +193,12 @@ const Home: React.FC = () => {
     return;
   }
   // ✅ 5) Sem login e sem master
-  dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
-  dispatch({ type: UseAcessoActions.set_ID_NIVEL, payload: 0 });
-  dispatch({ type: UseAcessoActions.set_ACAO, payload: "" });
-  dispatch({ type: UseAcessoActions.set_ID_MODULO, payload: 0 });
-  dispatch({ type: UseAcessoActions.set_MODULO, payload: "Inicial" });
+  dispatch({ type: "chvkey", payload: false });
+  dispatch({ type: "modulo", payload: "Inicial" });
+  dispatch({ type: "cor",payload: "" });
+  dispatch({ type: "nivel", payload: 0 });
+  dispatch({ type: "acao", payload: "" });
+  
   setMsgPanelBottom("Aguardando Login Sistema...");
   setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);

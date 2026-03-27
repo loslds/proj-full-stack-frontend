@@ -6,7 +6,7 @@ import styled, { ThemeProvider } from "styled-components";
 
 import light from "../themes/light";
 import { useChaveMaster } from "./contexts/hooks/useChaveMaster";
-import { useAcessoContext, UseAcessoActions } from "./contexts/ContextAcesso";
+import { useAcessoContext } from "./contexts/ContextAcesso";
 
 import { ContentCardPage } from "./ContentCardPage";
 import { ContentCardBoxChaveKey } from "./ContentCardBoxChaveKey";
@@ -68,9 +68,8 @@ const ChaveMasterOverlay: React.FC = () => {
   const enterMaster = React.useCallback(
     (tokenAdmin: string) => {
       localStorage.setItem("token_admin", tokenAdmin);
-    
-      dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: tokenAdmin });
-      dispatch({ type: UseAcessoActions.set_CHVKEY, payload: true });
+      dispatch({ type: "auth_admin", payload: tokenAdmin });
+      dispatch({ type: "chvkey", payload: true });
     },
     [dispatch]
   );

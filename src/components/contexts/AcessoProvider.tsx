@@ -1,16 +1,13 @@
 
-
+// C:\repository\proj-full-stack-frontend\src\components\contexts\AcessoProvider.tsx
 import React from "react";
-import { AcessoContext } from "./ContextAcesso";
-import { AcessoReducer, initialData } from "../contexts/ContextAcesso"; // exemplo
-import { AcessoContextType } from "./ContextAcesso";
+import { AcessoContext, AcessoContextType, initialData } from "./ContextAcesso";
+import { AcessoReducer } from "./AcessoReducer";
 
-// 🔹 Props do Provider
 interface AcessoProviderProps {
   children: React.ReactNode;
 }
 
-// 🔹 Componente Provider
 export const AcessoProvider: React.FC<AcessoProviderProps> = ({ children }) => {
   const [state, dispatch] = React.useReducer(AcessoReducer, initialData);
 
@@ -22,19 +19,3 @@ export const AcessoProvider: React.FC<AcessoProviderProps> = ({ children }) => {
     </AcessoContext.Provider>
   );
 };
-
-
-
-
-// import React from 'react';
-// import { AcessoContext, AcessoReducer, initialData } from './ContextAcesso';
-
-// export const AcessoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-//   const [state, dispatch] = React.useReducer(AcessoReducer, initialData);
-
-//   return (
-//     <AcessoContext.Provider value={{ state, dispatch }}>
-//       {children}
-//     </AcessoContext.Provider>
-//   );
-// };

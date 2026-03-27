@@ -1,356 +1,224 @@
 
 // C:\repository\proj-full-stack-frontend\src\components\contexts\ContextAcesso.ts
 import React from "react";
-// ===================== Tipos =====================
+
 export type StateAcesso = {
-  page: string | null;
-  initsys: boolean | null;
-  chkdb: boolean | null;
-  chvkey: boolean | null;
-  ismaster: boolean | null;
-  logado: boolean | null;
-  auth: string | null;
-  auth_admin: string | null;
-  aplicacao: string | null;
+  page: string;
+  aplicacao: string;
+  path_origem: string;
+  path_destino: string;
 
-  id_modulo: number; modulo: string | null;
-  id_nivel: number; nivel: string | null; cor: string | null;
-  id_acao: number; acao: string | null;
+  qdd_acesso: number;
+  ult_acesso: string;
+  tempo: string;
+  dataini: string;
 
-  id_emp: number;
-  nomeemp: string | null;
-  fantemp: string | null;
+  mdlogin: number;
+  nmlogin: string;
+  nrcont: number;
+  nmcont: string;
 
-  id_vis: number;
-  nomevis: string | null;
-  fantvis: string | null;
-  id_cli: number;
-  nomecli: string | null;
-  fantcli: string | null;
-  id_for: number;
-  nomefor: string | null;
-  fantfor: string | null;
-  id_fun: number;
-  nomefun: string | null;
-  fantfun: string | null;
-  id_img: number;
-  img_logo: Blob | null;
-  img_avatar: Blob | null;
-  img_path: string | null;
-  img_nmarq: string | null;
+  filttable: boolean;
+
+  modulo: string;
+  cor: string;
+  acao: string;
+  nivel: number;
+
+  systemMode: "LEVE" | "DEV" | "PROD";
+  initsys: boolean;
+  chkdb: boolean;
+
+  chvkey: boolean;
+  ismaster: boolean;
+  auth_admin: string;
+
+  logado: boolean;
+  auth: string;
+  identificador: string;
+  senha: string;
+  pinnumber: number;
+  pinchar: string;
 
   id_acesso: number;
-  qdd_acesso: number;
-  ult_acesso: string | null;
-  cadeado: boolean | null;
-  
+  permissoes: {
+    modulo: string;
+    cargo: string;
+    acao: string;
+    cor: string;
+    nivel: number;
+  }[];
+
+  nametable: string;
+  regtable: boolean;
+  vistable: boolean;
+  listtable: boolean;
+  inctable: boolean;
+  alttable: boolean;
+  exctable: boolean;
+
+  keyVisitante: boolean;
+  keyRecepcao: boolean;
+  keyDesign: boolean;
+  keyAcabamento: boolean;
+  keyProducao: boolean;
+  keyAdministracao: boolean;
+  keyConfig: boolean;
+
+  id_emp: number;
+  nomeemp: string;
+  fantemp: string;
+
+  id_vis: number;
+  nomevis: string;
+  fantvis: string;
+
+  id_con: number;
+  nomecon: string;
+  fantcom: string;
+
+  id_cli: number;
+  nomecli: string;
+  fantcli: string;
+
+  id_for: number;
+  nomefor: string;
+  fantfor: string;
+
+  id_fun: number;
+  nomefun: string;
+  fantfun: string;
+
   id_user: number;
-  nomeuser: string | null;
-  mail: string | null;
-  pseudonimo: string | null;
-  psw: string | null;
-  pinnumber: number;
-  pinchar: string | null;
-  dataini: string | null;
-  datafim: string | null;
-  tempo?: string | null;
-  mdlogin: number | null;
-  nmlogin: string | null;
-  nrcont: number | null;
-  nmcont: string | null;
-  systemMode: 'LEVE' | 'DEV' | 'LEVE';
-  nametable: string | null;
-  regtable: boolean | null;
+  nomeuser: string;
+  mailuser: string;
+  docuser: string;
+  foneuser: string;
 
-  inctable: boolean | null;
-  alttable: boolean | null;
-  exctable: boolean | null;
+  id_logo_emp: number;
+  logo_nmarq_emp: string;
+  logo_svg_emp: string;
 
-  vistable: boolean | null;
-  reltable: boolean | null;
-  filttable: boolean | null;
-
+  id_img_user: number;
+  img_nmarq_user: string;
+  img_svg_user: string;
 };
 
-// ===================== Estado inicial =====================
 export const initialData: StateAcesso = {
-  page: '',
+  page: "",
+  aplicacao: "",
+  path_origem: "",
+  path_destino: "",
+
+  qdd_acesso: 0,
+  ult_acesso: "",
+  tempo: "",
+  dataini: "",
+
+  mdlogin: 0,
+  nmlogin: "",
+  nrcont: 0,
+  nmcont: "",
+
+  filttable: false,
+
+  modulo: "",
+  cor: "",
+  acao: "",
+  nivel: 0,
+
+  systemMode: "LEVE",
   initsys: false,
   chkdb: false,
+
   chvkey: false,
   ismaster: false,
-  logado: false,
-  auth: '',
-  auth_admin: '',
-  aplicacao: '',
+  auth_admin: "",
 
-  id_modulo: 0, modulo: '',
-  id_nivel: 0, nivel: '',  cor: '',
-  id_acao: 0, acao: '',
-  
-  id_emp: 0,
-  nomeemp: '',
-  fantemp: '',
-  id_vis: 0,
-  nomevis: '',
-  fantvis: '',
-  id_cli: 0,
-  nomecli: '',
-  fantcli: '',
-  id_for: 0,
-  nomefor: '',
-  fantfor: '',
-  id_fun: 0,
-  nomefun: '',
-  fantfun: '',
-  id_img: 0,
-  img_logo: null,
-  img_avatar: null,
-  img_path: '',
-  img_nmarq: '',
-  id_acesso: 0,
-  qdd_acesso: 0,
-  ult_acesso: '',
-  cadeado: false,
-  id_user: 0,
-  nomeuser: '',
-  mail: '',
-  pseudonimo: '',
-  psw: '',
+  logado: false,
+  auth: "",
+  identificador: "",
+  senha: "",
   pinnumber: 0,
-  pinchar: '',
-  dataini: '',
-  datafim: '',
-  tempo: '',
-  mdlogin: 0,
-  nmlogin: '',
-  nrcont: 0,
-  nmcont: '',
-  systemMode: 'DEV', // ou 'LEVE' por padrão
-  nametable: '',
+  pinchar: "",
+
+  id_acesso: 0,
+  permissoes: [],
+
+  nametable: "",
   regtable: false,
+  vistable: false,
+  listtable: false,
   inctable: false,
   alttable: false,
   exctable: false,
-  vistable: false,
-  reltable: false,
-  filttable: false,
 
+  keyVisitante: false,
+  keyRecepcao: false,
+  keyDesign: false,
+  keyAcabamento: false,
+  keyProducao: false,
+  keyAdministracao: false,
+  keyConfig: false,
+
+  id_emp: 0,
+  nomeemp: "",
+  fantemp: "",
+
+  id_vis: 0,
+  nomevis: "",
+  fantvis: "",
+
+  id_con: 0,
+  nomecon: "",
+  fantcom: "",
+
+  id_cli: 0,
+  nomecli: "",
+  fantcli: "",
+
+  id_for: 0,
+  nomefor: "",
+  fantfor: "",
+
+  id_fun: 0,
+  nomefun: "",
+  fantfun: "",
+
+  id_user: 0,
+  nomeuser: "",
+  mailuser: "",
+  docuser: "",
+  foneuser: "",
+
+  id_logo_emp: 0,
+  logo_nmarq_emp: "",
+  logo_svg_emp: "",
+
+  id_img_user: 0,
+  img_nmarq_user: "",
+  img_svg_user: "",
 };
 
-// ===================== Enum de ações =====================
-export enum UseAcessoActions {
-  set_PAGE,
-  set_INITSYS,
-  set_CHKDB,
-  set_CHVKEY,
-  set_ISMASTER,
-  set_LOGADO,
-  set_AUTH,
-  set_AUTH_ADMIN,
-  set_APLICACAO,
-  set_ID_MODULO, set_MODULO,
-  set_ID_NIVEL, set_NIVEL, set_COR,
-  set_ID_ACAO, set_ACAO,
-  set_ID_EMP,
-  set_NOMEEMP,
-  set_FANTEMP,
-  set_ID_VIS,
-  set_NOMEVIS,
-  set_FANTVIS,
-  set_ID_CLI,
-  set_NOMECLI,
-  set_FANTCLI,
-  set_ID_FOR,
-  set_NOMEFOR,
-  set_FANTFOR,
-  set_ID_FUN,
-  set_NOMEFUN,
-  set_FANTFUN,
-  set_ID_IMG,
-  set_IMG_LOGO,
-  set_IMG_AVATAR,
-  set_IMG_PATH,
-  set_IMG_NMARQ,
-  set_ID_ACESSO,
-  set_QDD_ACESSO,
-  set_ULT_ACESSO,
-  set_CADEADO,
-  set_ID_USER,
-  set_NOMEUSER,
-  set_MAIL,
-  set_PSEUDONIMO,
-  set_PSW,
-  set_PINNUMBER,
-  set_PINCHAR,
-  set_DATAINI,
-  set_DATAFIM,
-  set_TEMPO,
-  set_NRCONT,
-  set_NMCONT,
-  set_MDLOGIN,
-  set_NMLOGIN,
-  set_SYSTEM_MODE,
-  set_NAME_TABLE,
-  set_REG_TABLE,
-  set_INC_TABLE,
-  set_ALT_TABLE,
-  set_EXC_TABLE,
-  set_VIS_TABLE,
-  set_REL_TABLE,
-  set_FILT_TABLE,
+// action genérica
+export type AcessoAction<K extends keyof StateAcesso = keyof StateAcesso> = {
+  type: K;
+  payload: StateAcesso[K];
+};
+
+export interface AcessoContextType {
+  state: StateAcesso;
+  dispatch: React.Dispatch<AcessoAction>;
 }
 
-// ===================== Tipos de ações =====================
-export type AcessoAction =
-  | { type: UseAcessoActions.set_PAGE; payload: string | null }
-  | { type: UseAcessoActions.set_INITSYS; payload: boolean | null }
-  | { type: UseAcessoActions.set_CHKDB; payload: boolean | null }
-  | { type: UseAcessoActions.set_CHVKEY; payload: boolean | null }
-  | { type: UseAcessoActions.set_ISMASTER; payload: boolean | null }
-  | { type: UseAcessoActions.set_LOGADO; payload: boolean | null }
-  | { type: UseAcessoActions.set_AUTH; payload: string | null }
-  | { type: UseAcessoActions.set_AUTH_ADMIN; payload: string | null }
-
-  | { type: UseAcessoActions.set_APLICACAO; payload: string }
-
-  | { type: UseAcessoActions.set_ID_MODULO; payload: number }
-  | { type: UseAcessoActions.set_MODULO; payload: string }
-  | { type: UseAcessoActions.set_ID_NIVEL; payload: number }
-  | { type: UseAcessoActions.set_NIVEL; payload: string }
-  | { type: UseAcessoActions.set_COR; payload: string }
-  | { type: UseAcessoActions.set_ID_ACAO; payload: number }
-  | { type: UseAcessoActions.set_ACAO; payload: string }
-
-  | { type: UseAcessoActions.set_ID_EMP; payload: number }
-  | { type: UseAcessoActions.set_NOMEEMP; payload: string }
-  | { type: UseAcessoActions.set_FANTEMP; payload: string }
-  | { type: UseAcessoActions.set_ID_VIS; payload: number }
-  | { type: UseAcessoActions.set_NOMEVIS; payload: string }
-  | { type: UseAcessoActions.set_FANTVIS; payload: string }
-  | { type: UseAcessoActions.set_ID_CLI; payload: number }
-  | { type: UseAcessoActions.set_NOMECLI; payload: string }
-  | { type: UseAcessoActions.set_FANTCLI; payload: string }
-  | { type: UseAcessoActions.set_ID_FOR; payload: number }
-  | { type: UseAcessoActions.set_NOMEFOR; payload: string }
-  | { type: UseAcessoActions.set_FANTFOR; payload: string }
-  | { type: UseAcessoActions.set_ID_FUN; payload: number }
-  | { type: UseAcessoActions.set_NOMEFUN; payload: string }
-  | { type: UseAcessoActions.set_FANTFUN; payload: string }
-  | { type: UseAcessoActions.set_ID_IMG; payload: number }
-  | { type: UseAcessoActions.set_IMG_LOGO; payload: Blob | null }
-  | { type: UseAcessoActions.set_IMG_AVATAR; payload: Blob | null }
-  | { type: UseAcessoActions.set_IMG_PATH; payload: string }
-  | { type: UseAcessoActions.set_IMG_NMARQ; payload: string }
-  | { type: UseAcessoActions.set_ID_ACESSO; payload: number }
-  | { type: UseAcessoActions.set_ID_USER; payload: number }
-  | { type: UseAcessoActions.set_NOMEUSER; payload: string }
-  | { type: UseAcessoActions.set_QDD_ACESSO; payload: number }
-  | { type: UseAcessoActions.set_ULT_ACESSO; payload: string }
-  | { type: UseAcessoActions.set_CADEADO; payload: boolean | null }
-  | { type: UseAcessoActions.set_MAIL; payload: string }
-  | { type: UseAcessoActions.set_PSEUDONIMO; payload: string }
-  | { type: UseAcessoActions.set_PSW; payload: string }
-  | { type: UseAcessoActions.set_PINNUMBER; payload: number }
-  | { type: UseAcessoActions.set_PINCHAR; payload: string }
-  | { type: UseAcessoActions.set_DATAINI; payload: string }
-  | { type: UseAcessoActions.set_DATAFIM; payload: string }
-  | { type: UseAcessoActions.set_TEMPO; payload: string }
-  | { type: UseAcessoActions.set_NRCONT; payload: number }
-  | { type: UseAcessoActions.set_NMCONT; payload: string }
-  | { type: UseAcessoActions.set_MDLOGIN; payload: number }
-  | { type: UseAcessoActions.set_NMLOGIN; payload: string }
-  | { type: UseAcessoActions.set_SYSTEM_MODE; payload: 'DEV' | 'LEVE' }
-  | { type: UseAcessoActions.set_NAME_TABLE; payload: string }
-  | { type: UseAcessoActions.set_REG_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_INC_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_ALT_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_EXC_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_VIS_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_REL_TABLE; payload: boolean | null }
-  | { type: UseAcessoActions.set_FILT_TABLE; payload: boolean | null };
-
-  // ===================== Reducer =====================
-
-export const AcessoReducer = (state: StateAcesso, action: AcessoAction) => {
-  switch (action.type) {  
-    case UseAcessoActions.set_PAGE: return { ...state, page: action.payload };
-    case UseAcessoActions.set_INITSYS: return { ...state, initsys: action.payload };
-    case UseAcessoActions.set_CHKDB: return { ...state, chkdb: action.payload };
-    case UseAcessoActions.set_CHVKEY: return { ...state, chvkey: action.payload };
-    case UseAcessoActions.set_LOGADO: return { ...state, logado: action.payload };
-    case UseAcessoActions.set_AUTH: return { ...state, auth: action.payload };
-    case UseAcessoActions.set_AUTH_ADMIN: return { ...state, auth_admin: action.payload };
-    case UseAcessoActions.set_APLICACAO: return { ...state, aplicacao: action.payload };
-    case UseAcessoActions.set_ID_MODULO: return { ...state, id_modulo: action.payload };
-    
-    case UseAcessoActions.set_MODULO: return { ...state, modulo: action.payload };
-    case UseAcessoActions.set_ID_NIVEL: return { ...state, id_nivel: action.payload };
-    case UseAcessoActions.set_NIVEL: return { ...state, nivel: action.payload };
-    case UseAcessoActions.set_ID_ACAO: return { ...state, id_acao: action.payload };
-    case UseAcessoActions.set_ACAO: return { ...state, acao: action.payload };
-
-    case UseAcessoActions.set_ID_EMP: return { ...state, id_emp: action.payload };
-    case UseAcessoActions.set_NOMEEMP: return { ...state, nomeemp: action.payload };
-    case UseAcessoActions.set_FANTEMP: return { ...state, fantemp: action.payload };
-    case UseAcessoActions.set_ID_VIS: return { ...state, id_vis: action.payload };
-    case UseAcessoActions.set_NOMEVIS: return { ...state, nomevis: action.payload };
-    case UseAcessoActions.set_FANTVIS: return { ...state, fantvis: action.payload };
-    case UseAcessoActions.set_ID_CLI: return { ...state, id_cli: action.payload };
-    case UseAcessoActions.set_NOMECLI: return { ...state, nomecli: action.payload };
-    case UseAcessoActions.set_FANTCLI: return { ...state, fantcli: action.payload };
-    case UseAcessoActions.set_ID_FOR: return { ...state, id_for: action.payload };
-    case UseAcessoActions.set_NOMEFOR: return { ...state, nomefor: action.payload };
-    case UseAcessoActions.set_FANTFOR: return { ...state, fantfor: action.payload };
-    case UseAcessoActions.set_ID_FUN: return { ...state, id_fun: action.payload };
-    case UseAcessoActions.set_NOMEFUN: return { ...state, nomefun: action.payload };
-    case UseAcessoActions.set_FANTFUN: return { ...state, fantfun: action.payload };
-    case UseAcessoActions.set_ID_IMG: return { ...state, id_img: action.payload };
-    case UseAcessoActions.set_IMG_LOGO: return { ...state, img_logo: action.payload };
-    case UseAcessoActions.set_IMG_AVATAR: return { ...state, img_avatar: action.payload };
-    case UseAcessoActions.set_IMG_PATH: return { ...state, img_path: action.payload };
-    case UseAcessoActions.set_IMG_NMARQ: return { ...state, img_nmarq: action.payload };
-    case UseAcessoActions.set_ID_ACESSO: return { ...state, id_acesso: action.payload };
-    case UseAcessoActions.set_ID_USER: return { ...state, id_user: action.payload };
-    case UseAcessoActions.set_NOMEUSER: return { ...state, nomeuser: action.payload };
-    case UseAcessoActions.set_QDD_ACESSO: return { ...state, qdd_acesso: action.payload };
-    case UseAcessoActions.set_ULT_ACESSO: return { ...state, ult_acesso: action.payload };
-    case UseAcessoActions.set_CADEADO: return { ...state, cadeado: action.payload };
-    case UseAcessoActions.set_MAIL: return { ...state, mail: action.payload };
-    case UseAcessoActions.set_PSEUDONIMO: return { ...state, pseudonimo: action.payload };
-    case UseAcessoActions.set_PSW: return { ...state, psw: action.payload };
-    case UseAcessoActions.set_PINNUMBER: return { ...state, pinnumber: action.payload };
-    case UseAcessoActions.set_PINCHAR: return { ...state, pinchar: action.payload };
-    case UseAcessoActions.set_DATAINI: return { ...state, dataini: action.payload };
-    case UseAcessoActions.set_DATAFIM: return { ...state, datafim: action.payload };
-    case UseAcessoActions.set_TEMPO: return { ...state, tempo: action.payload };
-    case UseAcessoActions.set_NRCONT: return { ...state, nrcont: action.payload };
-    case UseAcessoActions.set_NMCONT: return { ...state, nmcont: action.payload };
-    case UseAcessoActions.set_MDLOGIN: return { ...state, mdlogin: action.payload };
-    case UseAcessoActions.set_NMLOGIN: return { ...state, nmlogin: action.payload };
-    case UseAcessoActions.set_SYSTEM_MODE: return { ...state, systemMode: action.payload };
-    case UseAcessoActions.set_NAME_TABLE: return { ...state, nametable: action.payload };
-    case UseAcessoActions.set_REG_TABLE: return { ...state, regtable: action.payload };
-    case UseAcessoActions.set_INC_TABLE: return { ...state, inctable: action.payload };
-    case UseAcessoActions.set_ALT_TABLE: return { ...state, inctable: action.payload };
-    case UseAcessoActions.set_EXC_TABLE: return { ...state, alttable: action.payload };
-    case UseAcessoActions.set_REL_TABLE: return { ...state, reltable: action.payload };
-    case UseAcessoActions.set_VIS_TABLE: return { ...state, vistable: action.payload };
-    case UseAcessoActions.set_FILT_TABLE: return { ...state, filttable: action.payload };
-    default: return state;
-  }
-};
-
-export interface AcessoContextType  {
-  state: StateAcesso;
-  dispatch: (action: AcessoAction) => void;
-};
 export const AcessoContext = React.createContext<AcessoContextType | undefined>(undefined);
 
-export const useAcessoContext = () => {
+export const useAcessoContext = (): AcessoContextType => {
   const context = React.useContext(AcessoContext);
+
   if (!context) {
-    throw new Error('useAcessoContext must be used within AcessoProvider');
+    throw new Error("useAcessoContext must be used within AcessoProvider");
   }
+
   return context;
 };
