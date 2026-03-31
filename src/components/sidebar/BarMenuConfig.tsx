@@ -1,4 +1,3 @@
-
 import React from "react";
 import * as S from "./stylesSidebar";
 
@@ -12,7 +11,7 @@ import { Dropdown } from "./Dropdown";
 import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
 import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
 
-import { useAcessoContext, UseAcessoActions } from "../contexts/ContextAcesso";
+import { useAcessoContext } from "../contexts/ContextAcesso";
 import { useSystemTables } from "../../funcs/funcs/useSystemTables";
 
 export const BarMenuConfig: React.FC = () => {
@@ -21,19 +20,20 @@ export const BarMenuConfig: React.FC = () => {
   const { options, loading, error } = useSystemTables();
   const dropdownOptions = React.useMemo(() => options ?? [], [options]);
 
-  // menu principal
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  // tabela selecionada
   const [tableName, setTableName] = React.useState("");
-
-  // manutenção ativa
   const [isMaintOpen, setIsMaintOpen] = React.useState(false);
 
-  // ---------------- handlers ----------------
+  const resetTableActions = React.useCallback(() => {
+    dispatch({ type: "vistable", payload: false });
+    dispatch({ type: "listtable", payload: false });
+    dispatch({ type: "inctable", payload: false });
+    dispatch({ type: "alttable", payload: false });
+    dispatch({ type: "exctable", payload: false });
+  }, [dispatch]);
 
   const handleToggleMenu = React.useCallback(() => {
-    setIsMenuOpen((v) => !v);
+    setIsMenuOpen((prev) => !prev);
   }, []);
 
   const handleSelectOption = React.useCallback(
@@ -41,54 +41,40 @@ export const BarMenuConfig: React.FC = () => {
       setTableName(name);
       setIsMaintOpen(false);
 
-      dispatch({ type: UseAcessoActions.set_NAME_TABLE, payload: name });
-      dispatch({ type: UseAcessoActions.set_INC_TABLE, payload: false });
-      dispatch({ type: UseAcessoActions.set_ALT_TABLE, payload: false });
-      dispatch({ type: UseAcessoActions.set_EXC_TABLE, payload: false });
-      dispatch({ type: UseAcessoActions.set_REL_TABLE, payload: false });
+      dispatch({ type: "nametable", payload: name });
+      resetTableActions();
     },
-    [dispatch]
+    [dispatch, resetTableActions]
   );
 
-  // clica no botão com nome da tabela
   const handleOpenTable = React.useCallback(() => {
     if (!tableName) return;
 
     setIsMaintOpen(true);
 
-    dispatch({ type: UseAcessoActions.set_INC_TABLE, payload: true });
-    dispatch({ type: UseAcessoActions.set_ALT_TABLE, payload: true });
-    dispatch({ type: UseAcessoActions.set_EXC_TABLE, payload: true });
-    dispatch({ type: UseAcessoActions.set_REL_TABLE, payload: true });
+    dispatch({ type: "vistable", payload: true });
+    dispatch({ type: "listtable", payload: true });
+    dispatch({ type: "inctable", payload: true });
+    dispatch({ type: "alttable", payload: true });
+    dispatch({ type: "exctable", payload: true });
   }, [dispatch, tableName]);
 
-  // ---------------- effects ----------------
-
-  // ao fechar menu: reseta tudo
   React.useEffect(() => {
     if (isMenuOpen) return;
 
     setTableName("");
     setIsMaintOpen(false);
-    dispatch({ type: UseAcessoActions.set_NAME_TABLE, payload: "" });
-    dispatch({ type: UseAcessoActions.set_INC_TABLE, payload: false });
-    dispatch({ type: UseAcessoActions.set_ALT_TABLE, payload: false });
-    dispatch({ type: UseAcessoActions.set_EXC_TABLE, payload: false });
-    dispatch({ type: UseAcessoActions.set_REL_TABLE, payload: false });
-  }, [isMenuOpen, dispatch]);
 
-
-  // ---------------- render helpers ----------------
+    dispatch({ type: "nametable", payload: "" });
+    resetTableActions();
+  }, [isMenuOpen, dispatch, resetTableActions]);
 
   const isDropdownOpen = isMenuOpen;
   const showTableButton = isMenuOpen && tableName !== "";
   const showMaintButtons = isMenuOpen && isMaintOpen;
 
-  // ---------------- render ----------------
-
   return (
     <ContentSBMain>
-      {/* Botão Menu */}
       <ContentSBMenuSide onoff={true}>
         <ContentSBButtonMenu
           img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
@@ -97,7 +83,6 @@ export const BarMenuConfig: React.FC = () => {
         />
       </ContentSBMenuSide>
 
-      {/* Dropdown */}
       {isDropdownOpen && (
         <S.ContainerMenuSB open>
           <Dropdown
@@ -112,7 +97,6 @@ export const BarMenuConfig: React.FC = () => {
         </S.ContainerMenuSB>
       )}
 
-      {/* Botão da Tabela */}
       {showTableButton && (
         <S.ContainerMenuSB open>
           <ContentSBButtonItemMenu>
@@ -127,10 +111,20 @@ export const BarMenuConfig: React.FC = () => {
         </S.ContainerMenuSB>
       )}
 
-      {/* Botões de Manutenção */}
       {showMaintButtons && (
         <ContentSBMain>
-        {/* <ContentSBButtonItemMenu> */}
+          <ContentSBItensButtonOnOff open={true}>
+            <S.ButtomSBButtonItem isborder title="Visualização Reg...">
+              <label>Visualizar.</label>
+            </S.ButtomSBButtonItem>
+          </ContentSBItensButtonOnOff>
+
+          <ContentSBItensButtonOnOff open={true}>
+            <S.ButtomSBButtonItem isborder title="Listagem Reg...">
+              <label>Listar.</label>
+            </S.ButtomSBButtonItem>
+          </ContentSBItensButtonOnOff>
+
           <ContentSBItensButtonOnOff open={true}>
             <S.ButtomSBButtonItem isborder title="Inclusão Reg...">
               <label>Incluir.</label>
@@ -148,16 +142,8 @@ export const BarMenuConfig: React.FC = () => {
               <label>Excluir.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
-
-          <ContentSBItensButtonOnOff open={true}>
-            <S.ButtomSBButtonItem isborder title="Listagem Reg...">
-              <label>Listar.</label>
-            </S.ButtomSBButtonItem>
-          </ContentSBItensButtonOnOff>
-        {/* </ContentSBButtonItemMenu> */}
         </ContentSBMain>
       )}
     </ContentSBMain>
   );
 };
-

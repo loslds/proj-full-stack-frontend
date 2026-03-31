@@ -2,11 +2,14 @@
 //C:\repository\proj-full-stack-frontend\src\components\contexts\helpers\logoutMaster.ts
 
 import { Dispatch } from "react";
-import { AcessoAction, UseAcessoActions } from "../ContextAcesso";
+import { AcessoAction } from "../ContextAcesso";
 
 export function logoutMaster(dispatch: Dispatch<AcessoAction>) {
+  // remove token
   localStorage.removeItem("token_admin");
 
-  dispatch({ type: UseAcessoActions.set_AUTH_ADMIN, payload: "" });
-  dispatch({ type: UseAcessoActions.set_CHVKEY, payload: false });
+  // limpa estado do context
+  dispatch({ type: "auth_admin", payload: "" });
+  dispatch({ type: "chvkey", payload: false });
 }
+

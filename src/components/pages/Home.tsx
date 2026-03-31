@@ -10,6 +10,7 @@ import dark from '../../themes/dark';
 // layout page
 import LayoutHome from '../layouts/LayoutHome';
 // uso do context
+//import { Dispatch } from "react";
 import { useAcessoContext } from "../contexts/ContextAcesso";
 // main page
 import { ContentItensBody } from '../ContentItensBody';
