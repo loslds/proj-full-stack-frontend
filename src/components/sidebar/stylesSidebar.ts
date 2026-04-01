@@ -599,6 +599,11 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     list-style: none;
     padding: 0;
     min-width: 200px;
+    
+    max-height: 750px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
     box-shadow: 0 2px 5px rgba(0,0,0,0.8);
     z-index: 1000;
     font-size: 20px;
@@ -677,7 +682,8 @@ export const ButtonDropdown = styled.button`
   height: 30px;
   min-width: 30px;
   display: flex;
-  flex-flow: nowrap;
+  flex-wrap: nowrap;
+  flex-flow: row;
   justify-content: center;
   align-items: center;
   &:hover,

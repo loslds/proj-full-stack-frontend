@@ -150,8 +150,8 @@ const Config: React.FC = () => {
 
   // intenção de abrir/manipular tabela (inclui regtable para listagem)
   const hasOpenIntent = React.useMemo(() => {
-    return Boolean(state.inctable || state.alttable || state.exctable || state.reltable || state.regtable);
-  }, [state.inctable, state.alttable, state.exctable, state.reltable, state.regtable]);
+    return Boolean(state.inctable || state.alttable || state.exctable || state.listtable || state.regtable);
+  }, [state.inctable, state.alttable, state.exctable, state.listtable, state.regtable]);
 
   const canLoad = hasTableSelected && hasOpenIntent;
 

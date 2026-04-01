@@ -1505,7 +1505,8 @@ interface PropsContainerMainPageFlex {
     border-style: double;
     border-radius: 10px;
     border-color: ${props => props.theme.colors.textColor};
-    background-color: #ecf200;;
+    background-color: ${props => props.theme.colors.backgroundColor};
+    color: ${props => props.theme.colors.textColor};
     
     display: flex;
     flex-flow: row;

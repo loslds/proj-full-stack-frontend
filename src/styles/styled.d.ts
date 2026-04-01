@@ -9,6 +9,10 @@ declare module 'styled-components' {
       secundary : string;
       textColor : string;
       backgroundColor : string;
+      backgroundColorAlt: string;
+      borderColor: string;
+      hoverColor: string;
+      headerBackground: string;
     }
   } 
 }

@@ -87,7 +87,7 @@ export const BarMenuConfig: React.FC = () => {
         <S.ContainerMenuSB open>
           <Dropdown
             pxheight="30px"
-            pxwidth="170px"
+            pxwidth="200px"
             labelbtn={
               loading ? "Carregando..." : error ? "Erro no Sistema" : "Arq.Sistema."
             }
