@@ -41,7 +41,7 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
           <Sy.DivMessageLine key={i}>{m}</Sy.DivMessageLine>
         ))}
         {systemOk === true && (
-          <Sy.DivStatus success>
+          <Sy.DivStatus $success>
           ✅ Sistema pronto, checado...
         </Sy.DivStatus>
         )}

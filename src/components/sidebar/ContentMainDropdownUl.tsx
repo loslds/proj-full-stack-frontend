@@ -1,21 +1,29 @@
-import { ReactNode } from 'react';
+import React from "react";
+import { ContainerMainDropdownUl } from "./stylesSidebar";
 
-import {ContainerMainDropdownUl} from './stylesSidebar';
-
-
-type interfaceContentMainDropdownUl = {
-  pxheigth?: string;
+export interface interfaceContentMainDropdownUl {
+  children?: React.ReactNode;
+  pxheight?: string;
   pxwidth?: string;
-  children?: ReactNode;
-};
-export const ContentMainDropdownUl = ({
-  pxheigth,
-  pxwidth,
-  children
-}: interfaceContentMainDropdownUl) => {
+  label?: string;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+}
+
+export const ContentMainDropdownUl = React.forwardRef<
+  HTMLDivElement,
+  interfaceContentMainDropdownUl
+>(({ children, pxheight, pxwidth, label, onMouseLeave }, ref) => {
   return (
-    <ContainerMainDropdownUl pxheight={pxheigth} pxwidth={pxwidth}>
+    <ContainerMainDropdownUl
+      ref={ref}
+      pxheight={pxheight}
+      pxwidth={pxwidth}
+      label={label}
+      onMouseLeave={onMouseLeave}
+    >
       {children}
     </ContainerMainDropdownUl>
   );
-};
+});
+
+ContentMainDropdownUl.displayName = "ContentMainDropdownUl";

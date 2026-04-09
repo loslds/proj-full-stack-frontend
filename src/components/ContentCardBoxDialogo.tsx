@@ -4,7 +4,7 @@ import { ContentCardDialogoTitle } from './ContentCardDialogoTitle';
 
 interface PropsContentCardBoxDialogo {
   titulo?: string;
-  children?: React.ReactNode | JSX.Element;
+  children?: React.ReactNode ;
 }
 export const ContentCardBoxDialogo = ({
   titulo,
@@ -12,7 +12,7 @@ export const ContentCardBoxDialogo = ({
 }: PropsContentCardBoxDialogo) => {
   return (
     <Pg.ContainerCardPage>
-      <ContentCardDialogoTitle />
+      <ContentCardDialogoTitle> titulo={titulo} </ContentCardDialogoTitle>
       {children}
     </Pg.ContainerCardPage>
   );

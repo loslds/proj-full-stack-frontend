@@ -10,6 +10,7 @@ import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
 import { ContentHeaderButtonAbortar } from '../ContentHeaderButtonAbortar';
 import { ContentHeaderButtonChk } from '../ContentHeaderButtonChk';
 import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
+import { ContentHeaderCardIsmaster } from '../ContentHeaderCardIsmaster';
 
 interface PropsHearderConfig {
   imgsys?: string;
@@ -18,6 +19,10 @@ interface PropsHearderConfig {
 
   titlepg?: string;
 
+  mston?: boolean;
+  pxheigth?: string;
+  strcor?: string;
+  
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
@@ -45,6 +50,10 @@ const HearderConfig = ({
   onclicksys,
 
   titlepg,
+
+  mston,
+  pxheigth,
+  strcor,
 
   imgbtnhlppg,
   titbtnhlppg,
@@ -83,7 +92,11 @@ const HearderConfig = ({
       </ContentHearderItens>
       {/** Panel da Direita com Botões de acesso e Switch da pagina */}
       <ContentHearderRight>
+
         <ContentHearderItensBar>
+          
+          <ContentHeaderCardIsmaster mston= {mston} pxheigth={pxheigth} strcor= {strcor}  />
+          
           <ContentHeaderButtonHelp
             imgbtnhlp={imgbtnhlppg}
             titbtnhlp={titbtnhlppg}

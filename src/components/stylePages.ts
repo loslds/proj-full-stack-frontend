@@ -1434,7 +1434,6 @@ interface PropsContainerPanelHlpFlex {
   }
   export const ContainerPanelHlpFlex = styled.div<PropsContainerPanelHlpFlex>`
     border: ${({isborda}) => isborda ? '3px' : 'none' };
-    /* ${({ bordas }) => bordas || '3px'}; */
     border-style: double;
     border-radius: 10px;
     border-color: ${props => props.theme.colors.textColor};

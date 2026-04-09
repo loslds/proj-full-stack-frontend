@@ -14,6 +14,7 @@ import { useAcessoContext } from "../../contexts/ContextAcesso";
 import { ContentCardPageMain } from "../../ContentCardPageMain";
 import { BarMenuConfig } from "../../sidebar/BarMenuConfig";
 import { DivisionPgHztal } from "../../stylePages";
+// import { ContentSBItensMenu } from "../../../components/sidebar/ContentSBItensMenu";
 
 // img do Header
 import lg_config from "../../../assets/defaut/logo/lg_def_mod_config.svg";
@@ -47,6 +48,10 @@ import { CardDesenvolver } from "../../../cards/CardDesenvolver";
 import btn_qrefrescar from "../../../assets/defaut/botao/btn_def_q_refrescar.svg";
 import btn_qclose from "../../../assets/defaut/botao/btn_def_q_close.svg";
 import pnl_negado from "../../../assets/defaut/painel/pnl_def_ope_negacao.svg";
+
+import { ButtonDefaulImgPage } from "../../stylePages";
+import { ContentPanelHlpMain } from "../../ContentPanelHlpMain";
+import btn_qchaves from "../../../assets/defaut/botao/btn_def_tab_q_chaves.svg";
 
 // ------------------------
 // Tipos do grid
@@ -124,7 +129,10 @@ const Config: React.FC = () => {
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
-
+// abre painel dos states
+  const [cardstate, setCardState] = React.useState(false);
+  const handlerCardState = React.useCallback(() => setCardState((old) => !old), []);
+  
   // modais de retorno tabela
   const [nottables, setNotTables] = React.useState(false);
   const [notregstable, setNotRegsTable] = React.useState(false);
@@ -139,6 +147,7 @@ const Config: React.FC = () => {
   }, [state.chvkey]);
 
   // grid
+  //const [ispggrid, setIsPgGrid] = React.useState(true);
   const [isgridtable, setIsGridTables] = React.useState(false);
   const [gridLoading, setGridLoading] = React.useState(false);
   const [gridError, setGridError] = React.useState<string | null>(null);
@@ -170,11 +179,9 @@ const Config: React.FC = () => {
     setGridLoading(true);
     setGridError(null);
 
-    // fecha modais anteriores
     setNotTables(false);
     setNotRegsTable(false);
 
-    // limpa grid anterior (evita mistura)
     setIsGridTables(false);
     setGridRows([]);
     setGridColumns(undefined);
@@ -183,44 +190,60 @@ const Config: React.FC = () => {
       const result = await fetchTableByName(tableName);
 
       if (!result.exists) {
-        setMessageBottom(`Tabela em uso: ${tableName} (inexistente).`);
         setNotTables(true);
         setIsGridTables(false);
+        setMessageBottom(`ATENÇÃO... Tabela em uso: ${tableName} (inexistente).`);
         return;
       }
 
-      // existe: abre grid mesmo se rows=0
       setIsGridTables(true);
-      setMessageBottom(`Tabela em uso: ${tableName}`);
+      setMessageBottom(`ATENÇÃO... Tabela em uso: ${tableName}`);
 
-      if (result.columns && result.columns.length > 0) setGridColumns(result.columns);
-      setGridRows(result.rows);
+      if (result.columns && result.columns.length > 0) {
+        setGridColumns(result.columns);
+      }
+
+      setGridRows(result.rows ?? []);
 
       if (!result.rows || result.rows.length === 0) {
         setNotRegsTable(true);
       }
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Erro ao carregar tabela.";
-      setGridError(msg);
-      setMessageBottom(`Erro ao carregar: ${tableName}`);
 
+      setGridError(msg);
       setNotTables(true);
       setIsGridTables(false);
+      setMessageBottom(`ATENÇÃO... Erro ao carregar tabela: ${tableName}`);
     } finally {
       setGridLoading(false);
     }
   }, [canLoad, tableName]);
 
-  // reações a troca de tabela/intent
   React.useEffect(() => {
+    setMessageBottom("");
+    if (!hasTableSelected) {
+      resetGridUi();
+      setMessageBottom("Aguardando Seleção...");
+      return;
+    }
+
+    setMessageBottom(`ATENÇÃO... Tabela em uso: ${tableName}`);
+
     if (!canLoad) {
       resetGridUi();
-      if (!hasTableSelected) setMessageBottom("Aguardando Seleção...");
       return;
     }
 
     void loadTable();
-  }, [canLoad, hasTableSelected, loadTable, resetGridUi]);
+  }, [canLoad, hasTableSelected, loadTable, resetGridUi, tableName]);
+
+  React.useEffect(() => {
+    setMessageBottom("");
+    dispatch({ type: "page", payload: "Config" });
+    dispatch({ type: "aplicacao", payload: "OPÇÃO" });
+    dispatch({ type: "modulo", payload: "Config" });
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -229,6 +252,11 @@ const Config: React.FC = () => {
         titbtnsys="Modulo Config..."
         onclicksys={() => {}}
         titlepg="Config."
+
+        mston={state.ismaster}
+        pxheigth={'20px'}
+        strcor={state.ismaster ? "#008000" : "transparent"}
+
         imgbtnhlppg={btn_chelp}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
@@ -253,7 +281,12 @@ const Config: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentCardPageMain open={true} pwidth={"100%"}>
-          <BarMenuConfig />
+          <BarMenuConfig
+            onRefresh={() => void loadTable()}
+            onUtilitySelect={(value) => {
+            console.log("UTIL:", value);
+            }}
+          />
 
           {isgridtable ? <DivisionPgHztal /> : null}
 
@@ -273,6 +306,124 @@ const Config: React.FC = () => {
           ) : null}
 
           <DivisionPgHztal />
+          <ContentPanelHlpMain pwidth="60px">
+
+            <ButtonDefaulImgPage 
+              img={btn_qchaves}
+              title={"States..."}
+              onClick={ handlerCardState }
+            />
+
+            { cardstate ? (
+              
+              <ContentMainPage pborder="1px" open={true} pwidth="100%">
+                <ContentMainTitle>
+                  <h3>Conteudo dos Payload [ state ]</h3>
+                </ContentMainTitle>
+
+                <form>
+                  <p>page: {state.page}</p>
+                  <p>aplicacao: {state.aplicacao}</p>
+                  <p>path_origem: {state.path_origem}</p>
+                  <p>path_destino: {state.path_destino}</p>
+
+                  <p>qdd_acesso: {state.qdd_acesso}</p>
+                  <p>ult_acesso: {state.ult_acesso}</p>
+                  <p>tempo: {state.tempo}</p>
+                  <p>dataini: {state.dataini}</p>
+
+                  <p>mdlogin: {state.mdlogin}</p>
+                  <p>nmlogin: {state.nmlogin}</p>
+                  <p>nrcont: {state.nrcont}</p>
+                  <p>nmcont: {state.nmcont}</p>
+
+                  <p>modulo: {state.modulo}</p>
+                  <p>cor: {state.cor}</p>
+                  <p>acao: {state.acao}</p>
+                  <p>nivel: {state.nivel}</p>
+
+                  <p>systemMode: {state.systemMode ? "true" : "false"}</p>
+                  <p>initsys: {state.initsys ? "true" : "false"}</p>
+                  <p>chkdb: {state.chkdb ? "true" : "false"}</p>
+
+                  <p>chvkey: {state.chvkey ? "true" : "false"}</p>
+                  <p>ismaster: {state.ismaster ? "true" : "false"}</p>
+                  <p>auth_admin: {state.auth_admin}</p>
+
+                  <p>logado: {state.logado ? "true" : "false"}</p>
+                  <p>auth: {state.auth}</p>
+                  <p>identificador: {state.identificador}</p>
+                  <p>senha: {state.senha}</p>
+                  <p>pinnumber: {state.pinnumber}</p>
+                  <p>pinchar: {state.pinchar}</p>
+
+                  <p>id_acesso: {state.id_acesso}</p>
+
+                  {/* <p>permissoes: {JSON.stringify(state.permissoes)}</p> */}
+                  <div>
+                    <strong>permissoes:</strong>
+                    <pre>{JSON.stringify(state.permissoes, null, 2)}</pre>
+                  </div>
+
+                  <p>nametable: {state.nametable}</p>
+                  <p>regtable: {state.regtable ? "true" : "false"}</p>
+                  <p>vistable: {state.vistable ? "true" : "false"}</p>
+                  <p>listtable: {state.listtable ? "true" : "false"}</p>
+                  <p>inctable: {state.inctable ? "true" : "false"}</p>
+                  <p>alttable: {state.alttable ? "true" : "false"}</p>
+                  <p>exctable: {state.exctable ? "true" : "false"}</p>
+                  <p>filttable: {state.filttable ? "true" : "false"}</p>
+
+                  <p>keyVisitante: {state.keyVisitante ? "true" : "false"}</p>
+                  <p>keyRecepcao: {state.keyRecepcao ? "true" : "false"}</p>
+                  <p>keyDesign: {state.keyDesign ? "true" : "false"}</p>
+                  <p>keyAcabamento: {state.keyAcabamento ? "true" : "false"}</p>
+                  <p>keyProducao: {state.keyProducao ? "true" : "false"}</p>
+                  <p>keyAdministracao: {state.keyAdministracao ? "true" : "false"}</p>
+                  <p>keyConfig: {state.keyConfig ? "true" : "false"}</p>
+
+                  <p>id_emp: {state.id_emp}</p>
+                  <p>nomeemp: {state.nomeemp}</p>
+                  <p>fantemp: {state.fantemp}</p>
+
+                  <p>id_vis: {state.id_vis}</p>
+                  <p>nomevis: {state.nomevis}</p>
+                  <p>fantvis: {state.fantvis}</p>
+
+                  <p>id_con: {state.id_con}</p>
+                  <p>nomecon: {state.nomecon}</p>
+                  <p>fantcom: {state.fantcom}</p>
+
+                  <p>id_cli: {state.id_cli}</p>
+                  <p>nomecli: {state.nomecli}</p>
+                  <p>fantcli: {state.fantcli}</p>
+
+                  <p>id_for: {state.id_for}</p>
+                  <p>nomefor: {state.nomefor}</p>
+                  <p>fantfor: {state.fantfor}</p>
+
+                  <p>id_fun: {state.id_fun}</p>
+                  <p>nomefun: {state.nomefun}</p>
+                  <p>fantfun: {state.fantfun}</p>
+
+                  <p>id_user: {state.id_user}</p>
+                  <p>nomeuser: {state.nomeuser}</p>
+                  <p>mailuser: {state.mailuser}</p>
+                  <p>docuser: {state.docuser}</p>
+                  <p>foneuser: {state.foneuser}</p>
+
+                  <p>id_logo_emp: {state.id_logo_emp}</p>
+                  <p>logo_nmarq_emp: {state.logo_nmarq_emp}</p>
+                  <p>logo_svg_emp: {state.logo_svg_emp}</p>
+
+                  <p>id_img_user: {state.id_img_user}</p>
+                  <p>img_nmarq_user: {state.img_nmarq_user}</p>
+                  <p>img_svg_user: {state.img_svg_user}</p>
+                </form>
+                <DivisionPgHztal />
+              </ContentMainPage>
+            ) : null}
+          </ContentPanelHlpMain>
 
           <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
             <ContentSideMsgPagePanelBotton bordas="3px" label={"Menssagens : "} msg={msgpanelbottom} />
@@ -289,7 +440,7 @@ const Config: React.FC = () => {
             </ContentSidePageBottonLabel>
 
             <div>
-              <label>ATENÇÃO...{messagebottom}</label>
+              <label>{messagebottom}</label>
             </div>
           </ContentSidePagePanelBotton>
 

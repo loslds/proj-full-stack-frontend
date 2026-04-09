@@ -1,6 +1,5 @@
-  
-/////////////////////////////
-//C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
+
+
 import React from "react";
 import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
 import { ButtonDropdown } from "./stylesSidebar";
@@ -20,66 +19,138 @@ interface PropsDropdown {
   onSelect: (value: string) => void;
 }
 
-export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
+export const Dropdown: React.FC<PropsDropdown> = ({
+  pxheight,
+  pxwidth,
+  labelbtn,
+  options,
+  onSelect,
+}) => {
+  const rootRef = React.useRef<HTMLDivElement | null>(null);
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
   const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
+
+  const closeAll = React.useCallback(() => {
+    setIsOpen(false);
+    setOpenSubmenu(null);
+    setOpenSubSubmenu(null);
+  }, []);
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!rootRef.current) return;
+
+      if (!rootRef.current.contains(event.target as Node)) {
+        closeAll();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [closeAll]);
+
+  const handleToggleRoot = React.useCallback(() => {
+    setIsOpen((old) => {
+      const next = !old;
+
+      if (!next) {
+        setOpenSubmenu(null);
+        setOpenSubSubmenu(null);
+      }
+
+      return next;
+    });
+  }, []);
 
   const selectValue = React.useCallback(
     (opt: DropdownOption) => {
       opt.onClick?.();
       onSelect(opt.value);
-      setIsOpen(false);
-      setOpenSubmenu(null);
-      setOpenSubSubmenu(null);
+      closeAll();
     },
-    [onSelect]
+    [closeAll, onSelect]
   );
 
+  const handleEnterLevel1 = React.useCallback((opt: DropdownOption) => {
+    if (!opt.subOptions?.length) return;
+    setOpenSubmenu(opt.value);
+    setOpenSubSubmenu(null);
+  }, []);
+
+  const handleEnterLevel2 = React.useCallback((opt: DropdownOption) => {
+    if (!opt.subOptions?.length) return;
+    setOpenSubSubmenu(opt.value);
+  }, []);
+
   return (
-    <ContentMainDropdownUl pxheigth={pxheight} pxwidth={pxwidth}>
-      <ButtonDropdown onClick={() => setIsOpen((v) => !v)}>{labelbtn}</ButtonDropdown>
+    <ContentMainDropdownUl
+      ref={rootRef}
+      pxheight={pxheight}
+      pxwidth={pxwidth}
+    >
+      <ButtonDropdown type="button" onClick={handleToggleRoot}>
+        {labelbtn}
+      </ButtonDropdown>
 
       {isOpen && (
         <ul>
           {options.map((option) => {
-            const hasChildren = !!option.subOptions?.length;
+            const hasChildren = Boolean(option.subOptions?.length);
+            const isLevel1Open = openSubmenu === option.value;
 
             return (
               <li
                 key={option.value}
-                onMouseEnter={() => setOpenSubmenu(option.value)}
-                onMouseLeave={() => setOpenSubmenu(null)}
-                onClick={() => {
-                  if (!hasChildren) selectValue(option); // ✅ nível 1 clicável
-                }}
+                onMouseEnter={() => handleEnterLevel1(option)}
               >
-                {option.label}
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!hasChildren) {
+                      selectValue(option);
+                    }
+                  }}
+                >
+                  {option.label}
+                </button>
 
-                {hasChildren && openSubmenu === option.value && (
+                {hasChildren && isLevel1Open && (
                   <ul>
                     {option.subOptions!.map((subOption) => {
-                      const hasChildren2 = !!subOption.subOptions?.length;
+                      const hasChildren2 = Boolean(subOption.subOptions?.length);
+                      const isLevel2Open = openSubSubmenu === subOption.value;
 
                       return (
                         <li
                           key={subOption.value}
-                          onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
-                          onMouseLeave={() => setOpenSubSubmenu(null)}
-                          onClick={() => {
-                            if (!hasChildren2) selectValue(subOption); // ✅ nível 2 clicável
-                          }}
+                          onMouseEnter={() => handleEnterLevel2(subOption)}
                         >
-                          {subOption.label}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (!hasChildren2) {
+                                selectValue(subOption);
+                              }
+                            }}
+                          >
+                            {subOption.label}
+                          </button>
 
-                          {hasChildren2 && openSubSubmenu === subOption.value && (
+                          {hasChildren2 && isLevel2Open && (
                             <ul>
                               {subOption.subOptions!.map((subSubOption) => (
-                                <li
-                                  key={subSubOption.value}
-                                  onClick={() => selectValue(subSubOption)} // ✅ nível 3 clicável (como já era)
-                                >
-                                  {subSubOption.label}
+                                <li key={subSubOption.value}>
+                                  <button
+                                    type="button"
+                                    onClick={() => selectValue(subSubOption)}
+                                  >
+                                    {subSubOption.label}
+                                  </button>
                                 </li>
                               ))}
                             </ul>
@@ -98,166 +169,161 @@ export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: Pro
   );
 };
 
+// // C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
+// import React from "react";
+// import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
+// import { ButtonDropdown } from "./stylesSidebar";
 
+// export interface DropdownOption {
+//   label: string;
+//   value: string;
+//   subOptions?: DropdownOption[];
+//   onClick?: () => void;
+// }
 
+// interface PropsDropdown {
+//   pxheight?: string;
+//   pxwidth?: string;
+//   labelbtn?: string;
+//   options: DropdownOption[];
+//   onSelect: (value: string) => void;
+// }
 
+// export const Dropdown: React.FC<PropsDropdown> = ({
+//   pxheight,
+//   pxwidth,
+//   labelbtn,
+//   options,
+//   onSelect,
+// }) => {
+//   const [isOpen, setIsOpen] = React.useState(false);
+//   const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
+//   const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
 
+//   const closeAll = React.useCallback(() => {
+//     setIsOpen(false);
+//     setOpenSubmenu(null);
+//     setOpenSubSubmenu(null);
+//   }, []);
 
+//   const handleToggleRoot = React.useCallback(() => {
+//     setIsOpen((old) => {
+//       const next = !old;
 
+//       if (!next) {
+//         setOpenSubmenu(null);
+//         setOpenSubSubmenu(null);
+//       }
 
+//       return next;
+//     });
+//   }, []);
 
+//   const selectValue = React.useCallback(
+//     (opt: DropdownOption) => {
+//       opt.onClick?.();
+//       onSelect(opt.value);
+//       closeAll();
+//     },
+//     [closeAll, onSelect]
+//   );
 
+//   const handleEnterLevel1 = React.useCallback((opt: DropdownOption) => {
+//     if (!opt.subOptions?.length) return;
+//     setOpenSubmenu(opt.value);
+//     setOpenSubSubmenu(null);
+//   }, []);
 
+//   const handleEnterLevel2 = React.useCallback((opt: DropdownOption) => {
+//     if (!opt.subOptions?.length) return;
+//     setOpenSubSubmenu(opt.value);
+//   }, []);
 
-{/**
-import React from "react";
-import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
-import { ButtonDropdown } from "./stylesSidebar";
+//   return (
+//     <ContentMainDropdownUl
+//       pxheigth={pxheight}
+//       pxwidth={pxwidth}
 
-interface DropdownOption {
-  label: string;
-  value: string;
-  subOptions?: DropdownOption[];
-  onClick?: () => void;
-}
-interface PropsDropdown {
-  pxheight?: string;
-  pxwidth?: string;
-  labelbtn?: string;
-  options: DropdownOption[];
-  onSelect: (value: string) => void;
-}
-export const Dropdown = ({ pxheight, pxwidth, labelbtn, options, onSelect }: PropsDropdown) => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
-  const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
-  //const [openSubSubSubmenu, setOpenSubSubSubmenu] = React.useState<string | null>(null);
+//       // onMouseLeave={closeAll}
 
-  return (
-    <ContentMainDropdownUl pxheigth={pxheight} pxwidth={pxwidth}>
-      <ButtonDropdown onClick={() => setIsOpen(!isOpen)}>
-        {labelbtn}
-      </ButtonDropdown>
+//     >
+//       <ButtonDropdown type="button" onClick={handleToggleRoot}>
+//         {labelbtn}
+//       </ButtonDropdown>
 
-      {isOpen && (
-        <ul>
-          {options.map((option) => (
-            <li
-              key={option.value}
-              onMouseEnter={() => setOpenSubmenu(option.value)}
-              onMouseLeave={() => setOpenSubmenu(null)}
-            >
-              {option.label}
+//       {isOpen && (
+//         <ul>
+//           {options.map((option) => {
+//             const hasChildren = Boolean(option.subOptions?.length);
+//             const isLevel1Open = openSubmenu === option.value;
 
-              {option.subOptions && openSubmenu === option.value && (
-                <ul>
-                  {option.subOptions.map((subOption) => (
-                    <li
-                      key={subOption.value}
-                      onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
-                      onMouseLeave={() => setOpenSubSubmenu(null)}
-                    >
-                      {subOption.label}
+//             console.log("option", option.label, option.subOptions);
 
-                      {subOption.subOptions && openSubSubmenu === subOption.value && (
-                        <ul>
-                          {subOption.subOptions.map((subSubOption) => (
-                            <li
-                              key={subSubOption.value}
-                              onClick={() => {
-                                onSelect(subSubOption.value);
-                                setIsOpen(false);
-                              }}
-                            >
-                              {subSubOption.label}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      )};
-    </ContentMainDropdownUl>
-  );
-};
+//             return (
+//               <li
+//                 key={option.value}
+//                 onMouseEnter={() => handleEnterLevel1(option)}
+//               >
+//                 <button
+//                   type="button"
+//                   onClick={() => {
+//                     if (!hasChildren) {
+//                       selectValue(option);
+//                     }
+//                   }}
+//                 >
+//                   {option.label}
+//                 </button>
 
-//////////////////////////////////////////////////////////
+//                 {hasChildren && isLevel1Open && (
+//                   <ul>
+//                     {option.subOptions!.map((subOption) => {
+//                       const hasChildren2 = Boolean(subOption.subOptions?.length);
+//                       const isLevel2Open = openSubSubmenu === subOption.value;
 
-  
-import React, { useState } from "react";
+//                       console.log("option", option.label, option.subOptions);
 
-interface DropdownOption {
-  label: string;
-  value: string;
-  subOptions?: DropdownOption[];
-}
+//                       return (
+//                         <li
+//                           key={subOption.value}
+//                           onMouseEnter={() => handleEnterLevel2(subOption)}
+//                         >
+//                           <button
+//                             type="button"
+//                             onClick={() => {
+//                               if (!hasChildren2) {
+//                                 selectValue(subOption);
+//                               }
+//                             }}
+//                           >
+//                             {subOption.label}
+//                           </button>
 
-interface DropdownProps {
-  labelbtn?: string;
-  options: DropdownOption[];
-  onSelect: (value: string) => void;
-}
+//                           {hasChildren2 && isLevel2Open && (
+//                             <ul>
+//                               {subOption.subOptions!.map((subSubOption) => (
+//                                 <li key={subSubOption.value}>
+//                                   <button
+//                                     type="button"
+//                                     onClick={() => selectValue(subSubOption)}
+//                                   >
+//                                     {subSubOption.label}
+//                                   </button>
+//                                 </li>
+//                               ))}
+//                             </ul>
+//                           )}
+//                         </li>
+//                       );
+//                     })}
+//                   </ul>
+//                 )}
+//               </li>
+//             );
+//           })}
+//         </ul>
+//       )}
+//     </ContentMainDropdownUl>
+//   );
+// };
 
-export const Dropdown: React.FC<DropdownProps> = ({ labelbtn, options, onSelect }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
-  const [openSubSubmenu, setOpenSubSubmenu] = useState<string | null>(null);
-
-  return (
-    <div style={{ position: "relative", display: "inline-block" }}>
-      <button onClick={() => setIsOpen(!isOpen)}>{labelbtn}</button>
-
-      {isOpen && (
-        <ul>
-          {options.map((option) => (
-            <li
-              key={option.value}
-              onMouseEnter={() => setOpenSubmenu(option.value)}
-              onMouseLeave={() => setOpenSubmenu(null)}
-            >
-              {option.label}
-
-              {option.subOptions && openSubmenu === option.value && (
-                <ul>
-                  {option.subOptions.map((subOption) => (
-                    <li
-                      key={subOption.value}
-                      onMouseEnter={() => setOpenSubSubmenu(subOption.value)}
-                      onMouseLeave={() => setOpenSubSubmenu(null)}
-                    >
-                      {subOption.label}
-
-                      {subOption.subOptions && openSubSubmenu === subOption.value && (
-                        <ul>
-                          {subOption.subOptions.map((subSubOption) => (
-                            <li
-                              key={subSubOption.value}
-                              onClick={() => {
-                                onSelect(subSubOption.value);
-                                setIsOpen(false);
-                              }}
-                            >
-                              {subSubOption.label}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
-
-  
-*/}

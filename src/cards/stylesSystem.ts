@@ -47,12 +47,12 @@ export const DivMessageLine = styled.div`
 `;
 
 interface PropsDivStatus {
-  success?: boolean;
+  $success?: boolean;
 }
 export const DivStatus = styled.div<PropsDivStatus>`
   margin-top: 12px;
   font-weight: bold;
-  color: ${({ success }) => (success ? 'green' : 'red')};
+  color: ${({ $success }) => ($success ? 'green' : 'red')};
 `;
 
 /////////////////////////////

@@ -1,18 +1,18 @@
 import * as Pg from '../stylePages';
 import { ContentPages } from '../ContentPages';
-//import {ContentCardPage} from '../ContentCardPage';
 import HeaderConfig from '../hearders/headers/HearderConfig';
-//import { BarSideMenuConfig } from '../sidebar/BarSideMenuConfig';
-//import { FooterPage } from '../../footers/FooterPage';
-//import { BarSideMenuPage } from '../../sidebar/BarSideMenuPage';
-//import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
 
 interface PropsLayoutConfig {
+
   imgsys?: string;
   titbtnsys?: string;
   onclicksys?: () => void;
 
   titlepg?: string;
+
+  mston?: boolean;
+  pxheigth?: string;
+  strcor?: string;
 
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
@@ -43,6 +43,10 @@ const LayoutConfig = ({
   onclicksys,
 
   titlepg,
+
+  mston,
+  pxheigth,
+  strcor,
 
   imgbtnhlppg,
   titbtnhlppg,
@@ -78,6 +82,11 @@ const LayoutConfig = ({
         titbtnsys={titbtnsys}
         onclicksys={onclicksys}
         titlepg={titlepg}
+
+        mston={mston}
+        pxheigth={pxheigth}
+        strcor={strcor}
+
         imgbtnhlppg={imgbtnhlppg}
         titbtnhlppg={titbtnhlppg}
         onclickhlppg={onclickhlppg}

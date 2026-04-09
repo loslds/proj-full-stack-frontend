@@ -211,6 +211,50 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   align-items: center;
 `;
 ///////////////////////
+interface PropsContainerHeaderCardIsmaster {
+  mston?: boolean;
+  pxheight?: string;
+}
+export const ContainerHeaderCardIsmaster = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "mston",
+})<PropsContainerHeaderCardIsmaster>`
+  border: 1px;
+  border-color: ${(props) => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px;
+  margin: 2px;
+  min-height: ${({ pxheight }) => pxheight || '40px'};
+  
+  display: ${({ mston }) => (mston ? "flex" : "none")};
+
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: ${(props) => props.theme.colors.textColor};
+`;
+
+interface PropsBullettIsmaster {
+  strcor?: string;
+}
+export const BullettIsmaster = styled.div<PropsBullettIsmaster>`
+  border: 3px;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 45px;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  background: ${({ strcor }) => strcor || 'transparent'};
+  height: 15px;
+  width: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+`;
+
+
 interface PropsBtnDefImgEnabledOnOffPg {
   img?: string;
   disabled?: boolean; // Adicionando a propriedade

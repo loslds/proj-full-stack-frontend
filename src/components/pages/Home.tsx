@@ -173,8 +173,8 @@ const Home: React.FC = () => {
     dispatch({ type: "chkdb", payload: false });
     dispatch({ type: "modulo", payload: "Checagem Database" });
     dispatch({ type: "cor",payload: "" });
-    dispatch({ type: "nivel", payload: 0 });
     dispatch({ type: "acao", payload: "" });
+    dispatch({ type: "nivel", payload: 0 });
         
     setMsgPanelBottom("Check DataBase...");
     setMessageBottom("Sistema com DataBase Inconsistente...");

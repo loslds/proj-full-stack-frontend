@@ -1,8 +1,8 @@
 
+
 // C:\repository\proj-full-stack-frontend\src\components\GenericGrid.tsx
 import * as React from "react";
 import styled from "styled-components";
-// theme
 
 export type GridRow = Record<string, unknown>;
 
@@ -77,7 +77,7 @@ const GridTable = styled.table`
 `;
 
 const GridHeadRow = styled.tr`
-  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  background-color: ${({ theme }) => theme.colors.headerBackground};
 `;
 
 const GridHeadCell = styled.th`
@@ -86,10 +86,9 @@ const GridHeadCell = styled.th`
   font-weight: 700;
   font-size: 13px;
   white-space: nowrap;
-  border-right: 1px solid ${({ theme }) => theme.colors.textColor};
-  border-bottom: 1px solid ${({ theme }) => theme.colors.textColor};
+  border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.textColor};
-  background-color: ${({ theme }) => theme.colors.headerBackground};
 
   &:last-child {
     border-right: none;
@@ -102,11 +101,11 @@ const GridRowStyled = styled.tr`
   }
 
   &:nth-child(even) {
-    background-color: ${({ theme }) => theme.colors.backgroundColorAlt ?? "#f2f2f2"};
+    background-color: ${({ theme }) => theme.colors.backgroundColorAlt};
   }
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.hoverColor ?? "#e0e0e0"};
+    background-color: ${({ theme }) => theme.colors.hoverColor};
   }
 `;
 
@@ -164,6 +163,51 @@ const EmptyMsg = styled.div`
   opacity: 0.85;
 `;
 
+const PaginationWrap = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 6px 4px;
+  flex-wrap: wrap;
+`;
+
+const PageButton = styled.button`
+  min-width: 120px;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid ${({ theme }) => theme.colors.borderColor};
+  background-color: ${({ theme }) => theme.colors.backgroundColor};
+  color: ${({ theme }) => theme.colors.textColor};
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.hoverColor};
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+`;
+
+const PageInfoCenter = styled.div`
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.textColor};
+`;
+
+const PageInfoTotal = styled.div`
+  font-size: 13px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textColor};
+  white-space: nowrap;
+`;
+
 /* =========================
  * Componente
  * ========================= */
@@ -174,6 +218,10 @@ const GenericGrid: React.FC<GenericGridProps> = ({
   columns,
 }) => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const pageSize = 50;
+  const shouldShowPagination = rows.length > pageSize;
 
   const resolvedColumns: GridColumn[] = React.useMemo(() => {
     if (columns && columns.length > 0) {
@@ -189,6 +237,42 @@ const GenericGrid: React.FC<GenericGridProps> = ({
       visible: true,
     }));
   }, [columns, rows]);
+
+  const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+
+  React.useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
+
+  const paginatedRows = React.useMemo(() => {
+    if (!shouldShowPagination) return rows;
+
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+
+    return rows.slice(start, end);
+  }, [rows, currentPage, shouldShowPagination]);
+
+  const startRecord =
+    rows.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
+
+  const endRecord = shouldShowPagination
+    ? Math.min(currentPage * pageSize, rows.length)
+    : rows.length;
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
 
   if (!rows || rows.length === 0) {
     return (
@@ -215,8 +299,12 @@ const GenericGrid: React.FC<GenericGridProps> = ({
           </thead>
 
           <tbody>
-            {rows.map((row, idx) => {
-              const rowKey = getRowKey(row, idx);
+            {paginatedRows.map((row, idx) => {
+              const globalIndex = shouldShowPagination
+                ? (currentPage - 1) * pageSize + idx
+                : idx;
+
+              const rowKey = getRowKey(row, globalIndex);
 
               return (
                 <GridRowStyled key={rowKey}>
@@ -240,125 +328,36 @@ const GenericGrid: React.FC<GenericGridProps> = ({
           </tbody>
         </GridTable>
       </GridScroll>
+
+      {shouldShowPagination && (
+        <PaginationWrap>
+          <PageButton
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}
+          >
+            {"<< anterior"}
+          </PageButton>
+
+          <PageInfoCenter>
+            {startRecord} a {endRecord}
+          </PageInfoCenter>
+
+          <PageInfoTotal>
+            tt. reg : {rows.length}
+          </PageInfoTotal>
+
+          <PageButton
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}
+          >
+            {"próximos >>"}
+          </PageButton>
+        </PaginationWrap>
+      )}
     </GridWrap>
   );
 };
 
 export default GenericGrid;
 export { GenericGrid };
-
-
-
-
-// //C:\repository\proj-full-stack-frontend\src\components\GenericGrid.tsx
-// import * as React from "react";
-
-
-// export type GridRow = Record<string, unknown>;
-
-// export type GridColumn = {
-//   key: string;
-//   header?: string;
-//   type?: string;
-// };
-
-// export interface GenericGridProps {
-//   tableName: string;
-//   rows: GridRow[];
-//   columns?: GridColumn[];
-// }
-
-// /* =========================
-//  * Utilitários internos
-//  * ========================= */
-
-// function isRecord(v: unknown): v is Record<string, unknown> {
-//   return typeof v === "object" && v !== null;
-// }
-
-// function getRowKey(row: GridRow, idx: number): string {
-//   const candidate =
-//     row.id ??
-//     row.ID ??
-//     row._id ??
-//     row.uuid ??
-//     row.UUID ??
-//     row.key ??
-//     row.codigo ??
-//     row.cod;
-
-//   return candidate != null ? String(candidate) : String(idx);
-// }
-
-// function formatCellValue(value: unknown): React.ReactNode {
-//   if (value === null || value === undefined) return "";
-//   if (typeof value === "boolean") return value ? "Sim" : "Não";
-//   if (typeof value === "number") return value;
-//   if (typeof value === "string") return value;
-//   if (value instanceof Date) return value.toISOString();
-//   if (typeof value === "object") return JSON.stringify(value);
-//   return String(value);
-// }
-
-// /* =========================
-//  * Componente
-//  * ========================= */
-
-// const GenericGrid: React.FC<GenericGridProps> = ({
-//   tableName,
-//   rows,
-//   columns,
-// }) => {
-//   const resolvedColumns: GridColumn[] = React.useMemo(() => {
-//     if (columns && columns.length > 0) return columns;
-
-//     const first = rows[0];
-//     if (!first || !isRecord(first)) return [];
-
-//     return Object.keys(first).map((key) => ({
-//       key,
-//       header: key,
-//     }));
-//   }, [columns, rows]);
-
-//   if (!rows || rows.length === 0) {
-//     return (
-//       <div className="gg-empty">
-//         <strong className="gg-empty-title">{tableName}</strong>
-//         <div className="gg-empty-msg">Tabela sem registros.</div>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="gg-wrap">
-//       <table className="gg-table">
-//         <thead className="gg-thead">
-//           <tr className="gg-tr">
-//             {resolvedColumns.map((col) => (
-//               <th key={col.key} className="gg-th">
-//                 {col.header ?? col.key}
-//               </th>
-//             ))}
-//           </tr>
-//         </thead>
-
-//         <tbody className="gg-tbody">
-//           {rows.map((row, idx) => (
-//             <tr key={getRowKey(row, idx)} className="gg-tr">
-//               {resolvedColumns.map((col) => (
-//                 <td key={col.key} className="gg-td">
-//                   {formatCellValue(row[col.key])}
-//                 </td>
-//               ))}
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default GenericGrid;
-// export { GenericGrid };
 

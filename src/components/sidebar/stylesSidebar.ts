@@ -282,7 +282,7 @@ export const ContainerSideButtonItem = styled.div<TypeContainerSideButtonItem>`
   `;
 
 type TypeButtomSBButtonItem = {
-  isborder?: boolean;
+  $isborder?: boolean;
   titbtn?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseEnter?: React.MouseEventHandler<HTMLButtonElement>;
@@ -292,7 +292,7 @@ export const ButtomSBButtonItem = styled.button<TypeButtomSBButtonItem>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   border: 2px;
-  border-style: ${props => (props.isborder ? 'solid' : 'none')};
+  border-style: ${props => (props.$isborder ? 'solid' : 'none')};
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textColor};
   margin: 5px 5px 5px 5px;
@@ -565,88 +565,141 @@ interface PropsContainerMainDropdownUl {
   pxheight?: string;
   pxwidth?: string;
   label?: string;
+  
 }
 
 export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
-  border: 2px solid;
+  border: 2px solid ${({ theme }) => theme.colors.textColor};
   border-radius: 10px;
-  border-color: ${(props) => props.theme.colors.textColor};
-  padding: 0px 10px 0px 10px;
-  margin: 5px 10px 5px 10px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
+  padding: 0 10px;
+  margin: 5px 10px;
+  min-height: ${({ pxheight }) => pxheight || "30px"};
+  width: ${({ pxwidth }) => pxwidth || "100%"};
+
   position: relative;
   display: inline-flex;
-  flex-wrap: wrap;
-  flex-flow: row;
-  justify-content: left;
+  flex-flow: row wrap;
+  justify-content: flex-start;
   align-items: center;
   align-content: center;
-  color: ${(props) => props.theme.colors.textColor};
+
+  color: ${({ theme }) => theme.colors.textColor};
   background-color: transparent;
+
+  font-family: "Courier New", Courier, monospace;
   font-size: 20px;
   line-height: 22px;
-  font-family: 'Courier New', Courier, monospace;
 
-  ul {
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.textColor};
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  label {
+    background-color: transparent;
+    color: ${({ theme }) => theme.colors.textColor};
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: bold;
+  }
+
+  > ul {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 5px);
     left: 0;
-    margin-top: 5px;
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    min-width: 200px;
+    max-height: 750px;
+    overflow-y: auto;
+    overflow-x: visible;
+
     background-color: #7ca7f5;
     border: 1px solid #3e3e3f;
-    border-radius: 5px;
-    list-style: none;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
+
+  ul {
+    margin: 0;
     padding: 0;
-    min-width: 200px;
-    
+    list-style: none;
+  }
+
+  ul li {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: transparent;
+    border-bottom: 1px solid #918e8e;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  ul li:last-child {
+    border-bottom: none;
+  }
+
+  ul li:hover {
+    background-color: #e05252;
+  }
+
+  ul li > button {
+    width: 100%;
+    margin: 0;
+    padding: 10px 12px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+
+    font-family: "Courier New", Courier, monospace;
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: bold;
+  }
+
+  ul li > ul {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 5px);
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    min-width: 150px;
     max-height: 750px;
     overflow-y: auto;
     overflow-x: hidden;
 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.8);
-    z-index: 1000;
-    font-size: 20px;
-    line-height: 22px;
-    font-family: 'Courier New', Courier, monospace;
-    li {
-      padding: 10px;
-      cursor: pointer;
-      border-bottom: 1px solid #918e8e;
-      position: relative;
-      transition: background-color 0.2s ease-in-out;
+    background-color: #ffffff;
+    border: 1px solid #3e3e3f;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+  }
 
-      &:hover {
-        background-color: #e05252;
-      }
-
-      ul {
-        position: absolute;
-        top: 0;
-        left: 100%;
-        margin-left: 5px;
-        background-color: white;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        list-style: none;
-        padding: 0;
-        min-width: 150px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.8);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        pointer-events: none;
-        z-index: 2000;
-      }
-
-      &:hover > ul {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
-      }
-    }
+  ul li > ul.open-left {
+    left: auto;
+    right: calc(100% + 5px);
   }
 `;
+///////////////////////////
 interface PropsContainerButtonDropdown {
   pxheight?: string;
 }
@@ -679,8 +732,8 @@ export const ButtonDropdown = styled.button`
   background-color: transparent;
   cursor: pointer;
   outline: none;
-  height: 30px;
-  min-width: 30px;
+  height: 40px;
+  //min-width: 30px;
   display: flex;
   flex-wrap: nowrap;
   flex-flow: row;
