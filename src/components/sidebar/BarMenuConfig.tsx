@@ -1,5 +1,4 @@
 
-
 // C:\repository\proj-full-stack-frontend\src\components\sidebar\BarMenuConfig.tsx
 import React from "react";
 import * as S from "./stylesSidebar";
@@ -56,15 +55,18 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
     [dispatch, resetTableActions]
   );
 
+  // botão com o nome da tabela:
+  // apenas ativa o "resumo" da tabela no Config
   const handleOpenSelectedTable = React.useCallback(() => {
     if (!tableName) return;
 
     dispatch({ type: "nametable", payload: tableName });
     resetTableActions();
 
-    dispatch({ type: "vistable", payload: true });
     dispatch({ type: "regtable", payload: true });
+
   }, [dispatch, resetTableActions, tableName]);
+  
 
   const handleRefresh = React.useCallback(() => {
     if (!tableName) return;
@@ -84,24 +86,36 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       resetTableActions();
 
       switch (value) {
-        case "visualizar":
-          dispatch({ type: "vistable", payload: true });
+        case "visualizar_sem_filtro":
           dispatch({ type: "regtable", payload: true });
+          dispatch({ type: "vistable", payload: true });
           break;
 
-        case "listar":
+        case "visualizar_filtra":
+          dispatch({ type: "regtable", payload: true });
+          dispatch({ type: "vistable", payload: false });
+          dispatch({ type: "filttable", payload: true });
+          break;
+
+        case "listar_simples":
+        case "listar_detalhada":
+        case "listar_impressao":
+          dispatch({ type: "regtable", payload: true });
           dispatch({ type: "listtable", payload: true });
           break;
 
         case "incluir":
+          dispatch({ type: "regtable", payload: true });
           dispatch({ type: "inctable", payload: true });
           break;
 
         case "alterar":
+          dispatch({ type: "regtable", payload: true });
           dispatch({ type: "alttable", payload: true });
           break;
 
         case "excluir":
+          dispatch({ type: "regtable", payload: true });
           dispatch({ type: "exctable", payload: true });
           break;
 
@@ -130,15 +144,30 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
   }, [dispatch, isMenuOpen, resetTableActions]);
 
   const operationOptions = React.useMemo<DropdownOption[]>(
-    () => [
-      { label: "Visualizar", value: "visualizar" },
-      { label: "Listar", value: "listar" },
-      { label: "Incluir", value: "incluir" },
-      { label: "Alterar", value: "alterar" },
-      { label: "Excluir", value: "excluir" },
-    ],
-    []
-  );
+  () => [
+    {
+      label: "Visualizar",
+      value: "visualizar",
+      subOptions: [
+        { label: "Sem Filtro", value: "visualizar_sem_filtro" },
+        { label: "Filtra", value: "visualizar_filtra" },
+      ],
+    },
+    {
+      label: "Listar",
+      value: "listar",
+      subOptions: [
+        { label: "Lst.Simples", value: "listar_simples" },
+        { label: "Lst.Detalhada", value: "listar_detalhada" },
+        { label: "Impressão", value: "listar_impressao" },
+      ],
+    },
+    { label: "Incluir", value: "incluir" },
+    { label: "Alterar", value: "alterar" },
+    { label: "Excluir", value: "excluir" },
+  ],
+  []
+);
 
   const utilOptions = React.useMemo<DropdownOption[]>(
     () => [
@@ -146,29 +175,29 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
         label: "Tabelas",
         value: "util-tabelas",
         subOptions: [
-          { label: "Resetar Tabela Atual", value: "reset_table_current" },
-          { label: "Seed da Tabela Atual", value: "seed_table_current" },
-          { label: "Sincronizar Tabela Atual", value: "sync_table_current" },
-          { label: "Atualizar Systables", value: "sync_systables" },
+          { label: "Exe.Resete.", value: "reset_table_current" },
+          { label: "Exe.Seed.", value: "seed_table_current" },
+          { label: "Sincroniza.", value: "sync_table_current" },
+          { label: "Gerenciador.", value: "sync_systables" },
         ],
       },
       {
-        label: "Serviços",
+        label: "Sistema",
         value: "util-servicos",
         subOptions: [
-          { label: "Checar Sistema", value: "check_system" },
-          { label: "Executar Seeds", value: "run_seeds" },
-          { label: "Reprocessar Imagens", value: "reprocess_images" },
-          { label: "Sincronizar Serviços", value: "sync_services" },
+          { label: "Checkout.", value: "check_system" },
+          { label: "Seeds.", value: "run_seeds" },
+          { label: "Reproc.Imgs", value: "reprocess_images" },
+          { label: "Sincronização.", value: "sync_services" },
         ],
       },
       {
         label: "Segurança",
         value: "util-seguranca",
         subOptions: [
-          { label: "Logoff Master", value: "logoff_master" },
-          { label: "Limpar Sessão", value: "clear_session" },
-          { label: "Verificar Acesso", value: "check_access" },
+          { label: "Logoff Master.", value: "logoff_master" },
+          { label: "Limpar Sessão.", value: "clear_session" },
+          { label: "Verifica Acessos.", value: "check_access" },
         ],
       },
     ],
@@ -181,7 +210,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
   return (
     <ContentSBMain>
-      <ContentSBMenuSide onoff={true}>
+      <ContentSBMenuSide $onoff={true}>
         <ContentSBButtonMenu
           img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
           titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
@@ -190,10 +219,10 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       </ContentSBMenuSide>
 
       {isDropdownOpen && (
-        <S.ContainerMenuSB open={true}>
+        <S.ContainerMenuSB $open={true}>
           <Dropdown
-            pxheight={"30px"}
-            pxwidth={"200px"}
+            pxheight="30px"
+            pxwidth="200px"
             labelbtn={
               loading ? "Carregando..." : error ? "Erro no Sistema" : "Arq.Sistema."
             }
@@ -204,11 +233,11 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       )}
 
       {showTableButton && (
-        <S.ContainerMenuSB open={true}>
+        <S.ContainerMenuSB $open={true}>
           <ContentSBButtonItemMenu>
             <S.ButtomSBButtonItem
               $isborder={true}
-              title={"Tabela Selecionada..."}
+              title="Tabela Selecionada..."
               onClick={handleOpenSelectedTable}
             >
               <label>{tableName}</label>
@@ -219,31 +248,31 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
       {showActionControls && (
         <ContentSBMain>
-          <ContentSBItensButtonOnOff open={true}>
+          <ContentSBItensButtonOnOff $open={true}>
             <S.ButtomSBButtonItem
-              $isborder
-              title={"Refrescar Grid..."}
+              $isborder={true}
+              title="Refrescar Grid..."
               onClick={handleRefresh}
             >
               <label>Refrescar.</label>
             </S.ButtomSBButtonItem>
           </ContentSBItensButtonOnOff>
 
-          <S.ContainerMenuSB open>
+          <S.ContainerMenuSB $open={true}>
             <Dropdown
-              pxheight={"30px"}
-              pxwidth={"180px"}
-              labelbtn={"Operações"}
+              pxheight="30px"
+              pxwidth="180px"
+              labelbtn="Operações"
               options={operationOptions}
               onSelect={handleSelectOperation}
             />
           </S.ContainerMenuSB>
 
-          <S.ContainerMenuSB open={true}>
+          <S.ContainerMenuSB $open={true}>
             <Dropdown
-              pxheight={"30px"}
-              pxwidth={"180px"}
-              labelbtn={"Util"}
+              pxheight="30px"
+              pxwidth="180px"
+              labelbtn="Util"
               options={utilOptions}
               onSelect={handleSelectUtility}
             />

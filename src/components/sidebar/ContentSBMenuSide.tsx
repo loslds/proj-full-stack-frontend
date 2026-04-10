@@ -2,14 +2,14 @@ import * as S from './stylesSidebar';
 
 interface PropsContentSBMenuSide {
   children?: React.ReactNode;
-  onoff: boolean;
+  $onoff: boolean;
 };
 
 export const ContentSBMenuSide = ({
-  onoff,
+  $onoff,
   children
 }: PropsContentSBMenuSide) => {
   return (
-    <S.ContainerSBItensMenu open={onoff}>{children}</S.ContainerSBItensMenu>
+    <S.ContainerSBItensMenu $open={$onoff}>{children}</S.ContainerSBItensMenu>
   );
 };

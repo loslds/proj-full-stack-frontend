@@ -165,14 +165,14 @@ export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
 //container Butto Side lado esquero
 // usa o mesmo div
 type TypeContainerSBItensButtonOnOff = {
-  open?: boolean;
+  $open?: boolean;
 }
 export const ContainerSBItensButtonOnOff = styled.div<TypeContainerSBItensButtonOnOff>`
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   border-radius: 5px;
   background: transparent;
-  display: ${({open}) => open ? 'flex' : 'none' };
+  display: ${({$open}) => $open ? 'flex' : 'none' };
   flex-flow: row wrap;
   justify-content: left;
   align-items: center;
@@ -325,7 +325,7 @@ export const ButtomSBButtonItem = styled.button<TypeButtomSBButtonItem>`
 
 //container Butto Side lado direito
 interface PropsContainerSBItensModulo {
-  open?: boolean;
+  $open?: boolean;
 };
 export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
   border: 1px solid blueviolet;
@@ -336,7 +336,7 @@ export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
   margin: 5px 10px 5px 10x; 
   background: transparent;
   min-height: 48px;
-  display: ${({open}) => open ? 'flex' : 'none' };
+  display: ${({$open}) => $open ? 'flex' : 'none' };
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
@@ -567,12 +567,10 @@ interface PropsContainerMainDropdownUl {
   label?: string;
   
 }
-
 export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   border: 2px solid ${({ theme }) => theme.colors.textColor};
   border-radius: 10px;
-  padding: 0 10px;
-  margin: 5px 10px;
+  margin: 0px 5px 0px 5px;
   min-height: ${({ pxheight }) => pxheight || "30px"};
   width: ${({ pxwidth }) => pxwidth || "100%"};
 
@@ -609,25 +607,25 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   }
 
   > ul {
-    position: absolute;
-    top: calc(100% + 5px);
-    left: 0;
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
 
-    margin: 0;
-    padding: 0;
-    list-style: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 
-    min-width: 200px;
-    max-height: 750px;
-    overflow-y: auto;
-    overflow-x: visible;
+  min-width: 150px;
+  overflow: visible;
 
-    background-color: #7ca7f5;
-    border: 1px solid #3e3e3f;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-  }
+  background-color: #7ca7f5;
+  color: ${({ theme }) => theme.colors.textColor};
+
+  border: 1px solid #3e3e3f;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+}
 
   ul {
     margin: 0;
@@ -655,8 +653,8 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
 
   ul li > button {
     width: 100%;
-    margin: 0;
-    padding: 10px 12px;
+    margin: 0 ;
+    padding: 5px 12px;
 
     display: flex;
     justify-content: flex-start;
@@ -683,11 +681,11 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     list-style: none;
 
     min-width: 150px;
-    max-height: 750px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
 
-    background-color: #ffffff;
+    background-color: #7ca7f5;
+    color: ${({ theme }) => theme.colors.textColor};
+
     border: 1px solid #3e3e3f;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
@@ -698,6 +696,32 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     left: auto;
     right: calc(100% + 5px);
   }
+
+  ul li > ul > li > ul {
+    position: absolute;
+    top: 0;
+    left: calc(100% + 5px);
+
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    min-width: 150px;
+    overflow: visible;
+
+    background-color: #7ca7f5;
+    color: ${({ theme }) => theme.colors.textColor};
+
+    border: 1px solid #3e3e3f;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    z-index: 3000;
+  }
+
+  ul li > ul > li > ul.open-left {
+  left: auto;
+  right: calc(100% + 5px);
+}
 `;
 ///////////////////////////
 interface PropsContainerButtonDropdown {
@@ -746,7 +770,7 @@ export const ButtonDropdown = styled.button`
 `;
 /////////////////////////////////////
 interface PropsMenuSB {
-  open: boolean;
+  $open: boolean;
 }
 export const ContainerMenuSB = styled.div<PropsMenuSB>`
   padding: 10px 2x 10px 2px;
@@ -755,13 +779,13 @@ export const ContainerMenuSB = styled.div<PropsMenuSB>`
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   color: ${(props) => props.theme.colors.textColor};
   background-color: transparent;
-  display: ${(props) => (props.open ? "block" : "none")};
+  display: ${(props) => (props.$open ? "block" : "none")};
   font-size: 20px;
   line-height: 22px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   transition: transform 0.3s ease-in-out;
-  transform: ${(props) => (props.open ? "translateX(0)" : "translateX(100%)")};
+  transform: ${(props) => (props.$open ? "translateX(0)" : "translateX(100%)")};
 `;
 /////////////////////////////////////
 
