@@ -97,10 +97,11 @@ export const Dropdown: React.FC<PropsDropdown> = ({
       $pxheight={$pxheight}
       $pxwidth={$pxwidth}
     >
-      <ButtonDropdown type="button" onClick={handleToggleRoot}>
+      <ButtonDropdown type="button" $btnpxwidth="205px" onClick={handleToggleRoot}>
         {labelbtn}
       </ButtonDropdown>
-      
+ 
+    
       {isOpen && (
         <ul>
           {options.map((option) => {

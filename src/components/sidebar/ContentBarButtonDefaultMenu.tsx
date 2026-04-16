@@ -17,12 +17,12 @@ export const ContentBarButtonDefaultMenu = ({
 }: TypeContentBarButtonDefaultMenu) => {
   return (
     <S.ContainerButtonMenu $width={$width}>
-      <S.ButtonBarDefault
+      <S.ButtonBarImg
         title={titbtn} 
         onClick={onClick} 
         > 
         {titulo}
-      </S.ButtonBarDefault>
+      </S.ButtonBarImg>
     </S.ContainerButtonMenu>
   );
 };

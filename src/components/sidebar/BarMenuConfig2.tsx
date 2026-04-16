@@ -3,15 +3,15 @@
 import React from "react";
 import * as S from "./stylesSidebar";
 
+import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
+import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
+
 import { ContentSBMain } from "./ContentSBMain";
 import { ContentSBMenuSide } from "./ContentSBMenuSide";
 import { ContentSBButtonMenu } from "./ContentSBButtonMenu";
 import { ContentSBButtonItemMenu } from "./ContentSBButtonItemMenu";
 import { ContentSBItensButtonOnOff } from "./ContentSBItensButtonOnOff";
 import { Dropdown, DropdownOption } from "./Dropdown";
-
-import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
-import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
 
 import { useAcessoContext } from "../contexts/ContextAcesso";
 import { useSystemTables } from "../../funcs/funcs/useSystemTables";

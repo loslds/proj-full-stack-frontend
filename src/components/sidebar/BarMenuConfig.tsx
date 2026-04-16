@@ -1,23 +1,19 @@
 
 // C:\repository\proj-full-stack-frontend\src\components\sidebar\BarMenuConfig.tsx
 import React from "react";
-//import * as S from "./stylesSidebar";
 
 import { useAcessoContext } from "../contexts/ContextAcesso";
 import { useSystemTables } from "../../funcs/funcs/useSystemTables";
-
 import { ContentBarMainMenu } from "./ContentBarMainMenu";
 import { ContentBarButtonMenu } from "./ContentBarButtonMenu";
 import { ContentBarMainItensMenus } from "./ContentBarMainItensMenu";
 import { ContentDropdownMenu } from "./ContentBarDropdownMenu";
 import { Dropdown, DropdownOption } from "./Dropdown";
-
+import { ContentBarButtonGreenMenu } from "./ContentBarButtonGreenMenu";
+import { ContentBarButtonRedMenu } from "./ContentBarButtonRedMenu";
 
 import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
 import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
-import { ContentBarButtonGreenMenu } from "./ContentBarButtonGreenMenu";
-
-
 interface BarMenuConfig1Props {
   onRefresh?: () => void;
   onUtilitySelect?: (value: string) => void;
@@ -227,10 +223,10 @@ export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
       <ContentBarMainItensMenus $open = {isMenuOpen}> 
         
         {/** Visualiza / Esconde DROPDOWN */}
-        <ContentDropdownMenu $open={isDropdownOpen} $width={ "100px" } >
+        <ContentDropdownMenu $open={isDropdownOpen} $width={ "205px" } >
           <Dropdown
-            $pxheight={"30px"}
-            $pxwidth={"200px"}
+            $pxheight={"40px"}
+            $pxwidth={"205px"}
             labelbtn={
               loading ? "Carregando..." : error ? "Erro no Sistema" : "Arq.Sistema."
             }
@@ -238,18 +234,39 @@ export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
             onSelect={handleSelectTable}
           />
         </ContentDropdownMenu>
-        {/** Visualiza / Esconde Botão Nome-Tabela */}
+        {/** Atualiza Botão Nome-Tabela  acionado para fundo verde*/}
         <ContentBarButtonGreenMenu 
           $open={showTableButton} 
           $isCor={iscoropen} 
-          $width={"150px"}
           titbtn={"Tabela Selecionada..."}
+          titulo={tableName}
           onClick={handleOpenSelectedTable}
-          >
-            {<label>{tableName}</label>} 
-          </ContentBarMainItensMenus>
-
-
+        />
+        {/** Refresca a pagina / Vermelho ao clicar no Botão */}
+        <ContentBarButtonRedMenu 
+          $open={showTableButton} 
+          titbtn={"Refrescar Grid..."}
+          titulo={"Refrescar."}
+          onClick={handleRefresh}
+        />
+        <ContentDropdownMenu $open={showActionControls} $width={ "150px" } >
+          <Dropdown
+            $pxheight="30px"
+            $pxwidth="180px"
+            labelbtn="Operações"
+            options={operationOptions}
+            onSelect={handleSelectOperation}
+          />
+        </ContentDropdownMenu>
+        <ContentDropdownMenu $open={showActionControls} $width={ "100px" } >
+          <Dropdown
+            $pxheight="30px"
+            $pxwidth="200px"
+            labelbtn="Util"
+            options={utilOptions}
+            onSelect={handleSelectUtility}
+          />
+        </ContentDropdownMenu>
       </ContentBarMainItensMenus>
     </ContentBarMainMenu>
   );
