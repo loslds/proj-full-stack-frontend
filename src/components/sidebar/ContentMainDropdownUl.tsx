@@ -5,8 +5,8 @@ import { ContainerMainDropdownUl } from "./stylesSidebar";
 
 export interface interfaceContentMainDropdownUl {
   children?: React.ReactNode;
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   label?: string;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
@@ -14,12 +14,12 @@ export interface interfaceContentMainDropdownUl {
 export const ContentMainDropdownUl = React.forwardRef<
   HTMLDivElement,
   interfaceContentMainDropdownUl
->(({ children, pxheight, pxwidth, label, onMouseLeave }, ref) => {
+>(({ children, $pxheight, $pxwidth, label, onMouseLeave }, ref) => {
   return (
     <ContainerMainDropdownUl
       ref={ref}
-      pxheight={pxheight}
-      pxwidth={pxwidth}
+      $pxheight={$pxheight}
+      $pxwidth={$pxwidth}
       label={label}
       onMouseLeave={onMouseLeave}
     >

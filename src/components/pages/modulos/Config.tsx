@@ -41,6 +41,7 @@ import { CardLogoffMaster } from "../../../cards/CardLogoffMaster";
 import { logoutMaster } from "../../contexts/helpers/logoutMaster";
 import { CardImgNeg } from "../../../cards/CardImgNeg";
 import { CardDesenvolver } from "../../../cards/CardDesenvolver";
+import CardFilterConfig from "../../../cards/CardFilterConfig";
 
 // img do painel Bottom
 import btn_qrefrescar from "../../../assets/defaut/botao/btn_def_q_refrescar.svg";
@@ -152,6 +153,28 @@ const Config: React.FC = () => {
 
   const tableName = React.useMemo(() => String(state.nametable ?? "").trim(), [state.nametable]);
   const hasTableSelected = tableName.length > 0;
+  // filtros para o grid
+  const [isFilterModalOpen, setIsFilterModalOpen] = React.useState(false);
+
+  //const [filterFields, setFilterFields] = React.useState<{ key: string; label: string }[]>([]);
+
+  const currentFields = React.useMemo(() => {
+    if (gridColumns && gridColumns.length > 0) {
+      return gridColumns.map((col) => ({
+        key: col.key,
+        label: col.header ?? col.key,
+      }));
+    }
+
+    if (gridRows.length > 0) {
+      return Object.keys(gridRows[0]).map((key) => ({
+        key,
+        label: key,
+      }));
+    }
+
+    return [];
+  }, [gridColumns, gridRows]);
 
   const resetGridUi = React.useCallback(() => {
     setIsGridTables(false);
@@ -172,7 +195,7 @@ const Config: React.FC = () => {
       const result = await fetchTableByName(tableName);
 
       if (!result.exists) {
-        setMsgPanelBottom(`Tabela ${tableName} inexistente.`);
+        setMsgPanelBottom(`Tabela em uso: ${tableName}, inexistente.`);
         setMessageBottom(`Tabela em uso: ${tableName}`);
         return;
       }
@@ -180,14 +203,14 @@ const Config: React.FC = () => {
       const total = Array.isArray(result.rows) ? result.rows.length : 0;
 
       if (total === 0) {
-        setMsgPanelBottom(`Tabela ${tableName} sem registros.`);
+        setMsgPanelBottom(`Tabela em uso: ${tableName}, sem registros.`);
       } else {
-        setMsgPanelBottom(`Tabela ${tableName} com ${total} registros.`);
+        setMsgPanelBottom(`Tabela em uso: ${tableName}, ${total} registros.`);
       }
 
       setMessageBottom(`Tabela em uso: ${tableName}`);
     } catch {
-      setMsgPanelBottom(`Tabela ${tableName} inoperante.`);
+      setMsgPanelBottom(`Tabela em uso: ${tableName}, inoperante.`);
       setMessageBottom(`Erro ao consultar tabela: ${tableName}`);
     } finally {
       setGridLoading(false);
@@ -206,7 +229,7 @@ const Config: React.FC = () => {
 
       if (!result.exists) {
         resetGridUi();
-        setMsgPanelBottom(`Tabela ${tableName} inexistente.`);
+        setMsgPanelBottom(`Tabela em uso: ${tableName}, inexistente.`);
         setMessageBottom(`Tabela em uso: ${tableName}`);
         return;
       }
@@ -221,7 +244,7 @@ const Config: React.FC = () => {
       setIsGridTables(true);
 
       if (!result.rows || result.rows.length === 0) {
-        setMsgPanelBottom(`Visualizando tabela ${tableName} sem registros.`);
+        setMsgPanelBottom(`Visualizando tabela ${tableName}, sem registros.`);
       } else {
         setMsgPanelBottom(`Visualizando tabela ${tableName}.`);
       }
@@ -231,12 +254,16 @@ const Config: React.FC = () => {
       const msg = e instanceof Error ? e.message : "Erro ao carregar grid da tabela.";
       setGridError(msg);
       resetGridUi();
-      setMsgPanelBottom(`Tabela ${tableName} inoperante.`);
+      setMsgPanelBottom(`Tabela em uso: ${tableName}, inoperante.`);
       setMessageBottom(`Erro ao carregar grid: ${tableName}`);
     } finally {
       setGridLoading(false);
     }
   }, [hasTableSelected, resetGridUi, tableName]);
+
+  // const handleLoadSummary = React.useCallback(() => {
+  //   void loadTableSummary();
+  // }, [loadTableSummary]);
 
   const handleRefresh = React.useCallback(async () => {
     if (!hasTableSelected) {
@@ -281,11 +308,6 @@ const Config: React.FC = () => {
   }, [hasTableSelected, resetGridUi, tableName]);
 
   React.useEffect(() => {
-    if (!hasTableSelected || !state.regtable || state.vistable) return;
-    void loadTableSummary();
-  }, [hasTableSelected, loadTableSummary, state.regtable, state.vistable]);
-
-  React.useEffect(() => {
     if (!hasTableSelected || !state.vistable) return;
     void loadTableGrid();
   }, [hasTableSelected, loadTableGrid, state.vistable]);
@@ -294,6 +316,20 @@ const Config: React.FC = () => {
     if (!state.listtable || !hasTableSelected) return;
     setMsgPanelBottom(`Selecione o tipo de listagem para a tabela ${tableName}.`);
   }, [hasTableSelected, state.listtable, tableName]);
+  
+  // useEffect para Filtro
+  React.useEffect(() => {
+    if (!state.filttable || !hasTableSelected) return;
+
+    if (!gridRows.length) {
+      setMsgPanelBottom("Tabela selecionada não contém registros.");
+      dispatch({ type: "filttable", payload: false });
+      return;
+    }
+
+    setMsgPanelBottom(`Filtro de visualização da tabela ${tableName} em preparação.`);
+    setIsFilterModalOpen(true);
+  }, [dispatch, gridRows.length, hasTableSelected, state.filttable, tableName]);
 
   React.useEffect(() => {
     if (!state.inctable || !hasTableSelected) return;
@@ -328,6 +364,7 @@ const Config: React.FC = () => {
       regtable: state.regtable,
       vistable: state.vistable,
       listtable: state.listtable,
+      filttable: state.filttable,
       inctable: state.inctable,
       alttable: state.alttable,
       exctable: state.exctable,
@@ -341,6 +378,7 @@ const Config: React.FC = () => {
     selectedRowId,
     state.alttable,
     state.exctable,
+    state.filttable,
     state.inctable,
     state.listtable,
     state.nametable,
@@ -383,11 +421,12 @@ const Config: React.FC = () => {
       >
         <ContentCardPageMain open={true} pwidth={"100%"}>
           <BarMenuConfig
-            onRefresh={() => void handleRefresh()}
-            onUtilitySelect={(value) => {
-              console.log("UTIL:", value);
-              setMsgPanelBottom(`Util selecionado: ${value}`);
-            }}
+            // onRefresh={() => void handleRefresh()}
+            // onLoadSummary={handleLoadSummary}
+            // onUtilitySelect={(value) => {
+            //   console.log("UTIL:", value);
+            //   setMsgPanelBottom(`Util selecionado: ${value}`);
+            // }}
           />
 
           {isgridtable ? <DivisionPgHztal /> : null}
@@ -542,6 +581,10 @@ const Config: React.FC = () => {
                 onMouseLeave={() => {
                   if (!hasTableSelected) {
                     setMsgPanelBottom("Aguardando Seleção...");
+                  } else if (state.filttable) {
+                    setMsgPanelBottom(`Filtro em tabela ${tableName} em preparação.`);
+                  } else if (state.vistable) {
+                    setMsgPanelBottom(`Visualizando tabela ${tableName}.`);
                   } else {
                     setMsgPanelBottom(`Tabela selecionada: ${tableName}`);
                   }
@@ -643,6 +686,40 @@ const Config: React.FC = () => {
               />
             </PageModal>
           ) : null}
+          {/* Acesso ao filtro de tabelas */}
+          {isFilterModalOpen ? (
+            <PageModal
+              ptop={"5%"}
+              pwidth={"80%"}
+              pheight={"80%"}
+              imgbm={btn_qclose}
+              titbm="Fechar..."
+              titulo={"Filtro de Visualização"}
+              onclose={() => {
+                setIsFilterModalOpen(false);
+                dispatch({ type: "filttable", payload: false });
+                setMsgPanelBottom(`Filtro abortado para a tabela ${tableName}.`);
+              }}
+            >
+              <CardFilterConfig
+                tableName={tableName}
+                availableFields={currentFields}
+                initialSelectedFields={currentFields}
+                onCancel={() => {
+                  setIsFilterModalOpen(false);
+                  dispatch({ type: "filttable", payload: false });
+                  setMsgPanelBottom(`Filtro abortado para a tabela ${tableName}.`);
+                }}
+                onConfirm={(selectedFields) => {
+                  console.log("FIELDS SELECTED", selectedFields);
+                  setIsFilterModalOpen(false);
+                  dispatch({ type: "filttable", payload: false });
+                  setMsgPanelBottom(`Filtro aplicado na tabela ${tableName}.`);
+                }}
+              />
+            </PageModal>
+          ) : null}
+
         </ContentCardPageMain>
       </LayoutConfig>
     </ThemeProvider>

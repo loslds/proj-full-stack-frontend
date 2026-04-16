@@ -346,7 +346,7 @@ React.useEffect(() => {
             }}
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Design.')}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 
@@ -389,7 +389,7 @@ React.useEffect(() => {
             }}
             onMouseEnter={() => setMsgPanelBottom('Abre Modulo Acabamento.')}
             onMouseLeave={() => {
-              if (!state.logado && !state.chvkey) setMsgPanelBottom('Aguardando Acesso ao Sistema...');
+              if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
           />
 

@@ -1,36 +1,39 @@
 
 // C:\repository\proj-full-stack-frontend\src\components\sidebar\BarMenuConfig.tsx
 import React from "react";
-import * as S from "./stylesSidebar";
-
-import { ContentSBMain } from "./ContentSBMain";
-import { ContentSBMenuSide } from "./ContentSBMenuSide";
-import { ContentSBButtonMenu } from "./ContentSBButtonMenu";
-import { ContentSBButtonItemMenu } from "./ContentSBButtonItemMenu";
-import { ContentSBItensButtonOnOff } from "./ContentSBItensButtonOnOff";
-import { Dropdown, DropdownOption } from "./Dropdown";
-
-import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
-import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
+//import * as S from "./stylesSidebar";
 
 import { useAcessoContext } from "../contexts/ContextAcesso";
 import { useSystemTables } from "../../funcs/funcs/useSystemTables";
 
-type BarMenuConfigProps = {
+import { ContentBarMainMenu } from "./ContentBarMainMenu";
+import { ContentBarButtonMenu } from "./ContentBarButtonMenu";
+import { ContentBarMainItensMenus } from "./ContentBarMainItensMenu";
+import { ContentDropdownMenu } from "./ContentBarDropdownMenu";
+import { Dropdown, DropdownOption } from "./Dropdown";
+
+
+import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
+import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
+import { ContentBarButtonGreenMenu } from "./ContentBarButtonGreenMenu";
+
+
+interface BarMenuConfig1Props {
   onRefresh?: () => void;
   onUtilitySelect?: (value: string) => void;
+  onLoadSummary?: () => void; // 👈 AQUI
 };
-
-export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
+export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
   onRefresh,
   onUtilitySelect,
+  onLoadSummary
 }) => {
+  
   const { dispatch } = useAcessoContext();
 
   const { options, loading, error } = useSystemTables();
   const dropdownOptions = React.useMemo(() => options ?? [], [options]);
 
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [tableName, setTableName] = React.useState("");
 
   const resetTableActions = React.useCallback(() => {
@@ -42,21 +45,24 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
     dispatch({ type: "exctable", payload: false });
   }, [dispatch]);
 
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const handleToggleMenu = React.useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
+
+  const [iscoropen, setIsCorOpen] = React.useState(false);
+
 
   const handleSelectTable = React.useCallback(
     (name: string) => {
       setTableName(name);
       dispatch({ type: "nametable", payload: name });
       resetTableActions();
-    },
-    [dispatch, resetTableActions]
-  );
+      setIsCorOpen(false);
+    }, [dispatch, resetTableActions]
+  );  
 
-  // botão com o nome da tabela:
-  // apenas ativa o "resumo" da tabela no Config
+  // botão com o nome da tabela: apenas ativa o "resumo" da tabela no Config
   const handleOpenSelectedTable = React.useCallback(() => {
     if (!tableName) return;
 
@@ -64,10 +70,15 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
     resetTableActions();
 
     dispatch({ type: "regtable", payload: true });
+    setIsCorOpen(true);
 
-  }, [dispatch, resetTableActions, tableName]);
+    // 👇 CHAMA O RESUMO DIRETO
+    if (onLoadSummary) {
+      onLoadSummary();
+    } },
+    [dispatch, resetTableActions, tableName, onLoadSummary]
+  );
   
-
   const handleRefresh = React.useCallback(() => {
     if (!tableName) return;
 
@@ -75,76 +86,74 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
     if (onRefresh) {
       onRefresh();
-    }
-  }, [dispatch, onRefresh, tableName]);
+    } },
+    [dispatch, onRefresh, tableName]
+  );
 
-  const handleSelectOperation = React.useCallback(
-    (value: string) => {
-      if (!tableName) return;
 
-      dispatch({ type: "nametable", payload: tableName });
-      resetTableActions();
+  const handleSelectOperation = React.useCallback( (value: string) => {
+    if (!tableName) return;
 
-      switch (value) {
-        case "visualizar_sem_filtro":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "vistable", payload: true });
-          break;
+    dispatch({ type: "nametable", payload: tableName });
+    resetTableActions();
 
-        case "visualizar_filtra":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "vistable", payload: false });
-          dispatch({ type: "filttable", payload: true });
-          break;
+    switch (value) {
+      case "visualizar_sem_filtro":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "vistable", payload: true });
+        break;
 
-        case "listar_simples":
-        case "listar_detalhada":
-        case "listar_impressao":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "listtable", payload: true });
-          break;
+      case "visualizar_filtra":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "vistable", payload: false });
+        dispatch({ type: "filttable", payload: true });
+        break;
 
-        case "incluir":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "inctable", payload: true });
-          break;
+      case "listar_simples":
+      case "listar_detalhada":
+      case "listar_impressao":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "listtable", payload: true });
+        break;
 
-        case "alterar":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "alttable", payload: true });
-          break;
+      case "incluir":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "inctable", payload: true });
+        break;
 
-        case "excluir":
-          dispatch({ type: "regtable", payload: true });
-          dispatch({ type: "exctable", payload: true });
-          break;
+      case "alterar":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "alttable", payload: true });
+        break;
 
-        default:
-          break;
+      case "excluir":
+        dispatch({ type: "regtable", payload: true });
+        dispatch({ type: "exctable", payload: true });
+        break;
+
+      default:
+        break;
       }
     },
     [dispatch, resetTableActions, tableName]
   );
 
-  const handleSelectUtility = React.useCallback(
-    (value: string) => {
-      if (onUtilitySelect) {
-        onUtilitySelect(value);
-      }
-    },
+  const handleSelectUtility = React.useCallback( (value: string) => {
+    if (onUtilitySelect) {
+      onUtilitySelect(value);
+    } },
     [onUtilitySelect]
-  );
+  );  
 
   React.useEffect(() => {
     if (isMenuOpen) return;
-
     setTableName("");
     dispatch({ type: "nametable", payload: "" });
     resetTableActions();
-  }, [dispatch, isMenuOpen, resetTableActions]);
+    }, [dispatch, isMenuOpen, resetTableActions]
+  );
 
-  const operationOptions = React.useMemo<DropdownOption[]>(
-  () => [
+  const operationOptions = React.useMemo<DropdownOption[]>( () => [
     {
       label: "Visualizar",
       value: "visualizar",
@@ -165,120 +174,83 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
     { label: "Incluir", value: "incluir" },
     { label: "Alterar", value: "alterar" },
     { label: "Excluir", value: "excluir" },
-  ],
-  []
-);
-
-  const utilOptions = React.useMemo<DropdownOption[]>(
-    () => [
-      {
-        label: "Tabelas",
-        value: "util-tabelas",
-        subOptions: [
-          { label: "Exe.Resete.", value: "reset_table_current" },
-          { label: "Exe.Seed.", value: "seed_table_current" },
-          { label: "Sincroniza.", value: "sync_table_current" },
-          { label: "Gerenciador.", value: "sync_systables" },
-        ],
-      },
-      {
-        label: "Sistema",
-        value: "util-servicos",
-        subOptions: [
-          { label: "Checkout.", value: "check_system" },
-          { label: "Seeds.", value: "run_seeds" },
-          { label: "Reproc.Imgs", value: "reprocess_images" },
-          { label: "Sincronização.", value: "sync_services" },
-        ],
-      },
-      {
-        label: "Segurança",
-        value: "util-seguranca",
-        subOptions: [
-          { label: "Logoff Master.", value: "logoff_master" },
-          { label: "Limpar Sessão.", value: "clear_session" },
-          { label: "Verifica Acessos.", value: "check_access" },
-        ],
-      },
-    ],
-    []
+    ], []
   );
+
+  const utilOptions = React.useMemo<DropdownOption[]>( () => [
+    {
+      label: "Tabelas",
+      value: "util-tabelas",
+      subOptions: [
+        { label: "Exe.Resete.", value: "reset_table_current" },
+        { label: "Exe.Seed.", value: "seed_table_current" },
+        { label: "Sincroniza.", value: "sync_table_current" },
+        { label: "Gerenciador.", value: "sync_systables" },
+      ],
+    },
+    {
+      label: "Sistema",
+      value: "util-servicos",
+      subOptions: [
+        { label: "Checkout.", value: "check_system" },
+        { label: "Seeds.", value: "run_seeds" },
+        { label: "Reproc.Imgs", value: "reprocess_images" },
+        { label: "Sincronização.", value: "sync_services" },
+      ],
+    },
+    {
+      label: "Segurança",
+      value: "util-seguranca",
+      subOptions: [
+        { label: "Logoff Master.", value: "logoff_master" },
+        { label: "Limpar Sessão.", value: "clear_session" },
+        { label: "Verifica Acessos.", value: "check_access" },
+      ],
+    },
+    ], []
+  );
+    
 
   const isDropdownOpen = isMenuOpen;
   const showTableButton = isMenuOpen && tableName !== "";
   const showActionControls = isMenuOpen && tableName !== "";
 
-  return (
-    <ContentSBMain>
-      <ContentSBMenuSide $onoff={true}>
-        <ContentSBButtonMenu
-          img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
-          titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
-          onClick={handleToggleMenu}
-        />
-      </ContentSBMenuSide>
 
-      {isDropdownOpen && (
-        <S.ContainerMenuSB $open={true}>
+  return (
+    <ContentBarMainMenu>
+      <ContentBarButtonMenu $width={"50px"}
+        $img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
+        titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
+        onClick={handleToggleMenu}
+      /> 
+      {/** Abre /Fecha MENU */}
+      <ContentBarMainItensMenus $open = {isMenuOpen}> 
+        
+        {/** Visualiza / Esconde DROPDOWN */}
+        <ContentDropdownMenu $open={isDropdownOpen} $width={ "100px" } >
           <Dropdown
-            pxheight="30px"
-            pxwidth="200px"
+            $pxheight={"30px"}
+            $pxwidth={"200px"}
             labelbtn={
               loading ? "Carregando..." : error ? "Erro no Sistema" : "Arq.Sistema."
             }
             options={dropdownOptions}
             onSelect={handleSelectTable}
           />
-        </S.ContainerMenuSB>
-      )}
+        </ContentDropdownMenu>
+        {/** Visualiza / Esconde Botão Nome-Tabela */}
+        <ContentBarButtonGreenMenu 
+          $open={showTableButton} 
+          $isCor={iscoropen} 
+          $width={"150px"}
+          titbtn={"Tabela Selecionada..."}
+          onClick={handleOpenSelectedTable}
+          >
+            {<label>{tableName}</label>} 
+          </ContentBarMainItensMenus>
 
-      {showTableButton && (
-        <S.ContainerMenuSB $open={true}>
-          <ContentSBButtonItemMenu>
-            <S.ButtomSBButtonItem
-              $isborder={true}
-              title="Tabela Selecionada..."
-              onClick={handleOpenSelectedTable}
-            >
-              <label>{tableName}</label>
-            </S.ButtomSBButtonItem>
-          </ContentSBButtonItemMenu>
-        </S.ContainerMenuSB>
-      )}
 
-      {showActionControls && (
-        <ContentSBMain>
-          <ContentSBItensButtonOnOff $open={true}>
-            <S.ButtomSBButtonItem
-              $isborder={true}
-              title="Refrescar Grid..."
-              onClick={handleRefresh}
-            >
-              <label>Refrescar.</label>
-            </S.ButtomSBButtonItem>
-          </ContentSBItensButtonOnOff>
-
-          <S.ContainerMenuSB $open={true}>
-            <Dropdown
-              pxheight="30px"
-              pxwidth="180px"
-              labelbtn="Operações"
-              options={operationOptions}
-              onSelect={handleSelectOperation}
-            />
-          </S.ContainerMenuSB>
-
-          <S.ContainerMenuSB $open={true}>
-            <Dropdown
-              pxheight="30px"
-              pxwidth="180px"
-              labelbtn="Util"
-              options={utilOptions}
-              onSelect={handleSelectUtility}
-            />
-          </S.ContainerMenuSB>
-        </ContentSBMain>
-      )}
-    </ContentSBMain>
+      </ContentBarMainItensMenus>
+    </ContentBarMainMenu>
   );
-};
+}

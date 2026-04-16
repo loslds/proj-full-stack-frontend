@@ -27,7 +27,45 @@ export const ContainerMainSystemFlex = styled.div<PropsContainerCardBoxFlexPage>
   align-content: center;
 `;
 // fim do ContentMainSystem
-//;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+// inicio do ContentMainFilter
+export const ContainerMainFilter = styled.div`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  min-height: 50px;
+  color: ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+`;
+
+interface PropsContainerFilterlex {
+  pwidth? : string;
+};
+export const ContainerMainFilterFlex = styled.div<PropsContainerFilterlex>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 5px 0px;
+  width: ${({ pwidth }) => pwidth || '100%'};
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: center;
+  align-content: center;
+`;
+
+export const ContainerHeaderFilter = styled.div`
+  border:1px solid red;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  line-height: 18px;
+`;
+// fim do ContentMainFilter
+
+
 export const ContainerSysMainItens = styled.div`
   border: none;
   padding: 0px 0px 0px 0px;

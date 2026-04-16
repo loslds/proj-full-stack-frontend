@@ -1,24 +1,246 @@
+
+//C:\repository\proj-full-stack-frontend\src\components\sidebar\stylesSidebar.ts
+
 import styled from 'styled-components';
 
 import semimg from "../../assets/svgs/btn_def_q_semimg.svg"
+
 import React from 'react';
 
+//////////// SIDeBAR MENU ////////
+export const ContainerBarMainMenu = styled.div<{ $width?: string }>`
+  border: none ;
+  margin: 0px 0px 2px 0px;
+  padding: 0px 0px 0px 0px;
+
+  min-height: 30px;
+  width: ${({ $width }) => $width || "100%"};
+  display: flex;
+
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  font-family: 'Courier New', 'Courier', 'monospace';
+
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
+`;
+
+export const ContainerBarMainFlex = styled.div`
+  border: none ;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 5px;
+  
+  min-height: 35px;
+  width: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  gap: 8px;
+
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: bold;
+  font-family: 'Courier New', 'Courier', 'monospace';
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
+`;
+// div container para botão do Menu //
+export const ContainerButtonMenu = styled.div<{ $width?: string }>`
+  border: 3px;
+  border-style: double;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: 45px;
+  width: ${({ $width }) => $width || "100%"};
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+
+  &:hover {
+    border-color: red;
+    background-color: #dbdbdb;
+  }
+`;
+// botão com Imagem Menu //
+export const ButtonBarImg = styled.button<{ $img?: string }>`
+  border: none;
+  margin: 3px 5px 3px 5px;
+  min-height: 40px;
+  min-width: 40px;
+  
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+
+  background-image: url(${({ $img }) => $img || semimg});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+
+`;
+// Container de botões / paineis / Imagem Menu //
+export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
+  border: 3px;
+  border-style: dotted;
+  border-color: red; 
+  border-radius: 5px;
+
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 5px;
+  min-height: 45px;
+  max-width: 98%;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background: transparent;
+
+  display: ${({$open}) => $open ? 'flex' : 'none' };
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+
+`;
+
+// container Dropdown menu...div para botão do Menu //
+export const ContainerDropdownMenu = styled.div<{ $open: boolean, $width?: string }>`
+  border: 3px;
+  border-style: double;
+  border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  border-radius: 10px;
+
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: 45px;
+  width: ${({ $width }) => $width || "100%"};
+  
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background: transparent;
+
+  display: ${({$open}) => $open ? 'flex' : 'none' };
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+  &:hover {
+    border-color: red;
+    background-color: #dbdbdb;
+  }
+`;
+// container Botão Verde menu...div para botão do Menu //
+export const ContainerButtonGreenMenu = styled.div<{ $open: boolean, $width?: string, $isCor: boolean }>`
+  border: 3px;
+  border-style: double;
+  border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  border-radius: 10px;
+
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: 45px;
+  width: ${({ $width }) => $width || "100%"};
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+
+  background: ${({$isCor}) => $isCor ? '#4ea33c' : 'transparent' };
+  
+  display: ${({$open}) => $open ? 'flex' : 'none' };
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+
+  &:hover {
+    border-color: red;
+    background-color: #4ea33c;
+  }
+`;
+
+export const ButtonGreenDefault = styled.button<{titulo?: string, }>`
+  border: none;
+
+  margin: 5px 5px 5px 5px;
+  min-width: 45px;
+  min-height: 45px;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+
+  background-color: transparent;
+
+  cursor: pointer;
+  outline: none;
+
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  align-items: center;
+  
+  Label {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  }
+`;
+
+
+////======================///
+///////////////////////////
 export const ContainerSBMain = styled.div`
-  //border: 2px solid red;
-  //border: none;
-  margin: 5x 0px 5px 0px;
+  border: none;
+  margin: 5px 0px 5px 0px;
   padding: 0px 0px 0px 0px;
   min-height: 45px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 8px;
   font-size: 18px;
   line-height: 20px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
 `;
 
 
@@ -155,7 +377,7 @@ export const ContainerButtonMnItens = styled.div<PropsContainerButtonMnItens>`
   margin: 0px 2px 0px 2px;
   background: transparent;
   display: ${props => (props.open ? 'flex' : 'none')};
-  flex-flow: row wrap;
+  flex-flow: wrap;
   justify-content: left;
   align-items: center;
   align-content: center;
@@ -173,8 +395,8 @@ export const ContainerSBItensButtonOnOff = styled.div<TypeContainerSBItensButton
   border-radius: 5px;
   background: transparent;
   display: ${({$open}) => $open ? 'flex' : 'none' };
-  flex-flow: row wrap;
-  justify-content: left;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   align-content: center;
   color:  ${props => props.theme.colors.textColor};
@@ -267,18 +489,20 @@ type TypeContainerSideButtonItem = {
 export const ContainerSideButtonItem = styled.div<TypeContainerSideButtonItem>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
+  
   border: 1px;
   border-style: ${props => (props.isbrder ? 'solid' : 'none')};
   border-radius: 10px;
-  border-color: red;
-  //border-color: ${props => props.theme.colors.textColor};
-  background: transparent;
+  border-color: Red;
+
   display: 'flex';
   flex-flow: row wrap;
   justify-content: left;
   align-items: center;
   align-content: center;
-  color:  ${props => props?.theme?.colors?.textColor};
+  
+  color: ${props => props?.theme?.colors?.textColor};
+  background: ${props => props?.theme?.colors?.backgroundColor};
   `;
 
 type TypeButtomSBButtonItem = {
@@ -289,32 +513,43 @@ type TypeButtomSBButtonItem = {
   onMouseLeave?: React.MouseEventHandler<HTMLButtonElement>;
 };
 export const ButtomSBButtonItem = styled.button<TypeButtomSBButtonItem>`
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+    padding: 0;
+  margin: 5px;
   border: 2px;
-  border-style: ${props => (props.$isborder ? 'solid' : 'none')};
+  border-style: ${(props) => (props.$isborder ? "solid" : "none")};
   border-radius: 10px;
-  border-color: ${props => props.theme.colors.textColor};
-  margin: 5px 5px 5px 5px;
-  color:  ${props => props.theme.colors.textColor};
-  font-size: 20px;
-  font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  border-color: ${(props) => props.theme.colors.textColor};
+
+  color: ${(props) => props.theme.colors.textColor};
   background-color: transparent;
   cursor: pointer;
   outline: none;
+
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+
   min-width: 40px;
   min-height: 40px;
+
   display: flex;
-  flex-flow: nowrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+
+  flex: 0 1 auto;
+
   &:hover {
     background-color: #91a888;
-   }
+  }
 
+  label {
+    display: block;
+    padding: 4px 8px;
+    text-align: center;
+    word-break: break-word;
+  }
 `;
-
 
 
 
@@ -328,7 +563,7 @@ interface PropsContainerSBItensModulo {
   $open?: boolean;
 };
 export const ContainerSBItensMenu = styled.div<PropsContainerSBItensModulo>`
-  border: 1px solid blueviolet;
+  border: 1px solid;
   border: none;
   border-color:  ${props => props.theme.colors.textColor};
   border-radius: 5px;
@@ -562,24 +797,30 @@ export const ContainerSideButtonSpanLeft = styled.div`
 
 /////////////////////////////////////////////
 interface PropsContainerMainDropdownUl {
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   label?: string;
-  
 }
+
 export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   border: 2px solid ${({ theme }) => theme.colors.textColor};
   border-radius: 10px;
   margin: 0px 5px 0px 5px;
-  min-height: ${({ pxheight }) => pxheight || "30px"};
-  width: ${({ pxwidth }) => pxwidth || "100%"};
+
+  min-height: ${({ $pxheight }) => $pxheight || "30px"};
+  width: ${({ $pxwidth }) => $pxwidth || "100%"};
+  max-width: 100%;
+  box-sizing: border-box;
 
   position: relative;
-  display: inline-flex;
-  flex-flow: row wrap;
-  justify-content: flex-start;
+
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   align-content: center;
+  justify-content: flex-start;
+
+  flex: 0 1 auto;
 
   color: ${({ theme }) => theme.colors.textColor};
   background-color: transparent;
@@ -597,7 +838,7 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     font-family: "Courier New", Courier, monospace;
   }
 
-  label {
+  button label {
     background-color: transparent;
     color: ${({ theme }) => theme.colors.textColor};
     font-family: "Courier New", Courier, monospace;
@@ -607,25 +848,25 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   }
 
   > ul {
-  position: absolute;
-  top: calc(100% + 5px);
-  left: 0;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
 
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-width: 150px;
+    overflow: visible;
+    box-sizing: border-box;
 
-  min-width: 150px;
-  overflow: visible;
+    background-color: #7ca7f5;
+    color: ${({ theme }) => theme.colors.textColor};
 
-  background-color: #7ca7f5;
-  color: ${({ theme }) => theme.colors.textColor};
-
-  border: 1px solid #3e3e3f;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
-  z-index: 1000;
-}
+    border: 1px solid #3e3e3f;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
 
   ul {
     margin: 0;
@@ -653,7 +894,7 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
 
   ul li > button {
     width: 100%;
-    margin: 0 ;
+    margin: 0;
     padding: 5px 12px;
 
     display: flex;
@@ -679,9 +920,9 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     margin: 0;
     padding: 0;
     list-style: none;
-
     min-width: 150px;
     overflow: visible;
+    box-sizing: border-box;
 
     background-color: #7ca7f5;
     color: ${({ theme }) => theme.colors.textColor};
@@ -705,9 +946,9 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
     margin: 0;
     padding: 0;
     list-style: none;
-
     min-width: 150px;
     overflow: visible;
+    box-sizing: border-box;
 
     background-color: #7ca7f5;
     color: ${({ theme }) => theme.colors.textColor};
@@ -719,10 +960,188 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   }
 
   ul li > ul > li > ul.open-left {
-  left: auto;
-  right: calc(100% + 5px);
-}
+    left: auto;
+    right: calc(100% + 5px);
+  }
 `;
+// interface PropsContainerMainDropdownUl {
+//   pxheight?: string;
+//   pxwidth?: string;
+//   label?: string;
+// }
+
+// export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
+//   border: 2px solid ${({ theme }) => theme.colors.textColor};
+//   border-radius: 10px;
+//   margin: 0px 5px 0px 5px;
+
+//   min-height: ${({ pxheight }) => pxheight || "30px"};
+//   width: ${({ pxwidth }) => pxwidth || "100%"};
+//   max-width: 100%;
+
+//   position: relative;
+
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   align-content: center;
+//   justify-content: flex-start;
+
+//   flex: 0 1 auto;
+
+//   color: ${({ theme }) => theme.colors.textColor};
+//   background-color: transparent;
+
+//   font-family: "Courier New", Courier, monospace;
+//   font-size: 20px;
+//   line-height: 22px;
+
+//   button {
+//     border: none;
+//     outline: none;
+//     cursor: pointer;
+//     background-color: transparent;
+//     color: ${({ theme }) => theme.colors.textColor};
+//     font-family: "Courier New", Courier, monospace;
+//     //white-space: nowrap;
+//   }
+
+//   label {
+//     background-color: transparent;
+//     color: ${({ theme }) => theme.colors.textColor};
+//     font-family: "Courier New", Courier, monospace;
+//     font-size: 18px;
+//     line-height: 20px;
+//     font-weight: bold;
+//   }
+
+//   > ul {
+//   position: absolute;
+//   top: calc(100% + 5px);
+//   left: 0;
+
+//   margin: 0;
+//   padding: 0;
+//   list-style: none;
+
+//   min-width: 150px;
+//   overflow: visible;
+
+//   background-color: #7ca7f5;
+//   color: ${({ theme }) => theme.colors.textColor};
+
+//   border: 1px solid #3e3e3f;
+//   border-radius: 6px;
+//   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+//   z-index: 1000;
+// }
+
+//   ul {
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+//   }
+
+//   ul li {
+//     position: relative;
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+//     background-color: transparent;
+//     border-bottom: 1px solid #918e8e;
+//     transition: background-color 0.2s ease-in-out;
+//   }
+
+//   ul li:last-child {
+//     border-bottom: none;
+//   }
+
+//   ul li:hover {
+//     background-color: #e05252;
+//   }
+
+//   ul li > button {
+//     width: 100%;
+//     margin: 0 ;
+//     padding: 5px 12px;
+
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: center;
+
+//     text-align: left;
+//     background-color: transparent;
+//     border: none;
+//     color: inherit;
+
+//     font-family: "Courier New", Courier, monospace;
+//     font-size: 18px;
+//     line-height: 20px;
+//     font-weight: bold;
+
+//     button {
+//       border: none;
+//       outline: none;
+//       cursor: pointer;
+//       background-color: transparent;
+//       color: ${({ theme }) => theme.colors.textColor};
+//       font-family: "Courier New", Courier, monospace;
+//       white-space: nowrap;
+//     }
+//   }
+
+//   ul li > ul {
+//     position: absolute;
+//     top: 0;
+//     left: calc(100% + 5px);
+
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+
+//     min-width: 150px;
+//     overflow: visible;
+
+//     background-color: #7ca7f5;
+//     color: ${({ theme }) => theme.colors.textColor};
+
+//     border: 1px solid #3e3e3f;
+//     border-radius: 6px;
+//     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+//     z-index: 2000;
+//   }
+
+//   ul li > ul.open-left {
+//     left: auto;
+//     right: calc(100% + 5px);
+//   }
+
+//   ul li > ul > li > ul {
+//     position: absolute;
+//     top: 0;
+//     left: calc(100% + 5px);
+
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+
+//     min-width: 150px;
+//     overflow: visible;
+
+//     background-color: #7ca7f5;
+//     color: ${({ theme }) => theme.colors.textColor};
+
+//     border: 1px solid #3e3e3f;
+//     border-radius: 6px;
+//     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+//     z-index: 3000;
+//   }
+
+//   ul li > ul > li > ul.open-left {
+//     left: auto;
+//     right: calc(100% + 5px);
+//   }
+// `;
 ///////////////////////////
 interface PropsContainerButtonDropdown {
   pxheight?: string;
@@ -756,8 +1175,8 @@ export const ButtonDropdown = styled.button`
   background-color: transparent;
   cursor: pointer;
   outline: none;
-  height: 40px;
-  //min-width: 30px;
+  //minheight: 40px;
+  min-width: 30px;
   display: flex;
   flex-wrap: nowrap;
   flex-flow: row;
@@ -772,20 +1191,28 @@ export const ButtonDropdown = styled.button`
 interface PropsMenuSB {
   $open: boolean;
 }
+
 export const ContainerMenuSB = styled.div<PropsMenuSB>`
-  padding: 10px 2x 10px 2px;
+  padding: 10px 2px 10px 2px;
   min-height: 50px;
+
+  display: ${({ $open }) => ($open ? "flex" : "none")};
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  flex: 0 1 auto;
+
   border-left: 2px solid #ccc;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+
   color: ${(props) => props.theme.colors.textColor};
   background-color: transparent;
-  display: ${(props) => (props.$open ? "block" : "none")};
+
   font-size: 20px;
   line-height: 22px;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
-  transition: transform 0.3s ease-in-out;
-  transform: ${(props) => (props.$open ? "translateX(0)" : "translateX(100%)")};
+  font-family: "Courier New", Courier, monospace;
 `;
 /////////////////////////////////////
 
