@@ -2,6 +2,8 @@
 // C:\repository\proj-full-stack-frontend\src\components\pages\modulos\Config.tsx
 import React from "react";
 
+import styled from "styled-components";
+
 import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";
 import dark from "../../../themes/dark";
@@ -98,6 +100,14 @@ async function fetchTableByName(tableName: string): Promise<LoadTableResult> {
     columns: Array.isArray(data.columns) ? data.columns : undefined,
   };
 }
+
+const GridViewport = styled.div`
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  box-sizing: border-box;
+`;
 
 const Config: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
@@ -419,7 +429,9 @@ const Config: React.FC = () => {
         onchange={toggleTheme}
         ischeck={ischeck}
       >
-        <ContentCardPageMain open={true} pwidth={"100%"}>
+        <ContentCardPageMain open={true}> 
+          {/* pwidth={"98%"}> */}
+  
           <BarMenuConfig
             // onRefresh={() => void handleRefresh()}
             // onLoadSummary={handleLoadSummary}
@@ -428,10 +440,11 @@ const Config: React.FC = () => {
             //   setMsgPanelBottom(`Util selecionado: ${value}`);
             // }}
           />
-
+                  
           {isgridtable ? <DivisionPgHztal /> : null}
-
-          {isgridtable ? (
+ 
+          { isgridtable ? (
+            
             <ContentMainPage pborder="3px" open={true} pwidth="100%">
               <ContentMainTitle>
                 <h3>Tabela : {tableName}</h3>
@@ -441,13 +454,16 @@ const Config: React.FC = () => {
               {gridError ? <h2>{gridError}</h2> : null}
 
               {!gridLoading && !gridError ? (
-                <GenericGrid
-                  tableName={tableName}
-                  rows={gridRows}
-                  columns={gridColumns}
-                />
+                <GridViewport>
+                  <GenericGrid
+                    tableName={tableName}
+                    rows={gridRows}
+                    columns={gridColumns}
+                  />
+                  </GridViewport>
               ) : null}
             </ContentMainPage>
+            
           ) : null}
 
           <DivisionPgHztal />
@@ -727,3 +743,4 @@ const Config: React.FC = () => {
 };
 
 export default Config;
+

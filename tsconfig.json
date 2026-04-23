@@ -13,36 +13,3 @@
   ]
 }
 
-
-// {
-//   "compilerOptions": {
-//     "composite": true,                       // Necessário para project references
-//     "module": "ESNext",                      // Usa sistema de módulos moderno
-//     "moduleResolution": "Node",              // Resolve estilo Node
-//     "allowSyntheticDefaultImports": true,    // Importações default mesmo sem export default
-//     "esModuleInterop": true,                 // Suporte a CommonJS
-//     "strict": true,                          // Tipagem mais segura
-//     "skipLibCheck": true,                     // Ignora checagem de tipos de libs
-//     "jsx": "react-jsx"
-//   },
-//   "include": ["vite.config.ts"]
-// }
-
-
-
-
-
-
-// {
-//   "compilerOptions": {
-//     "strict": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "jsx": "react-jsx", // ou "react" se for React 17 ou anterior
-//     "types": ["react", "react-dom"]
-//   },
-//   "files": [],
-//   "references": [
-//     { "path": "./tsconfig.app.json" },
-//     { "path": "./tsconfig.node.json" }
-//   ]
-// }

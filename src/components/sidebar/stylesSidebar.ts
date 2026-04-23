@@ -11,13 +11,20 @@ import React from 'react';
 // O ContainerBarMainMenu e o ContainerBarMainFlex =>> ContentBarMainMenu
 //
 export const ContainerBarMainMenu = styled.div<{ $width?: string }>`
-  border: none ;
+  border: none;
   margin: 0px 0px 2px 0px;
   padding: 0px 0px 0px 0px;
 
   min-height: 30px;
   width: ${({ $width }) => $width || "100%"};
+  max-width: 100%;
+  box-sizing: border-box;
+
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
 
   font-size: 18px;
   line-height: 20px;
@@ -25,19 +32,40 @@ export const ContainerBarMainMenu = styled.div<{ $width?: string }>`
   font-family: 'Courier New', 'Courier', 'monospace';
 
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
-  background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
+  background-color: ${props => props?.theme?.colors?.backgroundColor || 'inherit'};
 `;
 
+// export const ContainerBarMainMenu = styled.div<{ $width?: string }>`
+//   border: none ;
+//   margin: 0px 0px 2px 0px;
+//   padding: 0px 0px 0px 0px;
+
+//   min-height: 30px;
+//   width: ${({ $width }) => $width || "100%"};
+//   display: flex;
+
+//   font-size: 18px;
+//   line-height: 20px;
+//   font-weight: bold;
+//   font-family: 'Courier New', 'Courier', 'monospace';
+
+//   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+//   background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
+// `;
+
 export const ContainerBarMainFlex = styled.div`
-  border: none ;
-  margin: 0px 0px 0px 0px;
-  padding: 0px 0px 0px 5px;
-  
+  border: none;
+  margin: 0;
+  padding: 0 0 0 5px;
+
   min-height: 35px;
-  width: 100%;
+  //width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 
   display: flex;
   flex-wrap: wrap;
+
   align-items: center;
   align-content: center;
   justify-content: flex-start;
@@ -47,8 +75,9 @@ export const ContainerBarMainFlex = styled.div`
   line-height: 20px;
   font-weight: bold;
   font-family: 'Courier New', 'Courier', 'monospace';
+
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
-  background-color: ${props => props?.theme?.colors?.backgroundColor  || 'inherit'};
+  background-color: ${props => props?.theme?.colors?.backgroundColor || 'inherit'};
 `;
 // Fim do =>> ContentBarMainMenu
 /////////////////////////////////
@@ -117,16 +146,29 @@ export const ButtonBarImg = styled.button<{ $img?: string }>`
 /////////////////////////////////////////
 //  ContainerBarMainItensMenus =>> ContentBarMainItensMenus  //
 // Container para botões / paineis / Imagem Menu //
-export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
-  border: 3px;
-  border-style: dotted;
-  border-color: red; 
+
+export const ContainerItenstoMenu = styled.div<{ $open?: boolean; }>`
+  border: 1px;
+  border-style: solid;
+  border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
   border-radius: 5px;
 
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 5px;
-  min-height: 45px;
-  max-width: 98%;
+  width: fit-content;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+
+
+
+  /* flex: 1 1 auto;
+  min-width: 0; */
+
+  box-sizing: border-box;
 
   font-size: 12px;
   font-weight: bold;
@@ -134,13 +176,71 @@ export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
   background: transparent;
 
-  display: ${({$open}) => $open ? 'flex' : 'none' };
+  display: ${({ $open }) => ($open ? 'flex' : 'none')};
   flex-wrap: wrap;
   align-items: center;
-  align-content: center;
-  justify-content: center;
-
+  align-content: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
 `;
+
+
+export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
+  border: 3px;
+  border-style: dotted;
+  border-color: red;
+  border-radius: 5px;
+
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 5px;
+  min-height: 45px;
+  //width: 100%;
+  //max-width: 100%;
+  width: fit-content;
+  max-width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  background: transparent;
+
+  display: ${({ $open }) => ($open ? 'flex' : 'none')};
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+`;
+
+// export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
+//   border: 3px;
+//   border-style: dotted;
+//   border-color: red; 
+//   border-radius: 5px;
+
+//   margin: 0px 0px 0px 0px;
+//   padding: 0px 0px 0px 5px;
+//   min-height: 45px;
+//   max-width: 98%;
+
+//   font-size: 12px;
+//   font-weight: bold;
+//   font-family: 'Courier New', Courier, monospace;
+//   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+//   background: transparent;
+
+//   display: ${({$open}) => $open ? 'flex' : 'none' };
+//   flex-wrap: wrap;
+//   align-items: center;
+//   align-content: center;
+//   justify-content: center;
+
+// `;
 //  Fin do =>> ContentBarMainItensMenus  //
 /////////////////////////////////////////
 //  ContainerDropdownMenu  para usar  Dropdown =>> ContentDropdownMenu  //
@@ -166,7 +266,7 @@ export const ContainerDropdownMenu = styled.div<{ $open: boolean, $width?: strin
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: flex-start;
+  align-content: center;
   &:hover {
     border-color: red;
     background-color: #4ea33c;
@@ -266,6 +366,9 @@ export const ButtonDefaultMenu = styled.button`
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  align-content: center;
+  
+  
   
   label {
     white-space: nowrap;
@@ -626,7 +729,10 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   margin: 0px 0px 0px 0px;
 
   min-height: ${({ $pxheight }) => $pxheight || "30px"};
-  width: ${({ $pxwidth }) => $pxwidth || "100%"};
+
+  width: ${({ $pxwidth }) => $pxwidth || "fit-content"};
+
+  /* width: ${({ $pxwidth }) => $pxwidth || "100%"}; */
   max-width: 100%;
   box-sizing: border-box;
 
@@ -714,7 +820,7 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   ul li > button {
     width: 100%;
     margin: 0;
-    padding: 5px 12px;
+    padding: 5px 10px;
 
     display: flex;
     justify-content: flex-start;

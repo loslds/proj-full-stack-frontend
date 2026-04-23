@@ -2,11 +2,13 @@
 // C:\repository\proj-full-stack-frontend\src\components\sidebar\BarMenuConfig.tsx
 import React from "react";
 
+//import * as S from './stylesSidebar';
+
 import { useAcessoContext } from "../contexts/ContextAcesso";
 import { useSystemTables } from "../../funcs/funcs/useSystemTables";
 import { ContentBarMainMenu } from "./ContentBarMainMenu";
 import { ContentBarButtonMenu } from "./ContentBarButtonMenu";
-import { ContentBarMainItensMenus } from "./ContentBarMainItensMenu";
+
 import { ContentDropdownMenu } from "./ContentBarDropdownMenu";
 import { Dropdown, DropdownOption } from "./Dropdown";
 import { ContentBarButtonGreenMenu } from "./ContentBarButtonGreenMenu";
@@ -215,13 +217,11 @@ export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
   return (
     <ContentBarMainMenu>
       <ContentBarButtonMenu $width={"50px"}
-        $img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
-        titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
-        onClick={handleToggleMenu}
-      /> 
+          $img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
+          titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
+          onClick={handleToggleMenu}
+        /> 
       {/** Abre /Fecha MENU */}
-      <ContentBarMainItensMenus $open = {isMenuOpen}> 
-        
         {/** Visualiza / Esconde DROPDOWN */}
         <ContentDropdownMenu $open={isDropdownOpen} $width={ "205px" } >
           <Dropdown
@@ -243,16 +243,16 @@ export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
           onClick={handleOpenSelectedTable}
         />
         {/** Refresca a pagina / Vermelho ao clicar no Botão */}
-        <ContentBarButtonRedMenu 
+        <ContentBarButtonRedMenu $width={ "140px" }
           $open={showTableButton} 
           titbtn={"Refrescar Grid..."}
-          titulo={"Refrescar."}
+          titulo={"Refrescar"}
           onClick={handleRefresh}
         />
-        <ContentDropdownMenu $open={showActionControls} $width={ "150px" } >
+        <ContentDropdownMenu $open={showActionControls} $width={ "130px" } >
           <Dropdown
             $pxheight="30px"
-            $pxwidth="180px"
+            $pxwidth="130px"
             labelbtn="Operações"
             options={operationOptions}
             onSelect={handleSelectOperation}
@@ -261,13 +261,13 @@ export const BarMenuConfig: React.FC<BarMenuConfig1Props> = ({
         <ContentDropdownMenu $open={showActionControls} $width={ "100px" } >
           <Dropdown
             $pxheight="30px"
-            $pxwidth="200px"
+            $pxwidth="130px"
             labelbtn="Util"
             options={utilOptions}
             onSelect={handleSelectUtility}
           />
         </ContentDropdownMenu>
-      </ContentBarMainItensMenus>
     </ContentBarMainMenu>
   );
 }
+

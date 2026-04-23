@@ -1,7 +1,4 @@
-
-
-//C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
-
+// C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
 
 import React from "react";
 import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
@@ -29,15 +26,21 @@ export const Dropdown: React.FC<PropsDropdown> = ({
   options,
   onSelect,
 }) => {
-  
+  const rootRef = React.useRef<HTMLDivElement | null>(null);
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [openSubmenu, setOpenSubmenu] = React.useState<string | null>(null);
   const [openSubSubmenu, setOpenSubSubmenu] = React.useState<string | null>(null);
+
+  const [openLeftLevel1, setOpenLeftLevel1] = React.useState(false);
+  const [openLeftLevel2, setOpenLeftLevel2] = React.useState(false);
 
   const closeAll = React.useCallback(() => {
     setIsOpen(false);
     setOpenSubmenu(null);
     setOpenSubSubmenu(null);
+    setOpenLeftLevel1(false);
+    setOpenLeftLevel2(false);
   }, []);
 
   React.useEffect(() => {
@@ -63,6 +66,8 @@ export const Dropdown: React.FC<PropsDropdown> = ({
       if (!next) {
         setOpenSubmenu(null);
         setOpenSubSubmenu(null);
+        setOpenLeftLevel1(false);
+        setOpenLeftLevel2(false);
       }
 
       return next;
@@ -78,18 +83,40 @@ export const Dropdown: React.FC<PropsDropdown> = ({
     [closeAll, onSelect]
   );
 
-  const handleEnterLevel1 = React.useCallback((opt: DropdownOption) => {
-    if (!opt.subOptions?.length) return;
-    setOpenSubmenu(opt.value);
-    setOpenSubSubmenu(null);
+  const shouldOpenLeft = React.useCallback((element: HTMLElement | null, submenuWidth = 180) => {
+    if (!element) return false;
+
+    const rect = element.getBoundingClientRect();
+    const viewportWidth = window.innerWidth;
+
+    return rect.right + submenuWidth + 12 > viewportWidth;
   }, []);
 
-  const handleEnterLevel2 = React.useCallback((opt: DropdownOption) => {
-    if (!opt.subOptions?.length) return;
-    setOpenSubSubmenu(opt.value);
-  }, []);
+  const handleEnterLevel1 = React.useCallback(
+    (opt: DropdownOption, event: React.MouseEvent<HTMLLIElement>) => {
+      if (!opt.subOptions?.length) return;
 
-  const rootRef = React.useRef<HTMLDivElement | null>(null);
+      setOpenSubmenu(opt.value);
+      setOpenSubSubmenu(null);
+
+      const liElement = event.currentTarget;
+      setOpenLeftLevel1(shouldOpenLeft(liElement));
+      setOpenLeftLevel2(false);
+    },
+    [shouldOpenLeft]
+  );
+
+  const handleEnterLevel2 = React.useCallback(
+    (opt: DropdownOption, event: React.MouseEvent<HTMLLIElement>) => {
+      if (!opt.subOptions?.length) return;
+
+      setOpenSubSubmenu(opt.value);
+
+      const liElement = event.currentTarget;
+      setOpenLeftLevel2(shouldOpenLeft(liElement));
+    },
+    [shouldOpenLeft]
+  );
 
   return (
     <ContentMainDropdownUl
@@ -100,8 +127,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
       <ButtonDropdown type="button" $btnpxwidth="205px" onClick={handleToggleRoot}>
         {labelbtn}
       </ButtonDropdown>
- 
-    
+
       {isOpen && (
         <ul>
           {options.map((option) => {
@@ -111,7 +137,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
             return (
               <li
                 key={option.value}
-                onMouseEnter={() => handleEnterLevel1(option)}
+                onMouseEnter={(event) => handleEnterLevel1(option, event)}
               >
                 <button
                   type="button"
@@ -125,7 +151,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
                 </button>
 
                 {hasChildren && isLevel1Open && (
-                  <ul>
+                  <ul className={openLeftLevel1 ? "open-left" : ""}>
                     {option.subOptions!.map((subOption) => {
                       const hasChildren2 = Boolean(subOption.subOptions?.length);
                       const isLevel2Open = openSubSubmenu === subOption.value;
@@ -133,7 +159,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
                       return (
                         <li
                           key={subOption.value}
-                          onMouseEnter={() => handleEnterLevel2(subOption)}
+                          onMouseEnter={(event) => handleEnterLevel2(subOption, event)}
                         >
                           <button
                             type="button"
@@ -147,7 +173,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
                           </button>
 
                           {hasChildren2 && isLevel2Open && (
-                            <ul>
+                            <ul className={openLeftLevel2 ? "open-left" : ""}>
                               {subOption.subOptions!.map((subSubOption) => (
                                 <li key={subSubOption.value}>
                                   <button
@@ -164,13 +190,12 @@ export const Dropdown: React.FC<PropsDropdown> = ({
                       );
                     })}
                   </ul>
-                )}  
+                )}
               </li>
-            );  
+            );
           })}
         </ul>
       )}
     </ContentMainDropdownUl>
   );
 };
-

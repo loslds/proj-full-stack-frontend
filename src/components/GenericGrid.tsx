@@ -56,36 +56,46 @@ function formatCellValue(value: unknown): React.ReactNode {
  * ========================= */
 
 const GridWrap = styled.div`
+  /* min-width: 40px;
+  max-width: 100%; */
   width: 100%;
+  max-width: 100%;
+  text-align: left;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   overflow: hidden;
 `;
 
 const GridScroll = styled.div`
   width: 100%;
+  max-width: 100%;
+  max-height: 70vh;
+  box-sizing: border-box;
   overflow-x: auto;
   overflow-y: auto;
 `;
 
 const GridTable = styled.table`
-  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   table-layout: auto;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
   color: ${({ theme }) => theme.colors.textColor};
 `;
-
 const GridHeadRow = styled.tr`
   background-color: ${({ theme }) => theme.colors.headerBackground};
 `;
 
 const GridHeadCell = styled.th`
+  min-width: 40px;
   padding: 8px 10px;
   text-align: left;
   font-weight: 700;
   font-size: 13px;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.textColor};
@@ -110,9 +120,12 @@ const GridRowStyled = styled.tr`
 `;
 
 const GridCell = styled.td`
+  min-width: 40px;
   padding: 8px 10px;
   font-size: 13px;
   vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.textColor};
@@ -292,7 +305,7 @@ const GenericGrid: React.FC<GenericGridProps> = ({
               <RadioHeadCell />
               {resolvedColumns.map((col) => (
                 <GridHeadCell key={col.key}>
-                  {col.header ?? col.key}
+                 {col.header ?? col.key}
                 </GridHeadCell>
               ))}
             </GridHeadRow>

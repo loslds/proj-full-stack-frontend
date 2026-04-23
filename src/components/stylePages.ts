@@ -1489,29 +1489,92 @@ export const ContainerMainPage = styled.div<PropsContainerMainPage>`
   flex-wrap: wrap;
   justify-content: center;
 `;
+// export const ContainerMainPage = styled.div<PropsContainerMainPage>`
+//   border: none;
+//   padding: 0;
+//   margin: 0;
+//   min-height: 40px;
+//   width: ${({ pwidth }) => pwidth || '28%'};
+//   max-width: 100%;
+//   box-sizing: border-box;
+
+//   display: ${({ open }) => (open ? 'flex' : 'none')};
+//   flex-wrap: wrap;
+//   justify-content: center;
+// `;
 
 interface PropsContainerMainPageFlex {
   bordas?: string;
-  }
-  export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
-    padding: 10px 0px 10px 0px;
-    margin: 5px 0px 5px 0px;
-    
-    width: 100%;
-    min-height: 40px;
+}
+export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
+  padding: 10px 0px 10px 0px;
+  margin: 5px 0px 5px 0px;
+  
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
 
-    border: ${({ bordas }) => bordas || '3px'};
-    border-style: double;
-    border-radius: 10px;
-    border-color: ${props => props.theme.colors.textColor};
-    background-color: ${props => props.theme.colors.backgroundColor};
-    color: ${props => props.theme.colors.textColor};
-    
-    display: flex;
-    flex-flow: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-  `;
+  border: ${({ bordas }) => bordas || '3px'};
+  border-style: double;
+  border-radius: 10px;
+  border-color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.colors.textColor};
+  
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+`;
 
+
+// export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
+//   padding: 10px 0px 10px 0px;
+//   margin: 5px 0px 5px 0px;
+  
+//   width: 100%;
+//   min-height: 40px;
+
+//   border: ${({ bordas }) => bordas || '3px'};
+//   border-style: double;
+//   border-radius: 10px;
+//   border-color: ${props => props.theme.colors.textColor};
+//   background-color: ${props => props.theme.colors.backgroundColor};
+//   color: ${props => props.theme.colors.textColor};
+  
+//   display: flex;
+//   flex-flow: row;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+//   align-content: center;
+//   align-items: center;
+// `;
+
+// export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
+//   padding: 10px 0px 10px 0px;
+//   margin: 5px 0px 5px 0px;
+
+//   width: 100%;
+//   max-width: 100%;
+//   min-height: 40px;
+//   box-sizing: border-box;
+
+//   border: ${({ bordas }) => bordas || '3px'};
+//   border-style: double;
+//   border-radius: 10px;
+//   border-color: ${props => props.theme.colors.textColor};
+//   background-color: ${props => props.theme.colors.backgroundColor};
+//   color: ${props => props.theme.colors.textColor};
+
+//   display: flex;
+//   flex-direction: column;
+//   flex-wrap: nowrap;
+//   justify-content: flex-start;
+//   align-content: stretch;
+//   align-items: stretch;
+// `;
