@@ -98,7 +98,7 @@ export const ContainerHearderRightFlex = styled.div`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  width: 100%;
+  max-width: 100%;
   min-height: 40px;
   display: flex;
   flex-wrap: wrap;

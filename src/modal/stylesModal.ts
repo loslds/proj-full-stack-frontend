@@ -6,7 +6,8 @@ import semimg from '../assets/svgs/semimg.svg';
 export const ContainerModalCenter = styled.div`
   border: none; //1px solid blue;
   padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
+  margin: 0px 10px 0px 0px;
+  max-width: 100%;
   width: 100%;
   min-height: auto;
   overflow-y: auto;
@@ -115,7 +116,10 @@ export const ContainerModal = styled.div<PropsContainerModal>`
   margin: 8px 10px 8px 10px;
   top: ${({ ptop }) => ptop ||'62px'};
   position: fixed;
-  width: ${({ pwidth }) => pwidth || '66.3%'};
+
+  min-width: ${({ pwidth }) => pwidth || '66.3%'};
+  max-width: '66.3%';
+
   height: ${({ pheight }) => pheight || '85%'};
   min-height: auto;
   overflow-y: auto;

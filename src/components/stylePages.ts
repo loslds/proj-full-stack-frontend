@@ -60,14 +60,14 @@ export const ContainerFlexPg = styled.div`
 // Container Header
 export const ContainerHearder = styled.div`
   top: 0px;
-  border: none; 
+  border: 1px dashed red; 
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  width: 100%;
+  max-width: 100%;
   min-height: 40px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   align-content: center;
 `;
 // Container para ITENS no HEADER
@@ -881,6 +881,7 @@ export const ContainerPage = styled.div`
   margin: 0px 0px 0px 0px;
   min-height: 40px;
   width: 100%;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -891,6 +892,7 @@ export const DivisionPgHztal = styled.div`
   margin: 1px 0px 1px 0px;
   height: 3px;
   width: 100%;
+  max-width: 100%;
   display: flex;
   background-color: #9c9c9c;
 `;
@@ -1023,9 +1025,10 @@ export const ContainerMainTitle = styled.div`
   
   background-color: #bbbbbb;
   padding: 0px 0px 0px 0px;
-  margin: -10px 0px 0px 0px;
-  min-height: 25px;
+  margin: -2px 0px 0px 0px;
+  min-height: 35px;
   width: 100%;
+  max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -1133,6 +1136,7 @@ export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
   width: ${({ pwidth }) => pwidth || '100%'};
+  max-width: 100%;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -1489,20 +1493,6 @@ export const ContainerMainPage = styled.div<PropsContainerMainPage>`
   flex-wrap: wrap;
   justify-content: center;
 `;
-// export const ContainerMainPage = styled.div<PropsContainerMainPage>`
-//   border: none;
-//   padding: 0;
-//   margin: 0;
-//   min-height: 40px;
-//   width: ${({ pwidth }) => pwidth || '28%'};
-//   max-width: 100%;
-//   box-sizing: border-box;
-
-//   display: ${({ open }) => (open ? 'flex' : 'none')};
-//   flex-wrap: wrap;
-//   justify-content: center;
-// `;
-
 interface PropsContainerMainPageFlex {
   bordas?: string;
 }
@@ -1532,49 +1522,44 @@ export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
   align-items: stretch;
 `;
 
+///////// MAIN DO GRIDGENERICO ////////////////////
+export const ContainerMainGrid = styled.div<{$open?: boolean; $width? : string;}>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  max-width: ${({ $width }) => $width || '28%'};
+  width: 100%;
 
-// export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
-//   padding: 10px 0px 10px 0px;
-//   margin: 5px 0px 5px 0px;
+  display: ${({$open}) => $open ? 'flex' : 'none' };
+  min-height: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+
+export const ContainerMainGrigFlex = styled.div<{$border?: string;}>`
+  padding: 3px 0px 3px 0px;
+  margin: 2px 0px 2px 0px;
   
-//   width: 100%;
-//   min-height: 40px;
+  min-height: 40px;
+  max-width: 100%;
+  width: 100%;
 
-//   border: ${({ bordas }) => bordas || '3px'};
-//   border-style: double;
-//   border-radius: 10px;
-//   border-color: ${props => props.theme.colors.textColor};
-//   background-color: ${props => props.theme.colors.backgroundColor};
-//   color: ${props => props.theme.colors.textColor};
+  box-sizing: border-box;
+  overflow: hidden;
+
+  border: ${({ $border }) => $border || '3px'};
+  border-style: double;
+  border-radius: 10px;
+  border-color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  color: ${props => props.theme.colors.textColor};
   
-//   display: flex;
-//   flex-flow: row;
-//   flex-wrap: wrap;
-//   justify-content: space-between;
-//   align-content: center;
-//   align-items: center;
-// `;
-
-// export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
-//   padding: 10px 0px 10px 0px;
-//   margin: 5px 0px 5px 0px;
-
-//   width: 100%;
-//   max-width: 100%;
-//   min-height: 40px;
-//   box-sizing: border-box;
-
-//   border: ${({ bordas }) => bordas || '3px'};
-//   border-style: double;
-//   border-radius: 10px;
-//   border-color: ${props => props.theme.colors.textColor};
-//   background-color: ${props => props.theme.colors.backgroundColor};
-//   color: ${props => props.theme.colors.textColor};
-
-//   display: flex;
-//   flex-direction: column;
-//   flex-wrap: nowrap;
-//   justify-content: flex-start;
-//   align-content: stretch;
-//   align-items: stretch;
-// `;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-content: stretch;
+  align-items: stretch;
+`;

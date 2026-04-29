@@ -156,14 +156,12 @@ export const ContainerItenstoMenu = styled.div<{ $open?: boolean; }>`
   margin: 0px 0px 0px 0px;
   padding: 0px 0px 0px 5px;
   width: fit-content;
-  max-width: 100%;
+  //max-width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: space-between;
-
-
 
   /* flex: 1 1 auto;
   min-width: 0; */
@@ -342,20 +340,55 @@ export const ContainerButtonRedFleschMenu = styled.div<{ $open: boolean, $width?
   }
 `;
 //  Fim do =>> ContentBarButtonRedMenu  // 
-//
-/////////////////////////////////////////////////
-//  Botão para uso qualquer sem imagem   // 
-export const ButtonDefaultMenu = styled.button`
-  border: none;
+//  Inicio do =>> ContentBarButtonYelowMenu  //
+//  ContainerButtonYelowMenu e ButtonDefaultMenu =>> ContentBarButtonRedMenu  // 
+// container Botão ativado Verde em menu. //
+export const ContainerButtonYelowMenu = styled.div<{ $open: boolean, $width?: string }>`
+  border: 3px;
+  border-style: double;
+  border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  border-radius: 10px;
 
-  margin: 0px 0px 0px 0px;  
-  min-width: 30px;
-  min-height: 30px;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: 45px;
+  width: ${({ $width }) => $width || "fit-content"};
+  max-width: 100%;
 
   font-size: 12px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+
+  background: transparent ;
+  
+  display: ${({$open}) => $open ? 'flex' : 'none' };
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  &:hover {
+    border-color: #ff1111;
+    background-color: #fffb00;
+  }
+`;
+//  Fim do =>> ContentBarButtonYelowMenu  // 
+/////////////////////////////////////////////////
+
+//  Botão para uso qualquer sem imagem   // 
+export const ButtonDefaultMenu = styled.button`
+  border: none;
+
+  margin: 0px 0px 0px 0px;  
+  width: fit-content;
+  min-height: 30px;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  //color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  color: #1b02fd;
 
   background-color: transparent;
 
@@ -431,6 +464,48 @@ export const ButtomSBButtonItem = styled.button<TypeButtomSBButtonItem>`
   }
 `;
 
+//  Botão para uso qualquer sem imagem   // 
+export const ButtonDefaultYelowMenu = styled.button`
+  border: none;
+
+  margin: 0px 0px 0px 0px;  
+  width: fit-content;
+  min-height: 30px;
+
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+  
+
+  background-color: transparent;
+
+  cursor: pointer;
+  outline: none;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  
+  
+  
+  label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    // color: ${props => props?.theme?.colors?.textColor || 'inherit'};
+    color: #6a5afc;
+  }
+`;
+// Fim do Botão para uso qualquer sem imagem   // 
+//
+
+///////////////////////////////////////////////////
 
 
 
@@ -899,6 +974,7 @@ export const ContainerButtonDropdown = styled.div<PropsContainerButtonDropdown>`
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   min-height: ${({ pxheight }) => pxheight || '30px'};
+  width: fit-content;;
   
   display: flex;
   justify-content: center;

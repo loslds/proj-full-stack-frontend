@@ -28,7 +28,7 @@ import pnl_master from "../../../assets/defaut/painel/pnl_def_ope_esclamacao.svg
 
 // main do grid
 import GenericGrid from "../../GenericGrid";
-import { ContentMainPage } from "../../ContentMainPage";
+
 import { ContentMainTitle } from "../../ContentMainTitle";
 
 // panel bottom page
@@ -50,9 +50,7 @@ import btn_qrefrescar from "../../../assets/defaut/botao/btn_def_q_refrescar.svg
 import btn_qclose from "../../../assets/defaut/botao/btn_def_q_close.svg";
 import pnl_negado from "../../../assets/defaut/painel/pnl_def_ope_negacao.svg";
 
-import { ButtonDefaulImgPage } from "../../stylePages";
-import { ContentPanelHlpMain } from "../../ContentPanelHlpMain";
-import btn_qchaves from "../../../assets/defaut/botao/btn_def_tab_q_chaves.svg";
+import { ContentMainGrid } from "@/components/ContentMainGrid";
 
 // ------------------------
 // Tipos do grid
@@ -101,9 +99,18 @@ async function fetchTableByName(tableName: string): Promise<LoadTableResult> {
   };
 }
 
-const GridViewport = styled.div`
+const PageContent = styled.div`
   width: 100%;
   max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+`;
+
+const GridViewport = styled.div`
+  display: flex;
+  
+  max-width: 100%;
+  
   overflow-x: auto;
   overflow-y: auto;
   box-sizing: border-box;
@@ -135,10 +142,6 @@ const Config: React.FC = () => {
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
   const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
-
-  // abre painel dos states
-  const [cardstate, setCardState] = React.useState(false);
-  const handlerCardState = React.useCallback(() => setCardState((old) => !old), []);
 
   // master
   const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
@@ -271,9 +274,9 @@ const Config: React.FC = () => {
     }
   }, [hasTableSelected, resetGridUi, tableName]);
 
-  // const handleLoadSummary = React.useCallback(() => {
-  //   void loadTableSummary();
-  // }, [loadTableSummary]);
+  const handleLoadSummary = React.useCallback(() => {
+    void loadTableSummary();
+  }, [loadTableSummary]);
 
   const handleRefresh = React.useCallback(async () => {
     if (!hasTableSelected) {
@@ -433,19 +436,20 @@ const Config: React.FC = () => {
           {/* pwidth={"98%"}> */}
   
           <BarMenuConfig
-            // onRefresh={() => void handleRefresh()}
-            // onLoadSummary={handleLoadSummary}
-            // onUtilitySelect={(value) => {
-            //   console.log("UTIL:", value);
-            //   setMsgPanelBottom(`Util selecionado: ${value}`);
-            // }}
+            onRefresh={() => void handleRefresh()}
+            onLoadSummary={handleLoadSummary}
+            onUtilitySelect={(value) => {
+              console.log("UTIL:", value);
+              setMsgPanelBottom(`Util selecionado: ${value}`);
+            }}
           />
                   
           {isgridtable ? <DivisionPgHztal /> : null}
  
           { isgridtable ? (
+
+            <ContentMainGrid $open={true} $width="100%">
             
-            <ContentMainPage pborder="3px" open={true} pwidth="100%">
               <ContentMainTitle>
                 <h3>Tabela : {tableName}</h3>
               </ContentMainTitle>
@@ -455,134 +459,21 @@ const Config: React.FC = () => {
 
               {!gridLoading && !gridError ? (
                 <GridViewport>
+<PageContent>
                   <GenericGrid
                     tableName={tableName}
                     rows={gridRows}
                     columns={gridColumns}
                   />
+</PageContent>            
                   </GridViewport>
               ) : null}
-            </ContentMainPage>
             
+            </ContentMainGrid>
+
           ) : null}
 
           <DivisionPgHztal />
-
-          <ContentPanelHlpMain pwidth="60px">
-            <ButtonDefaulImgPage
-              img={btn_qchaves}
-              title={"States..."}
-              onClick={handlerCardState}
-            />
-
-            {cardstate ? (
-              <ContentMainPage pborder="1px" open={true} pwidth="100%">
-                <ContentMainTitle>
-                  <h3>Conteudo dos Payload [ state ]</h3>
-                </ContentMainTitle>
-
-                <form>
-                  <p>page: {state.page}</p>
-                  <p>aplicacao: {state.aplicacao}</p>
-                  <p>path_origem: {state.path_origem}</p>
-                  <p>path_destino: {state.path_destino}</p>
-
-                  <p>qdd_acesso: {state.qdd_acesso}</p>
-                  <p>ult_acesso: {state.ult_acesso}</p>
-                  <p>tempo: {state.tempo}</p>
-                  <p>dataini: {state.dataini}</p>
-
-                  <p>mdlogin: {state.mdlogin}</p>
-                  <p>nmlogin: {state.nmlogin}</p>
-                  <p>nrcont: {state.nrcont}</p>
-                  <p>nmcont: {state.nmcont}</p>
-
-                  <p>modulo: {state.modulo}</p>
-                  <p>cor: {state.cor}</p>
-                  <p>acao: {state.acao}</p>
-                  <p>nivel: {state.nivel}</p>
-
-                  <p>systemMode: {state.systemMode ? "true" : "false"}</p>
-                  <p>initsys: {state.initsys ? "true" : "false"}</p>
-                  <p>chkdb: {state.chkdb ? "true" : "false"}</p>
-
-                  <p>chvkey: {state.chvkey ? "true" : "false"}</p>
-                  <p>ismaster: {state.ismaster ? "true" : "false"}</p>
-                  <p>auth_admin: {state.auth_admin}</p>
-
-                  <p>logado: {state.logado ? "true" : "false"}</p>
-                  <p>auth: {state.auth}</p>
-                  <p>identificador: {state.identificador}</p>
-                  <p>senha: {state.senha}</p>
-                  <p>pinnumber: {state.pinnumber}</p>
-                  <p>pinchar: {state.pinchar}</p>
-
-                  <p>id_acesso: {state.id_acesso}</p>
-
-                  <div>
-                    <strong>permissoes:</strong>
-                    <pre>{JSON.stringify(state.permissoes, null, 2)}</pre>
-                  </div>
-
-                  <p>nametable: {state.nametable}</p>
-                  <p>regtable: {state.regtable ? "true" : "false"}</p>
-                  <p>vistable: {state.vistable ? "true" : "false"}</p>
-                  <p>listtable: {state.listtable ? "true" : "false"}</p>
-                  <p>inctable: {state.inctable ? "true" : "false"}</p>
-                  <p>alttable: {state.alttable ? "true" : "false"}</p>
-                  <p>exctable: {state.exctable ? "true" : "false"}</p>
-                  <p>filttable: {state.filttable ? "true" : "false"}</p>
-
-                  <p>keyVisitante: {state.keyVisitante ? "true" : "false"}</p>
-                  <p>keyRecepcao: {state.keyRecepcao ? "true" : "false"}</p>
-                  <p>keyDesign: {state.keyDesign ? "true" : "false"}</p>
-                  <p>keyAcabamento: {state.keyAcabamento ? "true" : "false"}</p>
-                  <p>keyProducao: {state.keyProducao ? "true" : "false"}</p>
-                  <p>keyAdministracao: {state.keyAdministracao ? "true" : "false"}</p>
-                  <p>keyConfig: {state.keyConfig ? "true" : "false"}</p>
-
-                  <p>id_emp: {state.id_emp}</p>
-                  <p>nomeemp: {state.nomeemp}</p>
-                  <p>fantemp: {state.fantemp}</p>
-
-                  <p>id_vis: {state.id_vis}</p>
-                  <p>nomevis: {state.nomevis}</p>
-                  <p>fantvis: {state.fantvis}</p>
-
-                  <p>id_con: {state.id_con}</p>
-                  <p>nomecon: {state.nomecon}</p>
-                  <p>fantcom: {state.fantcom}</p>
-
-                  <p>id_cli: {state.id_cli}</p>
-                  <p>nomecli: {state.nomecli}</p>
-                  <p>fantcli: {state.fantcli}</p>
-
-                  <p>id_for: {state.id_for}</p>
-                  <p>nomefor: {state.nomefor}</p>
-                  <p>fantfor: {state.fantfor}</p>
-
-                  <p>id_fun: {state.id_fun}</p>
-                  <p>nomefun: {state.nomefun}</p>
-                  <p>fantfun: {state.fantfun}</p>
-
-                  <p>id_user: {state.id_user}</p>
-                  <p>nomeuser: {state.nomeuser}</p>
-                  <p>mailuser: {state.mailuser}</p>
-                  <p>docuser: {state.docuser}</p>
-                  <p>foneuser: {state.foneuser}</p>
-
-                  <p>id_logo_emp: {state.id_logo_emp}</p>
-                  <p>logo_nmarq_emp: {state.logo_nmarq_emp}</p>
-                  <p>logo_svg_emp: {state.logo_svg_emp}</p>
-
-                  <p>id_img_user: {state.id_img_user}</p>
-                  <p>img_nmarq_user: {state.img_nmarq_user}</p>
-                  <p>img_svg_user: {state.img_svg_user}</p>
-                </form>
-                <DivisionPgHztal />
-              </ContentMainPage>
-            ) : null}
-          </ContentPanelHlpMain>
 
           <ContentSidePagePanelBotton bordas="3px" open={true} pwidth="100%">
             <ContentSideMsgPagePanelBotton bordas="3px" label={"Menssagens : "} msg={msgpanelbottom} />
@@ -706,8 +597,8 @@ const Config: React.FC = () => {
           {isFilterModalOpen ? (
             <PageModal
               ptop={"5%"}
-              pwidth={"80%"}
-              pheight={"80%"}
+              pwidth={"65%"}
+              pheight={"70%"}
               imgbm={btn_qclose}
               titbm="Fechar..."
               titulo={"Filtro de Visualização"}
@@ -717,10 +608,9 @@ const Config: React.FC = () => {
                 setMsgPanelBottom(`Filtro abortado para a tabela ${tableName}.`);
               }}
             >
-              <CardFilterConfig
+              <CardFilterConfig 
                 tableName={tableName}
                 availableFields={currentFields}
-                initialSelectedFields={currentFields}
                 onCancel={() => {
                   setIsFilterModalOpen(false);
                   dispatch({ type: "filttable", payload: false });
@@ -744,3 +634,129 @@ const Config: React.FC = () => {
 
 export default Config;
 
+//===================================================================
+// import { ContentMainPage } from "../../ContentMainPage";
+// import { ButtonDefaulImgPage } from "../../stylePages";
+// import { ContentPanelHlpMain } from "../../ContentPanelHlpMain";
+// import btn_qchaves from "../../../assets/defaut/botao/btn_def_tab_q_chaves.svg";
+
+// // abre painel dos states
+  // const [cardstate, setCardState] = React.useState(false);
+  // const handlerCardState = React.useCallback(() => setCardState((old) => !old), []);
+
+          // <ContentPanelHlpMain pwidth="60px">
+          //   <ButtonDefaulImgPage
+          //     img={btn_qchaves}
+          //     title={"States..."}
+          //     onClick={handlerCardState}
+          //   />
+
+          //   {cardstate ? (
+          //     <ContentMainPage pborder="1px" open={true} pwidth="100%">
+          //       <ContentMainTitle>
+          //         <h3>Conteudo dos Payload [ state ]</h3>
+          //       </ContentMainTitle>
+
+          //       <form>
+          //         <p>page: {state.page}</p>
+          //         <p>aplicacao: {state.aplicacao}</p>
+          //         <p>path_origem: {state.path_origem}</p>
+          //         <p>path_destino: {state.path_destino}</p>
+
+          //         <p>qdd_acesso: {state.qdd_acesso}</p>
+          //         <p>ult_acesso: {state.ult_acesso}</p>
+          //         <p>tempo: {state.tempo}</p>
+          //         <p>dataini: {state.dataini}</p>
+
+          //         <p>mdlogin: {state.mdlogin}</p>
+          //         <p>nmlogin: {state.nmlogin}</p>
+          //         <p>nrcont: {state.nrcont}</p>
+          //         <p>nmcont: {state.nmcont}</p>
+
+          //         <p>modulo: {state.modulo}</p>
+          //         <p>cor: {state.cor}</p>
+          //         <p>acao: {state.acao}</p>
+          //         <p>nivel: {state.nivel}</p>
+
+          //         <p>systemMode: {state.systemMode ? "true" : "false"}</p>
+          //         <p>initsys: {state.initsys ? "true" : "false"}</p>
+          //         <p>chkdb: {state.chkdb ? "true" : "false"}</p>
+
+          //         <p>chvkey: {state.chvkey ? "true" : "false"}</p>
+          //         <p>ismaster: {state.ismaster ? "true" : "false"}</p>
+          //         <p>auth_admin: {state.auth_admin}</p>
+
+          //         <p>logado: {state.logado ? "true" : "false"}</p>
+          //         <p>auth: {state.auth}</p>
+          //         <p>identificador: {state.identificador}</p>
+          //         <p>senha: {state.senha}</p>
+          //         <p>pinnumber: {state.pinnumber}</p>
+          //         <p>pinchar: {state.pinchar}</p>
+
+          //         <p>id_acesso: {state.id_acesso}</p>
+
+          //         <div>
+          //           <strong>permissoes:</strong>
+          //           <pre>{JSON.stringify(state.permissoes, null, 2)}</pre>
+          //         </div>
+
+          //         <p>nametable: {state.nametable}</p>
+          //         <p>regtable: {state.regtable ? "true" : "false"}</p>
+          //         <p>vistable: {state.vistable ? "true" : "false"}</p>
+          //         <p>listtable: {state.listtable ? "true" : "false"}</p>
+          //         <p>inctable: {state.inctable ? "true" : "false"}</p>
+          //         <p>alttable: {state.alttable ? "true" : "false"}</p>
+          //         <p>exctable: {state.exctable ? "true" : "false"}</p>
+          //         <p>filttable: {state.filttable ? "true" : "false"}</p>
+
+          //         <p>keyVisitante: {state.keyVisitante ? "true" : "false"}</p>
+          //         <p>keyRecepcao: {state.keyRecepcao ? "true" : "false"}</p>
+          //         <p>keyDesign: {state.keyDesign ? "true" : "false"}</p>
+          //         <p>keyAcabamento: {state.keyAcabamento ? "true" : "false"}</p>
+          //         <p>keyProducao: {state.keyProducao ? "true" : "false"}</p>
+          //         <p>keyAdministracao: {state.keyAdministracao ? "true" : "false"}</p>
+          //         <p>keyConfig: {state.keyConfig ? "true" : "false"}</p>
+
+          //         <p>id_emp: {state.id_emp}</p>
+          //         <p>nomeemp: {state.nomeemp}</p>
+          //         <p>fantemp: {state.fantemp}</p>
+
+          //         <p>id_vis: {state.id_vis}</p>
+          //         <p>nomevis: {state.nomevis}</p>
+          //         <p>fantvis: {state.fantvis}</p>
+
+          //         <p>id_con: {state.id_con}</p>
+          //         <p>nomecon: {state.nomecon}</p>
+          //         <p>fantcom: {state.fantcom}</p>
+
+          //         <p>id_cli: {state.id_cli}</p>
+          //         <p>nomecli: {state.nomecli}</p>
+          //         <p>fantcli: {state.fantcli}</p>
+
+          //         <p>id_for: {state.id_for}</p>
+          //         <p>nomefor: {state.nomefor}</p>
+          //         <p>fantfor: {state.fantfor}</p>
+
+          //         <p>id_fun: {state.id_fun}</p>
+          //         <p>nomefun: {state.nomefun}</p>
+          //         <p>fantfun: {state.fantfun}</p>
+
+          //         <p>id_user: {state.id_user}</p>
+          //         <p>nomeuser: {state.nomeuser}</p>
+          //         <p>mailuser: {state.mailuser}</p>
+          //         <p>docuser: {state.docuser}</p>
+          //         <p>foneuser: {state.foneuser}</p>
+
+          //         <p>id_logo_emp: {state.id_logo_emp}</p>
+          //         <p>logo_nmarq_emp: {state.logo_nmarq_emp}</p>
+          //         <p>logo_svg_emp: {state.logo_svg_emp}</p>
+
+          //         <p>id_img_user: {state.id_img_user}</p>
+          //         <p>img_nmarq_user: {state.img_nmarq_user}</p>
+          //         <p>img_svg_user: {state.img_svg_user}</p>
+          //       </form>
+          //       <DivisionPgHztal />
+          //     </ContentMainPage>
+          //   ) : null}
+          // </ContentPanelHlpMain>
+//=============================================================

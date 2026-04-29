@@ -124,7 +124,7 @@ export const Dropdown: React.FC<PropsDropdown> = ({
       $pxheight={$pxheight}
       $pxwidth={$pxwidth}
     >
-      <ButtonDropdown type="button" $btnpxwidth="205px" onClick={handleToggleRoot}>
+      <ButtonDropdown type="button" $btnpxwidth="170px" onClick={handleToggleRoot}>
         {labelbtn}
       </ButtonDropdown>
 

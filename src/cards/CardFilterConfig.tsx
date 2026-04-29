@@ -23,7 +23,7 @@ interface CardFilterConfigProps {
 }
 
 const CardWrap = styled.div<{ $width?: string }>`
-  width: ${({ $width }) => $width || "100%"};
+  width: ${({ $width }) => $width || "90%"};
   min-height: 100%;
   display: flex;
   flex-direction: column;

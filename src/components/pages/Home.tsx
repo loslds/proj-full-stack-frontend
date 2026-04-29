@@ -366,6 +366,7 @@ React.useEffect(() => {
                 handlerClicEventNegadoPage(4);
               }
             }}
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Produção.')}
             onMouseLeave={() => {
               if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
@@ -409,6 +410,7 @@ React.useEffect(() => {
                 handlerClicEventNegadoPage(6);
               }
             }}
+            onMouseEnter={() => setMsgPanelBottom('Abre Modulo Expedição.')}
             onMouseLeave={() => {
               if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
             }}
@@ -454,8 +456,9 @@ React.useEffect(() => {
             }}
             onMouseEnter={ () => {
                 if ( (!state.logado && !state.chvkey && state.modulo !== 'Config' && state.modulo !== 'Master' ) )
-                setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
-                else setMsgPanelBottom('✅ Abre Modulo Config.');  
+                  setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
+                else 
+                  setMsgPanelBottom('✅ Abre Modulo Config.');  
                 }
               }
             onMouseLeave={ () => {
@@ -552,7 +555,7 @@ React.useEffect(() => {
         {showsystemcheckmodal ? (
           <PageModal
             ptop={'45%'}
-            pwidth={'70%'}
+            pwidth={'50%'}
             pheight={'50%'}
             imgbm={btn_qclose}
             titbm="Fechar..."
@@ -573,7 +576,7 @@ React.useEffect(() => {
         {!showsystemcheckmodal && showInitSystem ? (
           <PageModal
             ptop={'10%'}
-            pwidth={'70%'}
+            pwidth={'50%'}
             pheight={'50%'}
             imgbm={btn_qclose}
             titbm="Fechar..."
