@@ -1,7 +1,7 @@
 // C:\repository\proj-full-stack-frontend\src\funcs\funcs\useSystemTables.ts
 import React from "react";
 import type { SystemHealthResult } from "../../types/SystemHealth";
-import type { DropdownOption } from "../../components/sidebar/Dropdown";
+import type { DropdownOption } from "../../components/grids/Dropdown";
 
 export type UseSystemTablesReturn = {
   options: DropdownOption[];

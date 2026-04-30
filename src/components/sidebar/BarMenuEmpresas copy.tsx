@@ -4,7 +4,7 @@ import * as S from './stylesSidebar';
 import bt_menucirc from '../../assets/pngs/bt_menucirc.png';
 import { ContainerSBMain } from './ContentSBMain';
 import { ContainerSBButton } from './ContentSBButton';
-import { Dropdown } from './Dropdown';
+import { Dropdown } from '../grids/Dropdown';
 
 
 interface BarMenuEmpresasProps {

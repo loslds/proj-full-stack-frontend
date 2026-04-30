@@ -1,8 +1,9 @@
-// C:\repository\proj-full-stack-frontend\src\components\sidebar\Dropdown.tsx
+
+// C:\repository\proj-full-stack-frontend\src\components\grids\Dropdown.tsx
 
 import React from "react";
-import { ContentMainDropdownUl } from "./ContentMainDropdownUl";
-import { ButtonDropdown } from "./stylesSidebar";
+import { ContentMainDropdownUl } from "../sidebar/ContentMainDropdownUl";
+import { ButtonDropdown } from "../sidebar/stylesSidebar";
 
 export interface DropdownOption {
   label: string;

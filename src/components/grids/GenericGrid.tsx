@@ -1,7 +1,12 @@
 
-// C:\repository\proj-full-stack-frontend\src\components\GenericGrid.tsx
+
+//C:\repository\proj-full-stack-frontend\src\components\grids\GenericGrid.tsx
+
+// src/components/grids/GenericGrid.tsx
+
 import * as React from "react";
 import styled from "styled-components";
+import type { GridViewMode } from "./BarMenuConfig";
 
 export type GridRow = Record<string, unknown>;
 
@@ -10,60 +15,53 @@ export type GridColumn = {
   header?: string;
   type?: string;
   visible?: boolean;
+  minWidth?: number;
+  isMain?: boolean;
 };
 
 export interface GenericGridProps {
   tableName: string;
   rows: GridRow[];
   columns?: GridColumn[];
+  mode?: GridViewMode;
+  pageSize?: number;
+  onRowSelect?: (row: GridRow, rowKey: string) => void;
 }
 
 /* =========================
- * Utilitários internos
+ * Utils
  * ========================= */
 
 function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null;
 }
-function getColumnMinWidth(key: string, header?: string): string {
+
+function getColumnMinWidth(key: string, header?: string, minWidth?: number): string {
+  if (minWidth) return `${minWidth}px`;
+
   const name = String(header ?? key).toLowerCase();
 
-  if (name.includes("createdby")) return "42px";
-  if (name.includes("updatedby")) return "42px";
-  if (name.includes("createdat")) return "52px";
-  if (name.includes("updatedat")) return "52px";
   if (name === "id") return "40px";
-  if (name.includes("nome")) return "70px";
-  //acoes
-  //if (name.includes("abrev")) return "40px";
-  //if (name.includes("cor")) return "65px";
-  //if (name.includes("nivel")) return "40px";
-  //estados
-  if (name.includes("sigla")) return "40px";
-  if (name.includes("uf")) return "52px";
+  if (name.includes("nome")) return "120px";
 
-  // if (name.includes("descr")) return "52px";
-  // if (name.includes("obs")) return "52px";
-  // if (name.includes("sigla")) return "40px";
-  // if (name.includes("uf")) return "52px";
-  
-  // if (name.includes("cod")) return "52px";
-  
-  
-  // if (name.includes("ordem")) return "60px";
-  // if (name.includes("seq")) return "60px";
-  // if (name.includes("data")) return "92px";
-  // if (name.includes("date")) return "92px";
-  // if (name.includes("hora")) return "78px";
-  // if (name.includes("fone")) return "96px";
-  // if (name.includes("doc")) return "96px";
-  // if (name.includes("cel")) return "96px";
-  // if (name.includes("email")) return "120px";
-  
-  // if (name.includes("status")) return "72px";
-  // if (name.includes("ativo")) return "60px";
+  if (name.includes("createdby")) return "70px";
+  if (name.includes("updatedby")) return "70px";
+  if (name.includes("createdat")) return "110px";
+  if (name.includes("updatedat")) return "110px";
 
-  return "52px";
+  if (name.includes("sigla")) return "60px";
+  if (name.includes("uf")) return "60px";
+  if (name.includes("abrev")) return "70px";
+  if (name.includes("cor")) return "80px";
+  if (name.includes("nivel")) return "70px";
+
+  if (name.includes("descr")) return "160px";
+  if (name.includes("obs")) return "180px";
+  if (name.includes("email")) return "180px";
+  if (name.includes("status")) return "90px";
+  if (name.includes("ativo")) return "70px";
+
+  return "90px";
 }
 
 function getRowKey(row: GridRow, idx: number): string {
@@ -90,34 +88,87 @@ function formatCellValue(value: unknown): React.ReactNode {
   return String(value);
 }
 
+function getColumnsFromRows(rows: GridRow[]): GridColumn[] {
+  const first = rows[0];
+
+  if (!first || !isRecord(first)) return [];
+
+  return Object.keys(first).map((key) => ({
+    key,
+    header: key,
+    visible: true,
+  }));
+}
+
+function resolveColumnsByMode(
+  rows: GridRow[],
+  columns: GridColumn[] | undefined,
+  mode: GridViewMode
+): GridColumn[] {
+  const baseColumns =
+    columns && columns.length > 0 ? columns : getColumnsFromRows(rows);
+
+  const visibleColumns = baseColumns.filter((col) => col.visible !== false);
+
+  if (mode === "detail") {
+    return visibleColumns;
+  }
+
+  if (mode === "common") {
+    const preferredKeys = ["id", "nome", "name", "descricao", "descr", "sigla", "uf", "abrev"];
+
+    const commonColumns = visibleColumns.filter((col) =>
+      preferredKeys.includes(col.key.toLowerCase())
+    );
+
+    if (commonColumns.length >= 2) {
+      return commonColumns.slice(0, 4);
+    }
+
+    return visibleColumns.slice(0, 4);
+  }
+
+  return visibleColumns;
+}
+
+function getTableMinWidth(columns: GridColumn[]): number {
+  const radioWidth = 42;
+
+  const columnsWidth = columns.reduce((total, col) => {
+    const width = getColumnMinWidth(col.key, col.header, col.minWidth);
+    return total + Number(width.replace("px", ""));
+  }, 0);
+
+  return radioWidth + columnsWidth;
+}
+
 /* =========================
- * Styled components
+ * Styled
  * ========================= */
 
 const GridWrap = styled.div`
-  //width: 100%;
+  width: 100%;
   max-width: 100%;
+  min-width: 0;
   text-align: left;
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap;
-  flex-flow: row; */
   box-sizing: border-box;
-  /* overflow: hidden; */
 `;
 
 const GridScroll = styled.div`
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   max-height: 70vh;
   box-sizing: border-box;
   overflow-x: auto;
   overflow-y: auto;
 `;
 
-const GridTable = styled.table`
-  //min-width: 100%;
-  max-width: max-content;
+const GridTable = styled.table<{ $minTableWidth: number }>`
+  width: 100%;
+  min-width: ${({ $minTableWidth }) => `${$minTableWidth}px`};
   border-collapse: collapse;
   table-layout: auto;
   background-color: ${({ theme }) => theme.colors.backgroundColor};
@@ -128,15 +179,15 @@ const GridHeadRow = styled.tr`
   background-color: ${({ theme }) => theme.colors.headerBackground};
 `;
 
-const GridHeadCell = styled.th<{ $minWidth?: string }>`
+const GridHeadCell = styled.th<{ $minWidth?: string; $mode: GridViewMode }>`
   min-width: ${({ $minWidth = "40px" }) => $minWidth};
   padding: 3px 5px;
   text-align: left;
   vertical-align: top;
   font-weight: 700;
   font-size: 13px;
-  white-space: normal;
-  word-break: break-word;
+  white-space: ${({ $mode }) => ($mode === "detail" ? "normal" : "nowrap")};
+  word-break: ${({ $mode }) => ($mode === "detail" ? "break-word" : "normal")};
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.textColor};
@@ -164,14 +215,15 @@ const GridRowStyled = styled.tr<{ $selected?: boolean }>`
   }
 `;
 
-const GridCell = styled.td<{ $minWidth?: string }>`
+const GridCell = styled.td<{ $minWidth?: string; $mode: GridViewMode }>`
   min-width: ${({ $minWidth = "40px" }) => $minWidth};
+  max-width: ${({ $mode }) => ($mode === "detail" ? "360px" : "none")};
   padding: 3px 5px;
   text-align: left;
   vertical-align: top;
   font-size: 13px;
-  white-space: normal;
-  word-break: break-word;
+  white-space: ${({ $mode }) => ($mode === "detail" ? "normal" : "nowrap")};
+  word-break: ${({ $mode }) => ($mode === "detail" ? "break-word" : "normal")};
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
   border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
   color: ${({ theme }) => theme.colors.textColor};
@@ -182,8 +234,8 @@ const GridCell = styled.td<{ $minWidth?: string }>`
 `;
 
 const RadioHeadCell = styled.th`
-  width: 35px;
-  min-width: 35px;
+  width: 42px;
+  min-width: 42px;
   padding: 4px 6px;
   text-align: center;
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
@@ -191,8 +243,8 @@ const RadioHeadCell = styled.th`
 `;
 
 const RadioCell = styled.td`
-  width: 40px;
-  min-width: 40px;
+  width: 42px;
+  min-width: 42px;
   padding: 4px 6px;
   text-align: center;
   vertical-align: middle;
@@ -268,36 +320,37 @@ const PageInfoTotal = styled.div`
 `;
 
 /* =========================
- * Componente
+ * Component
  * ========================= */
 
 const GenericGrid: React.FC<GenericGridProps> = ({
   tableName,
   rows,
   columns,
+  mode = "list",
+  pageSize = 50,
+  onRowSelect,
 }) => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  const pageSize = 50;
+  const resolvedColumns = React.useMemo(
+    () => resolveColumnsByMode(rows, columns, mode),
+    [rows, columns, mode]
+  );
+
+  const minTableWidth = React.useMemo(
+    () => getTableMinWidth(resolvedColumns),
+    [resolvedColumns]
+  );
+
   const shouldShowPagination = rows.length > pageSize;
-
-  const resolvedColumns: GridColumn[] = React.useMemo(() => {
-    if (columns && columns.length > 0) {
-      return columns.filter((col) => col.visible !== false);
-    }
-
-    const first = rows[0];
-    if (!first || !isRecord(first)) return [];
-
-    return Object.keys(first).map((key) => ({
-      key,
-      header: key,
-      visible: true,
-    }));
-  }, [columns, rows]);
-
   const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+
+  React.useEffect(() => {
+    setCurrentPage(1);
+    setSelectedRow(null);
+  }, [tableName, mode]);
 
   React.useEffect(() => {
     if (currentPage > totalPages) {
@@ -312,7 +365,7 @@ const GenericGrid: React.FC<GenericGridProps> = ({
     const end = start + pageSize;
 
     return rows.slice(start, end);
-  }, [rows, currentPage, shouldShowPagination]);
+  }, [rows, currentPage, shouldShowPagination, pageSize]);
 
   const startRecord =
     rows.length === 0 ? 0 : (currentPage - 1) * pageSize + 1;
@@ -321,17 +374,21 @@ const GenericGrid: React.FC<GenericGridProps> = ({
     ? Math.min(currentPage * pageSize, rows.length)
     : rows.length;
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
+  const handleSelectRow = React.useCallback(
+    (row: GridRow, rowKey: string) => {
+      setSelectedRow(rowKey);
+      onRowSelect?.(row, rowKey);
+    },
+    [onRowSelect]
+  );
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
+  const handlePreviousPage = React.useCallback(() => {
+    setCurrentPage((prev) => Math.max(1, prev - 1));
+  }, []);
+
+  const handleNextPage = React.useCallback(() => {
+    setCurrentPage((prev) => Math.min(totalPages, prev + 1));
+  }, [totalPages]);
 
   if (!rows || rows.length === 0) {
     return (
@@ -345,15 +402,24 @@ const GenericGrid: React.FC<GenericGridProps> = ({
   return (
     <GridWrap>
       <GridScroll>
-        <GridTable>
+        <GridTable $minTableWidth={minTableWidth}>
           <thead>
             <GridHeadRow>
               <RadioHeadCell />
+
               {resolvedColumns.map((col) => {
-                const minWidth = getColumnMinWidth(col.key, col.header);
+                const minWidth = getColumnMinWidth(
+                  col.key,
+                  col.header,
+                  col.minWidth
+                );
 
                 return (
-                  <GridHeadCell key={col.key} $minWidth={minWidth}>
+                  <GridHeadCell
+                    key={col.key}
+                    $minWidth={minWidth}
+                    $mode={mode}
+                  >
                     {col.header ?? col.key}
                   </GridHeadCell>
                 );
@@ -374,23 +440,31 @@ const GenericGrid: React.FC<GenericGridProps> = ({
                 <GridRowStyled
                   key={rowKey}
                   $selected={isSelected}
-                  onClick={() => setSelectedRow(rowKey)}
+                  onClick={() => handleSelectRow(row, rowKey)}
                 >
                   <RadioCell>
                     <RadioInput
                       type="radio"
                       name={`grid-select-${tableName}`}
                       checked={isSelected}
-                      onChange={() => setSelectedRow(rowKey)}
+                      onChange={() => handleSelectRow(row, rowKey)}
                       onClick={(event) => event.stopPropagation()}
                     />
                   </RadioCell>
 
                   {resolvedColumns.map((col) => {
-                    const minWidth = getColumnMinWidth(col.key, col.header);
+                    const minWidth = getColumnMinWidth(
+                      col.key,
+                      col.header,
+                      col.minWidth
+                    );
 
                     return (
-                      <GridCell key={col.key} $minWidth={minWidth}>
+                      <GridCell
+                        key={col.key}
+                        $minWidth={minWidth}
+                        $mode={mode}
+                      >
                         {formatCellValue(row[col.key])}
                       </GridCell>
                     );
@@ -402,12 +476,9 @@ const GenericGrid: React.FC<GenericGridProps> = ({
         </GridTable>
       </GridScroll>
 
-      {shouldShowPagination && (
+      {shouldShowPagination ? (
         <PaginationWrap>
-          <PageButton
-            onClick={handlePreviousPage}
-            disabled={currentPage === 1}
-          >
+          <PageButton onClick={handlePreviousPage} disabled={currentPage === 1}>
             {"<< anterior"}
           </PageButton>
 
@@ -424,7 +495,7 @@ const GenericGrid: React.FC<GenericGridProps> = ({
             {"próximos >>"}
           </PageButton>
         </PaginationWrap>
-      )}
+      ) : null}
     </GridWrap>
   );
 };
@@ -433,7 +504,10 @@ export default GenericGrid;
 export { GenericGrid };
 
 
-// C:\repository\proj-full-stack-frontend\src\components\GenericGrid.tsx
+
+
+
+
 // import * as React from "react";
 // import styled from "styled-components";
 
@@ -459,35 +533,45 @@ export { GenericGrid };
 // function isRecord(v: unknown): v is Record<string, unknown> {
 //   return typeof v === "object" && v !== null;
 // }
-
 // function getColumnMinWidth(key: string, header?: string): string {
 //   const name = String(header ?? key).toLowerCase();
 
-//   if (name.includes('id')) return "40px";
-//   if (name.includes('createdby')) return "52px";
-//   if (name.includes('updatedby')) return "52px";
-//   if (name.includes('createdat')) return "92px";
-//   if (name.includes('updatedat')) return "92px";
-//   if (name.includes('cod')) return "60px";
-//   if (name.includes('sigla')) return "60px";
-//   if (name.includes('uf')) return "44px";
-//   if (name.includes('cor')) return "60px";
-//   if (name.includes('ordem')) return "60px";
-//   if (name.includes('seq')) return "60px";
-//   if (name.includes('data')) return "92px";
-//   if (name.includes('date')) return "92px";
-//   if (name.includes('hora')) return "78px";
-//   if (name.includes('fone')) return "96px";
-//   if (name.includes('doc')) return "96px";
-//   if (name.includes('cel')) return "96px";
-//   if (name.includes('email')) return "120px";
-//   if (name.includes('nome')) return "110px";
-//   if (name.includes('descr')) return "140px";
-//   if (name.includes('obs')) return "120px";
-//   if (name.includes('status')) return "72px";
-//   if (name.includes('ativo')) return "60px";
+//   if (name.includes("createdby")) return "42px";
+//   if (name.includes("updatedby")) return "42px";
+//   if (name.includes("createdat")) return "52px";
+//   if (name.includes("updatedat")) return "52px";
+//   if (name === "id") return "40px";
+//   if (name.includes("nome")) return "70px";
+//   //acoes
+//   //if (name.includes("abrev")) return "40px";
+//   //if (name.includes("cor")) return "65px";
+//   //if (name.includes("nivel")) return "40px";
+//   //estados
+//   if (name.includes("sigla")) return "40px";
+//   if (name.includes("uf")) return "52px";
 
-//   return "72px";
+//   // if (name.includes("descr")) return "52px";
+//   // if (name.includes("obs")) return "52px";
+//   // if (name.includes("sigla")) return "40px";
+//   // if (name.includes("uf")) return "52px";
+  
+//   // if (name.includes("cod")) return "52px";
+  
+  
+//   // if (name.includes("ordem")) return "60px";
+//   // if (name.includes("seq")) return "60px";
+//   // if (name.includes("data")) return "92px";
+//   // if (name.includes("date")) return "92px";
+//   // if (name.includes("hora")) return "78px";
+//   // if (name.includes("fone")) return "96px";
+//   // if (name.includes("doc")) return "96px";
+//   // if (name.includes("cel")) return "96px";
+//   // if (name.includes("email")) return "120px";
+  
+//   // if (name.includes("status")) return "72px";
+//   // if (name.includes("ativo")) return "60px";
+
+//   return "52px";
 // }
 
 // function getRowKey(row: GridRow, idx: number): string {
@@ -519,15 +603,13 @@ export { GenericGrid };
 //  * ========================= */
 
 // const GridWrap = styled.div`
-//   /* min-width: 40px;
-//   max-width: 100%; */
 //   width: 100%;
 //   max-width: 100%;
+//   min-width: 0;
 //   text-align: left;
 //   display: flex;
 //   flex-direction: column;
 //   box-sizing: border-box;
-//   overflow: hidden;
 // `;
 
 // const GridScroll = styled.div`
@@ -540,8 +622,8 @@ export { GenericGrid };
 // `;
 
 // const GridTable = styled.table`
+//   width: max-content;
 //   min-width: 100%;
-//   max-width: 100%;
 //   border-collapse: collapse;
 //   table-layout: auto;
 //   background-color: ${({ theme }) => theme.colors.backgroundColor};
@@ -553,8 +635,8 @@ export { GenericGrid };
 // `;
 
 // const GridHeadCell = styled.th<{ $minWidth?: string }>`
-//   min-width: ${({ $minWidth = "72px" }) => $minWidth};
-//   padding: 4px 6px;
+//   min-width: ${({ $minWidth = "40px" }) => $minWidth};
+//   padding: 3px 5px;
 //   text-align: left;
 //   vertical-align: top;
 //   font-weight: 700;
@@ -568,11 +650,10 @@ export { GenericGrid };
 //   &:last-child {
 //     border-right: none;
 //   }
-
 // `;
+
 // const GridRowStyled = styled.tr<{ $selected?: boolean }>`
-//   background-color: ${({ $selected, theme }) =>
-//     $selected ? theme.colors.hoverColor : undefined};
+//   cursor: pointer;
 
 //   &:nth-child(odd) {
 //     background-color: ${({ $selected, theme }) =>
@@ -590,8 +671,8 @@ export { GenericGrid };
 // `;
 
 // const GridCell = styled.td<{ $minWidth?: string }>`
-//   min-width: ${({ $minWidth = "72px" }) => $minWidth};
-//   padding: 4px 6px;
+//   min-width: ${({ $minWidth = "40px" }) => $minWidth};
+//   padding: 3px 5px;
 //   text-align: left;
 //   vertical-align: top;
 //   font-size: 13px;
@@ -607,9 +688,9 @@ export { GenericGrid };
 // `;
 
 // const RadioHeadCell = styled.th`
-//   width: 40px;
-//   min-width: 40px;
-//   padding: 8px 4px;
+//   width: 35px;
+//   min-width: 35px;
+//   padding: 4px 6px;
 //   text-align: center;
 //   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
 //   border-bottom: 1px solid ${({ theme }) => theme.colors.borderColor};
@@ -618,7 +699,7 @@ export { GenericGrid };
 // const RadioCell = styled.td`
 //   width: 40px;
 //   min-width: 40px;
-//   padding: 8px 6px;
+//   padding: 4px 6px;
 //   text-align: center;
 //   vertical-align: middle;
 //   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
@@ -793,15 +874,21 @@ export { GenericGrid };
 //                 : idx;
 
 //               const rowKey = getRowKey(row, globalIndex);
+//               const isSelected = selectedRow === rowKey;
 
 //               return (
-//                 <GridRowStyled key={rowKey}>
+//                 <GridRowStyled
+//                   key={rowKey}
+//                   $selected={isSelected}
+//                   onClick={() => setSelectedRow(rowKey)}
+//                 >
 //                   <RadioCell>
 //                     <RadioInput
 //                       type="radio"
 //                       name={`grid-select-${tableName}`}
-//                       checked={selectedRow === rowKey}
+//                       checked={isSelected}
 //                       onChange={() => setSelectedRow(rowKey)}
+//                       onClick={(event) => event.stopPropagation()}
 //                     />
 //                   </RadioCell>
 
@@ -834,9 +921,7 @@ export { GenericGrid };
 //             {startRecord} a {endRecord}
 //           </PageInfoCenter>
 
-//           <PageInfoTotal>
-//             tt. reg : {rows.length}
-//           </PageInfoTotal>
+//           <PageInfoTotal>tt. reg : {rows.length}</PageInfoTotal>
 
 //           <PageButton
 //             onClick={handleNextPage}
