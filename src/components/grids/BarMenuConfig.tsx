@@ -1,4 +1,3 @@
-
 // src/components/grids/BarMenuConfig.tsx
 
 import React from "react";
@@ -24,7 +23,7 @@ import pnl_config from "../../assets/defaut/painel/pnl_def_mod_config.svg";
 import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
 import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
 
-export type GridViewMode = "common" | "list" | "detail";
+export type GridViewMode = "default" | "list" | "detail";
 
 export type GridUtilityAction =
   | "reset_table_current"
@@ -153,7 +152,6 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       dispatch({ type: "filttable", payload: false });
 
       setIsTableActive(true);
-
       onViewModeSelect?.(tableName, mode);
     },
     [
@@ -187,7 +185,6 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       dispatch({ type: "filttable", payload: true });
 
       setIsTableActive(true);
-
       onUtilitySelect?.(value, tableName);
     },
     [
@@ -210,7 +207,6 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       dispatch({ type: "listtable", payload: true });
 
       setIsTableActive(true);
-
       onUtilitySelect?.(value, tableName);
     },
     [
@@ -251,8 +247,8 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
   const handleSelectOperation = React.useCallback(
     (value: string) => {
       switch (value) {
-        case "view_common":
-          handleViewMode("common");
+        case "view_default":
+          handleViewMode("default");
           break;
 
         case "view_list":
@@ -317,10 +313,10 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
   const operationOptions = React.useMemo<DropdownOption[]>(
     () => [
       {
-        label: "Visualização",
-        value: "visualizacao",
+        label: "Visualizações",
+        value: "visualizacoes",
         subOptions: [
-          { label: "Simples", value: "view_common" },
+          { label: "Default", value: "view_default" },
           { label: "Lista", value: "view_list" },
           { label: "Detalhes", value: "view_detail" },
           {

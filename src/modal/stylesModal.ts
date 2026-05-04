@@ -119,14 +119,14 @@ export const ContainerModal = styled.div<PropsContainerModal>`
 
   min-width: ${({ pwidth }) => pwidth || '66.3%'};
   max-width: '66.3%';
-
   height: ${({ pheight }) => pheight || '85%'};
+
   min-height: auto;
   overflow-y: auto;
   color: ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
   display: flex row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   flex-direction: center;
   justify-content: center;
   align-items: center;

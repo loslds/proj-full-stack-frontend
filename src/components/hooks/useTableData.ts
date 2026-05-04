@@ -1,4 +1,6 @@
 
+//C:\repository\proj-full-stack-frontend\src\components\hooks\useTableData.ts
+
 import React from "react";
 import { getTableRows, GridRow } from "../../api/tables/getTableRows";
 
@@ -10,12 +12,19 @@ export type TableStatus =
   | "empty"
   | "error";
 
+export type GridColumn = {
+  key: string;
+  header?: string;
+  type?: string;
+  visible?: boolean;
+  minWidth?: number;
+};
+
 export type UseTableDataOptions = {
   enabled?: boolean;
-  client?: "admin" | "user"; // quem vai acessar a API
+  client?: "admin" | "user";
   limit?: number;
   offset?: number;
-  // no futuro: filter?: Record<string, unknown>
 };
 
 export type UseTableDataResult = {
@@ -23,8 +32,17 @@ export type UseTableDataResult = {
   loading: boolean;
   exists: boolean | null;
   rows: GridRow[];
+  columns?: GridColumn[];
   message: string | null;
   refetch: () => Promise<void>;
+};
+
+type TableRowsResponse = {
+  success: boolean;
+  exists?: boolean;
+  rows?: GridRow[];
+  columns?: GridColumn[];
+  message?: string;
 };
 
 function getErrorMessage(err: unknown): string {
@@ -43,8 +61,19 @@ export function useTableData(
 
   const [status, setStatus] = React.useState<TableStatus>("idle");
   const [rows, setRows] = React.useState<GridRow[]>([]);
+  const [columns, setColumns] = React.useState<GridColumn[] | undefined>(
+    undefined
+  );
   const [exists, setExists] = React.useState<boolean | null>(null);
   const [message, setMessage] = React.useState<string | null>(null);
+
+  const reset = React.useCallback(() => {
+    setStatus("idle");
+    setRows([]);
+    setColumns(undefined);
+    setExists(null);
+    setMessage(null);
+  }, []);
 
   const refetch = React.useCallback(async () => {
     const name = (tableName ?? "").trim();
@@ -52,10 +81,7 @@ export function useTableData(
     if (!enabled) return;
 
     if (!name) {
-      setStatus("idle");
-      setRows([]);
-      setExists(null);
-      setMessage(null);
+      reset();
       return;
     }
 
@@ -63,32 +89,43 @@ export function useTableData(
     setMessage(null);
 
     try {
-      const r = await getTableRows({ table: name, limit, offset }, client);
+      const response = (await getTableRows(
+        { table: name, limit, offset },
+        client
+      )) as TableRowsResponse;
 
-      if (!r.success) {
+      if (!response.success) {
         setStatus("error");
         setRows([]);
+        setColumns(undefined);
         setExists(null);
-        setMessage(r.message ?? "Erro ao consultar tabela.");
+        setMessage(response.message ?? "Erro ao consultar tabela.");
         return;
       }
 
-      if (!r.exists) {
+      if (!response.exists) {
         setStatus("not_found");
         setRows([]);
+        setColumns(undefined);
         setExists(false);
-        setMessage(r.message ?? `Tabela "${name}" inexistente ou inacessível.`);
+        setMessage(
+          response.message ?? `Tabela "${name}" inexistente ou inacessível.`
+        );
         return;
       }
 
-      setExists(true);
+      const safeRows = Array.isArray(response.rows) ? response.rows : [];
+      const safeColumns = Array.isArray(response.columns)
+        ? response.columns
+        : undefined;
 
-      const safeRows = Array.isArray(r.rows) ? r.rows : [];
+      setExists(true);
       setRows(safeRows);
+      setColumns(safeColumns);
 
       if (safeRows.length === 0) {
         setStatus("empty");
-        setMessage(r.message ?? `Tabela "${name}" sem registros.`);
+        setMessage(response.message ?? `Tabela "${name}" sem registros.`);
         return;
       }
 
@@ -97,10 +134,11 @@ export function useTableData(
     } catch (err: unknown) {
       setStatus("error");
       setRows([]);
+      setColumns(undefined);
       setExists(null);
       setMessage(getErrorMessage(err));
     }
-  }, [tableName, enabled, client, limit, offset]);
+  }, [tableName, enabled, client, limit, offset, reset]);
 
   React.useEffect(() => {
     void refetch();
@@ -111,6 +149,7 @@ export function useTableData(
     loading: status === "loading",
     exists,
     rows,
+    columns,
     message,
     refetch,
   };
