@@ -1,9 +1,9 @@
 
 
+
+
+
 //C:\repository\proj-full-stack-frontend\src\components\grids\GenericGrid.tsx
-
-// src/components/grids/GenericGrid.tsx
-
 import * as React from "react";
 import styled from "styled-components";
 import type { GridViewMode } from "./BarMenuConfig";
@@ -50,23 +50,91 @@ const AUDIT_FIELDS = [
 ];
 
 const DEFAULT_FIELDS_BY_TABLE: Record<string, GridFieldConfig[]> = {
+
+  pessoas: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Tipo Fator", minWidth: 140, maxWidth: 260, wrap: true },
+  ],
+  
+empresas: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "tipo_pessoa", header: "Tipo", minWidth: 60, maxWidth: 80, },
+    { key: "nome", header: "Nome de Empresa", minWidth: 140, maxWidth: 260, wrap: true, },
+    { key: "fantasy", header: "Nome Fantasia", minWidth: 120, maxWidth: 220, wrap: true, },
+  ],
+
+
+
+
+  visitantates: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Visitante", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  visitas: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Visitante", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  consumidores: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Consumidor", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  clientes: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Cliente", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  fornecedores: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Fornecedor", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  funcionarios: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Funcionário", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+  ],
+
+  cadastros: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "id_origem", header: "ID_CAD", minWidth: 40, maxWidth: 52 },
+    // ORIGEM (vai depender da API trazer resolvido)
+    { key: "tab_nome", header: "Origem", minWidth: 160, maxWidth: 280, wrap: true },
+    { key: "origem_nome", header: "Nome Cadastrado", minWidth: 160, maxWidth: 280, wrap: true },
+    { key: "has_email", header: "Email", minWidth: 52, maxWidth: 70 },
+    { key: "has_doc", header: "Docum.", minWidth: 52, maxWidth: 70 },
+    { key: "has_fone", header: "Fone", minWidth: 52, maxWidth: 70 },
+  ],
+
+  cargos: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Fator Responsável", minWidth: 140, maxWidth: 260, wrap: true },
+  ],
+
   estados: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "prefixo", header: "Prefixo", minWidth: 60, maxWidth: 80 },
+    { key: "nome", header: "Nome de Estados", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "prefixo", header: "Sigla", minWidth: 60, maxWidth: 80 },
   ],
 
   cidades: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome", minWidth: 160, maxWidth: 280, wrap: true },
+    { key: "nome", header: "Nome de Cidades", minWidth: 160, maxWidth: 280, wrap: true },
     { key: "estados.prefixo", header: "UF", minWidth: 50, maxWidth: 70 },
   ],
 
   acoes: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "abrev", header: "Abrev.", minWidth: 60, maxWidth: 90 },
-    { key: "cor", header: "Cor", minWidth: 70, maxWidth: 110 },
+    { key: "nome", header: "Descrição", minWidth: 140, maxWidth: 260, wrap: true },
+    { key: "abrev", header: "Abrev.", minWidth: 123, maxWidth: 150 },
+    { key: "cor", header: "Côr", minWidth: 70, maxWidth: 110 },
   ],
 };
 
@@ -672,3 +740,4 @@ const GenericGrid: React.FC<GenericGridProps> = ({
 
 export default GenericGrid;
 export { GenericGrid };
+
