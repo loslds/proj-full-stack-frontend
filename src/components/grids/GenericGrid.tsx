@@ -63,19 +63,31 @@ empresas: [
     { key: "fantasy", header: "Nome Fantasia", minWidth: 120, maxWidth: 220, wrap: true, },
   ],
 
-
-
-
+  cadastros: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "id_origem", header: "ID_CAD", minWidth: 40, maxWidth: 52 },
+    // ORIGEM (vai depender da API trazer resolvido)
+    { key: "tab_nome", header: "Origem", minWidth: 160, maxWidth: 280, wrap: true },
+    { key: "origem_nome", header: "Nome Cadastrado", minWidth: 160, maxWidth: 280, wrap: true },
+    { key: "has_email", header: "Email", minWidth: 52, maxWidth: 70 },
+    { key: "has_doc", header: "Docum.", minWidth: 52, maxWidth: 70 },
+    { key: "has_fone", header: "Fone", minWidth: 52, maxWidth: 70 },
+  ],
+  
   visitantates: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome de Visitante", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+    { key: "tipo_pessoa", header: "Tipo", minWidth: 50, maxWidth: 70 },
+    { key: "empresa_nome", header: "Empresa", minWidth: 140, maxWidth: 260, wrap: true, },
+    { key: "nome", header: "Nome de Visitante", minWidth: 140, maxWidth: 260, wrap: true, },
+    { key: "fantasy", header: "Reconhecido", minWidth: 90, maxWidth: 140, wrap: true, },
   ],
 
   visitas: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome de Visitante", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
+    { key: "id_visitantes", header: "ID_VIS", minWidth: 50, maxWidth: 70, },
+    { key: "visitante_nome", header: "Nome de Visitante", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "tempo_visitas", header: "Duração", minWidth: 70, maxWidth: 100, },
+    { key: "saidaAt", header: "Logoff", minWidth: 120, maxWidth: 160, },
   ],
 
   consumidores: [
@@ -102,26 +114,10 @@ empresas: [
     { key: "fantasy", header: "Reconhecido", minWidth: 70, maxWidth: 100 },
   ],
 
-  cadastros: [
-    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "id_origem", header: "ID_CAD", minWidth: 40, maxWidth: 52 },
-    // ORIGEM (vai depender da API trazer resolvido)
-    { key: "tab_nome", header: "Origem", minWidth: 160, maxWidth: 280, wrap: true },
-    { key: "origem_nome", header: "Nome Cadastrado", minWidth: 160, maxWidth: 280, wrap: true },
-    { key: "has_email", header: "Email", minWidth: 52, maxWidth: 70 },
-    { key: "has_doc", header: "Docum.", minWidth: 52, maxWidth: 70 },
-    { key: "has_fone", header: "Fone", minWidth: 52, maxWidth: 70 },
-  ],
-
-  cargos: [
-    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Fator Responsável", minWidth: 140, maxWidth: 260, wrap: true },
-  ],
-
   estados: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Nome de Estados", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "prefixo", header: "Sigla", minWidth: 60, maxWidth: 80 },
+    { key: "nome", header: "Nome de Estados", minWidth: 140, maxWidth: 260, wrap: true, },
+    { key: "prefixo", header: "UF", minWidth: 60, maxWidth: 80, },
   ],
 
   cidades: [
@@ -130,13 +126,72 @@ empresas: [
     { key: "estados.prefixo", header: "UF", minWidth: 50, maxWidth: 70 },
   ],
 
+  imagens: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome da Imagem", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "tipo", header: "Tipo", minWidth: 70, maxWidth: 100, },
+    { key: "svg", header: "SVG", minWidth: 70, maxWidth: 90, },
+  ],
+
+  emails: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "id_origem", header: "ID_ORIG", minWidth: 50, maxWidth: 70, },
+    { key: "nome_origem", header: "Titular", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "id_cad", header: "ID_CAD", minWidth: 50, maxWidth: 70, },
+    { key: "email", header: "Email", minWidth: 180, maxWidth: 300, wrap: true, },
+  ],
+
+  docs: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "id_origem", header: "ID_ORIG", minWidth: 50, maxWidth: 70, },
+    { key: "nome_origem", header: "Titular", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "id_cad", header: "ID_CAD", minWidth: 50, maxWidth: 70, },
+    { key: "cpf", header: "CPF", minWidth: 120, maxWidth: 150, },
+    { key: "cnpj", header: "CNPJ", minWidth: 150, maxWidth: 190, },
+  ],
+
+  fones: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "id_origem", header: "ID_ORIG", minWidth: 50, maxWidth: 70, },
+    { key: "nome_origem", header: "Titular", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "id_cad", header: "ID_CAD", minWidth: 50, maxWidth: 70, },
+    { key: "fone_fixo", header: "Fone Fixo", minWidth: 100, maxWidth: 130, },
+    { key: "fone_celular", header: "Celular", minWidth: 100, maxWidth: 130, },
+    { key: "fone_contacto", header: "Contato", minWidth: 100, maxWidth: 130, },
+  ],
+
+  modulos: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Módulo", minWidth: 160, maxWidth: 280, wrap: true, },
+  ],
+
+  //////////////////////////////////////////////////////////////////////////////////
+ 
+  cargos: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Nome de Cargo", minWidth: 160, maxWidth: 280, wrap: true, },
+  ],
+
   acoes: [
     { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
-    { key: "nome", header: "Descrição", minWidth: 140, maxWidth: 260, wrap: true },
-    { key: "abrev", header: "Abrev.", minWidth: 123, maxWidth: 150 },
-    { key: "cor", header: "Côr", minWidth: 70, maxWidth: 110 },
+    { key: "nome", header: "Descrição", minWidth: 160, maxWidth: 280, wrap: true, },
+    { key: "abrev", header: "Abrev.", minWidth: 100, maxWidth: 140, },
+    { key: "cor", header: "Cor", minWidth: 80, maxWidth: 120, },
+    { key: "nivel", header: "Nível", minWidth: 60, maxWidth: 80, },
   ],
+
+  perguntas: [
+    { key: "id", header: "ID", minWidth: 40, maxWidth: 52 },
+    { key: "nome", header: "Perguntas",  minWidth: 220, maxWidth: 420, wrap: true, },
+  ],
+
+
+
 };
+
+
+
+
 
 function normalizeKey(key: string): string {
   return key.toLowerCase().trim();
