@@ -34,7 +34,7 @@ export const ContainerImgSys = styled.div`
   border: none;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: 3px 7px 3px 7px;
+  margin: -10px 7px -10px 7px;
   background: #fff;
   display: flex;
   justify-content: left;
@@ -57,7 +57,7 @@ export const ButtonPagesImgSys = styled.button<TypeButtonPagesImgSys>`
   cursor: pointer;
   outline: none;
   width: 110px;
-  height: 40px;
+  height: 50px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;

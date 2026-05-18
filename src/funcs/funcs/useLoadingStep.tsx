@@ -25,7 +25,7 @@ export function useLoadingStep() {
         const timeoutPromise = new Promise<never>((_, reject) => {
           timeoutId = setTimeout(() => {
             reject(new Error("timeout"));
-          }, 5000);
+          }, 3000);
         });
 
         const result = await Promise.race([fn(), timeoutPromise]);

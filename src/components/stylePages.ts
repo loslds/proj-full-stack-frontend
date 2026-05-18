@@ -61,8 +61,8 @@ export const ContainerFlexPg = styled.div`
 export const ContainerHearder = styled.div`
   top: 0px;
   border: 1px dashed red; 
-  padding: 0px 0px 0px 0px;
-  margin: 2px 2px 2px 2px;
+  padding: 5px 0px 5px 0px;
+  margin: 0px 2px 0px 2px;
   max-width: 100%;
   min-height: 40px;
   display: flex;
