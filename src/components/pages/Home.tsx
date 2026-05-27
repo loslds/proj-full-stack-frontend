@@ -31,7 +31,7 @@ import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
 // component ação botão Fechar Master 
 import { logoutMaster } from '../contexts/helpers/logoutMaster';
 // imgs do header
-import lg_default from '../../assets/defaut/logo/lg_def_ope_default.svg';
+import lg_def_ope_default from '../../assets/defaults/lg/lg_def_ope_default.svg';
 import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
 import btn_avatar from '../../assets/defaut/avatar/avt_def_default.svg';
 import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
@@ -236,7 +236,7 @@ React.useEffect(() => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutHome
-        imgsys={lg_default}
+        imgsys={lg_def_ope_default}
         titbtnsys="Quen Somos..."
         onclicksys={handlerCardLogo}
 

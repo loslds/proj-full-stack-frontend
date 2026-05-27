@@ -10,8 +10,8 @@ import { ContentButtonsMaster } from "./ContentButtonsMaster";
 import { ContentLabelButtomMaster } from "./ContentLabelButtomMaster";
 import { ContentButtonImgMaster } from "./ContentButtonImgMaster";
 
-import btn_enviar from "../assets/defaut/botao/btn_def_q_enviar.svg";
-import btn_voltar from "../assets/defaut/botao/btn_def_q_voltar.svg";
+import btn_def_q_enviar from '../assets/defaults/btn/btn_def_q_enviar.svg';
+import btn_def_q_voltar from '../assets/defaults/btn/btn_def_q_voltar.svg';
 
 interface PropsCardLogoffMaster {
   // ContentLogoffMaster
@@ -163,7 +163,7 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
           <ContentLabelButtomMaster>
             <label>{labelConfirm}</label>
             <ContentButtonImgMaster
-              imgbtn={btn_enviar}
+              imgbtn={btn_def_q_enviar}
               titbtn="Confirmar..."
               onClickbtn={handleConfirm}
             />
@@ -172,7 +172,7 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
           <ContentLabelButtomMaster>
             <label>{labelCancel}</label>
             <ContentButtonImgMaster
-              imgbtn={btn_voltar}
+              imgbtn={btn_def_q_voltar}
               titbtn="Cancelar..."
               onClickbtn={handleCancel}
             />

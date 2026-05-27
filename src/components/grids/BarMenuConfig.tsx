@@ -17,11 +17,11 @@ import { Dropdown, DropdownOption } from "./Dropdown";
 import { PageModal } from "../pages/PageModal";
 import { CardHlpStateContextPage } from "../../cards/CardHlpStateContextPage";
 
-import btn_qclose from "../../assets/defaut/botao/btn_def_q_close.svg";
-import pnl_config from "../../assets/defaut/painel/pnl_def_mod_config.svg";
+import btn_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
+import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_menu_off from '../../assets/defaults/btn/btn_def_q_menu_off.svg';
+import btn_def_q_menu_on from '../../assets/defaults/btn/btn_def_q_menu_on.svg';
 
-import btn_cmenuoff from "../../assets/defaut/botao/btn_def_c_menuoff.svg";
-import btn_cmenuon from "../../assets/defaut/botao/btn_def_c_menuon.svg";
 
 export type GridViewMode = "default" | "list" | "detail";
 
@@ -390,7 +390,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
     <ContentBarMainMenu>
       <ContentBarButtonMenu
         $width="50px"
-        $img={!isMenuOpen ? btn_cmenuon : btn_cmenuoff}
+        $img={!isMenuOpen ? btn_def_q_menu_on : btn_def_q_menu_off}
         titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
         onClick={handleToggleMenu}
       />
@@ -460,13 +460,13 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
           ptop="1%"
           pwidth="80%"
           pheight="95%"
-          imgbm={btn_qclose}
+          imgbm={btn_q_close}
           titbm="Fechar..."
           titulo="Conteúdo dos Payload [ state ]"
           onclose={() => setCardState(false)}
         >
           <CardHlpStateContextPage
-            imgcardpage={pnl_config}
+            imgcardpage={pnl_def_mod_config}
             onclosesair={() => setCardState(false)}
           />
         </PageModal>

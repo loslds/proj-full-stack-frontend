@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 
-import btn_def_q_semimg from '../assets/defaut/botao/btn_def_q_semimg.svg'
+import btn_def_q_default from '../assets/defaults/btn/btn_def_q_default.svg'
 
 // inicio do ContentMainSystem 
 export const ContainerMainSystem = styled.div`
@@ -166,7 +166,7 @@ export const ContainerPanelImgBetween = styled.div`
 interface PropsContainerPanellImg {
   pxheight?: string;
   pxwidth?: string;
-  img?: string;
+  $img?: string;
   onClick?: () => void;
 };
 export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
@@ -181,9 +181,9 @@ export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
   align-content: center;
   align-items: center;
   background-color: transparent;
-  background-image: url(${ (  { img } ) => img || btn_def_q_semimg});
+  background-image: url(${ (  { $img } ) => $img || btn_def_q_default});
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: content;
   background-position: center;
   cursor: pointer;
   outline: none;
@@ -314,7 +314,7 @@ export const ContainerButtonMasterImg = styled.div`
 `;
 // Botão Menu Principal
 interface PropsButtonMasterImg {
-  img?: string;
+  $img?: string;
 }
 export const ButtonMasterImg = styled.button<PropsButtonMasterImg>`
   border: none;
@@ -324,7 +324,7 @@ export const ButtonMasterImg = styled.button<PropsButtonMasterImg>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || btn_def_q_semimg});
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;

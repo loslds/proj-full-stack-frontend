@@ -32,16 +32,14 @@ import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabe
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
-// imgs do header
-import lg_login from '../../assets/defaut/logo/lg_def_ope_login.svg';
-import btn_qhelp from '../../assets/defaut/botao/btn_def_c_help.svg';
-import btn_qsair from '../../assets/defaut/botao/btn_def_c_sair.svg';
-// img do painel Bottom
-import btn_qrefrescar from '../../assets/defaut//botao/btn_def_q_refrescar.svg';
-//import btn_qenviar from '../../assets/default/button/btn_qenviar.svg';
+// imgs 
+import lg_def_ope_login from '../../assets/defaults/lg/lg_def_ope_login.svg';
+import pnl_def_ope_login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
+import btn_def_q_help from '../../assets/defaults/btn/btn_def_q_help.svg';
+import btn_def_q_sair from '../../assets/defaults/btn/btn_def_q_sair.svg';
+import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_c_refrescar.svg';
 
-// img do painel Modal       
-import btn_qclose from '../../assets/defaut//botao/btn_def_c_close.svg';
+import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
 
 
 
@@ -140,17 +138,17 @@ const Login: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutLogin
-        imgsys={lg_login}
+        imgsys={lg_def_ope_login}
         titbtnsys="Sobre Login..."
         onclicksys={handlerCardHlpLoginLogo}
 
         titlepg="Login"
 
-        imgbtnhlppg={btn_qhelp}
+        imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpLoginPage }
 
-        imgbtnaborta={btn_qsair}
+        imgbtnaborta={btn_def_q_sair}
         titbtnaborta="Abortar..."
         onclickaborta={() => goto('/') }
         
@@ -184,7 +182,7 @@ const Login: React.FC = () => {
           <ContentSidePageBottonLabel open={true} istitl={true} title={'Refrescar.: '}>
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={btn_qrefrescar}
+              img={btn_def_q_refrescar}
               titbtn={'Refrescar...'}
               onClick={() => window.location.reload()}
               onMouseEnter={() => setMsgPanelBottom('Refrescar a Page...') }
@@ -203,13 +201,13 @@ const Login: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Help Conteúdo Login.'}
             onclose={() => setCardHlpLoginPage(false)}
           >
             <CardHlpLoginPage
-              imgcardpage={lg_login}
+              imgcardpage={lg_def_ope_login}
               onclosesair={() => setCardHlpLoginPage(false)}
             />
           </PageModal>
@@ -219,13 +217,13 @@ const Login: React.FC = () => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Sintese Login...'}
             onclose={() => setCardHlpLoginLogo(false)}
           >
             <CardHlpLoginLogo
-              imgcardlogin={lg_login}
+              imgcardlogin={pnl_def_ope_login}
               onclosesair={() => setCardHlpLoginLogo(false)}
             />
           </PageModal>

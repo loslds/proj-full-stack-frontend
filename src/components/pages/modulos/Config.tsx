@@ -1,5 +1,5 @@
 
-// C:\repository\proj-full-stack-frontend\src\components\pages\modulos\Config.tsx
+
 // C:\repository\proj-full-stack-frontend\src\components\pages\modulos\Config.tsx
 
 import React from "react";
@@ -38,17 +38,16 @@ import { CardImgNeg } from "../../../cards/CardImgNeg";
 import { CardDesenvolver } from "../../../cards/CardDesenvolver";
 import CardFilterConfig from "../../../cards/CardFilterConfig";
 
-import lg_config from "../../../assets/defaut/logo/lg_def_mod_config.svg";
-import pnl_config from "../../../assets/defaut/painel/pnl_def_mod_config.svg";
-import btn_chelp from "../../../assets/defaut/botao/btn_def_c_help.svg";
-import btn_csair from "../../../assets/defaut/botao/btn_def_c_sair.svg";
-import btn_chksys from "../../../assets/defaut/botao/btn_def_mod_c_config.svg";
-import btn_master from "../../../assets/defaut/botao/bnt_def_q_master.svg";
-import pnl_master from "../../../assets/defaut/painel/pnl_def_ope_esclamacao.svg";
-
-import btn_qrefrescar from "../../../assets/defaut/botao/btn_def_q_refrescar.svg";
-import btn_qclose from "../../../assets/defaut/botao/btn_def_q_close.svg";
-import pnl_negado from "../../../assets/defaut/painel/pnl_def_ope_negacao.svg";
+import lg_def_mod_config from "../../../assets/defaults/lg/lg_def_mod_config.svg";
+import pnl_def_mod_config from '../../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_help from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import btn_def_q_sair from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import btn_def_q_chvkey from '../../../assets/defaults/btn/btn_def_c_chvkey.svg';
+import bnt_def_q_master from "../../../assets/defaults/btn/btn_def_q_master.svg";
+import pnl_def_ope_esclamacao from '../../../assets/defaults/pnl/pnl_def_ope_esclamacao.svg';
+import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
+import btn_def_q_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import pnl_def_ope_negado from "../../../assets/defaults/pnl/pnl_def_ope_negacao.svg";
 
 type GridRow = Record<string, unknown>;
 
@@ -420,24 +419,24 @@ const Config: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutConfig
-        imgsys={lg_config}
+        imgsys={lg_def_mod_config}
         titbtnsys="Modulo Config..."
         onclicksys={() => {}}
         titlepg="Config."
         mston={state.ismaster}
         pxheigth="20px"
         strcor={state.ismaster ? "#008000" : "transparent"}
-        imgbtnhlppg={btn_chelp}
+        imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
-        imgbtnaborta={btn_csair}
+        imgbtnaborta={btn_def_q_sair}
         titbtnaborta="Fechar..."
         onclickaborta={() => goto("/")}
-        imgbtnchk={btn_chksys}
+        imgbtnchk={btn_def_q_chvkey}
         titbtnchk="Checar Systema..."
         onclickchk={handlerCardChkSistema}
         mstonoff={chavemst}
-        imgbtnmst={btn_master}
+        imgbtnmst={bnt_def_q_master}
         titbtnmst="Segurança..."
         onclickmst={() => {
           if (state.chvkey) {
@@ -488,7 +487,7 @@ const Config: React.FC = () => {
             >
               <ContentSidePageBottonButton
                 pxheight="40px"
-                img={btn_qrefrescar}
+                img={btn_def_q_refrescar}
                 titbtn="Refrescar..."
                 onClick={() => void handleRefresh()}
                 onMouseEnter={() =>
@@ -522,7 +521,7 @@ const Config: React.FC = () => {
               ptop="1%"
               pwidth="95%"
               pheight="95%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo={`Tabela: ${tableName} | Modo: ${gridMode}`}
               onclose={() => setIsGridModalOpen(false)}
@@ -536,13 +535,13 @@ const Config: React.FC = () => {
               ptop="1%"
               pwidth="80%"
               pheight="95%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Checagem do Sistema."
               onclose={() => setChkSistema(false)}
             >
               <CardDesenvolver
-                imgcarddes={pnl_config}
+                imgcarddes={pnl_def_mod_config}
                 onclosesair={() => setChkSistema(false)}
               />
             </PageModal>
@@ -553,13 +552,13 @@ const Config: React.FC = () => {
               ptop="1%"
               pwidth="80%"
               pheight="95%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Help Conteúdo Config."
               onclose={() => setCardHlpPage(false)}
             >
               <CardHlpConfigPage
-                imgcardpage={pnl_config}
+                imgcardpage={pnl_def_mod_config}
                 onclosesair={() => setCardHlpPage(false)}
               />
             </PageModal>
@@ -570,13 +569,13 @@ const Config: React.FC = () => {
               ptop="10%"
               pwidth="70%"
               pheight="50%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Acesso Negado"
               onclose={() => setNotOperation(false)}
             >
               <CardImgNeg
-                imgcard={pnl_negado}
+                imgcard={pnl_def_ope_negado}
                 pminheight="120px"
                 pwidth="120px"
                 onclickimg={() => setNotOperation(false)}
@@ -595,7 +594,7 @@ const Config: React.FC = () => {
               ptop="330px"
               pwidth="400px"
               pheight="40%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Abortar Master."
               onclose={() => setIsMsgChvkey(false)}
@@ -605,7 +604,7 @@ const Config: React.FC = () => {
                 bordas="4px"
                 pxheight="57px"
                 pxwidth="65px"
-                imgpnl={pnl_master}
+                imgpnl={pnl_def_ope_esclamacao}
                 onclickpnl={() => {}}
                 open={true}
                 titulo="Acesso Logoff."
@@ -629,7 +628,7 @@ const Config: React.FC = () => {
               // ptop="5%"
               // pwidth="65%"
               // pheight="70%"
-              imgbm={btn_qclose}
+              imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Filtro de Visualização"
               onclose={() => {
