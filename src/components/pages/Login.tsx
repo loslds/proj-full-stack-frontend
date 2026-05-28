@@ -33,13 +33,13 @@ import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonBut
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
 // imgs 
-import lg_def_ope_login from '../../assets/defaults/lg/lg_def_ope_login.svg';
-import pnl_def_ope_login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
-import btn_def_q_help from '../../assets/defaults/btn/btn_def_q_help.svg';
-import btn_def_q_sair from '../../assets/defaults/btn/btn_def_q_sair.svg';
-import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_c_refrescar.svg';
+import lg_def_ope_login from '../../assets/defauts/lg/lg_def_ope_login.svg';
+import pnl_def_ope_login from '../../assets/defauts/pnl/pnl_def_ope_login.svg';
+import btn_def_q_help from '../../assets/defauts/btn/btn_def_q_help.svg';
+import btn_def_q_sair from '../../assets/defauts/btn/btn_def_q_sair.svg';
+import btn_def_q_refrescar from '../../assets/defauts/btn/btn_def_c_refrescar.svg';
 
-import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
+import btn_def_q_close from '../../assets/defauts/btn/btn_def_q_close.svg';
 
 
 

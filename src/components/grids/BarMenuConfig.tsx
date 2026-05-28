@@ -17,11 +17,10 @@ import { Dropdown, DropdownOption } from "./Dropdown";
 import { PageModal } from "../pages/PageModal";
 import { CardHlpStateContextPage } from "../../cards/CardHlpStateContextPage";
 
-import btn_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
-import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
-import btn_def_q_menu_off from '../../assets/defaults/btn/btn_def_q_menu_off.svg';
-import btn_def_q_menu_on from '../../assets/defaults/btn/btn_def_q_menu_on.svg';
-
+import btn_q_close from '../../assets/defauts/btn/btn_def_q_close.svg';
+import pnl_def_mod_config from '../../assets/defauts/pnl/pnl_def_mod_config.svg';
+import btn_def_q_menu_off from '../../assets/defauts/btn/btn_def_q_menu_off.svg';
+import btn_def_q_menu_on from '../../assets/defauts/btn/btn_def_q_menu_on.svg';
 
 export type GridViewMode = "default" | "list" | "detail";
 

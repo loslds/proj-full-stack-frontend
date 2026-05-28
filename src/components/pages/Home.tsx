@@ -22,36 +22,36 @@ import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotto
 import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
-// component ação botão help 
+/** component ação botão help */
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
-// component ação botão Fechar Master 
+/** component ação botão Fechar Master */ 
 import { logoutMaster } from '../contexts/helpers/logoutMaster';
-// imgs do header
-import lg_def_ope_default from '../../assets/defaults/lg/lg_def_ope_default.svg';
-import btn_chelp from '../../assets/defaut/botao/btn_def_c_help.svg';
-import btn_avatar from '../../assets/defaut/avatar/avt_def_default.svg';
-import btn_resgatar from '../../assets/defaut/botao/btn_def_c_resgatar.svg';
-import btn_master from '../../assets/defaut/botao/bnt_def_q_master.svg';
-import pnl_master from '../../assets/defaut/painel/pnl_def_ope_esclamacao.svg'
-// img do main painel
-import pnl_mvisitante from '../../assets/defaut/painel/pnl_def_mod_visitantes.svg';
-import pnl_mrecepcao from '../../assets/defaut/painel/pnl_def_mod_recepcao.svg';
-import pnl_mdesign from '../../assets/defaut/painel/pnl_def_mod_design.svg';
-import pnl_mproducao from '../../assets/defaut/painel/pnl_def_mod_producao.svg';
-import pnl_macabamento from '../../assets/defaut/painel/pnl_def_mod_acabamento.svg';
-import pnl_mexpedicao from '../../assets/defaut/painel/pnl_def_mod_expedicao.svg';
-import pnl_madministracao from '../../assets/defaut/painel/pnl_def_mod_administracao.svg';
-import pnl_mconfig from '../../assets/defaut/painel/pnl_def_mod_config.svg';
-// img do painel Bottom
-import btn_qrefrescar from '../../assets/defaut/botao/btn_def_q_refrescar.svg';
-// img do modal
-import btn_qclose from '../../assets/defaut/botao/btn_def_q_close.svg';
-import pnl_negado from '../../assets/defaut/painel/pnl_def_ope_negacao.svg';
-////////////////////////////////////////////
+/** imgs do header */ 
+import lg_def_ope_defaut from '../../assets/defauts/lg/lg_def_ope_defaut.svg';
+import btn_def_q_help from '../../assets/defauts/btn/btn_def_q_help.svg';
+import btn_def_q_avatar from '../../assets/defauts/btn/btn_def_q_avatar.svg';
+import btn_def_q_resgatar from '../../assets/defauts/btn/btn_def_q_refrescar.svg';
+import btn_def_q_master from '../../assets/defauts/btn/btn_def_q_master.svg';
+import pnl_def_ope_master from '../../assets/defauts/pnl/pnl_def_ope_master.svg'
+/** img do main painel */ 
+import pnl_def_mod_visitante from '../../assets/defauts/pnl/pnl_def_mod_visitantes.svg';
+import pnl_def_mod_recepcao from '../../assets/defauts/pnl/pnl_def_mod_recepcao.svg';
+import pnl_def_mod_design from '../../assets/defauts/pnl/pnl_def_mod_design.svg';
+import pnl_def_mod_producao from '../../assets/defauts/pnl/pnl_def_mod_producao.svg';
+import pnl_def_mod_acabamento from '../../assets/defauts/pnl/pnl_def_mod_acabamento.svg';
+import pnl_def_mod_expedicao from '../../assets/defauts/pnl/pnl_def_mod_expedicao.svg';
+import pnl_def_mod_administracao from '../../assets/defauts/pnl/pnl_def_mod_administracao.svg';
+import pnl_def_mod_config from '../../assets/defauts/pnl/pnl_def_mod_config.svg';
+/** img do painel Bottom */ 
+import btn_def_q_refrescar from '../../assets/defauts/btn/btn_def_q_refrescar.svg';
+/**img do modal */ 
+import btn_def_q_close from '../../assets/defauts/btn/btn_def_c_close.svg';
+import pnl_def_ope_negado from '../../assets/defauts/pnl/pnl_def_ope_negacao.svg';
+
 import { SystemHealthResult } from '../../types/SystemHealth';
 
 
@@ -236,17 +236,17 @@ React.useEffect(() => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutHome
-        imgsys={lg_def_ope_default}
+        imgsys={lg_def_ope_defaut}
         titbtnsys="Quen Somos..."
         onclicksys={handlerCardLogo}
 
         titlepg="Home"
 
-        imgbtnhlppg={btn_chelp}
+        imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
 
-        imgbtnlogin={btn_avatar}
+        imgbtnlogin={btn_def_q_avatar}
         titbtnlogin="Login..."
         onclicklogin={() => {
           if (state.chkdb) {
@@ -257,7 +257,7 @@ React.useEffect(() => {
           }
         }}
         
-        imgbtnresg={btn_resgatar}
+        imgbtnresg={btn_def_q_resgatar}
         titbtnresg="Resgatar Acesso..."
         onclickresg={() => {
           if (state.chkdb) {
@@ -269,7 +269,7 @@ React.useEffect(() => {
         }}
 
         mstonoff={chavemst}
-        imgbtnmst={btn_master}
+        imgbtnmst={btn_def_q_master}
         titbtnmst="Segurança..."
         onclickmst={() => {
           if (state.chvkey) {
@@ -290,7 +290,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mvisitante}
+            imgbtn={pnl_def_mod_visitante}
             titlebtn={'Modulo Visitantes..'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -312,7 +312,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mrecepcao}
+            imgbtn={pnl_def_mod_recepcao}
             titlebtn={'Modulo Recepção...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -334,7 +334,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mdesign}
+            imgbtn={pnl_def_mod_design}
             titlebtn={'Modulo Design...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -356,7 +356,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mproducao}
+            imgbtn={pnl_def_mod_producao}
             titlebtn={'Modulo Produção...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -378,7 +378,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_macabamento}
+            imgbtn={pnl_def_mod_acabamento}
             titlebtn={'Modulo Acabamento...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -400,7 +400,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mexpedicao}
+            imgbtn={pnl_def_mod_expedicao}
             titlebtn={'Modulo Expedição...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -422,7 +422,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_madministracao}
+            imgbtn={pnl_def_mod_administracao}
             titlebtn={'Modulo Administração...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -444,7 +444,7 @@ React.useEffect(() => {
             pxheight={'100px'}
             pheight={'100px'}
             pwidth={'100px'}
-            imgbtn={pnl_mconfig}
+            imgbtn={pnl_def_mod_config}
             titlebtn={'Cadastros Config...'}
             onclick={() => {
               if ( (state.chvkey && state.auth_admin !== '') || 
@@ -491,7 +491,7 @@ React.useEffect(() => {
             {/* Mostra, ação botão a esquerda do Panel */}
             <ContentSidePageBottonButton
               pxheight={'40px'}
-              img={btn_qrefrescar}
+              img={btn_def_q_refrescar}
               titbtn={'Refrescar...'}
               // onClick={() => window.location.reload()}
               onClick={() => goto('/')}
@@ -507,13 +507,13 @@ React.useEffect(() => {
             ptop={'1%'}
             pwidth={'30%'}
             pheight={'35%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm={"Fechar..."}
             titulo={'Acesso Negado.'}
             onclose={() => setCardNegadoPage(false)}
           >
             <CardImgNeg
-              imgcard={pnl_negado}
+              imgcard={pnl_def_ope_negado}
               pminheight={'100px'}
               pwidth={'100px'}
               onclickimg={() => setCardNegadoPage(false)}
@@ -526,12 +526,12 @@ React.useEffect(() => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}
           >
-            <CardHlpHomeLogo imghlplogo={lg_default} onclosesair={() => setCardLogo(false)} /> 
+            <CardHlpHomeLogo imghlplogo={lg_def_ope_defaut} onclosesair={() => setCardLogo(false)} /> 
           </PageModal>
         ) : null}
         {/* Abre Modal help ao clicar no Botão Help da Pagina */ }
@@ -540,13 +540,13 @@ React.useEffect(() => {
             ptop={'1%'}
             pwidth={'80%'}
             pheight={'95%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}
           >
             <CardHlpHomePage 
-              imgcardpage={lg_default} 
+              imgcardpage={lg_def_ope_defaut} 
               onclosesair={() => setCardHlpPage(false)} 
             />
           </PageModal>
@@ -557,7 +557,7 @@ React.useEffect(() => {
             ptop={'45%'}
             pwidth={'50%'}
             pheight={'50%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Verificação do Sistema'}
             onclose={() => setShowSystemCheckModal(false)}
@@ -578,13 +578,13 @@ React.useEffect(() => {
             ptop={'10%'}
             pwidth={'50%'}
             pheight={'50%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Verificação do Sistema'}
             onclose={() => setInitShowSystem(false)}
           >
             <CardImgNeg
-              imgcard={pnl_negado}
+              imgcard={pnl_def_ope_negado}
               pminheight={'120px'}
               pwidth={'120px'}
               onclickimg={() => setInitShowSystem(false)}
@@ -603,13 +603,13 @@ React.useEffect(() => {
             ptop={'10%'}
             pwidth={'70%'}
             pheight={'50%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Acesso Negado'}
             onclose={() => setNotOperation(false)}
           >
             <CardImgNeg
-              imgcard={pnl_negado}
+              imgcard={pnl_def_ope_negado}
               pminheight={'120px'}
               pwidth={'120px'}
               onclickimg={() => setNotOperation(false)}
@@ -628,7 +628,7 @@ React.useEffect(() => {
             ptop='330px'
             pwidth={'400px'}
             pheight={'40%'}
-            imgbm={btn_qclose}
+            imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Abortar Master.'}
             onclose={() => setIsMsgChvkey(false)}
@@ -638,7 +638,7 @@ React.useEffect(() => {
               bordas="4px"
               pxheight="57px"
               pxwidth="65px"
-              imgpnl={pnl_master}
+              imgpnl={pnl_def_ope_master}
               onclickpnl={() => {}}
               open={true}
               titulo={"Acesso Logo-off."}

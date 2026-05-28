@@ -10,8 +10,8 @@ import { ContentButtonsMaster } from "./ContentButtonsMaster";
 import { ContentLabelButtomMaster } from "./ContentLabelButtomMaster";
 import { ContentButtonImgMaster } from "./ContentButtonImgMaster";
 
-import btn_def_q_enviar from '../assets/defaults/btn/btn_def_q_enviar.svg';
-import btn_def_q_voltar from '../assets/defaults/btn/btn_def_q_voltar.svg';
+import btn_def_q_enviar from '../assets/defauts/btn/btn_def_q_enviar.svg';
+import btn_def_q_voltar from '../assets/defauts/btn/btn_def_q_voltar.svg';
 
 interface PropsCardLogoffMaster {
   // ContentLogoffMaster
