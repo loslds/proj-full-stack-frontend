@@ -26,7 +26,7 @@ export const CardHlpFooter1 = ({
       </p>
       <ContentHeaderButtonHelp
         imgbtnhlp={bt_abortar}
-        titbtnhlp={'FECHAR...'}
+        titbtnhlp={'Fechar...'}
         onClickhlp={onclosesair}
       />
       {children}

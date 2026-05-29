@@ -2,6 +2,8 @@
 //C:\repository\proj-full-stack-frontend\src\cards\CardImgNeg.tsx
 import * as MD from '../modal/stylesModal';
 import { CardModalTexto } from '../modal/CardModalTexto';
+import { ContentSysMainItens } from './ContentSysMainItens';
+
 //import negado from '../../assets/svgs/negado.svg';
 
 interface PropsCardImgNeg {
@@ -28,9 +30,12 @@ export const CardImgNeg = ({
           onClick={onclickimg}
         />
       </MD.ContainerHeardModalMain>
-      <label>Acesso NEGADO.</label>
-      <p>{'No momento seus requisitos não estão habilitados.'}</p>
-      <br />
+      <ContentSysMainItens>
+        <form>
+          <p> ⛔ ACESSO NEGADO..</p>
+          <p>'No momento seus requisitos não estão habilitados.'</p>
+        </form>
+      </ContentSysMainItens>
     </CardModalTexto>
   );
 };

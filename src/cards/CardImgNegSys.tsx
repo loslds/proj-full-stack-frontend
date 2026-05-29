@@ -1,6 +1,7 @@
 import * as MD from '../modal/stylesModal';
 
 import { ContentModaErroSys } from '../modal/ContentModaErroSys';
+import { ContentSysMainItens } from './ContentSysMainItens';
 import { ContentModalbetween } from '../modal/ContentModalbetween';
 //import negado from '../../assets/svgs/negado.svg';
 
@@ -35,13 +36,13 @@ export const CardImgNegSys = ({
           img={imgcard}
           onClick={onclick}
         />
+        <ContentSysMainItens>
+          <br />
+          <h1>{txtH1}</h1>
+          <label>{txtlabel}</label>
+          <p>{txtp}</p>  
         <br />
-
-        <h1>{txtH1}</h1>
-        <label>{txtlabel}</label>
-        <p>{txtp}</p>  
-        
-        <br />
+        </ContentSysMainItens>
       </ContentModalbetween>
     </ContentModaErroSys>
   );

@@ -84,7 +84,7 @@ export const ContainerBarMainFlex = styled.div`
 // Botão MENU Principal 
 // ContainerButtonMenu e ButtonBarImg =>> ContentBarButtonMenu  //
 export const ContainerButtonMenu = styled.div<{ $width?: string }>`
-  border: 3px;
+  border: 1px;
   border-style: double;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
@@ -104,7 +104,7 @@ export const ContainerButtonMenu = styled.div<{ $width?: string }>`
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  align-content: flex-start;
+  align-content: center; /**flex-start;*/
 
   &:hover {
     border-color: red;
@@ -116,8 +116,8 @@ export const ContainerButtonMenu = styled.div<{ $width?: string }>`
 export const ButtonBarImg = styled.button<{ $img?: string }>`
   border: none;
   margin: 3px 5px 3px 5px;
-  min-height: 40px;
-  min-width: 40px;
+  min-height: 45px;
+  min-width: 45px;
   
   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
   font-size: 12px;

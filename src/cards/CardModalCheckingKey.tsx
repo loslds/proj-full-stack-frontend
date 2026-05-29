@@ -12,7 +12,7 @@ import * as Sy from "./stylesSystem";
 import { ContentSysMainItens } from "./ContentSysMainItens";
 import { CardHlpFooter1 } from "./CardHlpFooter1";
 
-import bt_close from "../assets/svgs/bt_close.svg";
+import btn_def_q_close from "../assets/defauts/btn/btn_def_q_close.svg";
 
 interface PropsModalCardCheckingKey {
   ptop?: string;
@@ -95,7 +95,7 @@ export const CardModalCheckingKey: React.FC<PropsModalCardCheckingKey> = ({
       <ContentModal ptop={ptop} pwidth={pwidth} pheight={pheight}>
         <CardModal>
           <TitleModal titulo={titulo} />
-          <CardButtonModal imgbm={bt_close} titbm="Fechar..." onClick={onClose} />
+          <CardButtonModal imgbm={btn_def_q_close} titbm="Fechar..." onClick={onClose} />
         </CardModal>
 
         <ContentSysMainItens>

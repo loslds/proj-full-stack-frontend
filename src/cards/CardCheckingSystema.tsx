@@ -64,9 +64,11 @@ export const CardCheckingSystema: React.FC<PropsCardCheckingSystema> = ({
               : "Para sair, aguarde a conclusão da verificação..."
           }  
         />
-        <Sy.DivStatus>
+        {systemOk === null && (
+         <Sy.DivStatus>
           ⚠️ Para sair, aguarde a conclusão da verificação..
-        </Sy.DivStatus>
+        </Sy.DivStatus> 
+        )}
       </ContentSysMainItens>
     </ThemeProvider>
   );

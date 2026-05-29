@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import semimg from '../assets/svgs/semimg.svg';
+import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 
 // export const ContainerCardPage = styled.div`
 //   border: none;
@@ -395,7 +395,7 @@ export const ButtonOnOffImg = styled.button<ButtonOnOffImgType>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ img }) => img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

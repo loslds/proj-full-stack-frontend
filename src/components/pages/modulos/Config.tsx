@@ -42,7 +42,7 @@ import lg_def_mod_config from "../../../assets/defauts/lg/lg_def_mod_config.svg"
 import pnl_def_mod_config from '../../../assets/defauts/pnl/pnl_def_mod_config.svg';
 import btn_def_q_help from "../../../assets/defauts/btn/btn_def_q_help.svg";
 import btn_def_q_sair from "../../../assets/defauts/btn/btn_def_q_sair.svg";
-import btn_def_q_chvkey from '../../../assets/defauts/btn/btn_def_c_chvkey.svg';
+import btn_def_q_chvkey from '../../../assets/defauts/btn/btn_def_q_chvkey.svg';
 import bnt_def_q_master from "../../../assets/defauts/btn/btn_def_q_master.svg";
 import pnl_def_ope_esclamacao from '../../../assets/defauts/pnl/pnl_def_ope_esclamacao.svg';
 import btn_def_q_refrescar from '../../../assets/defauts/btn/btn_def_q_refrescar.svg';

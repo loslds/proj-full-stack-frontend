@@ -17,6 +17,7 @@ import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
 // bottom page
 import { PageModal } from './PageModal';
+import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
 import { AutoCloseTimer } from '../AutoCloseTimer';
 import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
@@ -33,8 +34,8 @@ import { logoutMaster } from '../contexts/helpers/logoutMaster';
 /** imgs do header */ 
 import lg_def_ope_defaut from '../../assets/defauts/lg/lg_def_ope_defaut.svg';
 import btn_def_q_help from '../../assets/defauts/btn/btn_def_q_help.svg';
-import btn_def_q_avatar from '../../assets/defauts/btn/btn_def_q_avatar.svg';
-import btn_def_q_resgatar from '../../assets/defauts/btn/btn_def_q_refrescar.svg';
+import btn_def_q_ope_login from '../../assets/defauts/btn/btn_def_ope_q_login.svg';
+import btn_def_q_resgatar from '../../assets/defauts/btn/btn_def_q_resgatar.svg';
 import btn_def_q_master from '../../assets/defauts/btn/btn_def_q_master.svg';
 import pnl_def_ope_master from '../../assets/defauts/pnl/pnl_def_ope_master.svg'
 /** img do main painel */ 
@@ -49,7 +50,7 @@ import pnl_def_mod_config from '../../assets/defauts/pnl/pnl_def_mod_config.svg'
 /** img do painel Bottom */ 
 import btn_def_q_refrescar from '../../assets/defauts/btn/btn_def_q_refrescar.svg';
 /**img do modal */ 
-import btn_def_q_close from '../../assets/defauts/btn/btn_def_c_close.svg';
+import btn_def_q_close from '../../assets/defauts/btn/btn_def_q_close.svg';
 import pnl_def_ope_negado from '../../assets/defauts/pnl/pnl_def_ope_negacao.svg';
 
 import { SystemHealthResult } from '../../types/SystemHealth';
@@ -246,7 +247,7 @@ React.useEffect(() => {
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
 
-        imgbtnlogin={btn_def_q_avatar}
+        imgbtnlogin={btn_def_q_ope_login}
         titbtnlogin="Login..."
         onclicklogin={() => {
           if (state.chkdb) {
@@ -559,7 +560,7 @@ React.useEffect(() => {
             pheight={'50%'}
             imgbm={btn_def_q_close}
             titbm="Fechar..."
-            titulo={'Verificação do Sistema'}
+            titulo={'Verificação de Checagem do Sistema'}
             onclose={() => setShowSystemCheckModal(false)}
           >
             <CardCheckingSystema
@@ -580,20 +581,22 @@ React.useEffect(() => {
             pheight={'50%'}
             imgbm={btn_def_q_close}
             titbm="Fechar..."
-            titulo={'Verificação do Sistema'}
+            titulo={'Show Verificação do Sistema'}
             onclose={() => setInitShowSystem(false)}
           >
             <CardImgNeg
               imgcard={pnl_def_ope_negado}
-              pminheight={'120px'}
-              pwidth={'120px'}
+              pminheight={'100px'}
+              pwidth={'100px'}
               onclickimg={() => setInitShowSystem(false)}
             />
-            <form>
-              <p>O sistema não pode ser iniciado.</p>
-              <br />
-              <p>Entre em contato com suporte.</p>
-            </form>
+            <ContentSysMainItens>
+              <form>
+                <p> ⛔ O SISTEMA NÃO PODE SER INICIADO.</p>
+                {/* <br />
+                <p>Entre em contato com suporte.</p> */}
+              </form>
+            </ContentSysMainItens>
             <AutoCloseTimer onClose={() => setInitShowSystem(false)} seconds={10} />
           </PageModal>
         ) : null}
@@ -601,7 +604,7 @@ React.useEffect(() => {
         {notOperation ? (
           <PageModal
             ptop={'10%'}
-            pwidth={'70%'}
+            pwidth={'50%'}
             pheight={'50%'}
             imgbm={btn_def_q_close}
             titbm="Fechar..."
@@ -614,11 +617,13 @@ React.useEffect(() => {
               pwidth={'120px'}
               onclickimg={() => setNotOperation(false)}
             />
+            <ContentSysMainItens>
             <form>
-              <p> '⛔ ACESSO SISTEMA INOPERANTE.'</p>
-              <br />
-              <p> Entre em contato com suporte. </p>
-            </form>
+                <p> '⛔ ACESSO SISTEMA INOPERANTE.'</p>
+                <br />
+                <p> Entre em contato com suporte. </p>
+              </form>
+            </ContentSysMainItens>
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}

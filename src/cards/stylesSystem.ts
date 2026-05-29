@@ -69,7 +69,7 @@ export const ContainerHeaderFilter = styled.div`
 export const ContainerSysMainItens = styled.div`
   border: none;
   padding: 0px 0px 0px 0px;
-  margin: 5px 0px 5px 0px;
+  margin: 5px 10px 5px 10px;
   width: '100%';
   display: flex;
   flex-flow: column;
@@ -89,6 +89,7 @@ interface PropsDivStatus {
 }
 export const DivStatus = styled.div<PropsDivStatus>`
   margin-top: 12px;
+  margin-right: 50px;
   font-weight: bold;
   color: ${({ $success }) => ($success ? 'green' : 'red')};
 `;
