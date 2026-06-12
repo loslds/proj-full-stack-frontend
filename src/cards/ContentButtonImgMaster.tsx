@@ -3,7 +3,7 @@
 import * as Sy from './stylesSystem';
 
 interface PropsContentButtonImgMaster {
-  imgbtn?: string;
+  $imgbtn?: string;
   titbtn?: string;
   onClickbtn?: React.MouseEventHandler<HTMLButtonElement>;
   onMouseEnterbtn?: React.MouseEventHandler<HTMLButtonElement>;
@@ -11,7 +11,7 @@ interface PropsContentButtonImgMaster {
 };
 export const ContentButtonImgMaster = ({
   titbtn,
-  imgbtn,
+  $imgbtn,
   onClickbtn,
   onMouseEnterbtn,
   onMouseLeavebtn
@@ -19,7 +19,7 @@ export const ContentButtonImgMaster = ({
   return (
     <Sy.ContainerButtonMasterImg>
       <Sy.ButtonMasterImg 
-        img={imgbtn} 
+        $img={$imgbtn} 
         title={titbtn} 
         onClick={onClickbtn} 
         onMouseEnter={onMouseEnterbtn}

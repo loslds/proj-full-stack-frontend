@@ -104,7 +104,7 @@ export const CardModalCheckingKey: React.FC<PropsModalCardCheckingKey> = ({
           ))}
 
           {systemOk === true && (
-            <Sy.DivStatus success={true}>✅ Sistema pronto, checado...</Sy.DivStatus>
+            <Sy.DivStatus $success={true}>✅ Sistema pronto, checado...</Sy.DivStatus>
           )}
 
           {systemOk === false && (
