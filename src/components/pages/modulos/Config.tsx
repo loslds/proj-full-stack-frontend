@@ -38,16 +38,16 @@ import { CardImgNeg } from "../../../cards/CardImgNeg";
 import { CardDesenvolver } from "../../../cards/CardDesenvolver";
 import CardFilterConfig from "../../../cards/CardFilterConfig";
 
-import lg_def_mod_config from "../../../assets/defauts/lg/lg_def_mod_config.svg";
-import pnl_def_mod_config from '../../../assets/defauts/pnl/pnl_def_mod_config.svg';
-import btn_def_q_help from "../../../assets/defauts/btn/btn_def_q_help.svg";
-import btn_def_q_sair from "../../../assets/defauts/btn/btn_def_q_sair.svg";
-import btn_def_q_chvkey from '../../../assets/defauts/btn/btn_def_q_chvkey.svg';
-import bnt_def_q_master from "../../../assets/defauts/btn/btn_def_q_master.svg";
-import pnl_def_ope_esclamacao from '../../../assets/defauts/pnl/pnl_def_ope_esclamacao.svg';
-import btn_def_q_refrescar from '../../../assets/defauts/btn/btn_def_q_refrescar.svg';
-import btn_def_q_close from "../../../assets/defauts/btn/btn_def_q_close.svg";
-import pnl_def_ope_negado from "../../../assets/defauts/pnl/pnl_def_ope_negacao.svg";
+import lg_def_mod_config from "../../../assets/defaults/lg/lg_def_mod_config.svg";
+import pnl_def_mod_config from '../../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_help from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import btn_def_q_sair from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import btn_def_q_chvkey from '../../../assets/defaults/btn/btn_def_q_chvkey.svg';
+import bnt_def_q_master from "../../../assets/defaults/btn/btn_def_q_master.svg";
+import pnl_def_ope_esclamacao from '../../../assets/defaults/pnl/pnl_def_ope_esclamacao.svg';
+import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
+import btn_def_q_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import pnl_def_ope_negacao from "../../../assets/defaults/pnl/pnl_def_ope_negacao.svg";
 
 type GridRow = Record<string, unknown>;
 
@@ -575,7 +575,7 @@ const Config: React.FC = () => {
               onclose={() => setNotOperation(false)}
             >
               <CardImgNeg
-                imgcard={pnl_def_ope_negado}
+                imgcard={pnl_def_ope_negacao}
                 pminheight="120px"
                 pwidth="120px"
                 onclickimg={() => setNotOperation(false)}

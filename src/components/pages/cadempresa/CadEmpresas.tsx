@@ -13,7 +13,7 @@ import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
 import { ContentCardPage } from "../../ContentCardPage";
-import  BarMenuEmpresas  from "../../sidebar/BarMenuEmpresas";
+//import  BarMenuEmpresas  from "../../sidebar/BarMenuEmpresas";
 import  FormIncEmpresas from './FormIncEmpresas';
 import  FormAltEmpresas from './FormAltEmpresas';
 import  FormExcEmpresas from './FormExcEmpresas';
@@ -42,11 +42,11 @@ const CadEmpresas: React.FC = () => {
     };
   };
 
-  const [activepage, setActivePage] = React.useState<string | null>(null);
+  // const [activepage, setActivePage] = React.useState<string | null>(null);
 
-  React.useEffect(() => {
-    console.log("Página ativa:", activepage);
-  }, [activepage]);
+  // React.useEffect(() => {
+  //   console.log("Página ativa:", activepage);
+  // }, [activepage]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -65,16 +65,17 @@ const CadEmpresas: React.FC = () => {
         ischeck={ischeck}
       >
         <ContentCardPage pwidth={'100%'}>
-          <BarMenuEmpresas setActiveComponent={setActivePage}/>
+          menu empresa
+          {/* <BarMenuEmpresas setActiveComponent={setActivePage}/> */}
         </ContentCardPage>
         <Pg.DivisionPgHztal />
-
-        {activepage === "formINCEmpresas" && <FormIncEmpresas />}
+{/* 
+        {activepage === "formINCEmpresas" && <FormIncEmpresas />
         {activepage === "formALTEmpresas" && <FormAltEmpresas />}
         {activepage === "formEXCEmpresas" && <FormExcEmpresas />}
         {activepage === "formLISTEmpresas" && <FormListEmpresas />}
         {activepage === "formPESQEmpresas" && <FormPesqEmpresas />}
-
+ */}
       </LayoutEmpresas>
     </ThemeProvider>
   );

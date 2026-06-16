@@ -89,14 +89,6 @@ export function FormatCell(fonec: string): boolean {
   return cellRegex.test(cleaned);
 }
 
-
-
-
-
-
-
-
-
 // validar Documento CPF
 export function ValidarCpf(cpf: string): boolean {
   // normaliza nr cell dos espaços em branco
@@ -245,12 +237,7 @@ export function ValidarNumber(str: string): boolean {
 }
 
 /////////////////////////////////////////////////////////////
-// validar Documento CPF
-export function ValidarCpf(cpf: string): boolean {
-  const cleaned = cpf.replace(/\D/g, '');
-  const cpfRegex = /^(\d{3})(\d{3})(\d{3})(\d{2})$/;
-  return cpfRegex.test(cleaned);
-}
+
 
 // se Numero cpf existe conforme verificador
 export function isExistsCPF(cpf: string): boolean {

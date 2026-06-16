@@ -11,16 +11,13 @@ import { ContentDropdownMenu } from "../sidebar/ContentBarDropdownMenu";
 import { ContentBarButtonGreenMenu } from "../sidebar/ContentBarButtonGreenMenu";
 import { ContentBarButtonRedMenu } from "../sidebar/ContentBarButtonRedMenu";
 import { ContentBarButtonYelowMenu } from "../sidebar/ContentBarButtonYelowMenu";
-
 import { Dropdown, DropdownOption } from "./Dropdown";
-
 import { PageModal } from "../pages/PageModal";
 import { CardHlpStateContextPage } from "../../cards/CardHlpStateContextPage";
-
-import btn_def_q_close from '../../assets/defauts/btn/btn_def_q_close.svg';
-import pnl_def_mod_config from '../../assets/defauts/pnl/pnl_def_mod_config.svg';
-import btn_def_q_menuoff from '../../assets/defauts/btn/btn_def_q_menuoff.svg';
-import btn_def_q_menuon from '../../assets/defauts/btn/btn_def_q_menuon.svg';
+import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
+import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_menuoff from '../../assets/defaults/btn/btn_def_q_menuoff.svg';
+import btn_def_q_menuon from '../../assets/defaults/btn/btn_def_q_menuon.svg';
 
 export type GridViewMode = "default" | "list" | "detail";
 

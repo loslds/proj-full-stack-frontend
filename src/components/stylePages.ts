@@ -1057,13 +1057,14 @@ export const ContainerCardPageLabel = styled.div`
 `;
 
 export const ContainerCardPrintLabel = styled.div`
-  border: 1px solid red;
+  border: 1px 
+  border-style:solid;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   border-radius: 8px;
   background-color:rgb(214, 214, 214);
-  min-height: 30px;
+  min-height: 25px;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -1072,8 +1073,29 @@ export const ContainerCardPrintLabel = styled.div`
   align-items: center;
   align-content: center;
 `;
+
+export const ContainerCardPrintText = styled.div`
+  border: 1px;
+  border-style:solid;
+  border-color: ${props => props.theme.colors.textColor};
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 8px;
+  background-color:rgb(214, 214, 214);
+  min-height: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+`;
+
+
 export const ContainerCardPrintTextVerm = styled.div`
-  border: 1px solid;
+  border: 1px 
+  border-style:solid;
   border-color: red;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
@@ -1091,7 +1113,8 @@ export const ContainerCardPrintTextVerm = styled.div`
 
 
 export const ContainerCardPrintTextVerde = styled.div`
-  border: 1px solid;
+  border: 1px 
+  border-style:solid;
   border-color: green;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;

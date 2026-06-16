@@ -18,9 +18,9 @@ export const ContentPanelImgBetween = ({
   return (
     <Sy.ContainerPanelImgBetween>
       <Sy.ContainerPanelImg
-        pxheight={pxheight}
-        pxwidth={pxwidth}
-        img={imgpnl}
+        $pxheight={pxheight}
+        $pxwidth={pxwidth}
+        $img={imgpnl}
         onClick={onclickpnl}
       />
     </Sy.ContainerPanelImgBetween>

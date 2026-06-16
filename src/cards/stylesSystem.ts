@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 
-import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
+import btn_def_q_default from '../assets/defaults/btn/btn_def_q_defaut.svg'
 
 // inicio do ContentMainSystem 
 export const ContainerMainSystem = styled.div`
@@ -165,8 +165,8 @@ export const ContainerPanelImgBetween = styled.div`
 `;
 
 interface PropsContainerPanellImg {
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   $img?: string;
   onClick?: () => void;
 };
@@ -174,8 +174,8 @@ export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
   border: 6px silver groove ;
   padding: 0px 0px 0px 0px;
   margin: 5px 10px 5px 10px;
-  min-height: ${({ pxheight }) => pxheight || '10%'};// min-height: 130px;
-  width: ${({ pxwidth }) => pxwidth || '10%'}; // width: 150px;
+  min-height: ${({ $pxheight }) => $pxheight || '10%'};// min-height: 130px;
+  width: ${({ $pxwidth }) => $pxwidth || '10%'}; // width: 150px;
   display: flex;
   flex-flow: wrap;
   justify-content: center; /*space-around;*/

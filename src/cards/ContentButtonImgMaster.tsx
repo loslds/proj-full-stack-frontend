@@ -19,7 +19,7 @@ export const ContentButtonImgMaster = ({
   return (
     <Sy.ContainerButtonMasterImg>
       <Sy.ButtonMasterImg 
-        img={imgbtn} 
+        $img={imgbtn} 
         title={titbtn} 
         onClick={onClickbtn} 
         onMouseEnter={onMouseEnterbtn}
