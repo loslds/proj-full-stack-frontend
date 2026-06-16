@@ -162,20 +162,24 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
         <ContentButtonsMaster>
           <ContentLabelButtomMaster>
             <label>{labelConfirm}</label>
+            <span>...</span>
             <ContentButtonImgMaster
               imgbtn={btn_def_q_enviar}
               titbtn="Confirmar..."
               onClickbtn={handleConfirm}
             />
+            <span>......</span>
           </ContentLabelButtomMaster>
 
           <ContentLabelButtomMaster>
             <label>{labelCancel}</label>
+            <span>...</span>
             <ContentButtonImgMaster
               imgbtn={btn_def_q_voltar}
               titbtn="Cancelar..."
               onClickbtn={handleCancel}
             />
+            <p>...</p>
           </ContentLabelButtomMaster>
         </ContentButtonsMaster>
 

@@ -632,7 +632,7 @@ React.useEffect(() => {
           <PageModal
             ptop='330px'
             pwidth={'400px'}
-            pheight={'40%'}
+            pheight={'44%'}
             imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Abortar Master.'}

@@ -184,7 +184,7 @@ export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
   background-color: transparent;
   background-image: url(${ (  { $img } ) => $img || btn_def_q_default});
   background-repeat: no-repeat;
-  background-size: content;
+  background-size: 60px 60px ;
   background-position: center;
   cursor: pointer;
   outline: none;

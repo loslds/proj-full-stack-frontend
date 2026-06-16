@@ -19,18 +19,3 @@ export async function masterLogin(masterKey: string): Promise<MasterLoginRespons
   }
 }
 
-
-// export async function masterLogin(masterKey: string): Promise<MasterLoginResponse> {
-//   const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
-//   return res.data;
-// }
-
-
-// export async function masterLogin(masterKey: string): Promise<MasterLoginResponse> {
-//   try {
-//     const res = await api.post<MasterLoginResponse>("/auth/master", { masterKey });
-//     return res.data;
-//   }
-// catch (err: unknown) {
-//     return { success: false, message: "Falha de rede/servidor ao autenticar." };
-//   }

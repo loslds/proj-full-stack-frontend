@@ -2,7 +2,7 @@ import * as M from '../modal/stylesModal';
 import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-import { CardHlpFooter } from './CardHlpFooter';
+import { CardHlpFooter1 } from './CardHlpFooter1';
 
 interface PropsCardHlpConfigPage {
   imgcardpage?: string;
@@ -19,14 +19,15 @@ export const CardHlpConfigPage = ({
       <CardModalAround>
         <M.ContainerModalImg
           pminheight={'110px'}
-          pwidth={'220px'}
+          pwidth={'110px'}
           img={imgcardpage}
         />
       </CardModalAround>
+      
       <CardModalTextoColumn>
         <h2>Sintase do Sistema.</h2>
         <p>
-          &emsp;&emsp;&emsp; Estamos dentro do Acesso aos Cadastros das Tabela do BAnco 
+          &emsp;&emsp;&emsp; Estamos dentro do Acesso aos Cadastros das Tabela do Banco 
           de Dados que servem o Sistema.
         </p>
         <p>
@@ -85,7 +86,7 @@ export const CardHlpConfigPage = ({
           &emsp; Isso significa que terão um registro unico de cada registro da Tabela 
           Transceptiva, não haverá outro para que possa ter informações em conflito.
         </p>
-        <CardHlpFooter
+        <CardHlpFooter1
           label="PÁGINA-> CONFIG."
           texto="Para entrar no Cadastro da Tabela desejada, ao sair poderá clicar na imagem de referida a Tabela para sua atividade e usufluir do Sistema."
           onclosesair={onclosesair}

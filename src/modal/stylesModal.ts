@@ -7,8 +7,8 @@ export const ContainerModalCenter = styled.div`
   border: none; //1px solid blue;
   padding: 0px 0px 0px 0px;
   margin: 0px 10px 0px 0px;
-  max-width: 100%;
-  width: 100%;
+  // max-width: 100%;
+  // width: 100%;
   min-height: auto;
   overflow-y: auto;
   display: flex row;
@@ -201,7 +201,7 @@ interface PropsContainerModalImg {
 export const ContainerModalImg = styled.div<PropsContainerModalImg>`
   border: 6px silver groove ;
   padding: 0px 0px 0px 0px;
-  margin: 5px 10px 5px 10px;
+  margin: 5px 5px 5px 5px;
   min-height: ${({ pminheight }) => pminheight || '10%'};// min-height: 130px;
   width: ${({ pwidth }) => pwidth || '10%'}; // width: 150px;
   display: flex;
@@ -270,9 +270,11 @@ export const ContainerModalColumn = styled.div`
   background-color: transparent; 
   display: flex;
   flex-direction: column;  /* Garantir que os itens sejam dispostos em coluna */
-  flex-wrap: wrap;
-  text-align: left; /* Alinhar o texto à esquerda */
-  font-size: 16px;
+  flex-wrap: wrap row;
+  
+  //flex-flow: wrap row; 
+  flext-align: left; /* Alinhar o texto à esquerda */
+  font-size: 12px;
   font-style: normal;
   color: ${props => props.theme.colors.textColor};
   

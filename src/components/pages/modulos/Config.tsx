@@ -44,10 +44,13 @@ import btn_def_q_help from "../../../assets/defaults/btn/btn_def_q_help.svg";
 import btn_def_q_sair from "../../../assets/defaults/btn/btn_def_q_sair.svg";
 import btn_def_q_chvkey from '../../../assets/defaults/btn/btn_def_q_chvkey.svg';
 import bnt_def_q_master from "../../../assets/defaults/btn/btn_def_q_master.svg";
-import pnl_def_ope_esclamacao from '../../../assets/defaults/pnl/pnl_def_ope_esclamacao.svg';
+import pnl_def_ope_master from '../../../assets/defaults/pnl/pnl_def_ope_master.svg'
+
+//import pnl_def_ope_esclamacao from '../../../assets/defaults/pnl/pnl_def_ope_esclamacao.svg';
 import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
 import btn_def_q_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
 import pnl_def_ope_negacao from "../../../assets/defaults/pnl/pnl_def_ope_negacao.svg";
+
 
 type GridRow = Record<string, unknown>;
 
@@ -423,9 +426,9 @@ const Config: React.FC = () => {
         titbtnsys="Modulo Config..."
         onclicksys={() => {}}
         titlepg="Config."
-        mston={state.ismaster}
-        pxheigth="20px"
-        strcor={state.ismaster ? "#008000" : "transparent"}
+        //mston={state.ismaster}
+        //pxheigth="20px"
+        //strcor={state.ismaster ? "#008000" : "transparent"}
         imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
@@ -551,14 +554,14 @@ const Config: React.FC = () => {
             <PageModal
               ptop="1%"
               pwidth="80%"
-              pheight="95%"
+              pheight="90%"
               imgbm={btn_def_q_close}
               titbm="Fechar..."
               titulo="Help Conteúdo Config."
               onclose={() => setCardHlpPage(false)}
             >
               <CardHlpConfigPage
-                imgcardpage={pnl_def_mod_config}
+                imgcardpage={lg_def_mod_config}
                 onclosesair={() => setCardHlpPage(false)}
               />
             </PageModal>
@@ -590,37 +593,69 @@ const Config: React.FC = () => {
           ) : null}
 
           {ismsgchvkey ? (
-            <PageModal
-              ptop="330px"
-              pwidth="400px"
-              pheight="40%"
-              imgbm={btn_def_q_close}
-              titbm="Fechar..."
-              titulo="Abortar Master."
-              onclose={() => setIsMsgChvkey(false)}
-            >
-              <CardLogoffMaster
-                pptop="300px"
-                bordas="4px"
-                pxheight="57px"
-                pxwidth="65px"
-                imgpnl={pnl_def_ope_esclamacao}
-                onclickpnl={() => {}}
-                open={true}
-                titulo="Acesso Logoff."
-                msg="Confirme opção de Logoff."
-                labelConfirm="SIM para Logoff."
-                labelCancel="NÃO para Abortar."
-                seconds={30}
-                resetKey={chavemst ? 1 : 0}
-                onConfirm={() => {
-                  logoutMaster(dispatch);
-                  setIsMsgChvkey(false);
-                }}
-                onCancel={() => setIsMsgChvkey(false)}
-                onClose={() => setIsMsgChvkey(false)}
-              />
-            </PageModal>
+                     <PageModal
+            ptop='330px'
+            pwidth={'400px'}
+            pheight={'44%'}
+            imgbm={btn_def_q_close}
+            titbm="Fechar..."
+            titulo={'Abortar Master.'}
+            onclose={() => setIsMsgChvkey(false)}
+          >
+          <CardLogoffMaster
+            pptop="300px"
+            bordas="4px"
+            pxheight="57px"
+            pxwidth="65px"
+            imgpnl={pnl_def_ope_master}
+            onclickpnl={() => {}}
+            open={true}
+            titulo={"Acesso Logo-off."}
+            msg={"Confirme opção de Logoff."}
+            labelConfirm={"SIM para Logoff."}
+            labelCancel={"NÃO para Abortar."}
+            seconds={30}
+            resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
+            onConfirm={() => {
+              logoutMaster(dispatch);
+              setIsMsgChvkey(false);
+            }}
+            onCancel={() => setIsMsgChvkey(false)}
+            onClose={() => setIsMsgChvkey(false)}
+          />
+          </PageModal>
+
+            // <PageModal
+            //   ptop="330px"
+            //   pwidth="400px"
+            //   pheight="44%"
+            //   imgbm={btn_def_q_close}
+            //   titbm="Fechar..."
+            //   titulo="Abortar Master."
+            //   onclose={() => setIsMsgChvkey(false)}
+            // >
+            //   <CardLogoffMaster
+            //     pptop="300px"
+            //     bordas="4px"
+            //     pxheight="57px"
+            //     pxwidth="65px"
+            //     imgpnl={pnl_def_ope_esclamacao}
+            //     onclickpnl={() => {}}
+            //     open={true}
+            //     titulo="Acesso Logoff."
+            //     msg="Confirme opção de Logoff."
+            //     labelConfirm="SIM para Logoff."
+            //     labelCancel="NÃO para Abortar."
+            //     seconds={30}
+            //     resetKey={chavemst ? 1 : 0}
+            //     onConfirm={() => {
+            //       logoutMaster(dispatch);
+            //       setIsMsgChvkey(false);
+            //     }}
+            //     onCancel={() => setIsMsgChvkey(false)}
+            //     onClose={() => setIsMsgChvkey(false)}
+            //   />
+            // </PageModal>
           ) : null}
 
           {isFilterModalOpen ? (

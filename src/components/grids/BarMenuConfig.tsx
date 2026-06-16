@@ -453,9 +453,9 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
       {cardstate ? (
         <PageModal
-          ptop="1%"
-          pwidth="80%"
-          pheight="95%"
+          ptop={'1%'}
+          pwidth={'80%'}
+          pheight={'95%'}
           imgbm={btn_def_q_close}
           titbm="Fechar..."
           titulo="Conteúdo dos Payload [ state ]"
@@ -466,6 +466,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
             onclosesair={() => setCardState(false)}
           />
         </PageModal>
+        
       ) : null}
     </ContentBarMainMenu>
   );
