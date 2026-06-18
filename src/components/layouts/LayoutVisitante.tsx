@@ -15,6 +15,11 @@ interface PropsLayoutVisitante {
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
+  $imglgoff?: string;
+  $imglgon?: string;
+  $logonoff?: boolean;
+  titbtnlgonoff?: string;
+  onclicklgooff?: () => void;
   imgbtnaborta?: string;
   titbtnaborta?: string;
   onclickaborta?: () => void;
@@ -31,6 +36,11 @@ const LayoutVisitante = ({
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
+  $imglgoff,
+  $imglgon,
+  $logonoff,
+  titbtnlgonoff,
+  onclicklgooff,
   imgbtnaborta,
   titbtnaborta,
   onclickaborta,
@@ -48,6 +58,13 @@ const LayoutVisitante = ({
         imgbtnhlppg={imgbtnhlppg}
         titbtnhlppg={titbtnhlppg}
         onclickhlppg={onclickhlppg}
+
+        $imglgoff={$imglgoff}
+        $imglgon={$imglgon}
+        $logonoff={$logonoff}
+        titbtnlgonoff={titbtnlgonoff}
+        onclicklgooff={onclicklgooff}
+
         imgbtnaborta={imgbtnaborta}
         titbtnaborta={titbtnaborta}
         onclickaborta={onclickaborta}

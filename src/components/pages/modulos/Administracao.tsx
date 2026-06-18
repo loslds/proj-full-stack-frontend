@@ -9,14 +9,17 @@ import { useNavigate } from "react-router-dom";
 import LayoutAdministracao from "../../layouts/LayoutAdministracao";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import { CardHlpAdministracaoPage } from "@/cards/CardHlpAdministracaoPage";
 //import  BarMenuAdministracao  from "../../sidebar/BarMenuAdministracao"; 
-//import lg_Administracao from "@/assets/svgs/lg_Administracao.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_administracao from "../../../assets/defaults/lg/lg_def_mod_administracao.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
 //import bt_voltar from "@/assets/pngs/bt_voltar.png";
 //import bt_setadir from "@/assets/svgs/bt_setadir.svg";
 
@@ -49,7 +52,7 @@ const Administracao : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutAdministracao
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_administracao}
         titbtnsys="Modulo Administracao..."
         onclicksys={ () => {} }
         titlepg="Administração"
@@ -90,7 +93,7 @@ const Administracao : React.FC = () => {
 
 */}
             <CardDesenvolver
-              imgcarddes={lg_sys}
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

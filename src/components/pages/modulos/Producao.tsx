@@ -7,14 +7,17 @@ import { useNavigate } from "react-router-dom";
 import LayoutProducao from "../../layouts/LayoutProducao";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import { CardHlpProducaoPage } from "@/cards/CardHlpProducaoPage";
 //import  BarMenuProducao  from "../../sidebar/BarMenuProducao"; 
-//import lg_Producao from "@/assets/svgs/lg_Producao.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_producao from "../../../assets/defaults/lg/lg_def_mod_producao.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
+
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
@@ -49,10 +52,10 @@ const Producao : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutProducao
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_producao}
         titbtnsys="Modulo Producao..."
         onclicksys={ () => {} }
-        titlepg="Recepção"
+        titlepg="Produção"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
@@ -89,8 +92,8 @@ const Producao : React.FC = () => {
               onclosesair={() => setCardHlpPage(false)}
 
 */}
-            <CardDesenvolver
-              imgcarddes={lg_sys}
+             <CardDesenvolver
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

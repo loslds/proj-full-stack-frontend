@@ -9,14 +9,16 @@ import { useNavigate } from "react-router-dom";
 import LayoutExpedicao from "../../layouts/LayoutExpedicao";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import { CardHlpExpedicaoPage } from "@/cards/CardHlpExpedicaoPage";
 //import  BarMenuExpedicao  from "../../sidebar/BarMenuExpedicao"; 
 //import lg_Expedicao from "@/assets/svgs/lg_Expedicao.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_expedicao from "../../../assets/defaults/lg/lg_def_mod_expedicao.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
@@ -51,10 +53,10 @@ const Expedicao : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutExpedicao
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_expedicao}
         titbtnsys="Modulo Expedicao..."
         onclicksys={ () => {} }
-        titlepg="Recepção"
+        titlepg="Expedição"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
@@ -92,7 +94,7 @@ const Expedicao : React.FC = () => {
 
 */}
             <CardDesenvolver
-              imgcarddes={lg_sys}
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

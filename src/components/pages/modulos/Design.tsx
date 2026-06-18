@@ -11,11 +11,13 @@ import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
 //import { CardHlpDesignPage } from "@/cards/CardHlpDesignPage";
 //import  BarMenuDesign  from "../../sidebar/BarMenuDesign"; 
-//import lg_Design from "@loslds/assets/svgs/lg_Design.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_design from "../../../assets/defaults/lg/lg_def_mod_design.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
 import { CardDesenvolver } from "@/cards/CardDesenvolver";
 //import bt_voltar from "@/assets/pngs/bt_voltar.png";
 //import bt_setadir from "@/assets/svgs/bt_setadir.svg";
@@ -51,7 +53,7 @@ const Design : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutDesign
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_design}
         titbtnsys="Modulo Design..."
         onclicksys={ () => {} }
         titlepg="Recepção"
@@ -92,7 +94,7 @@ const Design : React.FC = () => {
 
 */}
             <CardDesenvolver
-              imgcarddes={lg_sys}
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

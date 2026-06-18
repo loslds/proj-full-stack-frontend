@@ -1,3 +1,6 @@
+
+
+// src/components/heardes/headers/HeaderVisitante.tsx
 import * as H from '../styledHeader';
 
 import Switch from 'react-switch';
@@ -9,6 +12,8 @@ import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
 import { ContentPagesButton } from '../../ContentPagesButton';
+import { ContentHeaderButtonLgOnOff } from '../ContentHeaderButtonLgOnOff';
+
 interface PropsHearderVisitante {
   imgsys?: string;
   titbtnsys?: string;
@@ -17,21 +22,39 @@ interface PropsHearderVisitante {
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onclickhlppg?: () => void;
+
+  $imglgoff?: string;
+  $imglgon?: string;
+  $logonoff?: boolean;
+  titbtnlgonoff?: string;
+  onclicklgooff?: () => void;
+
   imgbtnaborta?: string;
   titbtnaborta?: string;
   onclickaborta?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode ;
 }
 const HearderVisitante = ({
+  //IMAGEM lOGO DA PAGINA
   imgsys,
   titbtnsys,
   onclicksys,
+  // TITULO DA PAGINA
   titlepg,
+  // BOTÃO DE HELP
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
+  // BOTÃO DE LOGAR
+  $imglgoff,
+  $imglgon,
+  $logonoff,
+  titbtnlgonoff,
+  onclicklgooff,
+  // BOTÃO DE SAIR
   imgbtnaborta,
   titbtnaborta,
   onclickaborta,
@@ -61,6 +84,15 @@ const HearderVisitante = ({
             titbtnhlp={titbtnhlppg}
             onClickhlp={onclickhlppg}
           />
+          {/** imagem botão do Login da pagina */}
+          <ContentHeaderButtonLgOnOff
+            $imglgon={$imglgon}
+            $imglgoff={$imglgoff}
+            $logonoff={$logonoff}
+            titbtnlgonoff={titbtnlgonoff}
+            onClicklgooff={onclicklgooff}            
+          />
+          
           {/** imagem botão do Acão Abortar da pagina */}
           <ContentPagesButton
             imgbtn={imgbtnaborta}
@@ -91,3 +123,4 @@ const HearderVisitante = ({
 };
 
 export default HearderVisitante;
+

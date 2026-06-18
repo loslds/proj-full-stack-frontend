@@ -9,14 +9,18 @@ import { useNavigate } from "react-router-dom";
 import LayoutAcabamento from "../../layouts/LayoutAcabamento";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
 //import { CardHlpAcabamentoPage } from "../../../cards/CardHlpAcabamentoPage";
 //import  BarMenuAcabamento  from "../../sidebar/BarMenuAcabamento"; 
-//import lg_Acabamento from "../../assets/svgs/lg_Acabamento.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_acabamento from "../../../assets/defaults/lg/lg_def_mod_acabamento.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
@@ -51,10 +55,10 @@ const Acabamento : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutAcabamento
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_acabamento}
         titbtnsys="Modulo Acabamento..."
         onclicksys={ () => {} }
-        titlepg="Recepção"
+        titlepg="Acabamento"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
@@ -92,7 +96,7 @@ const Acabamento : React.FC = () => {
 
 */}
             <CardDesenvolver
-              imgcarddes={lg_sys}
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

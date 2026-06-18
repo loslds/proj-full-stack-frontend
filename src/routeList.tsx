@@ -14,6 +14,7 @@ import Producao from "./components/pages/modulos/Producao";
 import Acabamento from "./components/pages/modulos/Acabamento";
 import Administracao from "./components/pages/modulos/Administracao";
 import Config from "./components/pages/modulos/Config";
+import { Expedicao } from "./components/pages/modulos";
 
 export interface IRoute {
   path: string;
@@ -35,6 +36,7 @@ export const RouteList: IRoute[] = [
   { path: "/modulos/design", element: <Design /> },
   { path: "/modulos/producao", element: <Producao /> },
   { path: "/modulos/acabamento", element: <Acabamento /> },
+  { path: "/modulos/expedicao", element: <Expedicao /> },
   { path: "/modulos/administracao", element: <Administracao /> },
   { path: "/modulos/config", element: <Config /> },
 ];

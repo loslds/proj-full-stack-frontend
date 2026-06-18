@@ -4,21 +4,27 @@ import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";
 import dark from "../../../themes/dark";
 import { useNavigate } from "react-router-dom";
+//import { useAcessoContext } from "../../contexts/ContextAcesso";
 import LayoutVisitante from "../../layouts/LayoutVisitante";
 import { ContentCardPage } from "../../ContentCardPage";
 import { PageModal } from '../PageModal';
+import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
 //import { CardHlpVisitantePage } from "@/cards/CardHlpVisitantePage";
 //import  BarMenuVisitante  from "../../sidebar/BarMenuVisitante"; 
-//import lg_Visitante from "@/assets/svgs/lg_Visitante.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
-import lg_sys from '@/assets/svgs/lg_sys.svg';
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_visitante from "../../../assets/defaults/lg/lg_def_mod_visitante.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+import btn_def_q_logo_off from "../../../assets/defaults/btn/btn_def_q_logo_off.svg";
+import btn_def_q_logo_on from "../../../assets/defaults/btn/btn_def_q_logo_on.svg";
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
 
 const Visitante : React.FC = () => {
+  //const { state } = useAcessoContext();
   const [theme, setTheme] = React.useState(light);
   const [ischeck, setIscheck] = React.useState(false);
 
@@ -44,18 +50,30 @@ const Visitante : React.FC = () => {
     setCardHlpPage((oldState) => !oldState);
   }, []);
 
+  const [calllogonoff, setCallLogOnOff] = React.useState(false);
+  const handleLogonOff = React.useCallback(() => {
+    setCallLogOnOff((oldState) => !oldState);
+  }, []);
+
 //  const [activepage,setActivePage] = React.useState('');
 
   return (
     <ThemeProvider theme={theme}>
       <LayoutVisitante
-        imgsys={lg_sys}
+        imgsys={lg_def_mod_visitante}
         titbtnsys="Modulo Visitante..."
         onclicksys={ () => {} }
         titlepg="Visitante"
         imgbtnhlppg={bt_helppg}
         titbtnhlppg="Help Page..."
         onclickhlppg={ handlerCardHlpPage }
+
+        $imglgon={btn_def_q_logo_on}
+        $imglgoff={btn_def_q_logo_off}
+        $logonoff={calllogonoff}
+        titbtnlgonoff={calllogonoff ? "Usuário logado" : "Usuário não logado"}
+        onclicklgooff={handleLogonOff}
+
         imgbtnaborta={bt_abortar}
         titbtnaborta="Abortar..."
         onclickaborta={ goto('/') }
@@ -90,7 +108,7 @@ const Visitante : React.FC = () => {
 
 */}
             <CardDesenvolver
-              imgcarddes={lg_sys}
+              imgcarddes={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>

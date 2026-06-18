@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-import semimg from '../../assets/svgs/semimg.svg';
+import semimg from '../../assets/defaults/btn/btn_def_q_defaut.svg';
+
+
 
 ///////////// HEADER /////////////////////////
 // Container Header
@@ -34,7 +36,7 @@ export const ContainerImgSys = styled.div`
   border: none;
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
-  margin: -10px 7px -10px 7px;
+  margin: 7px 7px 7px 7px;
   background: #fff;
   display: flex;
   justify-content: left;
@@ -56,8 +58,8 @@ export const ButtonPagesImgSys = styled.button<TypeButtonPagesImgSys>`
   //background-color: transparent;
   cursor: pointer;
   outline: none;
-  width: 110px;
-  height: 50px;
+  width: 120px;
+  height: 60px;
   display: flex;
   flex-flow: nowrap;
   justify-content: center;
@@ -152,19 +154,17 @@ export const ContainerHeaderButtonMaster = styled.div.withConfig({
   padding: 0px;
   margin: 2px;
   min-height: 40px;
-
   display: ${({ mstonoff }) => (mstonoff ? "flex" : "none")};
-
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: center;
   color: ${(props) => props.theme.colors.textColor};
-
   &:hover {
     background-color: #e4e4e4;
   }
 `;
+
 
 // export const ContainerHeaderButtonMaster = styled.div<PropsContainerHeaderButtonMaster>`
 //   border: none;
@@ -327,5 +327,69 @@ export const ButtonPagesImg = styled.button<{ img?: string }>`
   align-items: center;
 `;
 
-// FIM content lado esquerdo HEADER (imagem swith e outras)
+////////////////////////////////////////
+interface PropsContainerHeaderButtonLgOnOff {
+  $logonoff?: boolean;
+}
+export const ContainerHeaderButtonLgOnOff = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "$logonoff",
+})<PropsContainerHeaderButtonLgOnOff>`
+  border: none;
+  border-color: ${(props) => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px;
+  margin: 2px;
+  min-height: 45px;
 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  color: ${(props) => props.theme.colors.textColor};
+
+  &:hover {
+    background-color: #e4e4e4;
+  }
+`;
+
+interface PropsButtonDefImgLgOnOff {
+  $imglgoff?: string;
+  $imglgon?: string;
+  $logonoff?: boolean;
+}
+export const ButtonDefImgLgOnOff = styled.button.withConfig({
+  shouldForwardProp: (prop) =>
+    prop !== "$imglgoff" &&
+    prop !== "$imglgon" &&
+    prop !== "$logonoff",
+})<PropsButtonDefImgLgOnOff>`
+  border: none;
+  margin: 2px 5px;
+  padding: 0px;
+
+  color: ${(props) => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+
+  background-color: transparent;
+  background-image: url(${(props) =>
+    props.$logonoff ? props.$imglgon : props.$imglgoff});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  cursor: pointer;
+  outline: none;
+
+  min-height: 45px;
+  width: 45px;
+
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+
+`;

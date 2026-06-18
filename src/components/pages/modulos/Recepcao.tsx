@@ -21,10 +21,13 @@ import { PageModal } from '../PageModal';
 
 import { CardHlpRecepcaoPage } from "@/cards/CardHlpRecepcaoPage";
 //import  BarMenuRecepcao  from "../sidebar/BarMenuRecepcao"; 
-import lg_recepcao from "@/assets/svgs/lg_recepcao.svg";
-import bt_helppg from "@/assets/svgs/bt_helppg.svg";
-import bt_abortar from "@/assets/svgs/bt_abortar.svg";
-import bt_close from "@/assets/svgs/bt_close.svg";
+
+import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
+import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+import lg_def_mod_recepcao from "../../../assets/defaults/lg/lg_def_mod_recepcao.svg";
+import lg_def_mod_default from "../../../assets/defaults/lg/lg_def_mod_default.svg";
+
 
 //import bt_voltar from "../../assets/pngs/bt_voltar.png";
 //import bt_setadir from "../../assets/svgs/bt_setadir.svg";
@@ -60,7 +63,7 @@ const Recepcao : React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutRecepcao
-        imgsys={lg_recepcao}
+        imgsys={lg_def_mod_recepcao}
         titbtnsys="Modulo Recepção..."
         onclicksys={ () => {} }
         titlepg="Recepção"
@@ -110,7 +113,7 @@ const Recepcao : React.FC = () => {
             onclose={() => setCardHlpPage(false)}
           >
             <CardHlpRecepcaoPage
-              imgcardpage={lg_recepcao}
+              imgcardpage={lg_def_mod_default}
               onclosesair={() => setCardHlpPage(false)}
             />
           </PageModal>
