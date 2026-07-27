@@ -10,9 +10,11 @@ import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
 import { ContentHeaderButtonLoginOnOff } from '../ContentHeaderButtonLoginOnOff';
 import { ContentHeaderButtonResgate } from '../ContentHeaderButtonResgate';
 import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
+import { ContentHeaderButtonLogOnOff } from '../ContentHeaderButtonLogOnOff';
 
 interface PropsHearderHome {
   mstonoff?: boolean;
+  logonoff?: boolean;
 
   imgsys?: string;
   titbtnsys?: string;
@@ -36,6 +38,10 @@ interface PropsHearderHome {
   titbtnmst?: string;
   onclickmst?: () => void;
   
+  imgbtnlog?: string;
+  titbtnlog?: string;
+  onclicklog?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode;
@@ -43,6 +49,7 @@ interface PropsHearderHome {
 const HearderHome = ({
 
   mstonoff,
+  logonoff,
 
   imgsys,
   titbtnsys,
@@ -65,7 +72,11 @@ const HearderHome = ({
   imgbtnmst,
   titbtnmst,
   onclickmst,
-  
+
+  imgbtnlog,
+  titbtnlog,
+  onclicklog,
+
   onchange,
   ischeck,
 }: PropsHearderHome) => {
@@ -108,6 +119,14 @@ const HearderHome = ({
             titbtnmst={titbtnmst}
             onClickmst={onclickmst}
           />
+
+          <ContentHeaderButtonLogOnOff
+            logonoff={logonoff}
+            imgbtnlog={imgbtnlog}
+            titbtnlog={titbtnlog}
+            onClicklog={onclicklog}
+          />
+
 
           <H.ContainerHeaderButton>
             <Switch

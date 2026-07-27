@@ -422,22 +422,26 @@ const Config: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <LayoutConfig
+        //* Logo da pagina Visitantes do Sistema
         imgsys={lg_def_mod_config}
         titbtnsys="Modulo Config..."
         onclicksys={() => {}}
+        //* Titulo da Pagina
         titlepg="Config."
-        //mston={state.ismaster}
-        //pxheigth="20px"
-        //strcor={state.ismaster ? "#008000" : "transparent"}
+        //* Botão Help da Pagina
         imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
         onclickhlppg={handlerCardHlpPage}
+        // retornar para HOME
         imgbtnaborta={btn_def_q_sair}
         titbtnaborta="Fechar..."
         onclickaborta={() => goto("/")}
+        //* Botão para Checar Sistema
         imgbtnchk={btn_def_q_chvkey}
         titbtnchk="Checar Systema..."
         onclickchk={handlerCardChkSistema}
+        
+        // Desconectar o Master do Sistema
         mstonoff={chavemst}
         imgbtnmst={bnt_def_q_master}
         titbtnmst="Segurança..."
@@ -449,6 +453,7 @@ const Config: React.FC = () => {
             setMsgPanelBottom("Sistema Inoperante!");
           }
         }}
+        // Botão para mudar o tema (dark/light)
         onchange={toggleTheme}
         ischeck={ischeck}
       >

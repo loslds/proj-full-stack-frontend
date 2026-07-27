@@ -68,6 +68,7 @@ export type StateAcesso = {
   id_emp: number;
   nomeemp: string;
   fantemp: string;
+  formhlpemp: string | null;
 
   id_vis: number;
   nomevis: string;
@@ -164,7 +165,8 @@ export const initialData: StateAcesso = {
   id_emp: 0,
   nomeemp: "",
   fantemp: "",
-
+  formhlpemp: null,
+  
   id_vis: 0,
   nomevis: "",
   fantvis: "",

@@ -149,6 +149,61 @@ export const ContainerLogoffMasterFlex = styled.div<PropsContainerLogoffMasterFl
     color: ${props => props.theme.colors.textColor};
   }
 `;
+/////////////////////////////
+/////// contente para LogoffLogin
+interface PropsContainerLogoffLogin {
+  pptop? : string;
+  ppwidth? : string;
+}
+export const ContainerLogoffLogin = styled.div<PropsContainerLogoffLogin>`
+  top: ${({ pptop }) => pptop || '1%'};
+  border: 4px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  min-width: ${({ ppwidth }) => ppwidth || '28%'};
+  display: flex;
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: ${props => props.theme.colors.textColor};
+`;
+
+interface PropsContainerLogoffLoginFlex {
+  bordas?: string;
+}
+export const ContainerLogoffLoginFlex = styled.div<PropsContainerLogoffLoginFlex>`
+  border: ${({ bordas }) => bordas || 'none'};
+  border-style: double;
+  border-radius: 10px;
+  border-color: red;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 5px 5px 5px;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+    
+  h1, h2, h3, h4, h5 {
+    margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
+    padding: 0px 0px 0px 0px;
+    font-style: normal;
+    text-decoration-color: #ff0000ff;
+    color: ${props => props.theme.colors.textColor};
+  }
+  label {
+    font-size: 12px;
+    line-height: 12px;
+    //font-style: normal;
+    text-decoration: underline 0.5px;
+    color: ${props => props.theme.colors.textColor};
+  }
+`;
 
 export const ContainerPanelImgBetween = styled.div`
   border: none; 
@@ -318,6 +373,122 @@ interface PropsButtonMasterImg {
   $img?: string;
 }
 export const ButtonMasterImg = styled.button<PropsButtonMasterImg>`
+  border: none;
+  margin: 5px 5px 5px 5px;
+  color:  ${props => props.theme.colors.textColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  outline: none;
+  min-width: 35px;
+  min-height: 35px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+//////////////////////////////////////////////
+interface PropsContainerMainCollumLogin {
+  open?: boolean;
+  width? : string;
+  height? : string;
+};
+export const ContainerMainCollumLogin = styled.div<PropsContainerMainCollumLogin>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 10px 10px 0px;
+  min-height: ${({ height }) => height || '30%'};
+  width: ${({ width }) => width || '100%'};
+  display: ${props => (props.open ? 'flex' : 'none')};
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+`;
+///////////////////
+export const ContainerMainTitleLogin = styled.div`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 0px 0px;
+  min-height: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+
+  h1, h2, h3, h4, h5 {
+    margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
+    padding: 0px 0px 0px 0px;
+    font-style: normal;
+    text-decoration-color: #ff0000ff;
+    color: ${props => props.theme.colors.textColor};
+  }
+  label {
+    font-size: 12px;
+    line-height: 12px;
+    font-style: normal;
+    text-decoration: underline 0.7px;
+    color: ${props => props.theme.colors.textColor};
+  }
+`;
+//////////////////////////////
+export const ContainerPanelButtonLogin = styled.div`
+  border: none; 
+  padding: 0px auto;
+  margin: 0px auto;
+  min-height: 40px;
+  width: '100%';
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+`;
+/////////////////////
+export const ContainerButtonLoginImg = styled.div`
+  border: 1px;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+  &:hover {
+    background-color: #c0c0c0;
+   }
+`;
+// Botão Menu Principal
+interface PropsButtonLoginImg {
+  $img?: string;
+}
+export const ButtonLoginImg = styled.button<PropsButtonLoginImg>`
   border: none;
   margin: 5px 5px 5px 5px;
   color:  ${props => props.theme.colors.textColor};

@@ -23,6 +23,11 @@ interface PropsLayoutHome {
   titbtnmst?: string;
   onclickmst?: () => void;
 
+  logonoff?: boolean;
+  imgbtnlog?: string;
+  titbtnlog?: string;
+  onclicklog?: () => void;
+
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode;
@@ -32,21 +37,31 @@ const LayoutHome = ({
   imgsys,
   titbtnsys,
   onclicksys,
+
   titlepg,
+
   imgbtnhlppg,
   titbtnhlppg,
   onclickhlppg,
+
   imgbtnlogin,
   disabled,
   titbtnlogin,
   onclicklogin,
+
   imgbtnresg,
   titbtnresg,
   onclickresg,
+
   mstonoff,
   imgbtnmst,
   titbtnmst,
   onclickmst,
+
+  logonoff,
+  imgbtnlog,
+  titbtnlog,
+  onclicklog,
 
   onchange,
   ischeck,
@@ -58,23 +73,35 @@ const LayoutHome = ({
         imgsys={imgsys}
         titbtnsys={titbtnsys}
         onclicksys={onclicksys}
+        
         titlepg={titlepg}
+
         imgbtnhlppg={imgbtnhlppg}
         titbtnhlppg={titbtnhlppg}
         onclickhlppg={onclickhlppg}
+
         imgbtnlogin={imgbtnlogin}
         disabled={disabled}
         titbtnlogin={titbtnlogin}
         onclicklogin={onclicklogin}
+
         imgbtnresg={imgbtnresg}
         titbtnresg={titbtnresg}
         onclickresg={onclickresg}
+
         mstonoff={mstonoff}
         imgbtnmst={imgbtnmst}
         titbtnmst={titbtnmst}
         onclickmst={onclickmst}
+
+        logonoff={logonoff}
+        imgbtnlog={imgbtnlog}
+        titbtnlog={titbtnlog}
+        onclicklog={onclicklog}
+
         onchange={onchange}
         ischeck={ischeck}
+
       />
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
