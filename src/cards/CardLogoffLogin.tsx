@@ -161,32 +161,32 @@ export const CardLogoffLogin: React.FC<PropsCardLogoffLogin> = ({
         {msg ? <p>{msg}</p> : null}
         <p>{`Tempo ocioso: ${secondsLeft}s`}</p>
 
-        <ContentButtonsMaster>
+        <ContentButtonsLogin>
           <ContentLabelButtomLogin>
             <label>{labelConfirm}</label>
             <span>...</span>
-            <ContentButtonImgMaster
+            <ContentButtonImgLogin
               imgbtn={btn_def_q_enviar}
               titbtn="Confirmar..."
               onClickbtn={handleConfirm}
             />
             <span>......</span>
-          </ContentLabelButtomMaster>
+          </ContentLabelButtomLogin>
 
-          <ContentLabelButtomMaster>
+          <ContentLabelButtomLogin>
             <label>{labelCancel}</label>
             <span>...</span>
-            <ContentButtonImgMaster
+            <ContentButtonImgLogin
               imgbtn={btn_def_q_voltar}
               titbtn="Cancelar..."
               onClickbtn={handleCancel}
             />
             <p>...</p>
-          </ContentLabelButtomMaster>
-        </ContentButtonsMaster>
+          </ContentLabelButtomLogin>
+        </ContentButtonsLogin>
 
         {children}
-      </ContentMainCollumMaster>
-    </ContentLogoffMaster>
+      </ContentMainCollumLogin>
+    </ContentLogoffLogin>
   );
 };

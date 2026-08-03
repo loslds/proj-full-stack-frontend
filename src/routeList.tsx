@@ -7,7 +7,7 @@ import Login from "./components/pages/Login";
 import Resgate from "./components/pages/Resgate";
 import { CardDesenvolver } from "./cards/CardDesenvolver";
 
-import Visitante from "./components/pages/modulos/Visitante";
+import Visitante from "./components/pages/modulos/Visitantes";
 import Recepcao from "./components/pages/modulos/Recepcao";
 import Design from "./components/pages/modulos/Design";
 import Producao from "./components/pages/modulos/Producao";

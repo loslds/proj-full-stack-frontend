@@ -119,7 +119,7 @@ export const CardHlpHomePage = ({
         <p>&emsp;&emsp; - Será solicitada as respostas para para as mesmas.</p>
         <br />
         <p>
-          Assim que for Conferidas as Informações de seu Login ou Resgate, o
+          Assim que for aferidas as Informações de seu Login ou Resgate, o
           Sistema irá redirecionar você para Atividades do Sistema.
         </p>
         <CardHlpFooter

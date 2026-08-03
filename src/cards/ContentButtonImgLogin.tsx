@@ -25,6 +25,6 @@ export const ContentButtonImgLogin = ({
         onMouseEnter={onMouseEnterbtn}
         onMouseLeave={onMouseLeavebtn}
       />
-    </Sy.ContainerButtonMasterImg>
+    </Sy.ContainerButtonLoginImg>
   );
 };

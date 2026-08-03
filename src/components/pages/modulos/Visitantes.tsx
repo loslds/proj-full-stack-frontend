@@ -24,19 +24,20 @@ import { DivisionPgHztal } from "../../stylePages";
 
 /** component ação botão help */
 
-import { CardHlpVisitanteLogo } from '../../../cards/CardHlpHomeLogo';
-import { CardHlpVisitantePage } from '../../../cards/CardHlpHomePage';
+//import { CardHlpVisitanteLogo } from '../../../cards/CardHlpHomeLogo';
+//import { CardHlpVisitantePage } from '../../../cards/CardHlpHomePage';
 import { CardImgNeg } from '../../../cards/CardImgNeg';
 
 
 
-import { CardDesenvolver } from "@/cards/CardDesenvolver";
+//import { CardDesenvolver } from "@/cards/CardDesenvolver";
 
 
 
 import bt_helppg from "../../../assets/defaults/btn/btn_def_q_help.svg";
 import bt_abortar from "../../../assets/defaults/btn/btn_def_q_sair.svg";
 import bt_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+
 import lg_def_mod_visitante from "../../../assets/defaults/lg/lg_def_mod_visitante.svg";
 import lg_def_ope_defaut from '../../assets/defaults/lg/lg_def_ope_defaut.svg';
 
@@ -59,9 +60,9 @@ import { ContentSidePageBottonLabel } from '../../sidebar/ContentSidePageBottonL
 import { ContentSidePageBottonButton } from '../../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../../sidebar/ContentSideMsgPagePanelBotton';
 /**img do modal */ 
-import btn_def_q_close from '../../../assets/defaults/btn/btn_def_q_close.svg';
+import btn_def_q_close from '../../../assets/defaults/btn/btn_def_q_sair.svg';
 import pnl_def_ope_negado from '../../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
-import lg_def_ope_visitante from '../../../assets/defaults/lg/lg_def_mod_visitante.svg';
+
 
 const Visitante : React.FC = () => {
   const { state } = useAcessoContext();
@@ -118,18 +119,18 @@ const Visitante : React.FC = () => {
         onclickhlppg={ handlerCardHlpPage }
 
 
-        $imglgon={btn_def_q_logo_on}
-        $imglgoff={btn_def_q_logo_off}
-        $logonoff={islogin}
-        titbtnlgonoff={state.logado ? "Usuário logado" : "Usuário não logado"}
-        onclicklgooff={() => {
-          if (state.logado) {
-            goto('/login');
-          } else {
-            setIsLogin(true);
-            setMsgPanelBottom('Sistema inoperante!');
-          }
-        }}
+        // $imglgon={btn_def_q_logo_on}
+        // $imglgoff={btn_def_q_logo_off}
+        // $logonoff={islogin}
+        // titbtnlgonoff={state.logado ? "Usuário logado" : "Usuário não logado"}
+        // onclicklgooff={() => {
+        //   if (state.logado) {
+        //     goto('/login');
+        //   } else {
+        //     setIsLogin(true);
+        //     setMsgPanelBottom('Sistema inoperante!');
+        //   }
+        // }}
 
 
         imgbtnaborta={bt_abortar}

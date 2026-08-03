@@ -1,6 +1,6 @@
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { ContentHeaderButtonHelp } from '../components/hearders/ContentHeaderButtonHelp';
-import bt_abortar from '../assets/svgs/bt_abortar.svg';
+import bt_abortar from '../assets/defaults/btn/btn_def_q_sair.svg';
 interface PropsCardHlpFooter1 {
   imghlpsair?: string;
   label?: string;

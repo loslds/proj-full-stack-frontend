@@ -35,7 +35,7 @@ import { logoutMaster } from '../contexts/helpers/logoutMaster';
 import lg_def_ope_default from '../../assets/defaults/lg/lg_def_ope_defaut.svg';
 import btn_def_q_help from '../../assets/defaults/btn/btn_def_q_help.svg';
 
-import avt_def_ope_default from '../../assets/defaults/btn/btn_def_ope_avt_default.svg';
+import avt_def_q_default from '../../assets/defaults/btn/btn_def_q_default.svg';
 import pnl_def_ope_Login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
 import { logoutLogin } from '../contexts/helpers/logoutLogin';
 
@@ -267,7 +267,7 @@ const imagemLogoEmpresa =
 const imagemAvtUser =
   state.id_img_user > 0 && state.img_svg_user?.trim()
   ? state.img_svg_user
-  : avt_def_ope_default;
+  : avt_def_q_default;
 
 return (
   <ThemeProvider theme={theme}>
