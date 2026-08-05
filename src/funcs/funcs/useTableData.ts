@@ -46,7 +46,7 @@ export function useTableData(
 
       try {
         const res = await fetch(
-          `http://localhost:3000/api/config/table/${encodeURIComponent(
+          `http://localhost:5000/api/config/table/${encodeURIComponent(
             tableName
           )}`,
           { signal: controller.signal }

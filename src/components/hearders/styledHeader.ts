@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import semimg from '../../assets/defaults/btn/btn_def_q_defaut.svg';
+import semimg from '../../assets/defaults/btn/btn_def_q_default.svg';
 
 
 

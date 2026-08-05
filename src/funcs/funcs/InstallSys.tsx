@@ -6,13 +6,13 @@ export async function installSystem(
 ): Promise<boolean> {
   try {
     onMessage("⏳ Verificando conexão com MySQL...");
-    await fetch("http://localhost:3000/install/connection");
+    await fetch("http://localhost:5000/install/connection");
 
     onMessage("📦 Checando/criando tabelas...");
-    await fetch("http://localhost:3000/install/check-tables", { method: "POST" });
+    await fetch("http://localhost:5000/install/check-tables", { method: "POST" });
 
     onMessage("🔄 Sincronizando dados...");
-    await fetch("http://localhost:3000/install/sync", { method: "POST" });
+    await fetch("http://localhost:5000/install/sync", { method: "POST" });
 
     onMessage("✅ Sistema pronto.");
     return true;

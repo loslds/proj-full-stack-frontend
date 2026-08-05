@@ -2,7 +2,8 @@ import * as M from '../modal/stylesModal';
 import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-import { CardHlpFooter } from './CardHlpFooter';
+
+import { CardHlpFooter1 } from './CardHlpFooter1';
 
 interface PropsCardHlpHomePage {
   imgcardpage?: string;
@@ -24,6 +25,7 @@ export const CardHlpHomePage = ({
         />
       </CardModalAround>
       <CardModalTextoColumn>
+        <form>
         <h2>Sintase do Sistema.</h2>
         <p>
           &emsp;&emsp;&emsp; O Acesso somente permitira aos cadastrados conforme
@@ -122,13 +124,14 @@ export const CardHlpHomePage = ({
           Assim que for aferidas as Informações de seu Login ou Resgate, o
           Sistema irá redirecionar você para Atividades do Sistema.
         </p>
-        <CardHlpFooter
+        <CardHlpFooter1
           label=" HELP PÁGINA -> HOME."
           texto="Assim que Logado for, Sistema retorna a Pagina HOME onde poderá clicar
-          na imagem de sua atividade e usufluir do Sistema."
+          no painel com a imagem de sua atividade e usufluir do Sistema."
           onclosesair={onclosesair}
         />
         <br />
+        </form>
       </CardModalTextoColumn>
     </CardModalCenter>
   );

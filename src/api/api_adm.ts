@@ -4,7 +4,7 @@
 import axios from "axios";
 
 const api_adm = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "/api",
 });
 
 api_adm.interceptors.request.use((config) => {

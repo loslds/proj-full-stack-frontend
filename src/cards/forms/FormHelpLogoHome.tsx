@@ -1,16 +1,5 @@
 
-//src/forms/FormhelpEmp.tsx
-
-//import { CardHlpFooter } from '../cards/CardHlpFooter';
-
-
-// interface PropsFormHelpEmp {
-//   onclosesair?: () => void;
-// }
-
-// export const FormHelpEmp = ({
-//   onclosesair,
-// }: PropsFormHelpEmp) => {
+//src/forms/ForHlpPageHome.tsx
 
 export const FormHelpLogoHome = () => {
 
@@ -189,12 +178,6 @@ export const FormHelpLogoHome = () => {
         do Usuário em processo tiver qualquer problema em não "TER
         AUTORIZAÇÃO" para prosseguir com o processo do momento.
       </p>
-
-      {/* <CardHlpFooter
-        label="HELP PÁGINA -> VISITANTE."
-        texto="Assim que estiver logado, o sistema retornará à página de acesso do visitante, onde poderá clicar nas imagens das atividades da empresa."
-        onclosesair={onclosesair}
-      /> */}
 
       <br />
     </>

@@ -24,12 +24,12 @@ export const CardHlpFooter1 = ({
           Fechar...
         </a>
       </p>
+      {children}
       <ContentHeaderButtonHelp
-        imgbtnhlp={bt_abortar}
-        titbtnhlp={'Fechar...'}
+        $imgbtnhlp={bt_abortar}
+        $titbtnhlp={'Fechar...'}
         onClickhlp={onclosesair}
       />
-      {children}
     </CardModalTextoColumn>
   );
 };

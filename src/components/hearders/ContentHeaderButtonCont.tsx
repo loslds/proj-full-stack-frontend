@@ -1,21 +1,21 @@
 import * as H from './styledHeader';
 
-interface PropsContentHeaderButtonContinuar {
+interface PropsContentHeaderButtonCont {
   $imgbtncont?: string;
   $titbtncont?: string;
-  onclickconti?: React.MouseEventHandler<HTMLButtonElement>;
+  onClickcont?: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ContentHeaderButtonContinuar = ({
+export const ContentHeaderButtonCont = ({
   $imgbtncont,
   $titbtncont,
-  onclickcont
-}: PropsContentHeaderButtonContinuar) => {
+  onClickcont,
+}: PropsContentHeaderButtonCont) => {
   return (
     <H.ContainerHeaderButton>
       <H.ButtonHeaderImg
         img={$imgbtncont}
         title={$titbtncont}
-        onClick={onclickcont}
+        onClick={onClickcont}
       />
     </H.ContainerHeaderButton>
   );

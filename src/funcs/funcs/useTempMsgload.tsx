@@ -41,34 +41,3 @@ export const useTempMsgload = () => {
 
 export default useTempMsgload;
 
-
-
-
-
-// interface TempPayloadHook {
-//   payload: string | null;
-//   setTemporaryPayload: (message: string, duration?: number) => void;
-// }
-
-// export function useTempPayload(): TempPayloadHook {
-//   const [payload, setPayload] = React.useState<string | null>(null);
-//   const [timeoutId, setTimeoutId] = React.useState< number | null>(null);
-
-//   const setTemporaryPayload = (message: string, duration: number = 3000) => {
-//     setPayload(message);
-//     if (timeoutId) clearTimeout(timeoutId);
-//     const id = setTimeout(() => {
-//       setPayload(null);
-//     }, duration);
-//     setTimeoutId(id);
-//   };
-
-//   React.useEffect(() => {
-//     return () => {
-//       if (timeoutId) clearTimeout(timeoutId);
-//     };
-//   }, [timeoutId]);
-
-//   return { payload, setTemporaryPayload };
-// }
-

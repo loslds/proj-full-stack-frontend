@@ -7,11 +7,30 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
+/**img da Pagina MODAL */ 
+/** component ação botão para fechar a pagina MODAL*/
+import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
+/** component imagem painel para acesso negado pagina MODAL*/
+import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
+
+
+// Heard
+import lg_def_ope_default from "../../assets/defaults/lg/lg_def_ope_default.svg";
+import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
+
+import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
+
+
 // layout page
 import LayoutHome from '../layouts/LayoutHome';
+
 // uso do context
 //import { Dispatch } from "react";
 import { useAcessoContext } from "../contexts/ContextAcesso";
+
+
+
+
 // main page
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
@@ -24,42 +43,58 @@ import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabe
 import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
 /** component ação botão help */
-import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
-/** component ação botão Fechar Master */ 
-import { logoutMaster } from '../contexts/helpers/logoutMaster';
+
+
 /** imgs do header */ 
-import lg_def_ope_default from '../../assets/defaults/lg/lg_def_ope_defaut.svg';
-import btn_def_q_help from '../../assets/defaults/btn/btn_def_q_help.svg';
 
-import avt_def_q_default from '../../assets/defaults/btn/btn_def_q_default.svg';
-import pnl_def_ope_Login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
+/** component ação botão Help Pagina  */ 
+import btn_def_q_help from "../../assets/defaults/btn/btn_def_c_help.svg";
+/** component ação botão Login e logoff da Pagina */ 
+import btn_def_q_logo_on from "../../assets/defaults/btn/btn_def_q_logo_on.svg";
+import btn_def_q_logo_off from "../../assets/defaults/btn/btn_def_q_logo_off.svg";
+import btn_def_q_avatar from "../../assets/defaults/btn/btn_def_q_avatar.svg";
+/** component ação imagem Login e logoff modal */ 
+import pnl_def_ope_Login from "../../assets/defaults/pnl/pnl_def_ope_login.svg";
+/** component ação para fazer o logoff modal Login e retornar a HOME */ 
 import { logoutLogin } from '../contexts/helpers/logoutLogin';
-
+/** component ação botão para resgatar acesso */ 
 import btn_def_q_resgatar from '../../assets/defaults/btn/btn_def_q_resgatar.svg';
-
+/** component ação botão limpar acesso Master */ 
 import btn_def_q_master from '../../assets/defaults/btn/btn_def_q_master.svg';
+/** component ação imagem Master na pagina do Logoff modal */ 
 import pnl_def_ope_master from '../../assets/defaults/pnl/pnl_def_ope_master.svg'
+/** component ação para fazer o logoff modal Mastere retornar a HOME */  
+import { logoutMaster } from '../contexts/helpers/logoutMaster';
+
 /** img do main painel */ 
+/** component ação imagem Panel Visitante da pagina HOME */ 
 import pnl_def_mod_visitante from '../../assets/defaults/pnl/pnl_def_mod_visitantes.svg';
+/** component ação imagem Panel Recepção da pagina HOME */ 
 import pnl_def_mod_recepcao from '../../assets/defaults/pnl/pnl_def_mod_recepcao.svg';
+/** component ação imagem Panel Design da pagina HOME */ 
 import pnl_def_mod_design from '../../assets/defaults/pnl/pnl_def_mod_design.svg';
+/** component ação imagem Panel Produção da pagina HOME */ 
 import pnl_def_mod_producao from '../../assets/defaults/pnl/pnl_def_mod_producao.svg';
+/** component ação imagem Panel Acabamento da pagina HOME */ 
 import pnl_def_mod_acabamento from '../../assets/defaults/pnl/pnl_def_mod_acabamento.svg';
+/** component ação imagem Panel Expedição da pagina HOME */ 
 import pnl_def_mod_expedicao from '../../assets/defaults/pnl/pnl_def_mod_expedicao.svg';
+/** component ação imagem Panel Administração da pagina HOME */ 
 import pnl_def_mod_administracao from '../../assets/defaults/pnl/pnl_def_mod_administracao.svg';
+/** component ação imagem Panel Config da pagina HOME */ 
 import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
+
 /** img do painel Bottom */ 
+/** component ação botão para refrescar a pagina */
 import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_q_refrescar.svg';
-/**img do modal */ 
-import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
-import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
+
 
 import { SystemHealthResult } from '../../types/SystemHealth';
-import { CardLogoffLogin } from '@/cards/CardLogoffLogin';
+
+import { CardLogoffLogin } from '../../cards/CardLogoffLogin';
 
 
 
@@ -116,6 +151,8 @@ const Home: React.FC = () => {
       setMessageBottom("Aguardando Seleção...");
       return;
     }
+
+
     if (state.initsys) return;
     let cancelled = false;
 
@@ -207,9 +244,9 @@ const Home: React.FC = () => {
     setMsgPanelBottom(`Acesso MODULO ["${state.modulo}"] ao Sistema...`);
     setMessageBottom("Aguardando Seleção...");
     setChaveLogin(Boolean(state.logado));
-    //return;
+    return;
   } else {
-    // ✅ 5) Sem login e sem master
+  // ✅ 5) Sem login e sem master
     dispatch({ type: "chvkey", payload: false });
     dispatch({ type: "modulo", payload: "Inicial" });
     dispatch({ type: "cor",payload: "" });
@@ -249,12 +286,12 @@ const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
   
   const targetRoute = routes[num];
   
-  if (!state.logado && !state.chvkey) {
+  if (!state.logado && !ismsgchvLog) {
     setCardNegadoPage(true);
   } else if (targetRoute) {
     goto(targetRoute);
   }
-},[goto, state.logado, state.chvkey]
+},[goto, state.logado, ismsgchvLog]
 );
 
   
@@ -263,11 +300,13 @@ const imagemLogoEmpresa =
   ? state.logo_svg_emp
   : lg_def_ope_default;
 
+  const imagemlogado =
+  state.id_img_user > 0 
+  ? btn_def_q_logo_off
+  : btn_def_q_logo_on;
 
-const imagemAvtUser =
-  state.id_img_user > 0 && state.img_svg_user?.trim()
-  ? state.img_svg_user
-  : avt_def_q_default;
+
+
 
 return (
   <ThemeProvider theme={theme}>
@@ -277,16 +316,16 @@ return (
       titbtnsys="Quen Somos..."
       onclicksys={handlerCardLogo}
 
-      //* Titulo da Pagina 
+      /* Titulo da Pagina */
       titlepg="Home"
 
-      //* Botão Help da Pagina
+      /* Botão Help da Pagina*/
       imgbtnhlppg={btn_def_q_help}
       titbtnhlppg="Help Page..."
       onclickhlppg={handlerCardHlpPage}
 
-      //* Botão para Logar no Sistema (login) ou Logout (logoff)
-      imgbtnlogin={imagemAvtUser}
+      /* Botão para Logar no Sistema (login) ou Logout (logoff) */
+      imgbtnlogin={imagemlogado}
       titbtnlogin= {chavelogin ? "Logout..." : "Login..."}
       onclicklogin={() => {
         if (state.chkdb && !state.logado && !state.chvkey) {
@@ -301,7 +340,7 @@ return (
         }
       }}
 
-      // Botão para Resgatar Acesso (resgate) resgatar Senha de Acesso ou Token de Acesso
+      /* Botão para Resgatar Acesso (resgate) resgatar Senha de Acesso ou Token de Acesso */
       imgbtnresg={btn_def_q_resgatar}
       titbtnresg="Resgatar Acesso..."
       onclickresg={() => {
@@ -313,7 +352,7 @@ return (
         }
       }}
 
-      // Botão para acessar o Modo Master (chave de acesso)
+      /* Botão para acessar o Modo Master (chave de acesso)*/
       mstonoff={chavemst}
       imgbtnmst={btn_def_q_master}
       titbtnmst="Segurança..."
@@ -327,18 +366,18 @@ return (
       }}
 
 
-      // Botão para acessar o Modo Master (chave de acesso)
-      // logonoff={chavelogin}
-      // imgbtnmst={btn_def_q_master}
-      // titbtnmst="Segurança..."
-      // onclickmst={() => {
-      //   if (state.logado && state.chvkey) {
-      //     setIsMsgChvkey(true);
-      //   } else {
-      //     setNotOperation(true);
-      //     setMsgPanelBottom('Sistema Inoperante!');
-      //   }
-      // }}
+      /*Botão para acessar o Modo Login Master (chave de acesso)*/
+      logonoff={true}
+      imgbtnlog={btn_def_q_avatar}
+      titbtnlog="Segurança..."
+      onclicklog={() => {
+        if (state.logado && state.chvkey) {
+          setIsMsgChvkey(true);
+        } else {
+          setNotOperation(true);
+          setMsgPanelBottom('Sistema Inoperante!');
+        }
+      }}
 
       // Botão para mudar o tema (dark/light)  
       onchange={ToggleTheme}
@@ -355,20 +394,11 @@ return (
         pwidth={'100px'}
         imgbtn={pnl_def_mod_visitante}
         titlebtn={'Modulo Visitantes..'}
-        onclick={() => {
-          if ( (state.chvkey && state.auth_admin !== '') || 
-            (state.modulo === 'Visitante' && state.logado && state.auth !== '') ) {
-            goto('/modulos/visitante');
-          } else {
-            handlerCardLogo();
-            //handlerClicEventNegadoPage(1);
-          }
-        }}
+        onclick={() => {goto("/modulos/visitante")}}
         onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.')}
-        onMouseLeave={() => {
-        if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Login Sistema...');
-        }}
+        onMouseLeave={() => setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...')}
       />
+
       {/* Monta os botões de acesso modulos do sistema (RECEPÇAO)*/ }
       <ContentCustonImgPage
         num={2}
@@ -381,7 +411,7 @@ return (
         onclick={() => {
           if ( (state.chvkey && state.auth_admin !== '') || 
             (state.modulo === 'Recepção' && state.logado && state.auth !== '') ) {
-            goto('/modulos/recepcao');
+            goto("/modulos/recepcao");
           } else {
             handlerClicEventNegadoPage(2);
           }
@@ -391,6 +421,7 @@ return (
           if (!state.logado && !state.chvkey) setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...');
         }}
       />
+
       {/* Monta os botões de acesso modulos do sistema (DESIGN)*/ }
       <ContentCustonImgPage
         num={3}
@@ -705,14 +736,14 @@ return (
               labelConfirm={"SIM para Logoff."}
               labelCancel={"NÃO para Abortar."}
               seconds={30}
-              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
+              resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
               onConfirm={() => {
                 logoutMaster(dispatch);
                 setIsMsgChvkey(false);
               }}
-              onCancel={() => setIsMsgChvkey(false)}
-              onClose={() => setIsMsgChvkey(false)}
-              />
+            onCancel={() => setIsMsgChvkey(false)}
+            onClose={() => setIsMsgChvkey(false)}
+            />
           </PageModal>
         ) : null}
 
@@ -747,12 +778,11 @@ return (
               onCancel={() => setIsMsgChvLog(false)}
               onClose={() => setIsMsgChvLog(false)}
               />
-
-
           </PageModal>
         )}
 
-        {/* <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div> */}
+        <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
+        <div>{ state.logado ? (<p>Logado : true </p>) : (<p>Logado : false </p>)}</div>
     </LayoutHome>
   </ThemeProvider>
   );

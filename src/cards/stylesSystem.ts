@@ -1,7 +1,7 @@
 
 import styled from 'styled-components';
 
-import btn_def_q_default from '../assets/defaults/btn/btn_def_q_defaut.svg'
+import btn_def_q_default from '../assets/defaults/btn/btn_def_q_default.svg'
 
 // inicio do ContentMainSystem 
 export const ContainerMainSystem = styled.div`
