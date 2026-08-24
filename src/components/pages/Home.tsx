@@ -13,61 +13,59 @@ import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
 /** component imagem painel para acesso negado pagina MODAL*/
 import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
 
-
 // Heard
 import lg_def_ope_default from "../../assets/defaults/lg/lg_def_ope_default.svg";
 import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 
 
 // layout page
 import LayoutHome from '../layouts/LayoutHome';
-
 // uso do context
 //import { Dispatch } from "react";
 import { useAcessoContext } from "../contexts/ContextAcesso";
-
-
-
-
 // main page
 import { ContentItensBody } from '../ContentItensBody';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
+/** component ação para fazer o logoff em MODAL Login e Master  Atualizador do context*/  
+import { logoutMaster } from '../contexts/helpers/logoutMaster';
+import { logoutLogin } from '../contexts/helpers/logoutLogin';
+import { SystemHealthResult } from '../../types/SystemHealth';
+
 // bottom page
 import { PageModal } from './PageModal';
 import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
 import { AutoCloseTimer } from '../AutoCloseTimer';
-import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotton';
-import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
-import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
-import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
+import { ContentSidePagePanelBotton } from '../sidebars/ContentSidePagePanelBotton';
+import { ContentSidePageBottonLabel } from '../sidebars/ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../sidebars/ContentSidePageBottonButton';
+import { ContentSideMsgPagePanelBotton } from '../sidebars/ContentSideMsgPagePanelBotton';
+
 /** component ação botão help */
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
+// Help Botão Login
+import { CardHlpLoginModPage } from '../../cards/CardHlpLoginModPage';
+// Modal LOGO-OFF SENHA LOGIN
+import { CardLogoffLogin } from '../../cards/CardLogoffLogin';
+// Modal LOGO-OFF SENHA MASTER
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
 
-
-/** imgs do header */ 
-
-/** component ação botão Help Pagina  */ 
+/** IMAGENS DOS BOTÔES PAGINA */
+/** component ação Botão Help Pagina  */ 
 import btn_def_q_help from "../../assets/defaults/btn/btn_def_c_help.svg";
-/** component ação botão Login e logoff da Pagina */ 
-import btn_def_q_logo_on from "../../assets/defaults/btn/btn_def_q_logo_on.svg";
-import btn_def_q_logo_off from "../../assets/defaults/btn/btn_def_q_logo_off.svg";
+//** component ação BOTÃO LOGIN */
+import btn_def_ope_q_login from "../../assets/defaults/btn/btn_def_ope_q_login.svg";
+/** se tiver logado sem avatar*/
 import btn_def_q_avatar from "../../assets/defaults/btn/btn_def_q_avatar.svg";
-/** component ação imagem Login e logoff modal */ 
-import pnl_def_ope_Login from "../../assets/defaults/pnl/pnl_def_ope_login.svg";
-/** component ação para fazer o logoff modal Login e retornar a HOME */ 
-import { logoutLogin } from '../contexts/helpers/logoutLogin';
-/** component ação botão para resgatar acesso */ 
-import btn_def_q_resgatar from '../../assets/defaults/btn/btn_def_q_resgatar.svg';
-/** component ação botão limpar acesso Master */ 
-import btn_def_q_master from '../../assets/defaults/btn/btn_def_q_master.svg';
+/** component ação limpar Login (logoff modal) */ 
+import pnl_def_ope_login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
+/** component ação limpar Master (logoff modal)*/ 
+import btn_def_q_master from    '../../assets/defaults/btn/btn_def_q_master.svg';
 /** component ação imagem Master na pagina do Logoff modal */ 
 import pnl_def_ope_master from '../../assets/defaults/pnl/pnl_def_ope_master.svg'
-/** component ação para fazer o logoff modal Mastere retornar a HOME */  
-import { logoutMaster } from '../contexts/helpers/logoutMaster';
+/** component ação botão para resgatar acesso */ 
+import btn_def_q_resgatar from '../../assets/defaults/btn/btn_def_q_resgatar.svg';
 
 /** img do main painel */ 
 /** component ação imagem Panel Visitante da pagina HOME */ 
@@ -92,13 +90,6 @@ import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg
 import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_q_refrescar.svg';
 
 
-import { SystemHealthResult } from '../../types/SystemHealth';
-
-import { CardLogoffLogin } from '../../cards/CardLogoffLogin';
-
-
-
-
 const Home: React.FC = () => {
   const { state, dispatch } = useAcessoContext();
 
@@ -114,15 +105,20 @@ const Home: React.FC = () => {
 
   const [cardhplpage, setCardHlpPage] = React.useState(false);
 
+  const [cardhplbtnlogin, setCardHlpBtnLogin] = React.useState(false);
+
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
-  
-  const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
-    const [chavemst, setChaveMst ] = React.useState(false);
 
+  // Botão para Modal Logado ou não, DATA CEnter ou não do Login
   
-  const [ismsgchvLog, setIsMsgChvLog] = React.useState(false);
-  const [chavelogin, setChaveLogin ] = React.useState(false);
+  // Help Botão Login
+  //Set para modal botão Logof senha Login 
+  const [ismsgchvLogin, setIsMsgChvLogin] = React.useState(false);//botão logoff  login
+  const [chavelogin, setChaveLogin ] = React.useState(false); // abre botão logoff login
 
+  //Set para modal botão Logof senha Master 
+  const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);//botão logoff  master
+  const [chavemst, setChaveMst ] = React.useState(false); //abre botão master
 
   // Mantidos (você usa para sinalizar alguns fluxos), mas agora SEM travar Home
   const [showInitSystem, setInitShowSystem] = React.useState(false);
@@ -152,7 +148,6 @@ const Home: React.FC = () => {
       return;
     }
 
-
     if (state.initsys) return;
     let cancelled = false;
 
@@ -162,7 +157,7 @@ const Home: React.FC = () => {
         setShowSystemCheckModal(true);
         setSystemOk(null);
         setSystemMessages(['🔍 Iniciando verificação do sistema...', '🔌 Consultando estado do backend...']);
-        const res = await fetch('http://localhost:3000/api/system/health');
+        const res = await fetch('http://localhost:5000/api/system/health');
         const data: SystemHealthResult = await res.json();
         if (cancelled) return;
         const ok = data.success && data.missingTables.length === 0;
@@ -205,18 +200,27 @@ const Home: React.FC = () => {
     return () => {
       cancelled = true;
     };
-  }, [state.initsys, state.chvkey,dispatch]);
+  }, [state.initsys, state.chvkey, state.logado, dispatch]);
 
+  /////////////////////////////////////
   React.useEffect(() => {
   setMessageBottom("");
   dispatch({ type: "page", payload: "Home" });
   dispatch({ type: "aplicacao", payload: "OPÇÃO" });
+  
   // ✅ 1) Se CHVKEY estiver ativo, NÃO pode zerar nem bloquear.
   if (state.chvkey) {
     setMsgPanelBottom('Acesso "Master" ativo.');
     setMessageBottom("Aguardando Seleção...");
     return;
   }
+
+  if (state.logado) {
+    setMsgPanelBottom('Acesso "Master" ativo.');
+    setMessageBottom("Aguardando Seleção...");
+    return;
+  }
+
   // ✅ 2) Se sistema não iniciou, mostra status, mas sem travar Home
   if (!state.initsys) {
     dispatch({ type: "initsys", payload: false });
@@ -231,31 +235,27 @@ const Home: React.FC = () => {
     setInitShowSystem(true);
     return;
   }
+  
   // ✅ 3) Sistema iniciou, mas DB não pronto
   if (!state.chkdb) {
     setShowSystemCheckModal(true);
     setMsgPanelBottom("Sistema Inoperante. Conexão ou tabelas não estão prontas.");
     return;
   }
-
-
+  
   // ✅ 4) Usuário logado (login normal)
   if (state.logado) {
     setMsgPanelBottom(`Acesso MODULO ["${state.modulo}"] ao Sistema...`);
     setMessageBottom("Aguardando Seleção...");
-    setChaveLogin(Boolean(state.logado));
     return;
-  } else {
-  // ✅ 5) Sem login e sem master
-    dispatch({ type: "chvkey", payload: false });
-    dispatch({ type: "modulo", payload: "Inicial" });
-    dispatch({ type: "cor",payload: "" });
-    dispatch({ type: "nivel", payload: 0 });
-    dispatch({ type: "acao", payload: "" });
-  
-    setMsgPanelBottom("Aguardando Login Sistema...");
-    setMessageBottom('Acessos Modulos "NEGADOS", faça o Login...');
   }
+  // ✅ 5) Sem login e sem master
+  dispatch({ type: "chvkey", payload: false });
+  dispatch({ type: "modulo", payload: "Inicial" });
+  dispatch({ type: "cor",payload: "" });
+  dispatch({ type: "nivel", payload: 0 });
+  dispatch({ type: "acao", payload: "" });
+  
 }, [state.initsys, state.chkdb, state.logado, state.chvkey, state.modulo, dispatch]);
 
 React.useEffect(() => {
@@ -266,10 +266,17 @@ React.useEffect(() => {
   setChaveLogin(Boolean(state.logado));
 }, [state.logado]);
 
-
+//** Abre/fecha ao clicar na Logo do Sistema ou Empresa */
 const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
+//** Abre/fecha ao clicar no botão help da Pagina */
 const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
+//** Abre/fecha ao clicar no botão Login */
+const handlerCardHlpBtnLogin = React.useCallback(() => setCardHlpBtnLogin((old) => !old), []);
+
+
 const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
+
+
   
   if (num === undefined) return;
   
@@ -284,79 +291,81 @@ const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
     8: '/modulos/config',
   };
   
+  // caso não logado e sem master
   const targetRoute = routes[num];
   
-  if (!state.logado && !ismsgchvLog) {
+  if (!state.logado && !state.chvkey && routes !== '/modulos/visitante')  {
     setCardNegadoPage(true);
   } else if (targetRoute) {
     goto(targetRoute);
   }
-},[goto, state.logado, ismsgchvLog]
+},[goto, state.logado, state.chvkey]
 );
 
-  
 const imagemLogoEmpresa =
   state.id_logo_emp > 0 && state.logo_svg_emp?.trim()
   ? state.logo_svg_emp
   : lg_def_ope_default;
 
-  const imagemlogado =
-  state.id_img_user > 0 
-  ? btn_def_q_logo_off
-  : btn_def_q_logo_on;
-
-
-
-
+ 
+const imagemLogin =
+  !state.logado
+    ? btn_def_ope_q_login
+    : state.id_img_user > 0 && state.img_svg_user
+      ? state.img_svg_user
+      : btn_def_q_avatar;
+  
 return (
   <ThemeProvider theme={theme}>
     <LayoutHome
-      //* Logo da Sistema/Empresa ou do Sistema 
-      imgsys={imagemLogoEmpresa}
-      titbtnsys="Quen Somos..."
-      onclicksys={handlerCardLogo}
+      //** Logo da Sistema/Empresa ou do Sistema 
+      imgbtnlogo={imagemLogoEmpresa}
+      titbtnlogo="Quen Somos..."
+      onClickbtnlogo={handlerCardLogo}
 
-      /* Titulo da Pagina */
-      titlepg="Home"
+      /** Titulo da Pagina */
+      titulopg="Home"
 
-      /* Botão Help da Pagina*/
+      /** Botão Help da Pagina*/
       imgbtnhlppg={btn_def_q_help}
       titbtnhlppg="Help Page..."
-      onclickhlppg={handlerCardHlpPage}
+      onClickbtnhlppg={handlerCardHlpPage}
 
-      /* Botão para Logar no Sistema (login) ou Logout (logoff) */
-      imgbtnlogin={imagemlogado}
-      titbtnlogin= {chavelogin ? "Logout..." : "Login..."}
-      onclicklogin={() => {
-        if (state.chkdb && !state.logado && !state.chvkey) {
-          goto('/login');
+
+
+
+      /** Botão Login da Pagina*/
+      imgbtnloginon={imagemLogin}
+      titbtnloginon={state.logado ? 'Login-on...' : 'Login...'}
+
+      /** se master estiver ativa o disabled  */
+      disabledloginon={chavemst}
+      onClickbtnloginon={() => {
+        if (!state.logado) {
+            goto('/login');
         } else {
-          if (state.logado) {
-            setIsMsgChvLog(true);
-          } else {
-            setNotOperation(true);
-            setMsgPanelBottom('Sistema Inoperante!');
-          }
+          handlerCardHlpBtnLogin();   
         }
       }}
 
-      /* Botão para Resgatar Acesso (resgate) resgatar Senha de Acesso ou Token de Acesso */
-      imgbtnresg={btn_def_q_resgatar}
-      titbtnresg="Resgatar Acesso..."
-      onclickresg={() => {
-        if (state.chkdb) {
-          goto('/resgate');
-        } else {
+      /** Botão Logo-off Senha Login  */
+      loginoff={chavelogin}
+      imgbtnloginoff={btn_def_ope_q_login}
+      titbtnloginoff={"Segurança..."}
+      onClickbtnloginoff={() => {
+        if (state.logado) {
+          setIsMsgChvkey(true);
+        } 
           setNotOperation(true);
           setMsgPanelBottom('Sistema Inoperante!');
         }
-      }}
-
-      /* Botão para acessar o Modo Master (chave de acesso)*/
-      mstonoff={chavemst}
-      imgbtnmst={btn_def_q_master}
-      titbtnmst="Segurança..."
-      onclickmst={() => {
+      }
+ 
+      /**  Botão Logo-off Senha Master */
+      masteroff={chavemst}
+      imgbtnmasteroff={btn_def_q_master}
+      titbtnmasteroff={"Segurança..."}
+      onClickbtnmasteroff={() => {
         if (state.chvkey) {
           setIsMsgChvkey(true);
         } else {
@@ -364,15 +373,13 @@ return (
           setMsgPanelBottom('Sistema Inoperante!');
         }
       }}
-
-
-      /*Botão para acessar o Modo Login Master (chave de acesso)*/
-      logonoff={true}
-      imgbtnlog={btn_def_q_avatar}
-      titbtnlog="Segurança..."
-      onclicklog={() => {
-        if (state.logado && state.chvkey) {
-          setIsMsgChvkey(true);
+  
+      /* Botão para Resgatar Acesso (resgate) resgatar Senha de Acesso ou Token de Acesso */
+      imgbtnresgate={btn_def_q_resgatar}
+      titbtnresgate="Resgatar Acesso..."
+      onClickbtnresgate={() => {
+        if (!state.logado) {
+          goto('/resgate');
         } else {
           setNotOperation(true);
           setMsgPanelBottom('Sistema Inoperante!');
@@ -394,9 +401,9 @@ return (
         pwidth={'100px'}
         imgbtn={pnl_def_mod_visitante}
         titlebtn={'Modulo Visitantes..'}
-        onclick={() => {goto("/modulos/visitante")}}
-        onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.')}
-        onMouseLeave={() => setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...')}
+        onclick={() => { goto("/modulos/visitante") }}
+        onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.' )}
+        onMouseLeave={() => setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...' )}
       />
 
       {/* Monta os botões de acesso modulos do sistema (RECEPÇAO)*/ }
@@ -609,6 +616,7 @@ return (
           ) : null 
         }
         
+        {/** Modal dos Botões Hearders da Pagina */ }
         {/** Abre Modal help ao clicar na imagem LOGO da Pagina */ }
         {cardlogo ? (
           <PageModal
@@ -638,6 +646,97 @@ return (
           </PageModal>
           ) : null 
         }
+
+        {/* Abre Modal ao clicar no Botão Login */ }
+        {cardhplbtnlogin ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'80%'}
+            pheight={'95%'}
+            imgbm={btn_def_q_close}
+            titbm="Fechar..."
+            titulo={'Help Conteúdo Home.'}
+            onclose={() => setCardHlpBtnLogin(false)}>
+            <CardHlpLoginModPage
+              pminheight="110px"
+              pwidth="130px"
+              imgcardpage={ imagemLogin }
+              onclosesair={() => setCardHlpBtnLogin(false)} 
+            />
+          </PageModal>
+          ) : null 
+        }
+
+        {/* Abre Modal da fazer o logo-off do Acesso Senha LOGIN */ }
+        { ismsgchvLogin && (
+          <PageModal
+            ptop='330px'
+            pwidth={'400px'}
+            pheight={'44%'}
+            imgbm={btn_def_q_close}
+            titbm="Fechar..."
+            titulo={'Sistema Logado.'}
+            onclose={() => setIsMsgChvLogin(false)} >
+            <CardLogoffLogin
+              pptop="300px"
+              bordas="4px"
+              pxheight="57px"
+              pxwidth="65px"
+              imgpnl={pnl_def_ope_login}
+              onclickpnl={() => {}}
+              open={true}
+              titulo={"Acesso Logo-off."}
+              msg={"Confirme opção de Logoff."}
+              labelConfirm={"SIM para Logoff."}
+              labelCancel={"NÃO para Abortar."}
+              seconds={30}
+              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
+              onConfirm={() => {
+                logoutLogin(dispatch);
+                setChaveLogin(false);
+              }}
+              onCancel={() => setIsMsgChvLogin(false)}
+              onClose={() => setIsMsgChvLogin(false)}
+              />
+          </PageModal>
+        )}
+
+        {/* Abre Modal da fazer o LOGO-OFF Acesso Senha MASTER */ }
+        { ismsgchvkey ? (
+          <PageModal
+            ptop={"330px"}
+            pwidth={"400px"}
+            pheight={"44%"}
+            imgbm={btn_def_q_close}
+            titbm="Fechar..."
+            titulo={"Abortar Master."}
+            onclose={() => setIsMsgChvkey(false)} > {/** devera ser setIsLogoff */} 
+            {/** deverrá ser conforme o solicitado de acordo com o setado do botão : setIsLogin ou setIsMaster */} 
+            <CardLogoffMaster 
+              pptop={"300px"}
+              bordas={"4px"}
+              pxheight={"57px"}
+              pxwidth={"65px"}
+              imgpnl={pnl_def_ope_master}
+              onclickpnl={() => {}}
+              open={true}
+              titulo={"Acesso Logo-off."}
+              msg={"Confirme opção de Logoff."}
+              labelConfirm={"SIM para Logoff."}
+              labelCancel={"NÃO para Abortar."}
+              width={"45px"}
+              height={"45px"}
+              seconds={30}
+              resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
+              onConfirm={() => {
+                logoutMaster(dispatch);
+                setIsMsgChvkey(false);
+              }}
+            onCancel={() => setIsMsgChvkey(false)}
+            onClose={() => setIsMsgChvkey(false)}
+            />
+          </PageModal>
+        ) : null}
         
         {/* Abre Modal da Verificação do Sistema (fechável) */ }
         {showsystemcheckmodal ? (
@@ -712,77 +811,9 @@ return (
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
-        
-        {/* Abre Modal da fazer o logo-off do anunciando "negado / não pode operar" o Sistema (fechável) */ }
-        { ismsgchvkey ? (
-          <PageModal
-            ptop='330px'
-            pwidth={'400px'}
-            pheight={'44%'}
-            imgbm={btn_def_q_close}
-            titbm="Fechar..."
-            titulo={'Abortar Master.'}
-            onclose={() => setIsMsgChvkey(false)} >
-            <CardLogoffMaster
-              pptop="300px"
-              bordas="4px"
-              pxheight="57px"
-              pxwidth="65px"
-              imgpnl={pnl_def_ope_master}
-              onclickpnl={() => {}}
-              open={true}
-              titulo={"Acesso Logo-off."}
-              msg={"Confirme opção de Logoff."}
-              labelConfirm={"SIM para Logoff."}
-              labelCancel={"NÃO para Abortar."}
-              seconds={30}
-              resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
-              onConfirm={() => {
-                logoutMaster(dispatch);
-                setIsMsgChvkey(false);
-              }}
-            onCancel={() => setIsMsgChvkey(false)}
-            onClose={() => setIsMsgChvkey(false)}
-            />
-          </PageModal>
-        ) : null}
 
-        {/* Abre Modal da fazer o logo-off do anunciando "negado / não pode operar" o Sistema (fechável) */ }
-        { ismsgchvLog && (
-          <PageModal
-            ptop='330px'
-            pwidth={'400px'}
-            pheight={'44%'}
-            imgbm={btn_def_q_close}
-            titbm="Fechar..."
-            titulo={'Sistema Logado.'}
-            onclose={() => setIsMsgChvLog(false)} >
-            <CardLogoffLogin
-              pptop="300px"
-              bordas="4px"
-              pxheight="57px"
-              pxwidth="65px"
-              imgpnl={pnl_def_ope_Login}
-              onclickpnl={() => {}}
-              open={true}
-              titulo={"Acesso Logo-off."}
-              msg={"Confirme opção de Logoff."}
-              labelConfirm={"SIM para Logoff."}
-              labelCancel={"NÃO para Abortar."}
-              seconds={30}
-              resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
-              onConfirm={() => {
-                logoutLogin(dispatch);
-                setChaveLogin(false);
-              }}
-              onCancel={() => setIsMsgChvLog(false)}
-              onClose={() => setIsMsgChvLog(false)}
-              />
-          </PageModal>
-        )}
-
-        <div>{ state.chvkey ? (<p>ChvKey : true </p>) : (<p>ChvKey : false </p>)}</div>
-        <div>{ state.logado ? (<p>Logado : true </p>) : (<p>Logado : false </p>)}</div>
+        <div>{ state.chvkey ? (<p>......ChvKey : true </p>) : (<p>.......ChvKey : false </p>)}</div>
+        <div>{ state.logado ? (<p>......Logado : true </p>) : (<p>.......Logado : false </p>)}</div>
     </LayoutHome>
   </ThemeProvider>
   );

@@ -1,6 +1,6 @@
+
 import * as Pg from '../stylePages';
 
-///
 import { ContentPages } from '../ContentPages';
 import HearderVisitante from '../hearders/headers/HearderVisitante';
 //import { FooterPage } from '../../footers/FooterPage';
@@ -8,73 +8,128 @@ import HearderVisitante from '../hearders/headers/HearderVisitante';
 //import { BarSideMenuDados } from '../../sidebar/BarSideMenuDados';
 
 interface PropsLayoutVisitante {
-  imgsys?: string;
-  titbtnsys?: string;
-  onclicksys?: () => void;
-  titlepg?: string;
+  //IMAGEM lOGO DA PAGINA
+  imgbtnlogo?: string;
+  titbtnlogo?: string;
+  onClickbtnlogo?: () => void;
+  // TITULO DA PAGINA
+  titulopg?: string;
+  // BOTÃO DE HELP PAGINA
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
-  onclickhlppg?: () => void;
-  $imglgoff?: string;
-  $imglgon?: string;
-  $logonoff?: boolean;
-  titbtnlgonoff?: string;
-  onclicklgooff?: () => void;
-  imgbtnaborta?: string;
-  titbtnaborta?: string;
-  onclickaborta?: () => void;
+  onClickbtnhlppg?: () => void;
+  // BOTÂO de LOGIN Logado ou não Logado
+  imgbtnloginon?: string;
+  titbtnloginon?: string;
+  disabledloginon?: boolean;
+  onClickbtnloginon?: () => void;
+  // BOTÃO para SAIR LOGOFF LOGIN
+  loginoff?: boolean;
+  imgbtnloginoff?: string;
+  titbtnloginoff?: string;
+  onClickbtnloginoff?: () => void;
+  // BOTÃO para SAIR LOGOFF MASTER
+  masteroff?: boolean;
+  imgbtnmasteroff?: string;
+  titbtnmasteroff?: string;
+  onClickbtnmasteroff?: () => void;
+  // BOTÃO para RESGATAR ACESSO SITEMA
+  imgbtnresgate?: string;
+  titbtnresgate?: string;
+  onClickbtnresgate?: () => void;
+  // BOTÂO para SAIR para HOME
+  imgbtnhome?: string;
+  titbtnhome?: string;
+  onClickbtnhome?: () => void;
+  // BOTÂO SWUIT 
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode | JSX.Element;
-  open?: boolean;
+  children?: React.ReactNode;
 }
 const LayoutVisitante = ({
-  imgsys,
-  titbtnsys,
-  onclicksys,
-  titlepg,
+  imgbtnlogo,
+  titbtnlogo,
+  onClickbtnlogo,
+
+  titulopg,
+
   imgbtnhlppg,
   titbtnhlppg,
-  onclickhlppg,
-  $imglgoff,
-  $imglgon,
-  $logonoff,
-  titbtnlgonoff,
-  onclicklgooff,
-  imgbtnaborta,
-  titbtnaborta,
-  onclickaborta,
+  onClickbtnhlppg,
+
+  imgbtnloginon,
+  titbtnloginon,
+  disabledloginon,
+  onClickbtnloginon,
+
+  loginoff,
+  imgbtnloginoff,
+  titbtnloginoff,
+  onClickbtnloginoff,
+
+  masteroff,
+  imgbtnmasteroff,
+  titbtnmasteroff,
+  onClickbtnmasteroff,
+
+  imgbtnresgate,
+  titbtnresgate,
+  onClickbtnresgate,
+
+  imgbtnhome,
+  titbtnhome,
+  onClickbtnhome,
+
   onchange,
   ischeck,
+
   children,
 }: PropsLayoutVisitante) => {
   return (
     <ContentPages>
       <HearderVisitante
-        imgsys={imgsys}
-        titbtnsys={titbtnsys}
-        onclicksys={onclicksys}
-        titlepg={titlepg}
+
+        imgbtnlogo={imgbtnlogo}
+        titbtnlogo={titbtnlogo}
+        onClickbtnlogo={onClickbtnlogo}
+        
+        titulopg={titulopg} 
+
         imgbtnhlppg={imgbtnhlppg}
         titbtnhlppg={titbtnhlppg}
-        onclickhlppg={onclickhlppg}
+        onClickbtnhlppg={onClickbtnhlppg}
 
-        $imglgoff={$imglgoff}
-        $imglgon={$imglgon}
-        $logonoff={$logonoff}
-        titbtnlgonoff={titbtnlgonoff}
-        onclicklgooff={onclicklgooff}
+        imgbtnloginon={imgbtnloginon}
+        titbtnloginon={titbtnloginon}
+        disabledloginon={disabledloginon}
+        onClickbtnloginon={onClickbtnloginon}
 
-        imgbtnaborta={imgbtnaborta}
-        titbtnaborta={titbtnaborta}
-        onclickaborta={onclickaborta}
+        loginoff={loginoff}
+        imgbtnloginoff={imgbtnloginoff}
+        titbtnloginoff={titbtnloginoff}
+        onClickbtnloginoff={onClickbtnloginoff}
+
+        masteroff={masteroff}
+        imgbtnmasteroff={imgbtnmasteroff}
+        titbtnmasteroff={titbtnmasteroff}
+        onClickbtnmasteroff={onClickbtnmasteroff}
+
+        imgbtnresgate={imgbtnresgate}
+        titbtnresgate={titbtnresgate}
+        onClickbtnresgate={onClickbtnresgate}
+
+        imgbtnhome={imgbtnhome}
+        titbtnhome={titbtnhome}
+        onClickbtnhome={onClickbtnhome}
+
         onchange={onchange}
         ischeck={ischeck}
+
       />
       <Pg.DivisionPgHztal />
       <Pg.ContainerBody>
         <Pg.ContainerPage>
-          {/* <BarSideMenuPage /> */}
+          {/* um BAR com Menu de Serviços prestados pela Empresa  OU   Banner rotativo */}
           {children}
         </Pg.ContainerPage>
       </Pg.ContainerBody>

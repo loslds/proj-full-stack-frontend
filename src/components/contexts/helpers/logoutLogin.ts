@@ -6,7 +6,7 @@ import { AcessoAction } from "../ContextAcesso";
 
 export function logoutLogin(dispatch: Dispatch<AcessoAction>) {
   // remove token
-  localStorage.removeItem("token_admin");
+  localStorage.removeItem("token_aut");
 
   // limpa estado do context
   dispatch({ type: "auth", payload: "" });

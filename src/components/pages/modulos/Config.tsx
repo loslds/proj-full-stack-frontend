@@ -17,7 +17,7 @@ import {
   BarMenuConfig,
   type GridUtilityAction,
   type GridViewMode,
-} from "../../grids/BarMenuConfig";
+} from "../../sidebars/config/BarMenuConfig";
 
 import GenericGrid from "../../grids/GenericGrid";
 
@@ -26,10 +26,10 @@ import { ContentMainTitle } from "../../ContentMainTitle";
 import { DivisionPgHztal } from "../../stylePages";
 
 import { PageModal } from "../PageModal";
-import { ContentSidePagePanelBotton } from "../../sidebar/ContentSidePagePanelBotton";
-import { ContentSidePageBottonLabel } from "../../sidebar/ContentSidePageBottonLabel";
-import { ContentSidePageBottonButton } from "../../sidebar/ContentSidePageBottonButton";
-import { ContentSideMsgPagePanelBotton } from "../../sidebar/ContentSideMsgPagePanelBotton";
+import { ContentSidePagePanelBotton } from "../../sidebars/ContentSidePagePanelBotton";
+import { ContentSidePageBottonLabel } from "../../sidebars/ContentSidePageBottonLabel";
+import { ContentSidePageBottonButton } from "../../sidebars/ContentSidePageBottonButton";
+import { ContentSideMsgPagePanelBotton } from "../../sidebars/ContentSideMsgPagePanelBotton";
 
 import { CardHlpConfigPage } from "../../../cards/CardHlpConfigPage";
 import { CardLogoffMaster } from "../../../cards/CardLogoffMaster";
@@ -67,7 +67,7 @@ type LoadTableResult =
 
 const API_BASE =
   (import.meta as unknown as { env?: Record<string, string> })?.env
-    ?.VITE_API_URL ?? "http://localhost:3000/api";
+    ?.VITE_API_URL ?? "http://localhost:5000/api";
 
 async function fetchTableByName(tableName: string): Promise<LoadTableResult> {
   const url = `${API_BASE}/system/table/${encodeURIComponent(tableName)}`;

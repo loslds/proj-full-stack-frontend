@@ -14,8 +14,8 @@ import LayoutLogin from "../layouts/LayoutLogin";
 
 import { ContentCardPageMain } from '../ContentCardPageMain';
 
-import { ContentSidePagePanelBotton } from '../sidebar/ContentSidePagePanelBotton';
-import { ContentSideMsgPagePanelBotton } from '../sidebar/ContentSideMsgPagePanelBotton';
+import { ContentSidePagePanelBotton } from '../sidebars/ContentSidePagePanelBotton';
+import { ContentSideMsgPagePanelBotton } from '../sidebars/ContentSideMsgPagePanelBotton';
 
 import { PageModal } from './PageModal';
 import { CardHlpLoginLogo } from '../../cards/CardHlpLoginLogo';
@@ -28,8 +28,8 @@ import { ContentCardBoxBorderPg } from "../ContentCardBoxBorderPg";
 //import { ContentCardBoxDialogo } from '../ContentCardBoxDialogo';
 
 //
-import { ContentSidePageBottonLabel } from '../sidebar/ContentSidePageBottonLabel';
-import { ContentSidePageBottonButton } from '../sidebar/ContentSidePageBottonButton';
+import { ContentSidePageBottonLabel } from '../sidebars/ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../sidebars/ContentSidePageBottonButton';
 //import { ContentPageButtonDefImgEnabled } from '../ContentPageButtonDefImgEnabled';
 
 // imgs 

@@ -2,8 +2,8 @@
 // C:\repository\proj-full-stack-frontend\src\components\grids\Dropdown.tsx
 
 import React from "react";
-import { ContentMainDropdownUl } from "../sidebar/ContentMainDropdownUl";
-import { ButtonDropdown } from "../sidebar/stylesSidebar";
+import { ContentMainDropdownUl } from "../ContentMainDropdownUl";
+import { ButtonDropdown } from "../stylesSidebar";
 
 export interface DropdownOption {
   label: string;
@@ -12,7 +12,7 @@ export interface DropdownOption {
   onClick?: () => void;
 }
 
-interface PropsDropdown {
+interface PropsDropdownVisitantes {
   $pxheight?: string;
   $pxwidth?: string;
   labelbtn?: string;
@@ -20,7 +20,7 @@ interface PropsDropdown {
   onSelect: (value: string) => void;
 }
 
-export const Dropdown: React.FC<PropsDropdown> = ({
+export const DropdownVisitantes: React.FC<PropsDropdownVisitantes> = ({
   $pxheight,
   $pxwidth,
   labelbtn,
@@ -200,3 +200,4 @@ export const Dropdown: React.FC<PropsDropdown> = ({
     </ContentMainDropdownUl>
   );
 };
+

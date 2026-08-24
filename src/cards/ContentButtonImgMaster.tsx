@@ -18,7 +18,8 @@ export const ContentButtonImgMaster = ({
 }: PropsContentButtonImgMaster) => {
   return (
     <Sy.ContainerButtonMasterImg>
-      <Sy.ButtonMasterImg 
+      <Sy.ButtonMasterImg
+       type="button" 
         $img={imgbtn} 
         title={titbtn} 
         onClick={onClickbtn} 

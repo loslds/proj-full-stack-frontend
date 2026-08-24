@@ -3,12 +3,12 @@
 import { ReactNode } from 'react';
 import * as Sy from './stylesSystem';
 
-interface PropsContentLabelButtomLogin {
+interface PropsContentLabelButtonLogin {
   children?: ReactNode;
 };
-export const ContentLabelButtomLogin = ({
+export const ContentLabelButtonLogin = ({
   children
-}: PropsContentLabelButtomLogin) => {
+}: PropsContentLabelButtonLogin) => {
   return (
     <Sy.ContainerPanelButtonLogin>
       {children}

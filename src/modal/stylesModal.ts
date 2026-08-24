@@ -195,7 +195,7 @@ export const ContainerCardFlexWidth = styled.div<PropsContainerCardFlexWidth>`
 interface PropsContainerModalImg {
   pminheight?: string;
   pwidth?: string;
-  img?: string;
+  $img?: string;
   onClick?: () => void;
 };
 export const ContainerModalImg = styled.div<PropsContainerModalImg>`
@@ -210,7 +210,7 @@ export const ContainerModalImg = styled.div<PropsContainerModalImg>`
   align-content: center;
   align-items: center;
   background-color: transparent;
-  background-image: url(${ (  { img } ) => img || semimg});
+  background-image: url(${ (  { $img } ) => $img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

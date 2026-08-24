@@ -7,18 +7,20 @@ interface PropsContentHeaderButtonAbortar {
   titbtnaborta?: string;
   onClickaborta?: React.MouseEventHandler<HTMLButtonElement>;
 }
-export const ContentHeaderButtonAbortar = ({
+export const ContentHeaderBtnImgSair = ({
   imgbtnaborta,
   titbtnaborta,
   onClickaborta,
 }: PropsContentHeaderButtonAbortar) => {
   return (
-    <H.ContainerHeaderButton>
-      <H.ButtonHeaderImg
-        img={imgbtnaborta}
+    <H.ContainerBtnImgSair>
+      <H.ButtonImgSair
+        $imgbtnsair={imgbtnaborta}
         title={titbtnaborta}
         onClick={onClickaborta}
       />
-    </H.ContainerHeaderButton>
+    </H.ContainerBtnImgSair>
   );
 };
+
+export default ContentHeaderBtnImgSair;

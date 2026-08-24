@@ -1,121 +1,176 @@
 
 
 // src/components/heardes/headers/HeaderVisitante.tsx
-import * as H from '../styledHeader';
-
+import * as S from '../styledHeader';
 import Switch from 'react-switch';
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
-import { ContentHeaderButtonSys } from '../ContentHeaderButtonSys';
-import { ContentHeaderTitle } from '../ContentHeaderTitle';
+import { ContentHearderImgLogo } from '../ContentHearderImgLogo';
 import { ContentHearderRight } from '../ContentHearderRight';
+import { ContentHeaderTituloPg } from '../ContentHeaderTituloPg';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
-import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
-import { ContentPagesButton } from '../../ContentPagesButton';
-import { ContentHeaderButtonLgOnOff } from '../ContentHeaderButtonLgOnOff';
+import { ContentHearderBtnImgHlpPg } from '../ContentHearderBtnImgHlpPg';
+import { ContentHeaderBtnImgLoginOn } from '../ContentHeaderBtnImgLoginOn';
+import { ContentHeaderBtnImgLoginOff } from '../ContentHeaderBtnImgLoginOff';
+import { ContentHeaderBtnImgMasterOff } from '../ContentHeaderBtnImgMasterOff';
+import { ContentHeaderBtnImgResgate } from '../ContentHeaderBtnImgResgate';
+import { ContentHearderBtnImgHome } from '../ContentHearderBtnImgHome';
 
 interface PropsHearderVisitante {
-  imgsys?: string;
-  titbtnsys?: string;
-  onclicksys?: () => void;
-  titlepg?: string;
+  //IMAGEM lOGO DA PAGINA
+  imgbtnlogo?: string;
+  titbtnlogo?: string;
+  onClickbtnlogo?: () => void;
+  // TITULO DA PAGINA
+  titulopg?: string;
+  // BOTÃO DE HELP PAGINA
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
-  onclickhlppg?: () => void;
-
-  $imglgoff?: string;
-  $imglgon?: string;
-  $logonoff?: boolean;
-  titbtnlgonoff?: string;
-  onclicklgooff?: () => void;
-
-  imgbtnaborta?: string;
-  titbtnaborta?: string;
-  onclickaborta?: () => void;
-
+  onClickbtnhlppg?: () => void;
+  // BOTÂO para mostrar LOGIN LOGADO ou NÂO
+  imgbtnloginon?: string;
+  titbtnloginon?: string;
+  disabledloginon?: boolean;
+  onClickbtnloginon?: () => void;
+  // BOTÃO para SAIR LOGOFF LOGIN
+  loginoff?: boolean;
+  imgbtnloginoff?: string;
+  titbtnloginoff?: string;
+  onClickbtnloginoff?: () => void;
+  // BOTÃO para SAIR LOGOFF MASTER
+  masteroff?: boolean;
+  imgbtnmasteroff?: string;
+  titbtnmasteroff?: string;
+  onClickbtnmasteroff?: () => void;
+  // BOTÃO para RESGATAR ACESSO SITEMA
+  imgbtnresgate?: string;
+  titbtnresgate?: string;
+  onClickbtnresgate?: () => void;
+  // BOTÂO para SAIR para HOME
+  imgbtnhome?: string;
+  titbtnhome?: string;
+  onClickbtnhome?: () => void;
+  // BOTÂO SWUIT 
   onchange: () => void;
   ischeck?: boolean;
-  children?: React.ReactNode ;
+  children?: React.ReactNode;
+
 }
 const HearderVisitante = ({
-  //IMAGEM lOGO DA PAGINA
-  imgsys,
-  titbtnsys,
-  onclicksys,
-  // TITULO DA PAGINA
-  titlepg,
-  // BOTÃO DE HELP
+  
+  imgbtnlogo,
+  titbtnlogo,
+  onClickbtnlogo,
+
+  titulopg,
+
   imgbtnhlppg,
   titbtnhlppg,
-  onclickhlppg,
-  // BOTÃO DE LOGAR
-  $imglgoff,
-  $imglgon,
-  $logonoff,
-  titbtnlgonoff,
-  onclicklgooff,
-  // BOTÃO DE SAIR
-  imgbtnaborta,
-  titbtnaborta,
-  onclickaborta,
+  onClickbtnhlppg,
+
+  imgbtnloginon,
+  titbtnloginon,
+  disabledloginon,
+  onClickbtnloginon,
+
+  loginoff,
+  imgbtnloginoff,
+  titbtnloginoff,
+  onClickbtnloginoff,
+
+  masteroff,
+  imgbtnmasteroff,
+  titbtnmasteroff,
+  onClickbtnmasteroff,
+
+  imgbtnresgate,
+  titbtnresgate,
+  onClickbtnresgate,
+
+  imgbtnhome,
+  titbtnhome,
+  onClickbtnhome,
+
   onchange,
   ischeck,
+
+  // BOTÃO DE SAIR, HOME
+
 }: PropsHearderVisitante) => {
   return (
     <ContentHearderMain>
       {/** imagem botão lado esquerdo : logo da pagina */}
       <ContentHearderItens>
-        <ContentHeaderButtonSys
-          imgsys={imgsys}
-          titlesys={titbtnsys}
-          onClicksys={onclicksys}
-        />
-      </ContentHearderItens>
-      {/** Titulo da pagina */}
-      <ContentHearderItens>
-        <ContentHeaderTitle title={titlepg} />
-      </ContentHearderItens>
-      {/** imagem botão lado direito*/}
-      <ContentHearderRight>
-        <ContentHearderItensBar>
-          {/** imagem botão do help da pagina */}
-          <ContentPagesButtonHelp
-            imgbtnhlp={imgbtnhlppg}
-            titbtnhlp={titbtnhlppg}
-            onClickhlp={onclickhlppg}
+          <ContentHearderImgLogo 
+            imgbtnlogo={imgbtnlogo}
+            titbtnlogo={titbtnlogo}
+            onClickbtnlogo={onClickbtnlogo}
           />
-          {/** imagem botão do Login da pagina */}
-          <ContentHeaderButtonLgOnOff
-            $imglgon={$imglgon}
-            $imglgoff={$imglgoff}
-            $logonoff={$logonoff}
-            titbtnlgonoff={titbtnlgonoff}
-            onClicklgooff={onclicklgooff}            
-          />
-          
-          {/** imagem botão do Acão Abortar da pagina */}
-          <ContentPagesButton
-            imgbtn={imgbtnaborta}
-            titbtn={titbtnaborta}
-            onClick={onclickaborta}
-          />
-          {/** botão switch do Padrão fundo Preto ou Branco */}
-          <H.ContainerHeaderButton>
-            <Switch
-              onChange={onchange}
-              checked={ischeck === true ? false : true}
-              checkedIcon={false}
-              uncheckedIcon={false}
-              height={15}
-              width={50}
-              handleDiameter={25}
-              onHandleColor="#21ba02"
-              offHandleColor="#fa140c"
-              onColor="#b4b5b4"
-              offColor="#b0b0b0"
-              borderRadius={10}
+        </ContentHearderItens>
+        
+        <ContentHearderItens>
+          <ContentHeaderTituloPg titulo={titulopg} />
+        </ContentHearderItens>
+        
+        <ContentHearderRight>
+          <ContentHearderItensBar>
+
+            <ContentHearderBtnImgHlpPg
+              imgbtnhlppg={imgbtnhlppg}
+              titbtnhlppg={titbtnhlppg}
+              onClickbtnhlppg={onClickbtnhlppg}
             />
-          </H.ContainerHeaderButton>
+
+            <ContentHeaderBtnImgLoginOn
+              imgbtnloginon={imgbtnloginon}
+              titbtnloginon={titbtnloginon}
+              disabledloginon={disabledloginon}
+              onClickbtnloginon={onClickbtnloginon}
+            />
+
+            <ContentHeaderBtnImgLoginOff
+              loginoff={loginoff}
+              imgbtnloginoff={imgbtnloginoff}
+              titbtnloginoff={titbtnloginoff}
+              onClickbtnloginoff={onClickbtnloginoff}
+            />
+
+            <ContentHeaderBtnImgMasterOff 
+              masteroff={masteroff}
+              imgbtnmasteroff={imgbtnmasteroff}
+              titbtnmasteroff={titbtnmasteroff}
+              onClickbtnmasteroff={onClickbtnmasteroff}
+            />
+
+            <ContentHeaderBtnImgResgate
+              imgbtnresgate={imgbtnresgate}
+              titbtnresgate={titbtnresgate}
+              onClickbtnresgate={onClickbtnresgate}
+            />
+
+            <ContentHearderBtnImgHome
+              imgbtnhome={imgbtnhome}
+              titbtnhome={titbtnhome}
+              onClickbtnhome={onClickbtnhome}
+            />
+              
+            <S.ContainerHeaderImgSwitch>
+              <Switch
+                onChange={onchange}
+                checked={ischeck === true ? false : true}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                height={15}
+                width={50}
+                handleDiameter={25}
+                onHandleColor="#21ba02"
+                offHandleColor="#fa140c"
+                onColor="#b4b5b4"
+                offColor="#b0b0b0"
+                borderRadius={10}
+              />
+            </S.ContainerHeaderImgSwitch>
+
         </ContentHearderItensBar>
       </ContentHearderRight>
     </ContentHearderMain>

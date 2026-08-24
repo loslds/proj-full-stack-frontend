@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import styled from "styled-components";
-import type { GridViewMode } from "./BarMenuConfig";
+import type { GridViewMode } from "../sidebars/config/BarMenuConfig";
 import btn_def_q_avatar from "../../assets/defaults/btn/btn_def_q_avatar.svg";
 
 export type GridRow = Record<string, unknown>;

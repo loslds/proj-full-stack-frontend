@@ -93,6 +93,185 @@ export const DivStatus = styled.div<PropsDivStatus>`
   font-weight: bold;
   color: ${({ $success }) => ($success ? 'green' : 'red')};
 `;
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+/////// contente para Logoff
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+interface PropsContainerLogoff {
+  $pptop? : string;
+  $ppwidth? : string;
+}
+export const ContainerLogoff = styled.div<PropsContainerLogoff>`
+  top: ${({ $pptop }) => $pptop || '1%'};
+  border: 4px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 40px;
+  min-width: ${({ $ppwidth }) => $ppwidth || '28%'};
+  display: flex;
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: ${props => props.theme.colors.textColor};
+`;
+interface PropsContainerLogoffFlex {
+  $bordas?: string;
+}
+export const ContainerLogoffFlex = styled.div<PropsContainerLogoffFlex>`
+  border: ${({ $bordas }) => $bordas || 'none'};
+  border-style: double;
+  border-radius: 10px;
+  border-color: red;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 5px 5px 5px;
+  width: 100%;
+  min-height: 50px;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  h1, h2, h3, h4, h5 {
+    margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
+    padding: 0px 0px 0px 0px;
+    font-style: normal;
+    text-decoration-color: #ff0000ff;
+    color: ${props => props.theme.colors.textColor};
+  }
+  label {
+    font-weight: bold; /* ou font-weight: 700; */
+    font-size: 14px;
+    line-height: 14px;
+    text-decoration: underline 0.5px;
+    color: ${props => props.theme.colors.textColor};
+  }
+`;
+//////////////////////////////////////////////
+interface PropsContainerLogoffMainCollum {
+  $open?: boolean;
+  $width? : string;
+  $height? : string;
+};
+export const ContainerLogoffMainCollum = styled.div<PropsContainerLogoffMainCollum>`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 10px 10px 0px;
+  min-height: ${({ $height }) => $height || '30%'};
+  width: ${({ $width }) => $width || '100%'};
+  display: ${props => (props.$open ? 'flex' : 'none')};
+  flex-wrap: wrap;
+  flex-flow: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+`;
+///////////////////////////////////////////////
+///////////////////
+export const ContainerLogoffTitle = styled.div`
+  border: none;
+  padding: 0px 0px 0px 0px;
+  margin: 5px 0px 0px 0px;
+  min-height: 25px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+  // h1, h2, h3, h4, h5 {
+  //   margin: 10px 10px 10px 10px; /* Margem para separar os títulos */
+  //   padding: 0px 0px 0px 0px;
+  //   font-style: normal;
+  //   text-decoration-color: #ff0000ff;
+  //   color: ${props => props.theme.colors.textColor};
+  // }
+  // label {
+  //   font-weight: bold; /* ou font-weight: 700; */
+  //   font-size: 14px;
+  //   line-height: 14px;
+  //   text-decoration: underline 0.5px;
+  //   color: ${props => props.theme.colors.textColor};
+  // }
+`;
+//////////////////////////////
+export const ContainerLogoffMainButtons = styled.div`
+  border: none; 
+  padding: 0px auto;
+  margin: 0px auto;
+  min-height: 40px;
+  width: '100%';
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  color: ${props => props.theme.colors.textColor};
+  background-color: ${props => props.theme.colors.backgroundColor};
+`;
+//////////////////////////////
+export const ContainerLogoffButtons = styled.div`
+  border: 1px;
+  border-style: solid;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  min-height: 35px ;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color:  ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+  &:hover {
+    background-color: #c0c0c0;
+   }
+`;
+// Botão Menu Principal
+interface PropsLogoffButtonImg {
+  $width? : string;
+  $height? : string;
+  $img?: string;
+}
+export const ButtonLogoffImg = styled.button<PropsLogoffButtonImg>`
+  border: none;
+  margin: 5px 5px 5px 5px;
+  min-height: ${({ $height }) => $height || '30px'};
+  min-width: ${({ $width }) => $width || '30px'};
+  max-width: 60px;
+  color:  ${props => props.theme.colors.textColor};
+  background: ${props => props.theme.colors.backgroundColor};
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: transparent;
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  cursor: pointer;
+  outline: none;
+  min-width: 35px;
+  min-height: 35px;
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: center;
+  align-items: center;
+`;
+
+
+
+
 
 /////////////////////////////
 /////// contente para LogoffMaster
@@ -100,7 +279,7 @@ interface PropsContainerLogoffMaster {
   pptop? : string;
   ppwidth? : string;
 }
-export const ContainerLogoffMaster = styled.div<PropsContainerLogoffMaster>`
+export const ContainerLogoffBtnImgMaster = styled.div<PropsContainerLogoffMaster>`
   top: ${({ pptop }) => pptop || '1%'};
   border: 4px;
   padding: 0px 0px 0px 0px;
@@ -113,7 +292,6 @@ export const ContainerLogoffMaster = styled.div<PropsContainerLogoffMaster>`
   justify-content: center;
   color: ${props => props.theme.colors.textColor};
 `;
-
 interface PropsContainerLogoffMasterFlex {
   bordas?: string;
 }
@@ -219,13 +397,13 @@ export const ContainerPanelImgBetween = styled.div`
   color: ${props => props.theme.colors.textColor};
 `;
 
-interface PropsContainerPanellImg {
+interface PropsContainerPanelImg {
   $pxheight?: string;
   $pxwidth?: string;
   $img?: string;
   onClick?: () => void;
 };
-export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
+export const ContainerPanelImg = styled.div<PropsContainerPanelImg>`
   border: 6px silver groove ;
   padding: 0px 0px 0px 0px;
   margin: 5px 10px 5px 10px;
@@ -246,10 +424,10 @@ export const ContainerPanelImg = styled.div<PropsContainerPanellImg>`
   color: black;
 `;
 
-interface PropsContainerPanellImg {
+interface PropsMasterInput {
   isEnabled?: boolean;
 };
-export const MasterInput = styled.input.attrs({ type: 'password' })`
+export const MasterInput = styled.input.attrs({ type: 'password' })<PropsMasterInput>`
   margin: 0px 10px 0px 10px;
   padding: 8px 12px;
   max-width: 100%;
@@ -448,7 +626,7 @@ export const ContainerMainTitleLogin = styled.div`
     color: ${props => props.theme.colors.textColor};
   }
 `;
-//////////////////////////////
+
 export const ContainerPanelButtonLogin = styled.div`
   border: none; 
   padding: 0px auto;
@@ -485,10 +663,10 @@ export const ContainerButtonLoginImg = styled.div`
    }
 `;
 // Botão Menu Principal
-interface PropsButtonLoginImg {
+interface PropsButtonMasterImg {
   $img?: string;
 }
-export const ButtonLoginImg = styled.button<PropsButtonLoginImg>`
+export const ButtonLoginImg = styled.button<PropsButtonMasterImg>`
   border: none;
   margin: 5px 5px 5px 5px;
   color:  ${props => props.theme.colors.textColor};
@@ -509,3 +687,8 @@ export const ButtonLoginImg = styled.button<PropsButtonLoginImg>`
   justify-content: center;
   align-items: center;
 `;
+
+
+
+
+

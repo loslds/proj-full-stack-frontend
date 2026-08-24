@@ -23,7 +23,7 @@ import { CardDesenvolver } from "@/cards/CardDesenvolver";
 
 //import * as Pg from "../../stylePages";
  
-import { BarLeftMenuDropdown } from "../../sidebar/BarLeftMenuDropdown";
+import { BarLeftMenuDropdown } from "../../sidebars/BarLeftMenuDropdown";
 
 const Cadastros : React.FC = () => {
   const [theme, setTheme] = React.useState(light);

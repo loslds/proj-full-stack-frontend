@@ -83,7 +83,10 @@ export const ContainerBarMainFlex = styled.div`
 /////////////////////////////////
 // Botão MENU Principal 
 // ContainerButtonMenu e ButtonBarImg =>> ContentBarButtonMenu  //
-export const ContainerButtonMenu = styled.div<{ $width?: string }>`
+interface PropsContainerButtonMenu{
+$width?: string 
+}
+export const ContainerButtonMenu = styled.div<PropsContainerButtonMenu>`
   border: 1px;
   border-style: double;
   border-color: ${props => props.theme.colors.textColor};
@@ -215,30 +218,6 @@ export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
   gap: 8px;
 `;
 
-// export const ContainerBarMainItensMenus = styled.div<{ $open?: boolean; }>`
-//   border: 3px;
-//   border-style: dotted;
-//   border-color: red; 
-//   border-radius: 5px;
-
-//   margin: 0px 0px 0px 0px;
-//   padding: 0px 0px 0px 5px;
-//   min-height: 45px;
-//   max-width: 98%;
-
-//   font-size: 12px;
-//   font-weight: bold;
-//   font-family: 'Courier New', Courier, monospace;
-//   color: ${props => props?.theme?.colors?.textColor || 'inherit'};
-//   background: transparent;
-
-//   display: ${({$open}) => $open ? 'flex' : 'none' };
-//   flex-wrap: wrap;
-//   align-items: center;
-//   align-content: center;
-//   justify-content: center;
-
-// `;
 //  Fin do =>> ContentBarMainItensMenus  //
 /////////////////////////////////////////
 //  ContainerDropdownMenu  para usar  Dropdown =>> ContentDropdownMenu  //

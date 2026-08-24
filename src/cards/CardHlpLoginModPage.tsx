@@ -10,8 +10,11 @@ import { useAcessoContext } from '../components/contexts/ContextAcesso';
 
 import { CardHlpFooter1 } from './CardHlpFooter1';
 
-interface PropsCardHlpVisitantePage {
-  imghlplogo?: string;
+interface PropsCardHlpLoginModPage {
+  imgcardpage?: string;
+  pminheight?: string;
+  pwidth?: string;
+  // imghlplogo?: string;
   onclosesair?: () => void;
 }
 
@@ -93,11 +96,15 @@ const formatarUltimoAcesso = (
   return `Seu último acesso foi em ${ultimoAcesso}.`;
 };
 
-export const CardHlpVisitantePage = ({
-  imghlplogo,
+export const CardHlpLoginModPage = ({
+  imgcardpage,
+  pminheight,
+  pwidth,
   onclosesair,
-}: PropsCardHlpVisitantePage) => {
+}: PropsCardHlpLoginModPage) => {
   const { state } = useAcessoContext();
+
+  const nomeModuloAtual =  String(state.modulo ?? '').trim() || 'Visitantes';
 
   const dadosUsuario = state as typeof state & DadosComplementaresUsuario;
 
@@ -106,10 +113,12 @@ export const CardHlpVisitantePage = ({
   const nomeUsuario =
     dadosUsuario.identificador?.trim() || 'Usuário';
 
+  
   const modulosUsuario: ModuloUsuario[] = [
     {
       nome: 'Visitantes',
       status: obterStatusModulo(dadosUsuario.mod_vis),
+      
     },
     {
       nome: 'Recepção',
@@ -145,9 +154,9 @@ export const CardHlpVisitantePage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight="80px"
-          pwidth="220px"
-          img={imghlplogo}
+          $img={imgcardpage}
+          pminheight={pminheight}
+          pwidth={pwidth}
         />
 
         <CardModalTextoColumn>
@@ -155,7 +164,7 @@ export const CardHlpVisitantePage = ({
 
           {!possuiIdUser ? (
             <>
-              <label>Informações para visitantes</label>
+              <label>Informações para Usuários "NÂO" cadastrados</label>
 
               <p>
                 &emsp;&emsp;Identificamos que você ainda não está conectado
@@ -310,7 +319,7 @@ export const CardHlpVisitantePage = ({
           <CardHlpFooter1
             label={
               possuiIdUser
-                ? 'HELP PÁGINA → VISITANTES'
+                ? `HELP PÁGINA → ${nomeModuloAtual.toUpperCase()}`
                 : 'HELP PÁGINA → VISITANTES'
             }
             texto={

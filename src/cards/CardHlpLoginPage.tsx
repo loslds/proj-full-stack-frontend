@@ -11,6 +11,8 @@ interface PropsCardHlpLoginPage {
   onclosesair?: () => void;
 }
 export const CardHlpLoginPage = ({
+  pminheight,
+  pwidth,
   imgcardpage,
   onclosesair,
 }: PropsCardHlpLoginPage) => {
@@ -18,9 +20,9 @@ export const CardHlpLoginPage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'220px'}
-          img={imgcardpage}
+          pminheight={pminheight}
+          pwidth={pwidth}
+          $img={imgcardpage}
         />
       </CardModalAround>
       <CardModalTextoColumn>

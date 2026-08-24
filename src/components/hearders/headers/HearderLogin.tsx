@@ -2,12 +2,12 @@ import * as H from '../styledHeader';
 import Switch from 'react-switch';
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
-import { ContentHeaderButtonSys } from '../ContentHeaderButtonSys';
-import { ContentHeaderTitle } from '../ContentHeaderTitle';
+import { ContentHeaderButtonSys } from '../ContentHearderImgLogo';
+import { ContentHeaderTitle } from '../ContentHeaderTituloPg';
 import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
-import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
-import { ContentHeaderButtonAbortar } from '../ContentHeaderButtonAbortar';
+import { ContentHeaderButtonHelp } from '../ContentHearderBtnImgHlpPg';
+import { ContentHeaderButtonAbortar } from '../ContentHeaderBtnImgSair';
 
 interface PropsHearderLogin {
   imgsys?: string;
@@ -23,6 +23,8 @@ interface PropsHearderLogin {
   imgbtnaborta?: string;
   titbtnaborta?: string;
   onclickaborta?: () => void;
+
+
 
   onchange: () => void;
   ischeck?: boolean;
@@ -43,7 +45,6 @@ const HearderLogin = ({
   titbtnaborta,
   onclickaborta,
 
-
   onchange,
   ischeck,
 }: PropsHearderLogin) => {
@@ -59,7 +60,7 @@ const HearderLogin = ({
       </ContentHearderItens>
       {/** Painel Central com o Titulo da pagina */}
       <ContentHearderItens>
-        <ContentHeaderTitle title={titlepg} />
+        <ContentHeaderTitle titulo={titlepg} />
       </ContentHearderItens>
       {/** Panel da Direita com Botões de acesso e Switch da pagina */}
       <ContentHearderRight>

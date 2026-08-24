@@ -7,7 +7,7 @@ import { ContentPanelImgBetween } from "./ContentPanelImgBetween";
 import { ContentMainCollumLogin } from "./ContentMainCollumLogin";
 import { ContentMainTitleLogin } from "./ContentMainTitleLogin";
 import { ContentButtonsLogin } from "./ContentButtonsLogin";
-import { ContentLabelButtomLogin } from "./ContentLabelButtomLogin";
+import { ContentLabelButtonLogin } from "./ContentLabelButtonLogin";
 import { ContentButtonImgLogin } from "./ContentButtonImgLogin";
 
 import btn_def_q_enviar from '../assets/defaults/btn/btn_def_q_enviar.svg';
@@ -162,7 +162,7 @@ export const CardLogoffLogin: React.FC<PropsCardLogoffLogin> = ({
         <p>{`Tempo ocioso: ${secondsLeft}s`}</p>
 
         <ContentButtonsLogin>
-          <ContentLabelButtomLogin>
+          <ContentLabelButtonLogin>
             <label>{labelConfirm}</label>
             <span>...</span>
             <ContentButtonImgLogin
@@ -171,9 +171,9 @@ export const CardLogoffLogin: React.FC<PropsCardLogoffLogin> = ({
               onClickbtn={handleConfirm}
             />
             <span>......</span>
-          </ContentLabelButtomLogin>
+          </ContentLabelButtonLogin>
 
-          <ContentLabelButtomLogin>
+          <ContentLabelButtonLogin>
             <label>{labelCancel}</label>
             <span>...</span>
             <ContentButtonImgLogin
@@ -182,7 +182,7 @@ export const CardLogoffLogin: React.FC<PropsCardLogoffLogin> = ({
               onClickbtn={handleCancel}
             />
             <p>...</p>
-          </ContentLabelButtomLogin>
+          </ContentLabelButtonLogin>
         </ContentButtonsLogin>
 
         {children}

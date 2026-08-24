@@ -7,7 +7,7 @@ import { ContentPanelImgBetween } from "./ContentPanelImgBetween";
 import { ContentMainCollumMaster } from "./ContentMainCollumMaster";
 import { ContentMainTitleMaster } from "./ContentMainTitleMaster";
 import { ContentButtonsMaster } from "./ContentButtonsMaster";
-import { ContentLabelButtomMaster } from "./ContentLabelButtomMaster";
+import { ContentLabelButtonMaster } from "./ContentLabelButtonMaster";
 import { ContentButtonImgMaster } from "./ContentButtonImgMaster";
 
 import btn_def_q_enviar from '../assets/defaults/btn/btn_def_q_enviar.svg';
@@ -160,7 +160,7 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
         <p>{`Tempo ocioso: ${secondsLeft}s`}</p>
 
         <ContentButtonsMaster>
-          <ContentLabelButtomMaster>
+          <ContentLabelButtonMaster>
             <label>{labelConfirm}</label>
             <span>...</span>
             <ContentButtonImgMaster
@@ -169,9 +169,9 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
               onClickbtn={handleConfirm}
             />
             <span>......</span>
-          </ContentLabelButtomMaster>
+          </ContentLabelButtonMaster>
 
-          <ContentLabelButtomMaster>
+          <ContentLabelButtonMaster>
             <label>{labelCancel}</label>
             <span>...</span>
             <ContentButtonImgMaster
@@ -180,7 +180,7 @@ export const CardLogoffMaster: React.FC<PropsCardLogoffMaster> = ({
               onClickbtn={handleCancel}
             />
             <p>...</p>
-          </ContentLabelButtomMaster>
+          </ContentLabelButtonMaster>
         </ContentButtonsMaster>
 
         {children}

@@ -2,18 +2,19 @@
 
 import React from "react";
 
-import { useAcessoContext } from "../contexts/ContextAcesso";
-import { useSystemTables } from "../../funcs/funcs/useSystemTables";
+import { useAcessoContext } from "../../contexts/ContextAcesso";
+import { useSystemTables } from "../../../funcs/funcs/useSystemTables";
 
-import { ContentBarMainMenu } from "../sidebar/ContentBarMainMenu";
-import { ContentBarButtonMenu } from "../sidebar/ContentBarButtonMenu";
-import { ContentDropdownMenu } from "../sidebar/ContentBarDropdownMenu";
-import { ContentBarButtonGreenMenu } from "../sidebar/ContentBarButtonGreenMenu";
-import { ContentBarButtonRedMenu } from "../sidebar/ContentBarButtonRedMenu";
-import { ContentBarButtonYelowMenu } from "../sidebar/ContentBarButtonYelowMenu";
-import { Dropdown, DropdownOption } from "./Dropdown";
-import { PageModal } from "../pages/PageModal";
-import { CardHlpStateContextPage } from "../../cards/CardHlpStateContextPage";
+import { ContentBarMainMenu } from "../ContentBarMainMenu";
+import { ContentBarButtonMenu } from "../ContentBarButtonMenu";
+
+import { ContentDropdownMenu } from "../ContentBarDropdownMenu";
+import { ContentBarButtonGreenMenu } from "../ContentBarButtonGreenMenu";
+import { ContentBarButtonRedMenu } from "../ContentBarButtonRedMenu";
+import { ContentBarButtonYelowMenu } from "../ContentBarButtonYelowMenu";
+import { Dropdown, DropdownOption } from "../Dropdown";
+import { PageModal } from "../../pages/PageModal";
+import { CardHlpStateContextPage } from "../../../cards/CardHlpStateContextPage";
 import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
 import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
 import btn_def_q_menuoff from '../../assets/defaults/btn/btn_def_q_menuoff.svg';
@@ -385,10 +386,10 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
   return (
     <ContentBarMainMenu>
       <ContentBarButtonMenu
-        $width="50px"
-        $img={!isMenuOpen ? btn_def_q_menuoff : btn_def_q_menuon}
-        titbtn={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
-        onClick={handleToggleMenu}
+        widthmenu="50px"
+        imgmenu={!isMenuOpen ? btn_def_q_menuoff : btn_def_q_menuon}
+        titbtnmenu={!isMenuOpen ? "Abre Menu..." : "Fecha Menu..."}
+        onClickmenu={handleToggleMenu}
       />
 
       <ContentDropdownMenu $open={showTableSelector} $width="205px">
@@ -473,3 +474,4 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 };
 
 export default BarMenuConfig;
+

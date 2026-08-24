@@ -3,101 +3,107 @@ import * as Pg from '../stylePages';
 import { ContentPages } from '../ContentPages';
 import HeaderHome from '../hearders/headers/HearderHome';
 interface PropsLayoutHome {
-  imgsys?: string;
-  titbtnsys?: string;
-  onclicksys?: () => void;
-  titlepg?: string;
+  
+  imgbtnlogo?: string;
+  titbtnlogo?: string;
+  onClickbtnlogo?: () => void;
+  
+  titulopg?: string;
+
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
-  onclickhlppg?: () => void;
-  imgbtnlogin?: string;
-  titbtnlogin?: string;
-  disabled?: boolean;
-  onclicklogin?: () => void;
-  imgbtnresg?: string;
-  titbtnresg?: string;
-  onclickresg?: () => void;
+  onClickbtnhlppg?: () => void;
+  
+  imgbtnloginon?: string;
+  titbtnloginon?: string;
+  disabledloginon?: boolean;
+  onClickbtnloginon?: () => void;
+  
+  loginoff?: boolean;
+  imgbtnloginoff?: string;
+  titbtnloginoff?: string;
+  onClickbtnloginoff?: () => void;
 
-  mstonoff?: boolean;
-  imgbtnmst?: string;
-  titbtnmst?: string;
-  onclickmst?: () => void;
+  masteroff?: boolean;
+  imgbtnmasteroff?: string;
+  titbtnmasteroff?: string;
+  onClickbtnmasteroff?: () => void;
 
-  logonoff?: boolean;
-  imgbtnlog?: string;
-  titbtnlog?: string;
-  onclicklog?: () => void;
+  imgbtnresgate?: string;
+  titbtnresgate?: string;
+  onClickbtnresgate?: () => void;
 
   onchange: () => void;
   ischeck?: boolean;
   children?: React.ReactNode;
-  open?: boolean;
 }
 const LayoutHome = ({
-  imgsys,
-  titbtnsys,
-  onclicksys,
+  imgbtnlogo,
+  titbtnlogo,
+  onClickbtnlogo,
 
-  titlepg,
+  titulopg,
 
   imgbtnhlppg,
   titbtnhlppg,
-  onclickhlppg,
+  onClickbtnhlppg,
 
-  imgbtnlogin,
-  disabled,
-  titbtnlogin,
-  onclicklogin,
+  imgbtnloginon,
+  titbtnloginon,
+  disabledloginon,
+  onClickbtnloginon,
 
-  imgbtnresg,
-  titbtnresg,
-  onclickresg,
+  loginoff,
+  imgbtnloginoff,
+  titbtnloginoff,
+  onClickbtnloginoff,
 
-  mstonoff,
-  imgbtnmst,
-  titbtnmst,
-  onclickmst,
+  masteroff,
+  imgbtnmasteroff,
+  titbtnmasteroff,
+  onClickbtnmasteroff,
 
-  logonoff,
-  imgbtnlog,
-  titbtnlog,
-  onclicklog,
+  imgbtnresgate,
+  titbtnresgate,
+  onClickbtnresgate,
 
   onchange,
   ischeck,
+
   children,
 }: PropsLayoutHome) => {
   return (
     <ContentPages>
       <HeaderHome
-        imgsys={imgsys}
-        titbtnsys={titbtnsys}
-        onclicksys={onclicksys}
+
+        imgbtnlogo={imgbtnlogo}
+        titbtnlogo={titbtnlogo}
+        onClickbtnlogo={onClickbtnlogo}
         
-        titlepg={titlepg}
+        titulopg={titulopg} 
 
         imgbtnhlppg={imgbtnhlppg}
         titbtnhlppg={titbtnhlppg}
-        onclickhlppg={onclickhlppg}
+        onClickbtnhlppg={onClickbtnhlppg}
 
-        imgbtnlogin={imgbtnlogin}
-        disabled={disabled}
-        titbtnlogin={titbtnlogin}
-        onclicklogin={onclicklogin}
+        imgbtnloginon={imgbtnloginon}
+        titbtnloginon={titbtnloginon}
+        disabledloginon={disabledloginon}
+        onClickbtnloginon={onClickbtnloginon}
 
-        imgbtnresg={imgbtnresg}
-        titbtnresg={titbtnresg}
-        onclickresg={onclickresg}
+        loginoff={loginoff}
+        imgbtnloginoff={imgbtnloginoff}
+        titbtnloginoff={titbtnloginoff}
+        onClickbtnloginoff={onClickbtnloginoff}
 
-        mstonoff={mstonoff}
-        imgbtnmst={imgbtnmst}
-        titbtnmst={titbtnmst}
-        onclickmst={onclickmst}
+        masteroff={masteroff}
+        imgbtnmasteroff={imgbtnmasteroff}
+        titbtnmasteroff={titbtnmasteroff}
+        onClickbtnmasteroff={onClickbtnmasteroff}
 
-        logonoff={logonoff}
-        imgbtnlog={imgbtnlog}
-        titbtnlog={titbtnlog}
-        onclicklog={onclicklog}
+        imgbtnresgate={imgbtnresgate}
+        titbtnresgate={titbtnresgate}
+        onClickbtnresgate={onClickbtnresgate}
 
         onchange={onchange}
         ischeck={ischeck}

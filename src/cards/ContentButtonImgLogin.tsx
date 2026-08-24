@@ -19,6 +19,7 @@ export const ContentButtonImgLogin = ({
   return (
     <Sy.ContainerButtonLoginImg>
       <Sy.ButtonLoginImg 
+        type="button"
         $img={imgbtn} 
         title={titbtn} 
         onClick={onClickbtn} 

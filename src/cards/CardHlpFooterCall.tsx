@@ -3,7 +3,7 @@ import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { ContentModalbetween } from '@/modal/ContentModalbetween';
 import { ContentHeaderButtonVis } from '@/components/hearders/ContentHeaderButtonVis';
 import { ContentHeaderButtonCont } from '@/components/hearders/ContentHeaderButtonCont';
-import { ContentHeaderButtonHelp } from '../components/hearders/ContentHeaderButtonHelp';
+import { ContentHeaderButtonHelp } from '../components/hearders/ContentHearderBtnImgHlpPg';
 import bt_abortar from '../assets/defaults/btn/btn_def_q_sair.svg';
 import bt_visitar from '../assets/defaults/btn/btn_def_q_visitar.svg';
 import bt_continuar from '../assets/defaults/btn/btn_def_q_continuar.svg';

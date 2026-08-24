@@ -2,14 +2,14 @@ import * as H from '../styledHeader';
 import Switch from 'react-switch';
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
-import { ContentHeaderButtonSys } from '../ContentHeaderButtonSys';
-import { ContentHeaderTitle } from '../ContentHeaderTitle';
+import { ContentHeaderButtonSys } from '../ContentHearderImgLogo';
+import { ContentHeaderTitle } from '../ContentHeaderTituloPg';
 import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
-import { ContentHeaderButtonHelp } from '../ContentHeaderButtonHelp';
-import { ContentHeaderButtonAbortar } from '../ContentHeaderButtonAbortar';
+import { ContentHeaderButtonHelp } from '../ContentHearderBtnImgHlpPg';
+import { ContentHeaderButtonAbortar } from '../ContentHeaderBtnImgSair';
 import { ContentHeaderButtonChk } from '../ContentHeaderButtonChk';
-import { ContentHeaderButtonMaster } from '../ContentHeaderButtonMaster';
+import { ContentHeaderButtonMaster } from '../ContentHeaderBtnImgMasterOff';
 import { ContentHeaderCardIsmaster } from '../ContentHeaderCardIsmaster';
 
 interface PropsHearderConfig {
