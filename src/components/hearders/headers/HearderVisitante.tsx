@@ -13,7 +13,6 @@ import { ContentHearderBtnImgHlpPg } from '../ContentHearderBtnImgHlpPg';
 import { ContentHeaderBtnImgLoginOn } from '../ContentHeaderBtnImgLoginOn';
 import { ContentHeaderBtnImgLoginOff } from '../ContentHeaderBtnImgLoginOff';
 import { ContentHeaderBtnImgMasterOff } from '../ContentHeaderBtnImgMasterOff';
-import { ContentHeaderBtnImgResgate } from '../ContentHeaderBtnImgResgate';
 import { ContentHearderBtnImgHome } from '../ContentHearderBtnImgHome';
 
 interface PropsHearderVisitante {
@@ -21,35 +20,38 @@ interface PropsHearderVisitante {
   imgbtnlogo?: string;
   titbtnlogo?: string;
   onClickbtnlogo?: () => void;
+
   // TITULO DA PAGINA
   titulopg?: string;
+
   // BOTÃO DE HELP PAGINA
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onClickbtnhlppg?: () => void;
+
   // BOTÂO para mostrar LOGIN LOGADO ou NÂO
   imgbtnloginon?: string;
   titbtnloginon?: string;
   disabledloginon?: boolean;
   onClickbtnloginon?: () => void;
+
   // BOTÃO para SAIR LOGOFF LOGIN
   loginoff?: boolean;
   imgbtnloginoff?: string;
   titbtnloginoff?: string;
   onClickbtnloginoff?: () => void;
+
   // BOTÃO para SAIR LOGOFF MASTER
   masteroff?: boolean;
   imgbtnmasteroff?: string;
   titbtnmasteroff?: string;
   onClickbtnmasteroff?: () => void;
-  // BOTÃO para RESGATAR ACESSO SITEMA
-  imgbtnresgate?: string;
-  titbtnresgate?: string;
-  onClickbtnresgate?: () => void;
+
   // BOTÂO para SAIR para HOME
   imgbtnhome?: string;
   titbtnhome?: string;
   onClickbtnhome?: () => void;
+
   // BOTÂO SWUIT 
   onchange: () => void;
   ischeck?: boolean;
@@ -82,10 +84,6 @@ const HearderVisitante = ({
   imgbtnmasteroff,
   titbtnmasteroff,
   onClickbtnmasteroff,
-
-  imgbtnresgate,
-  titbtnresgate,
-  onClickbtnresgate,
 
   imgbtnhome,
   titbtnhome,
@@ -140,12 +138,6 @@ const HearderVisitante = ({
               imgbtnmasteroff={imgbtnmasteroff}
               titbtnmasteroff={titbtnmasteroff}
               onClickbtnmasteroff={onClickbtnmasteroff}
-            />
-
-            <ContentHeaderBtnImgResgate
-              imgbtnresgate={imgbtnresgate}
-              titbtnresgate={titbtnresgate}
-              onClickbtnresgate={onClickbtnresgate}
             />
 
             <ContentHearderBtnImgHome

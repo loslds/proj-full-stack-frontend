@@ -10,7 +10,7 @@ import { useAcessoContext } from '../components/contexts/ContextAcesso';
 
 import { CardHlpFooter1 } from './CardHlpFooter1';
 
-interface PropsCardHlpLoginModPage {
+interface PropsCardHlpBtnLoginModPage {
   imgcardpage?: string;
   pminheight?: string;
   pwidth?: string;
@@ -96,12 +96,12 @@ const formatarUltimoAcesso = (
   return `Seu último acesso foi em ${ultimoAcesso}.`;
 };
 
-export const CardHlpLoginModPage = ({
+export const CardHlpBtnLoginModPage = ({
   imgcardpage,
   pminheight,
   pwidth,
   onclosesair,
-}: PropsCardHlpLoginModPage) => {
+}: PropsCardHlpBtnLoginModPage) => {
   const { state } = useAcessoContext();
 
   const nomeModuloAtual =  String(state.modulo ?? '').trim() || 'Visitantes';

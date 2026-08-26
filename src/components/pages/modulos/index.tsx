@@ -1,4 +1,4 @@
-export { default as Visitante } from "./Visitantes";
+export { default as Visitante } from "./Visitante";
 export { default as Recepcao } from "./Recepcao";
 export { default as Design } from "./Design";
 export { default as Producao } from "./Producao";

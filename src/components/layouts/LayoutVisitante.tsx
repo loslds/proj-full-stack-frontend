@@ -12,35 +12,38 @@ interface PropsLayoutVisitante {
   imgbtnlogo?: string;
   titbtnlogo?: string;
   onClickbtnlogo?: () => void;
+
   // TITULO DA PAGINA
   titulopg?: string;
+
   // BOTÃO DE HELP PAGINA
   imgbtnhlppg?: string;
   titbtnhlppg?: string;
   onClickbtnhlppg?: () => void;
+
   // BOTÂO de LOGIN Logado ou não Logado
   imgbtnloginon?: string;
   titbtnloginon?: string;
   disabledloginon?: boolean;
   onClickbtnloginon?: () => void;
+
   // BOTÃO para SAIR LOGOFF LOGIN
   loginoff?: boolean;
   imgbtnloginoff?: string;
   titbtnloginoff?: string;
   onClickbtnloginoff?: () => void;
+
   // BOTÃO para SAIR LOGOFF MASTER
   masteroff?: boolean;
   imgbtnmasteroff?: string;
   titbtnmasteroff?: string;
   onClickbtnmasteroff?: () => void;
-  // BOTÃO para RESGATAR ACESSO SITEMA
-  imgbtnresgate?: string;
-  titbtnresgate?: string;
-  onClickbtnresgate?: () => void;
+
   // BOTÂO para SAIR para HOME
   imgbtnhome?: string;
   titbtnhome?: string;
   onClickbtnhome?: () => void;
+
   // BOTÂO SWUIT 
   onchange: () => void;
   ischeck?: boolean;
@@ -71,10 +74,6 @@ const LayoutVisitante = ({
   imgbtnmasteroff,
   titbtnmasteroff,
   onClickbtnmasteroff,
-
-  imgbtnresgate,
-  titbtnresgate,
-  onClickbtnresgate,
 
   imgbtnhome,
   titbtnhome,
@@ -113,10 +112,6 @@ const LayoutVisitante = ({
         imgbtnmasteroff={imgbtnmasteroff}
         titbtnmasteroff={titbtnmasteroff}
         onClickbtnmasteroff={onClickbtnmasteroff}
-
-        imgbtnresgate={imgbtnresgate}
-        titbtnresgate={titbtnresgate}
-        onClickbtnresgate={onClickbtnresgate}
 
         imgbtnhome={imgbtnhome}
         titbtnhome={titbtnhome}

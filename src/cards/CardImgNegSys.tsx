@@ -33,7 +33,7 @@ export const CardImgNegSys = ({
         <MD.ContainerModalImg
           pminheight={pminheight}
           pwidth={pwidth}
-          img={imgcard}
+          $img={imgcard}
           onClick={onclick}
         />
         <ContentSysMainItens>

@@ -3,7 +3,8 @@ import * as Pg from '../stylePages';
 import { ContentPages } from '../ContentPages';
 import HeaderHome from '../hearders/headers/HearderHome';
 interface PropsLayoutHome {
-  
+  pminheight?: string;
+  pwidth?: string;
   imgbtnlogo?: string;
   titbtnlogo?: string;
   onClickbtnlogo?: () => void;

@@ -7,6 +7,27 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import light from '../../themes/light';
 import dark from '../../themes/dark';
+// layout page
+import LayoutHome from '../layouts/LayoutHome';
+// uso do context
+//import { Dispatch } from "react";
+import { useAcessoContext } from "../contexts/ContextAcesso";
+/** component ação para fazer o logoff em MODAL Login e Master  Atualizador do context*/  
+import { logoutMaster } from '../contexts/helpers/logoutMaster';
+import { logoutLogin } from '../contexts/helpers/logoutLogin';
+import { SystemHealthResult } from '../../types/SystemHealth';
+// main page
+import { ContentItensBody } from '../ContentItensBody';
+import { ContentCustonImgPage } from '../ContentCustonImgPage';
+// bottom page
+import { PageModal } from './PageModal';
+import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
+import { AutoCloseTimer } from '../AutoCloseTimer';
+import { ContentSidePagePanelBotton } from '../sidebars/ContentSidePagePanelBotton';
+import { ContentSidePageBottonLabel } from '../sidebars/ContentSidePageBottonLabel';
+import { ContentSidePageBottonButton } from '../sidebars/ContentSidePageBottonButton';
+import { ContentSideMsgPagePanelBotton } from '../sidebars/ContentSideMsgPagePanelBotton';
+
 /**img da Pagina MODAL */ 
 /** component ação botão para fechar a pagina MODAL*/
 import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
@@ -19,37 +40,19 @@ import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
 import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
 
 
-// layout page
-import LayoutHome from '../layouts/LayoutHome';
-// uso do context
-//import { Dispatch } from "react";
-import { useAcessoContext } from "../contexts/ContextAcesso";
-// main page
-import { ContentItensBody } from '../ContentItensBody';
-import { ContentCustonImgPage } from '../ContentCustonImgPage';
-/** component ação para fazer o logoff em MODAL Login e Master  Atualizador do context*/  
-import { logoutMaster } from '../contexts/helpers/logoutMaster';
-import { logoutLogin } from '../contexts/helpers/logoutLogin';
-import { SystemHealthResult } from '../../types/SystemHealth';
 
-// bottom page
-import { PageModal } from './PageModal';
-import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
-import { AutoCloseTimer } from '../AutoCloseTimer';
-import { ContentSidePagePanelBotton } from '../sidebars/ContentSidePagePanelBotton';
-import { ContentSidePageBottonLabel } from '../sidebars/ContentSidePageBottonLabel';
-import { ContentSidePageBottonButton } from '../sidebars/ContentSidePageBottonButton';
-import { ContentSideMsgPagePanelBotton } from '../sidebars/ContentSideMsgPagePanelBotton';
 
 /** component ação botão help */
 import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
 import { CardImgNeg } from '../../cards/CardImgNeg';
 // Help Botão Login
-import { CardHlpLoginModPage } from '../../cards/CardHlpLoginModPage';
+import { CardHlpBtnLoginModPage } from '../../cards/CardHlpBtnLoginModPage';
 // Modal LOGO-OFF SENHA LOGIN
 import { CardLogoffLogin } from '../../cards/CardLogoffLogin';
 // Modal LOGO-OFF SENHA MASTER
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
+
+
 
 /** IMAGENS DOS BOTÔES PAGINA */
 /** component ação Botão Help Pagina  */ 
@@ -216,7 +219,7 @@ const Home: React.FC = () => {
   }
 
   if (state.logado) {
-    setMsgPanelBottom('Acesso "Master" ativo.');
+    setMsgPanelBottom('Acesso "Login" ativo.');
     setMessageBottom("Aguardando Seleção...");
     return;
   }
@@ -265,17 +268,15 @@ React.useEffect(() => {
 React.useEffect(() => {
   setChaveLogin(Boolean(state.logado));
 }, [state.logado]);
-
+/////////////////////////////////
 //** Abre/fecha ao clicar na Logo do Sistema ou Empresa */
 const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
 //** Abre/fecha ao clicar no botão help da Pagina */
 const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
 //** Abre/fecha ao clicar no botão Login */
 const handlerCardHlpBtnLogin = React.useCallback(() => setCardHlpBtnLogin((old) => !old), []);
-
-
+//** Abre/fecha ao clicar no botão Panel Mopdulos */
 const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
-
 
   
   if (num === undefined) return;
@@ -294,12 +295,12 @@ const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
   // caso não logado e sem master
   const targetRoute = routes[num];
   
-  if (!state.logado && !state.chvkey && routes !== '/modulos/visitante')  {
+  if (!state.logado && !state.chvkey || !state.chkdb)  {
     setCardNegadoPage(true);
   } else if (targetRoute) {
     goto(targetRoute);
   }
-},[goto, state.logado, state.chvkey]
+},[goto, state.logado, state.chvkey, state.chkdb]
 );
 
 const imagemLogoEmpresa =
@@ -319,6 +320,8 @@ return (
   <ThemeProvider theme={theme}>
     <LayoutHome
       //** Logo da Sistema/Empresa ou do Sistema 
+      pminheight={"80px"}
+      pwidth={"220px"}
       imgbtnlogo={imagemLogoEmpresa}
       titbtnlogo="Quen Somos..."
       onClickbtnlogo={handlerCardLogo}
@@ -331,15 +334,10 @@ return (
       titbtnhlppg="Help Page..."
       onClickbtnhlppg={handlerCardHlpPage}
 
-
-
-
       /** Botão Login da Pagina*/
       imgbtnloginon={imagemLogin}
       titbtnloginon={state.logado ? 'Login-on...' : 'Login...'}
-
-      /** se master estiver ativa o disabled  */
-      disabledloginon={chavemst}
+      disabledloginon={chavemst}       /** se master estiver ativa o disabled  */
       onClickbtnloginon={() => {
         if (!state.logado) {
             goto('/login');
@@ -354,7 +352,7 @@ return (
       titbtnloginoff={"Segurança..."}
       onClickbtnloginoff={() => {
         if (state.logado) {
-          setIsMsgChvkey(true);
+          setIsMsgChvLogin(true);
         } 
           setNotOperation(true);
           setMsgPanelBottom('Sistema Inoperante!');
@@ -401,7 +399,11 @@ return (
         pwidth={'100px'}
         imgbtn={pnl_def_mod_visitante}
         titlebtn={'Modulo Visitantes..'}
-        onclick={() => { goto("/modulos/visitante") }}
+        onclick={() => { 
+          if (!state.chkdb) {
+            handlerClicEventNegadoPage(1);            
+          }
+          goto("/modulos/visitante") }}
         onMouseEnter={() => setMsgPanelBottom('Abre Modulo Visitante.' )}
         onMouseLeave={() => setMsgPanelBottom('❌ Aguardando Acesso ao Sistema...' )}
       />
@@ -627,7 +629,7 @@ return (
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}>
-            <CardHlpHomeLogo imghlplogo={lg_def_ope_default} onclosesair={() => setCardLogo(false)} /> 
+            <CardHlpHomeLogo imghlplogo={imagemLogoEmpresa} onclosesair={() => setCardLogo(false)} /> 
           </PageModal>
           ) : null 
         }
@@ -657,7 +659,7 @@ return (
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpBtnLogin(false)}>
-            <CardHlpLoginModPage
+            <CardHlpBtnLoginModPage
               pminheight="110px"
               pwidth="130px"
               imgcardpage={ imagemLogin }
@@ -779,7 +781,7 @@ return (
                   <p> ⛔ O SISTEMA NÃO PODE SER INICIADO.</p>
                 </form>
               </ContentSysMainItens>
-            <AutoCloseTimer onClose={() => setInitShowSystem(false)} seconds={10} />
+            <AutoCloseTimer onClose={() => setInitShowSystem(false)} seconds={5} />
           </PageModal>
           ) : null
         }

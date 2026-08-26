@@ -12,11 +12,15 @@ import { FormHlpDefautText } from './forms/FormHelpDefautText';
 import { formNotHlpDefault } from './forms/FormHelpTextDef';
 
 interface PropsCardHlpHomeLogo {
+  pminheight?: string;
+  pwidth?: string;
   imghlplogo?: string;
   onclosesair?: () => void;
 }
 
 export const CardHlpHomeLogo = ({
+  pminheight,
+  pwidth,
   imghlplogo,
   onclosesair,
 }: PropsCardHlpHomeLogo) => {
@@ -32,9 +36,9 @@ export const CardHlpHomeLogo = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight="80px"
-          pwidth="220px"
-          img={imghlplogo}
+          pminheight={pminheight}
+          pwidth={pwidth}
+          $img={imghlplogo}
         />
 
         <CardModalTextoColumn>
