@@ -24,8 +24,8 @@ export const CardImgNeg = ({
     <CardModalTexto>
       <MD.ContainerHeardModalMain>
         <MD.ContainerModalImg
-          pminheight={pminheight}
-          pwidth={pwidth}
+          $pminheight={pminheight}
+          $pwidth={pwidth}
           $img={imgcard}
           onClick={onclickimg}
         />

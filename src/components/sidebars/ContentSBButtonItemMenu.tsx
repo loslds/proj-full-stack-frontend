@@ -11,7 +11,7 @@ export const ContentSBButtonItemMenu = ({
   children
 }: TypeContentSBButtonItemMenu) => {
   return (
-    <S.ContainerSideButtonItem isbrder={isbrder}>
+    <S.ContainerSideButtonItem $isbrder={isbrder}>
       {children}
     </S.ContainerSideButtonItem>  
   );

@@ -1,7 +1,7 @@
 import * as S from './stylesSidebar';
 
-import left from '../../assets/svgs/left.svg';
-import higth from '../../assets/svgs/higth.svg';
+import left from '../../assets/svgs/btn_def_q_seta_esq.svg';
+import higth from '../../assets/svgs/btn_def_q_seta_dir.svg';
 
 type TypeContentSBButtonTitleMenu = {
   title?: string;
@@ -18,9 +18,9 @@ export const ContentSBButtonTitleMenu = ({
       <label>{title}</label>
       <S.ContainerSideOnOffButton>
         {isimg ? (
-          <S.ButtonOnOffImg img={left} title={'FECHA...'} onClick={onclick} />
+          <S.ButtonOnOffImg $img={left} title={'FECHA...'} onClick={onclick} />
         ) : (
-          <S.ButtonOnOffImg img={higth} title={'ABRE...'} onClick={onclick} />
+          <S.ButtonOnOffImg $img={higth} title={'ABRE...'} onClick={onclick} />
         )}
       </S.ContainerSideOnOffButton>
     </S.ContainerBtnMnSRigth>

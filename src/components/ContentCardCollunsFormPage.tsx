@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCardCollunsFormPage {
   open?: boolean;
@@ -14,7 +14,7 @@ export const ContentCardCollunsFormPage = ({
   children
 }:PropsContentCardCollunsFormPage) => {
   return (
-    <Pg.ContainerCardCollumForm open={open} p1height={p1height} p1width={p1width}>
+    <Pg.ContainerCardCollumForm open={open} $p1height={p1height} $p1width={p1width}>
       {children}
     </Pg.ContainerCardCollumForm>
   );

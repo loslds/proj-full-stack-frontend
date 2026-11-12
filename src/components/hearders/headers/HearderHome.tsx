@@ -1,6 +1,9 @@
 
+
 import * as S from '../styledHeader';
+
 import Switch from 'react-switch';
+
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
 import { ContentHearderImgLogo } from '../ContentHearderImgLogo';
@@ -87,7 +90,7 @@ const HearderHome = ({
      <ContentHearderMain>
         <ContentHearderItens>
           <ContentHearderImgLogo 
-            imgbtnlogo={imgbtnlogo}
+            $imgbtnlogo={imgbtnlogo}
             titbtnlogo={titbtnlogo}
             onClickbtnlogo={onClickbtnlogo}
           />

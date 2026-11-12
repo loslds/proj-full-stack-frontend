@@ -13,7 +13,7 @@ interface PropsCardModalTextoFooter {
 }
 export const CardModalTextoFooter = ({pwidth, children, img, titbtn, onClick, onMouseEnter, onMouseLeave }: PropsCardModalTextoFooter) => {
   return (
-    <M.ContainerCardFlexWidth pwidth={pwidth}>
+    <M.ContainerCardFlexWidth $pwidth={pwidth}>
         {children}
         <ContentSidePageBottonButton img={img} titbtn={titbtn} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} />
     </M.ContainerCardFlexWidth>

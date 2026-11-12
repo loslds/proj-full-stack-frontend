@@ -5,6 +5,8 @@ import React from "react";
 import Home from "./components/pages/Home";
 //import Login from "./components/pages/Login";
 //import Resgate from "./components/pages/Resgate";
+import { ThemeProvider } from "styled-components";
+import light from "@/themes/light";
 import { CardDesenvolver } from "./cards/CardDesenvolver";
 
 import Visitante from "./components/pages/modulos/Visitante";
@@ -25,7 +27,8 @@ export const RouteList: IRoute[] = [
   { path: "/", element: <Home /> },
   //{ path: "/login", element: <Login /> },
   //{ path: "/resgate", element: <Resgate /> },
-  { path: "/cards/desenvolver", element: <CardDesenvolver /> },
+  // O card usa theme.colors.*; aberto direto pela rota precisa do ThemeProvider.
+  { path: "/cards/desenvolver", element: <ThemeProvider theme={light}><CardDesenvolver /></ThemeProvider> },
 
   // compat opcional:
   // { path: "/config", element: <Navigate to="/modulos/config" replace /> },

@@ -2,7 +2,7 @@
 //C:\repository\proj-full-stack-frontend\src\cards\ContentMainCollumMaster.tsx
 
 import { ReactNode } from 'react';
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 
 interface PropsContentLogoffMainCollum {
   //vem do ContainerMainCollumMaster

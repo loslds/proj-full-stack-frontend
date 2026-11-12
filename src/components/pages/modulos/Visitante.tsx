@@ -20,9 +20,9 @@ import { logoutLogin } from '../../contexts/helpers/logoutLogin';
 // painel Maim da Pagina ->
 import { ContentCardPageMain } from "../../ContentCardPageMain";
 
-//import { BarMenuVisitante } from "../../sidebars/visitante/BarMenuVisitantes";
+import { BarMenuVisitante } from "../../sidebars/visitante/BarMenuVisitante";
 
-import { DivisionPgHztal } from "../../stylePages";
+import { DivisionPgHztal } from "../../styleComponents";
 // bottom page
 import { PageModal } from '../PageModal';
 import { AutoCloseTimer } from '../../AutoCloseTimer';
@@ -34,10 +34,11 @@ import { ContentSideMsgPagePanelBotton } from '../../sidebars/ContentSideMsgPage
 /** component ação botão para fechar a pagina MODAL*/
 import btn_def_q_close from '../../../assets/defaults/btn/btn_def_q_close.svg';
 /** component imagem painel para acesso negado pagina MODAL*/
-import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
+import pnl_def_ope_negado from '../../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
 // Heard
-import lg_def_ope_default from "../../../assets/defaults/lg/lg_def_ope_default.svg";
-import { CardHlpHomeLogo } from '../../../cards/CardHlpHomeLogo';
+import lg_def_ope_sistema from "../../../assets/defaults/lg/lg_def_ope_sistema.svg";
+//
+import { CardHlpHomeEmpLogo } from '../../../cards/CardHlpHomeEmpLogo';
 import { CardHlpHomePage } from '../../../cards/CardHlpHomePage';
 
 /** component ação botão help Hearders*/
@@ -51,7 +52,7 @@ import { CardLogoffMaster } from '../../../cards/CardLogoffMaster';
 
 /** IMAGENS DOS BOTÔES PAGINA */
 /** component ação Botão Help Pagina  */ 
-import btn_def_q_help from ".../../../assets/defaults/btn/btn_def_c_help.svg";
+import btn_def_q_help from "../../../assets/defaults/btn/btn_def_c_help.svg";
 //** component ação BOTÃO LOGIN */
 import btn_def_ope_q_login from "../../../assets/defaults/btn/btn_def_ope_q_login.svg";
 /** se tiver logado sem avatar*/
@@ -75,7 +76,7 @@ import btn_def_q_home from "../../../assets/defaults/btn/btn_def_q_home.png";
 
 /** img do painel Bottom */ 
 /** component ação botão para refrescar a pagina */
-import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_q_refrescar.svg';
+import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
 
 
 
@@ -122,7 +123,7 @@ const Visitante : React.FC = () => {
   };
   /////////////////////////////////
 React.useEffect(() => {
-  
+
   setMessageBottom("");
 
   dispatch({ type: "page", payload: "Visitante" });
@@ -164,7 +165,7 @@ React.useEffect(() => {
   const imagemLogoEmpresa =
     state.id_logo_emp > 0 && state.logo_svg_emp?.trim()
     ? state.logo_svg_emp
-    : lg_def_ope_default;
+    : lg_def_ope_sistema;
   
   const imagemLogin =
     !state.logado
@@ -234,13 +235,17 @@ React.useEffect(() => {
         <ContentCardPageMain open={true}>
 
           <DivisionPgHztal />
-          {state.logado ? (  
+
+          <BarMenuVisitante />
+
+
+          {/* {state.logado ? (  
             <h1>BarMenuVisitantes</h1>
             //<BarMenuVisitantes />
           ) : (
             <h1>PagBanenrSistema</h1>
             // <PagBanenrSistema/>
-          ) }
+          ) } */}
           <DivisionPgHztal />
 
         </ContentCardPageMain>
@@ -274,25 +279,6 @@ React.useEffect(() => {
           <div><label>ATENÇÃO...{messagebottom}</label></div>
         </ContentSidePagePanelBotton>
         
-        {/** Abre Modal para Acesso Negado na pagina atual */ }
-        {cardnegadopage ? (
-          <PageModal
-            ptop={'1%'}
-            pwidth={'30%'}
-            pheight={'35%'}
-            imgbm={btn_def_q_close}
-            titbm={"Fechar..."}
-            titulo={'Acesso Negado.'}
-            onclose={() => setCardNegadoPage(false)}>
-            <CardImgNeg
-              imgcard={pnl_def_ope_negado}
-              pminheight={'100px'}
-              pwidth={'100px'}
-              onclickimg={() => setCardNegadoPage(false)} />
-          </PageModal>
-          ) : null 
-        }
-        
         {/** Modal dos Botões Hearders da Pagina */ }
         {/** Abre Modal help ao clicar na imagem LOGO da Pagina */ }
         {cardlogo ? (
@@ -304,7 +290,7 @@ React.useEffect(() => {
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}>
-            <CardHlpHomeLogo imghlplogo={imagemLogoEmpresa} onclosesair={() => setCardLogo(false)} /> 
+            <CardHlpHomeEmpLogo imglg={imagemLogoEmpresa} onclosesair={() => setCardLogo(false)} /> 
           </PageModal>
           ) : null 
         }
@@ -319,7 +305,7 @@ React.useEffect(() => {
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpPage(false)}>
-            <CardHlpHomePage imgcardpage={lg_def_ope_default} onclosesair={() => setCardHlpPage(false)} />
+            <CardHlpHomePage imgpnl={lg_def_ope_sistema} onclosesair={() => setCardHlpPage(false)} />
           </PageModal>
           ) : null 
         }

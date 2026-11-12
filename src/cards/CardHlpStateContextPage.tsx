@@ -23,9 +23,9 @@ export const CardHlpStateContextPage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'110px'}
-          img={imgcardpage}
+          $pminheight={'110px'}
+          $pwidth={'110px'}
+          $img={imgcardpage}
         />
       </CardModalAround>
           

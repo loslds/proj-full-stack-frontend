@@ -116,7 +116,7 @@ export const CardHlpBtnLoginModPage = ({
   
   const modulosUsuario: ModuloUsuario[] = [
     {
-      nome: 'Visitantes',
+      nome: 'Visitante',
       status: obterStatusModulo(dadosUsuario.mod_vis),
       
     },
@@ -155,8 +155,8 @@ export const CardHlpBtnLoginModPage = ({
       <CardModalAround>
         <M.ContainerModalImg
           $img={imgcardpage}
-          pminheight={pminheight}
-          pwidth={pwidth}
+          $pminheight={pminheight}
+          $pwidth={pwidth}
         />
 
         <CardModalTextoColumn>

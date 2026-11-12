@@ -1,12 +1,27 @@
 // import { ContainerDivOpcModal } from './../modal/stylesModal';
 import styled from 'styled-components';
 //import { darken } from 'polished';
-import semimg from '../assets/svgs/semimg.svg';
+import btn_def_q_default from '../assets/defaults/btn/btn_def_q_default.svg';
+
+///////////// HEADER /////////////////////////
+// Container  -> ContainerHearderMain (Main do HEARDER)
+export const ContainerHearderMain = styled.div`
+  top: 0px;
+  border: 1px dashed red; 
+  padding: 5px 0px 5px 0px;
+  margin: 0px 2px 0px 2px;
+  max-width: 100%;
+  min-height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+`;
 
 interface PropsButtonCustonImg {
-  pheight?: string;
-  pwidth?: string;
-  img?: string;
+  $pheight?: string;
+  $pwidth?: string;
+  $img?: string;
 }
 export const ButtonCustonImg = styled.button<PropsButtonCustonImg>`
   border: none;
@@ -16,14 +31,14 @@ export const ButtonCustonImg = styled.button<PropsButtonCustonImg>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   cursor: pointer;
   outline: none;
-  min-height: ${({ pheight }) => pheight || '45px'};
-  width: ${({ pwidth }) => pwidth || '45px'};
+  min-height: ${({ $pheight }) => $pheight || '45px'};
+  width: ${({ $pwidth }) => $pwidth || '45px'};
   display: flex;
   flex-flow: nowrap;
   justify-content: center;
@@ -56,20 +71,7 @@ export const ContainerFlexPg = styled.div`
   // background-color: transparent;
 `;
 // fim Container INICIAL
-///////////// HEADER /////////////////////////
-// Container Header
-export const ContainerHearder = styled.div`
-  top: 0px;
-  border: 1px dashed red; 
-  padding: 5px 0px 5px 0px;
-  margin: 0px 2px 0px 2px;
-  max-width: 100%;
-  min-height: 40px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-content: center;
-`;
+
 // Container para ITENS no HEADER
 export const ContainerHeaderItens = styled.div`
   padding: 0px 0px 0px 0px;
@@ -97,7 +99,7 @@ export const ContainerImgSys = styled.div`
 // Botão com imagem do Systema no inicio
 // Botão com imagem da Empresa após executando Empresa selecioda 
 interface PropsButtonPagesImgSys {
-  img?: string;
+  $img?: string;
 }
 export const ButtonPagesImgSys = styled.button<PropsButtonPagesImgSys>`
   border: none;
@@ -115,7 +117,7 @@ export const ButtonPagesImgSys = styled.button<PropsButtonPagesImgSys>`
   flex-flow: nowrap;
   justify-content: center;
   align-items: center;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -178,7 +180,7 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${(props) => props.$img || semimg});
+  background-image: url(${(props) => props.$img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -233,7 +235,7 @@ export const ContainerPagesButton = styled.div`
 `;
 // Botões das paginas com Imagens
 interface PropsButtonPagesImg {
-  img?: string;
+  $img?: string;
 }
 export const ButtonPagesImg = styled.button<PropsButtonPagesImg>`
   border: none;
@@ -243,7 +245,7 @@ export const ButtonPagesImg = styled.button<PropsButtonPagesImg>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -297,7 +299,7 @@ export const ContainerBodyItensPage = styled.div`
 // export const ContainerCustonImagem = styled.div<TypeContainerCustonImagem>`
 //
 interface PropsContainerCustonImgPage {
-  pxheight? : string;
+  $pxheight? : string;
   open?: boolean;
 }
 export const ContainerCustonImgPage = styled.div<PropsContainerCustonImgPage>`
@@ -306,7 +308,7 @@ export const ContainerCustonImgPage = styled.div<PropsContainerCustonImgPage>`
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  min-height: ${({ pxheight }) => pxheight || '50px'};
+  min-height: ${({ $pxheight }) => $pxheight || '50px'};
   background: transparent;
   color: ${props => props.theme.colors.textColor};
   display: ${props => (props.open ? 'flex' : 'none')};
@@ -349,13 +351,13 @@ export const ContainerCardBoxColumnPgFlex = styled.div`
 // box column com borda pwidth || '150px'
 ////////////////////////////////
 interface PropsContainerCardBoxPg {
-  pwidth? : string;
+  $pwidth? : string;
 }
 export const ContainerCardBoxPg = styled.div<PropsContainerCardBoxPg>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-width: ${({ pwidth }) => pwidth || '50px'};
+  min-width: ${({ $pwidth }) => $pwidth || '50px'};
   display: flex;
   //flex-direction: column;
   //flex-wrap: wrap;
@@ -781,14 +783,14 @@ export const ContainerBtnSCenterPage = styled.div`
 // inicio do ContentSidePageBottonButtom -> ContainerCustonBtnPage-> ButtonDefaulImgPage
 ///////////////////////////////////////
 interface PropsContainerCustonBtnPage {
-  pxheight?: string;
+  $pxheight?: string;
 }
 export const ContainerCustonBtnPage = styled.div<PropsContainerCustonBtnPage>`
   border: 1px solid;
   border-radius: 10px;
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  min-height: ${({ pxheight }) => pxheight || '50px'};
+  min-height: ${({ $pxheight }) => $pxheight || '50px'};
   display: flex;
   justify-content: center;
   align-content: center;
@@ -799,7 +801,7 @@ export const ContainerCustonBtnPage = styled.div<PropsContainerCustonBtnPage>`
 
 `;
 interface PropsButtonDefaulImgPage {
-  img?: string;
+  $img?: string;
   title?: string;
   onClick?: () => void;
 };
@@ -812,7 +814,7 @@ export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url( ${ ( {img} ) => img ? img : semimg });
+  background-image: url( ${ ( {$img} ) => $img ? $img : btn_def_q_default });
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -827,7 +829,7 @@ export const ButtonDefaulImgPage = styled.button<PropsButtonDefaulImgPage>`
 `;
 
 interface PropsBtnDefImgEnabledPage {
-  img?: string;
+  $img?: string;
   disabled?: boolean; // Adicionando a propriedade
 }
 export const ButtonDefImgEnabledPage = styled.button<PropsBtnDefImgEnabledPage>`
@@ -839,7 +841,7 @@ export const ButtonDefImgEnabledPage = styled.button<PropsBtnDefImgEnabledPage>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => (img ? img : 'semimg')});
+  background-image: url(${({ $img }) => ($img ? $img : 'btn_def_q_default')});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -900,7 +902,7 @@ export const DivisionPgHztal = styled.div`
 ////////////////////////////////////////////////
 // Container do Botão Custon
 interface PropsContainerCustonButton {
-  pxheight? : string;
+  $pxheight? : string;
 }
 export const ContainerCustonButton = styled.div<PropsContainerCustonButton>`
   border: 1px red;
@@ -909,7 +911,7 @@ export const ContainerCustonButton = styled.div<PropsContainerCustonButton>`
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   background: transparent;
-  min-height: ${({ pxheight }) => pxheight || '50px'};
+  min-height: ${({ $pxheight }) => $pxheight || '50px'};
   display: flex;
   flex-wrap: wrap;
   color:  ${props => props.theme.colors.textColor};
@@ -935,13 +937,13 @@ export const ContainerCardPage = styled.div`
 `;
 
 interface PropsContainerCardMainFlex {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerCardPageFlex = styled.div<PropsContainerCardMainFlex>`
   border: none; 
   padding: 0px 0px 0px 0px;
   margin: 2px 0px 2px 0px;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -991,7 +993,7 @@ export const ContainerCardMaiGrid = styled.div`
   background: ${props => props.theme.colors.backgroundColor};
 `;
 interface PropsContainerCardMainFlexGrid {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerCardMainFlexGrig = styled.div<PropsContainerCardMainFlexGrid>`
   border: 3px;
@@ -1000,7 +1002,7 @@ export const ContainerCardMainFlexGrig = styled.div<PropsContainerCardMainFlexGr
   border-radius: 10px;
   padding: 0px 0px 0px 0px;
   margin: 3px 10px 3px 5px;
-  width: ${({ pwidth }) => pwidth || '99%'};
+  width: ${({ $pwidth }) => $pwidth || '99%'};
   display: flex;
   justify-content: space-between;
   gap: 12;
@@ -1158,7 +1160,7 @@ export const ContainerCardPageMainFlex = styled.div<PropsContainerCardMainFlex>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   max-width: 100%;
   display: flex;
   flex-flow: row;
@@ -1179,13 +1181,13 @@ export const ContainerCardBoxPage = styled.div`
   background: ${props => props.theme.colors.backgroundColor};
 `;
 interface PropsContainerCardBoxFlexPage {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -1195,16 +1197,16 @@ export const ContainerCardBoxPageFlex = styled.div<PropsContainerCardBoxFlexPage
 // collums
 /////////////////////
 interface PropsContainerCollunsCenterPage {
-  pheight? : string;
+  $pheight? : string;
   pwidth? : string;
-  openccp?: boolean;
+  $openccp?: boolean;
 }
 export const ContainerCollunsCenterPage = styled.div<PropsContainerCollunsCenterPage>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-height: ${({ pheight }) => pheight || '50px'};
-  display: ${props => (props.openccp ? 'flex' : 'none')};
+  min-height: ${({ $pheight }) => $pheight || '50px'};
+  display: ${props => (props.$openccp ? 'flex' : 'none')};
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
@@ -1228,8 +1230,8 @@ export const ContainerInputMainPage = styled.div`
 
 interface PropsContainerCardCollumForm {
   open?: boolean;
-  p1width? : string;
-  p1height? : string;
+  $p1width? : string;
+  $p1height? : string;
 };
 export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   border: 2px solid;
@@ -1237,8 +1239,8 @@ export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   border-radius: 10px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-height: ${({ p1height }) => p1height || '30%'};
-  min-width: ${({ p1width }) => p1width || '30%'};
+  min-height: ${({ $p1height }) => $p1height || '30%'};
+  min-width: ${({ $p1width }) => $p1width || '30%'};
   display: ${props => (props.open ? 'flex' : 'none')};
   flex-wrap: wrap;
   flex-flow: center;
@@ -1248,8 +1250,8 @@ export const ContainerCardCollumForm = styled.div<PropsContainerCardCollumForm>`
   color: ${props => props.theme.colors.textColor};
 `;
 interface PropsContainerDivMainOffRed {
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   label?: string;
   statedata?: string;
 }
@@ -1259,8 +1261,8 @@ export const ContainerDivMainOffRed = styled.div<PropsContainerDivMainOffRed>`
   border-color: red;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
+  min-height: ${({ $pxheight }) => $pxheight || '30px'};
+  width: ${({ $pxwidth }) => $pxwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -1274,8 +1276,8 @@ export const ContainerDivMainOffRed = styled.div<PropsContainerDivMainOffRed>`
 `;
 
 interface PropsContainerDivMainOffYellow {
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   label?: string;
   statedata?: string;
 }
@@ -1285,8 +1287,8 @@ export const ContainerDivMainOffYellow = styled.div<PropsContainerDivMainOffYell
   border-color: yellow;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
+  min-height: ${({ $pxheight }) => $pxheight || '30px'};
+  width: ${({ $pxwidth }) => $pxwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -1300,8 +1302,8 @@ export const ContainerDivMainOffYellow = styled.div<PropsContainerDivMainOffYell
 `;
 
 interface PropsContainerDivMainOnGreen {
-  pxheight?: string;
-  pxwidth?: string;
+  $pxheight?: string;
+  $pxwidth?: string;
   label?: string;
   statedata?: string;
 }
@@ -1311,8 +1313,8 @@ export const ContainerDivMainOnGreen = styled.div<PropsContainerDivMainOnGreen>`
   border-color: greenyellow;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
+  min-height: ${({ $pxheight }) => $pxheight || '30px'};
+  width: ${({ $pxwidth }) => $pxwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -1331,8 +1333,8 @@ export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  min-height: ${({ pxheight }) => pxheight || '40px'};
-  width: ${({ pxwidth }) => pxwidth || '100%'};
+  min-height: ${({ $pxheight }) => $pxheight || '40px'};
+  width: ${({ $pxwidth }) => $pxwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   flex-flow: row;
@@ -1345,8 +1347,8 @@ export const ContainerDivMainChecing = styled.div<PropsContainerDivMainOnGreen>`
   background-color: rgb(244, 245, 199);
 `;
 interface PropsContainerDivCstImg {
-  status :  0 | 1 | 2 ; // 0 = transparente, 1 = verde, 2 = vermelho
-  pxheight? : string;
+  $status :  0 | 1 | 2 ; // 0 = transparente, 1 = verde, 2 = vermelho
+  $pxheight? : string;
 }
 export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
   border: 1px solid ;
@@ -1354,8 +1356,8 @@ export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  min-height: ${({ pxheight }) => pxheight || '33px'};
-  background: ${({ status }) => status === 1 ? 'rgb(30, 255, 0)' : status === 2 ? 'rgb(255, 0, 0)' : 'transparent'};
+  min-height: ${({ $pxheight }) => $pxheight || '33px'};
+  background: ${({ $status }) => $status === 1 ? 'rgb(30, 255, 0)' : $status === 2 ? 'rgb(255, 0, 0)' : 'transparent'};
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -1365,17 +1367,17 @@ export const ContainerDivCstImg = styled.div<PropsContainerDivCstImg>`
   color:  ${props => props.theme.colors.textColor};
   `;
 interface PropsContainerDivImgCst {
-  pxh? : string;
-  pxw? : string;
-  img? : string;
+  $pxh? : string;
+  $pxw? : string;
+  $img? : string;
 }
 export const ContainerDivImgCst = styled.div<PropsContainerDivImgCst>`
   border: none ;
   padding: 0px 0px 0px 0px;
   margin: 3px 3px 3px 3px;
-  height: ${({ pxh }) => pxh || '30px'};
-  width:  ${({ pxw }) => pxw || '30px'};
-  background-image: url( ${ ( {img} ) => img ? img : semimg });
+  height: ${({ $pxh }) => $pxh || '30px'};
+  width:  ${({ $pxw }) => $pxw || '30px'};
+  background-image: url( ${ ( {$img} ) => $img ? $img : btn_def_q_default });
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1390,14 +1392,14 @@ export const ContainerDivImgCst = styled.div<PropsContainerDivImgCst>`
 
 interface PropsContainerPanelPage {
   open?: boolean;
-  pwidth? : string;
+  $pwidth? : string;
 }
 export const ContainerPanelPage = styled.div<PropsContainerPanelPage>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ pwidth }) => pwidth || '28%'};
+  min-width: ${({ $pwidth }) => $pwidth || '28%'};
   display: ${({open}) => open ? 'flex' : 'none' };
   min-height: 50px;
   flex-wrap: wrap;
@@ -1405,10 +1407,10 @@ export const ContainerPanelPage = styled.div<PropsContainerPanelPage>`
 `;
 
 interface PropsContainerPanelPageFlex {
-  bordas?: string;
+  $bordas?: string;
   }
   export const ContainerPanelPageFlex = styled.div<PropsContainerPanelPageFlex>`
-    border: ${({ bordas }) => bordas || '3px'};
+    border: ${({ $bordas }) => $bordas || '3px'};
     border-style: double;
     border-radius: 10px;
     border-color: ${props => props.theme.colors.textColor};
@@ -1425,7 +1427,7 @@ interface PropsContainerPanelPageFlex {
   `;
 
 interface PropsContainerPanelFlex {
-  bordas?: string;
+  $bordas?: string;
   }
   export const ContainerPanelFlex = styled.div<PropsContainerPanelFlex>`
     border: 1px solid salmon;
@@ -1442,14 +1444,14 @@ interface PropsContainerPanelFlex {
   `;
 
 interface PropsContainerPanelHlp {
-  pwidth? : string;
+  $pwidth? : string;
 }
 export const ContainerPanelHlp = styled.div<PropsContainerPanelHlp>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ pwidth }) => pwidth || '28%'};
+  min-width: ${({ $pwidth }) => $pwidth || '28%'};
   display: flex;
   min-height: 50px;
   flex-wrap: wrap;
@@ -1457,10 +1459,10 @@ export const ContainerPanelHlp = styled.div<PropsContainerPanelHlp>`
 `;
 interface PropsContainerPanelHlpFlex {
   bordas?: string;
-  isborda?: boolean;
+  $isborda?: boolean;
   }
   export const ContainerPanelHlpFlex = styled.div<PropsContainerPanelHlpFlex>`
-    border: ${({isborda}) => isborda ? '3px' : 'none' };
+    border: ${({$isborda}) => $isborda ? '3px' : 'none' };
     border-style: double;
     border-radius: 10px;
     border-color: ${props => props.theme.colors.textColor};
@@ -1479,10 +1481,10 @@ interface PropsContainerPanelHlpFlex {
 
 
   interface PropsContainerMsgSidePanelBottonText {
-    bordas?: string;
+    $bordas?: string;
   }
   export const ContainerMsgSidePanelBottonText = styled.div<PropsContainerMsgSidePanelBottonText>`
-  border-bottom: ${({ bordas }) => bordas || '3px'} double;
+  border-bottom: ${({ $bordas }) => $bordas || '3px'} double;
   border-color: ${props => props.theme.colors.textColor};
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
@@ -1503,21 +1505,21 @@ interface PropsContainerPanelHlpFlex {
 
 interface PropsContainerMainPage {
   open?: boolean;
-  pwidth? : string;
+  $pwidth? : string;
 }
 export const ContainerMainPage = styled.div<PropsContainerMainPage>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ pwidth }) => pwidth || '28%'};
+  min-width: ${({ $pwidth }) => $pwidth || '28%'};
   display: ${({open}) => open ? 'flex' : 'none' };
   min-height: 40px;
   flex-wrap: wrap;
   justify-content: center;
 `;
 interface PropsContainerMainPageFlex {
-  bordas?: string;
+  $bordas?: string;
 }
 export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
   padding: 10px 0px 10px 0px;
@@ -1530,7 +1532,7 @@ export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
   box-sizing: border-box;
   overflow: hidden;
 
-  border: ${({ bordas }) => bordas || '3px'};
+  border: ${({ $bordas }) => $bordas || '3px'};
   border-style: double;
   border-radius: 10px;
   border-color: ${props => props.theme.colors.textColor};
@@ -1546,7 +1548,11 @@ export const ContainerMainlPageFlex = styled.div<PropsContainerMainPageFlex>`
 `;
 
 ///////// MAIN DO GRIDGENERICO ////////////////////
-export const ContainerMainGrid = styled.div<{$open?: boolean; $width? : string;}>`
+interface PropsContainerMainGrid {
+  $open?: boolean; 
+  $width? : string;
+}
+export const ContainerMainGrid = styled.div<PropsContainerMainGrid>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;

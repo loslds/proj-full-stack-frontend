@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 
 interface PropsContentLogoffMaster {
   pptop? : string;
@@ -9,10 +9,10 @@ interface PropsContentLogoffMaster {
 }
 export const ContentLogoffMaster = ({ pptop, ppwidth, bordas, children }: PropsContentLogoffMaster) => {
   return (
-    <Sy.ContainerLogoffMaster pptop={pptop} ppwidth={ppwidth}>
-      <Sy.ContainerLogoffMasterFlex bordas={bordas}>
+    <Sy.ContainerLogoffBtnImgMaster $pptop={pptop} $ppwidth={ppwidth}>
+      <Sy.ContainerLogoffMasterFlex $bordas={bordas}>
         {children}
       </Sy.ContainerLogoffMasterFlex>
-    </Sy.ContainerLogoffMaster>
+    </Sy.ContainerLogoffBtnImgMaster>
   );
 };

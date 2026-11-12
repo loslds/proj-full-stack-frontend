@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCardBoxChaveKey {
   open?: boolean;
@@ -17,8 +17,8 @@ export const ContentCardBoxChaveKey = ({
 }: PropsContentCardBoxChaveKey) => {
   return (
     <Pg.ContainerCardBoxPage >
-      <Pg.ContainerCardBoxPageFlex pwidth={pwidth}>
-        <Pg.ContainerCardCollumForm open={open} p1width={p1width} p1height={p1height}>
+      <Pg.ContainerCardBoxPageFlex $pwidth={pwidth}>
+        <Pg.ContainerCardCollumForm open={open} $p1width={p1width} $p1height={p1height}>
           {children}
         </Pg.ContainerCardCollumForm>
       </Pg.ContainerCardBoxPageFlex>

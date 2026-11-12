@@ -1,5 +1,5 @@
 // import React from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 interface PropsContentCardPage {
   pwidth?: string;
   children?: React.ReactNode;
@@ -8,7 +8,7 @@ interface PropsContentCardPage {
 export const ContentCardPage = ({ pwidth, children }: PropsContentCardPage) => {
   return (
     <Pg.ContainerCardPage>
-      <Pg.ContainerCardPageFlex pwidth={pwidth}>
+      <Pg.ContainerCardPageFlex $pwidth={pwidth}>
         {children}
       </Pg.ContainerCardPageFlex>
     </Pg.ContainerCardPage>

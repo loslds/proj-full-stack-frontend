@@ -15,10 +15,11 @@ import { ContentBarButtonYelowMenu } from "../ContentBarButtonYelowMenu";
 import { Dropdown, DropdownOption } from "../Dropdown";
 import { PageModal } from "../../pages/PageModal";
 import { CardHlpStateContextPage } from "../../../cards/CardHlpStateContextPage";
-import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
-import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
-import btn_def_q_menuoff from '../../assets/defaults/btn/btn_def_q_menuoff.svg';
-import btn_def_q_menuon from '../../assets/defaults/btn/btn_def_q_menuon.svg';
+
+import btn_def_q_sair from "../../../assets/defaults/btn/btn_def_q_sair.svg";
+import pnl_def_mod_config from '../../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_menuoff from '../../../assets/defaults/btn/btn_def_q_menuoff.svg';
+import btn_def_q_menuon from '../../../assets/defaults/btn/btn_def_q_menuon.svg';
 
 export type GridViewMode = "default" | "list" | "detail";
 
@@ -394,8 +395,8 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
       <ContentDropdownMenu $open={showTableSelector} $width="205px">
         <Dropdown
-          $pxheight="40px"
-          $pxwidth="205px"
+          height={"40px"}
+          width={"205px"}
           labelbtn={
             loading
               ? "Carregando..."
@@ -417,7 +418,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       />
 
       <ContentBarButtonRedMenu
-        $width="140px"
+        $width={"140px"}
         $open={showRefreshButton}
         titbtn="Refrescar Grid..."
         titulo="Refrescar"
@@ -426,8 +427,8 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
       <ContentDropdownMenu $open={showActionControls} $width="130px">
         <Dropdown
-          $pxheight="30px"
-          $pxwidth="130px"
+          height={"30px"}
+          width={"130px"}
           labelbtn="Operações"
           options={operationOptions}
           onSelect={handleSelectOperation}
@@ -436,8 +437,8 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
 
       <ContentDropdownMenu $open={showActionControls} $width="90px">
         <Dropdown
-          $pxheight="30px"
-          $pxwidth="120px"
+          height={"30px"}
+          width={"120px"}
           labelbtn="Util"
           options={utilOptions}
           onSelect={handleSelectUtility}
@@ -445,7 +446,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
       </ContentDropdownMenu>
 
       <ContentBarButtonYelowMenu
-        $width="100px"
+        width={"100px"}
         $open={true}
         titbtn="Context..."
         titulo="States"
@@ -457,7 +458,7 @@ export const BarMenuConfig: React.FC<BarMenuConfigProps> = ({
           ptop={'1%'}
           pwidth={'80%'}
           pheight={'95%'}
-          imgbm={btn_def_q_close}
+          imgbm={btn_def_q_sair}
           titbm="Fechar..."
           titulo="Conteúdo dos Payload [ state ]"
           onclose={() => setCardState(false)}

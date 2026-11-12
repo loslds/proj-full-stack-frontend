@@ -14,13 +14,13 @@ export const ContainerMainSystem = styled.div`
   background: ${props => props.theme.colors.backgroundColor};
 `;
 interface PropsContainerCardBoxFlexPage {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerMainSystemFlex = styled.div<PropsContainerCardBoxFlexPage>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -40,13 +40,13 @@ export const ContainerMainFilter = styled.div`
 `;
 
 interface PropsContainerFilterlex {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerMainFilterFlex = styled.div<PropsContainerFilterlex>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 5px 0px 5px 0px;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   display: flex;
   flex-wrap: wrap;
   flex-flow: column;
@@ -218,14 +218,19 @@ export const ContainerLogoffMainButtons = styled.div`
   background-color: ${props => props.theme.colors.backgroundColor};
 `;
 //////////////////////////////
-export const ContainerLogoffButtons = styled.div`
+interface PropsContainerLogoffButtons {
+  $height?: string;
+  $width?: string;
+}
+export const ContainerLogoffButtons = styled.div<PropsContainerLogoffButtons>`
   border: 1px;
   border-style: solid;
   border-color: ${props => props.theme.colors.textColor};
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-height: 35px ;
+  min-height: ${({ $height }) => $height || '35px'};
+  ${({ $width }) => ($width ? `width: ${$width};` : '')}
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -276,16 +281,16 @@ export const ButtonLogoffImg = styled.button<PropsLogoffButtonImg>`
 /////////////////////////////
 /////// contente para LogoffMaster
 interface PropsContainerLogoffMaster {
-  pptop? : string;
-  ppwidth? : string;
+  $pptop? : string;
+  $ppwidth? : string;
 }
 export const ContainerLogoffBtnImgMaster = styled.div<PropsContainerLogoffMaster>`
-  top: ${({ pptop }) => pptop || '1%'};
+  top: ${({ $pptop }) => $pptop || '1%'};
   border: 4px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ ppwidth }) => ppwidth || '28%'};
+  min-width: ${({ $ppwidth }) => $ppwidth || '28%'};
   display: flex;
   min-height: 50px;
   flex-wrap: wrap;
@@ -293,10 +298,10 @@ export const ContainerLogoffBtnImgMaster = styled.div<PropsContainerLogoffMaster
   color: ${props => props.theme.colors.textColor};
 `;
 interface PropsContainerLogoffMasterFlex {
-  bordas?: string;
+  $bordas?: string;
 }
 export const ContainerLogoffMasterFlex = styled.div<PropsContainerLogoffMasterFlex>`
-  border: ${({ bordas }) => bordas || 'none'};
+  border: ${({ $bordas }) => $bordas || 'none'};
   border-style: double;
   border-radius: 10px;
   border-color: red;
@@ -330,16 +335,16 @@ export const ContainerLogoffMasterFlex = styled.div<PropsContainerLogoffMasterFl
 /////////////////////////////
 /////// contente para LogoffLogin
 interface PropsContainerLogoffLogin {
-  pptop? : string;
-  ppwidth? : string;
+  $pptop? : string;
+  $ppwidth? : string;
 }
 export const ContainerLogoffLogin = styled.div<PropsContainerLogoffLogin>`
-  top: ${({ pptop }) => pptop || '1%'};
+  top: ${({ $pptop }) => $pptop || '1%'};
   border: 4px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ ppwidth }) => ppwidth || '28%'};
+  min-width: ${({ $ppwidth }) => $ppwidth || '28%'};
   display: flex;
   min-height: 50px;
   flex-wrap: wrap;
@@ -348,10 +353,10 @@ export const ContainerLogoffLogin = styled.div<PropsContainerLogoffLogin>`
 `;
 
 interface PropsContainerLogoffLoginFlex {
-  bordas?: string;
+  $bordas?: string;
 }
 export const ContainerLogoffLoginFlex = styled.div<PropsContainerLogoffLoginFlex>`
-  border: ${({ bordas }) => bordas || 'none'};
+  border: ${({ $bordas }) => $bordas || 'none'};
   border-style: double;
   border-radius: 10px;
   border-color: red;

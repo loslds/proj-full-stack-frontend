@@ -59,12 +59,12 @@ export const ContainerModalAround = styled.div`
 export const Content = styled.div`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  width: 100%;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
   height: 100vh;
   position: absolute;
   border: 0px;
-  top: 0px;
-  left: 0px;
   z-index: 1000;
   color: ${props => props.theme.colors.textColor};
   background-color: transparent;
@@ -100,11 +100,12 @@ export const Content = styled.div`
     margin-left: 15px;
   }
 `;
+
 //*
 interface PropsContainerModal {
-  ptop?: string;
-  pheight?: string;
-  pwidth?: string;
+  $ptop?: string;
+  $pheight?: string;
+  $pwidth?: string;
   onClick?: () => void;
 };
 export const ContainerModal = styled.div<PropsContainerModal>`
@@ -114,12 +115,12 @@ export const ContainerModal = styled.div<PropsContainerModal>`
   border-radius: 5px;
   padding: 0px 0px 0px 0px;
   margin: 8px 10px 8px 10px;
-  top: ${({ ptop }) => ptop ||'62px'};
+  top: ${({ $ptop }) => $ptop ||'62px'};
   position: fixed;
 
-  min-width: ${({ pwidth }) => pwidth || '66.3%'};
+  min-width: ${({ $pwidth }) => $pwidth || '66.3%'};
   max-width: '66.3%';
-  height: ${({ pheight }) => pheight || '85%'};
+  height: ${({ $pheight }) => $pheight || '85%'};
 
   min-height: auto;
   overflow-y: auto;
@@ -170,12 +171,12 @@ export const ContainerCardFlex = styled.div`
   color: ${props => props.theme.colors.textColor};
 `;
 interface PropsContainerCardFlexWidth {
-  pwidth?: string;
+  $pwidth?: string;
 }
 export const ContainerCardFlexWidth = styled.div<PropsContainerCardFlexWidth>`
   border: 3px silver groove ;
   height: 100%;
-  width: ${({ pwidth }) => pwidth || '100%'};
+  width: ${({ $pwidth }) => $pwidth || '100%'};
   width: 80%;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
@@ -193,8 +194,8 @@ export const ContainerCardFlexWidth = styled.div<PropsContainerCardFlexWidth>`
 `;
 //*
 interface PropsContainerModalImg {
-  pminheight?: string;
-  pwidth?: string;
+  $pminheight?: string;
+  $pwidth?: string;
   $img?: string;
   onClick?: () => void;
 };
@@ -202,8 +203,8 @@ export const ContainerModalImg = styled.div<PropsContainerModalImg>`
   border: 6px silver groove ;
   padding: 0px 0px 0px 0px;
   margin: 5px 5px 5px 5px;
-  min-height: ${({ pminheight }) => pminheight || '10%'};// min-height: 130px;
-  width: ${({ pwidth }) => pwidth || '10%'}; // width: 150px;
+  min-height: ${({ $pminheight }) => $pminheight || '130px'}
+  width: ${({ $pwidth }) => $pwidth || '150px'};
   display: flex;
   flex-flow: wrap;
   justify-content: center; /*space-around;*/
@@ -235,7 +236,7 @@ export const ContainerModalTitle = styled.div`
 //*
 ///////////////// fim CardModal
 interface PropsButtonModal {
-  img?: string
+  $img?: string
 }
 export const ButtonImgModal = styled.button<PropsButtonModal>`
   border: none; /*1 red solid;*/
@@ -246,7 +247,7 @@ export const ButtonImgModal = styled.button<PropsButtonModal>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -330,15 +331,15 @@ export const ContainerModalColumn = styled.div`
 `;
 ///////////////
 interface PropsContainerModalErro {
-  pminheight?: string;
-  pwidth?: string;
+  $pminheight?: string;
+  $pwidth?: string;
 };
 export const ContainerModalErro = styled.div<PropsContainerModalErro>`
   border: 0px;
   padding: 0px 5px 0px 0px;
   margin: 2px 10px 2px 10px;
-  min-height: ${({ pminheight }) => pminheight || '10%'};// min-height: 130px;
-  width: ${({ pwidth }) => pwidth || '10%'}; // width: 150px;
+  min-height: ${({ $pminheight }) => $pminheight || '10%'};// min-height: 130px;
+  width: ${({ $pwidth }) => $pwidth || '10%'}; // width: 150px;
   overflow-y: auto;
   display: flex row;
   flex-wrap: wrap;
@@ -385,14 +386,14 @@ export const ContainerHeardModalMain = styled.div`
 `;
 /////// contente para erro
 interface PropsContainerModalPanelErroPage {
-  ppwidth? : string;
+  $ppwidth? : string;
 }
 export const ContainerModalPanelErroPage = styled.div<PropsContainerModalPanelErroPage>`
   border: 4px;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 40px;
-  min-width: ${({ ppwidth }) => ppwidth || '28%'};
+  min-width: ${({ $ppwidth }) => $ppwidth || '28%'};
   display: flex;
   min-height: 50px;
   flex-wrap: wrap;
@@ -401,10 +402,10 @@ export const ContainerModalPanelErroPage = styled.div<PropsContainerModalPanelEr
 `;
 
 interface PropsContainerModalPanelPageErroFlex {
-  bordas?: string;
+  $bordas?: string;
 }
 export const ContainerModalPanelErroFlex = styled.div<PropsContainerModalPanelPageErroFlex>`
-  border: ${({ bordas }) => bordas || 'none'};
+  border: ${({ $bordas }) => $bordas || 'none'};
   border-style: double;
   border-radius: 10px;
   border-color: red;
@@ -469,9 +470,9 @@ export const ContainerModalBetween = styled.div`
 
 
 // type PropsModulosSys = {
-//   ptop?: string;
-//   pheight?: string;
-//   pwidth?: string;
+//   $ptop?: string;
+//   $pheight?: string;
+//   $pwidth?: string;
 //   onClick?: () => void;
 // };
 // export const ContainerModulosSys = styled.div<PropsModulosSys>`
@@ -479,10 +480,10 @@ export const ContainerModalBetween = styled.div`
 // padding: 0px 0px 0px 0px;
 // margin: 0px 0px 0px 0px;
 // color: black;
-// top: ${({ ptop }) => ptop || '62px'};
+// top: ${({ $ptop }) => $ptop || '62px'};
 // position: fixed;
-// width: ${({ pwidth }) => pwidth || '66.3%'};
-// // height: ${({ pheight }) => pheight || '87%'};
+// width: ${({ $pwidth }) => $pwidth || '66.3%'};
+// // height: ${({ $pheight }) => $pheight || '87%'};
 // display: flex row;
 // flex-wrap: nowrap;
 // flex-direction: center;
@@ -536,20 +537,20 @@ export const ContainerModalBetween = styled.div`
 
 // ////////////////////////////////////////
 // type TypeContainerModalButtonImgCard = {
-//   ptop?: string;
-//   pminheight?: string;
-//   pwidth?: string;
+//   $ptop?: string;
+//   $pminheight?: string;
+//   $pwidth?: string;
 //   onClick?: () => void;
 //   ishlp?: boolean;
 // };
 // export const ContainerModalButtonImgCard = styled.div<TypeContainerModalButtonImgCard>`
   
-//   top: ${({ ptop }) => ptop ||  '0px'};
+//   top: ${({ $ptop }) => $ptop ||  '0px'};
 //   border: 6px silver groove ;
 //   padding: 0px 0px 0px 0px;
 //   margin: 5px 10px 5px 10px;
-//   min-height: ${({ pminheight }) => pminheight || '45px'};
-//   width: ${({ pwidth }) => pwidth || '45px'};
+//   min-height: ${({ $pminheight }) => $pminheight || '45px'};
+//   width: ${({ $pwidth }) => $pwidth || '45px'};
 //   display: flex;
 //   flex-flow: wrap;
 //   justify-content: center; 
@@ -561,9 +562,9 @@ export const ContainerModalBetween = styled.div`
 //   outline: none;
 // `;
 // type TypeButtonModalImgCard ={
-//   img?: string;
-//   pxminheight?: string;
-//   pxwidth?: string;
+//   $img?: string;
+//   $pxminheight?: string;
+//   $pxwidth?: string;
 // }
 // export const ButtonModalImgCard = styled.button<TypeButtonModalImgCard>`
 //   border: none; /*1 red solid;*/
@@ -574,14 +575,14 @@ export const ContainerModalBetween = styled.div`
 //   font-weight: bold;
 //   font-family: 'Courier New', Courier, monospace;
 //   background-color: transparent;
-//   background-image: url(${({ img }) => img || semimg});
+//   background-image: url(${({ $img }) => $img || semimg});
 //   background-repeat: no-repeat;
 //   background-size: cover;
 //   background-position: center;
 //   cursor: pointer;
 //   outline: none;
-//   min-height: ${({ pxminheight }) => pxminheight || '35px'};// min-height: 130px;
-//   width: ${({ pxwidth }) => pxwidth || '35px'}; // width: 150px;
+//   min-height: ${({ $pxminheight }) => $pxminheight || '35px'};// min-height: 130px;
+//   width: ${({ $pxwidth }) => $pxwidth || '35px'}; // width: 150px;
 //   display: flex;
 //   flex-flow: nowrap;
 //   justify-content: center;
@@ -632,7 +633,7 @@ export const ContainerModalBetween = styled.div`
 //   align-content: center;
 // `;
 
-// export const BButtonModal = styled.button<{ img?: string }>`
+// export const BButtonModal = styled.button<{ $img?: string }>`
 //   margin: 2px 4px 2px 4px;
 //   padding: 2px auto;
 //   display: flex;
@@ -644,7 +645,7 @@ export const ContainerModalBetween = styled.div`
 //   cursor: pointer;
 //   outline: none;
 //   background-color: transparent;
-//   background-image: url(${({ img }) => img || semimg});
+//   background-image: url(${({ $img }) => $img || semimg});
 //   background-repeat: no-repeat;
 //   background-size: contain;
 //   background-position: center;
@@ -710,10 +711,10 @@ export const ContainerModalBetween = styled.div`
 
 // type PropsDivModalMain = {
 //   open?: boolean;
-//   ptop?: string;
-//   pleft?: string;
-//   pheight?: string;
-//   pwidth?: string;
+//   $ptop?: string;
+//   $pleft?: string;
+//   $pheight?: string;
+//   $pwidth?: string;
 // };
 // export const ContainerDivOpcModal = styled.div<PropsDivModalMain>`
 //   border: 2px #727272 solid;
@@ -721,11 +722,11 @@ export const ContainerModalBetween = styled.div`
 //   padding: 0px 0px 0px 0px;
 //   margin: 0px 2px 0px 5px;
 //   color: black;
-//   top: ${({ ptop }) => ptop || '62px'};
-//   left: ${({ pleft }) => pleft || '20%'};
+//   top: ${({ $ptop }) => $ptop || '62px'};
+//   left: ${({ $pleft }) => $pleft || '20%'};
 //   position: relative;
-//   width: ${({ pwidth }) => pwidth || '66.3%'};
-//   height: ${({ pheight }) => pheight || '87%'};
+//   width: ${({ $pwidth }) => $pwidth || '66.3%'};
+//   height: ${({ $pheight }) => $pheight || '87%'};
 //   display: ${props => ( props.open ? 'flex row' : 'none')};
 //   flex-wrap: nowrap;
 //   flex-direction: center;
@@ -780,8 +781,8 @@ export const ContainerModalBetween = styled.div`
 
 // type PropsModalModal = {
 //   ptop?: string;
-//   pminheight?: string;
-//   pwidth?: string;
+//   $pminheight?: string;
+//   $pwidth?: string;
 //   img?: string;
 //   onClick?: () => void;
 // };
@@ -789,8 +790,8 @@ export const ContainerModalBetween = styled.div`
 //   border: 1px red solid ;
 //   padding: 0px 0px 0px 0px;
 //   margin: 5px 10px 5px 10px;
-//   min-height: ${({ pminheight }) => pminheight || '30%'};
-//   width: ${({ pwidth }) => pwidth || '66.3%'};
+//   min-height: ${({ $pminheight }) => $pminheight || '30%'};
+//   width: ${({ $pwidth }) => $pwidth || '66.3%'};
 //   display: flex;
 //   flex-flow: wrap;
 //   justify-content: space-around;
@@ -800,8 +801,8 @@ export const ContainerModalBetween = styled.div`
 // `;
 
 // type PropsModalMenu = {
-//   img?: string;
-//   sizer?: string;
+//   $img?: string;
+//   $sizer?: string;
 //   onClick: () => void;
 // };
 // export const ButtonModalMenu = styled.button<PropsModalMenu>`
@@ -813,14 +814,14 @@ export const ContainerModalBetween = styled.div`
 //   font-weight: bold;
 //   font-family: 'Courier New', Courier, monospace;
 //   background-color: transparent;
-//   background-image: url(${({ img }) => img || semimg});
+//   background-image: url(${({ $img }) => $img || semimg});
 //   background-repeat: no-repeat;
 //   background-size: cover;
 //   background-position: center;
 //   cursor: pointer;
 //   outline: none;
-//   min-height: ${({ sizer }) => sizer || '100px'};
-//   width: ${({ sizer }) => sizer || '100px'};
+//   min-height: ${({ $sizer }) => $sizer || '100px'};
+//   width: ${({ $sizer }) => $sizer || '100px'};
 //   display: flex;
 //   flex-flow: wrap;
 //   justify-content: center;
@@ -882,7 +883,7 @@ export const ContainerModalBetween = styled.div`
 // `;
 
 // type PropsContainerCenterImgDiv = {
-//   img? : string;
+//   $img? : string;
 // };
 
 // export const ContainerCenterImgDiv = styled.div<PropsContainerCenterImgDiv>`
@@ -900,7 +901,7 @@ export const ContainerModalBetween = styled.div`
 //   font-size: 14px;
 //   font-style: normal;
 //   background-color: transparent;
-//   background-image: url(${({ img }) => img || semimg});
+//   background-image: url(${({ $img }) => $img || semimg});
 //   background-repeat: no-repeat;
 //   background-size: cover;
 //   background-position: center;
@@ -965,9 +966,9 @@ export const ContainerModalBetween = styled.div`
 // `;
 
 // type TypeContainerInfoErroModal = {
-//   ptop?: string;
-//   pheight?: string;
-//   pwidth?: string;
+//   $ptop?: string;
+//   $pheight?: string;
+//   $pwidth?: string;
 //   onClick?: () => void;
 // };
 // export const ContainerInfoErroModal = styled.div<TypeContainerInfoErroModal>`
@@ -978,10 +979,10 @@ export const ContainerModalBetween = styled.div`
 //   margin: 0px 10px 0px 10px;
 //   background-color: #efef94;
 //   color: #0000ff;
-//   top: ${({ ptop }) => ptop || '62px'};
+//   top: ${({ $ptop }) => $ptop || '62px'};
 //   position: fixed;
-//   max-width: ${({ pwidth }) => pwidth || '66.3%'};
-//   height: ${({ pheight }) => pheight || '90%'};
+//   max-width: ${({ $pwidth }) => $pwidth || '66.3%'};
+//   height: ${({ $pheight }) => $pheight || '90%'};
 //   overflow-y: auto;
 //   display: flex row;
 //   flex-wrap: nowrap;

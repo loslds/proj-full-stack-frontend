@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentPagesButton {
   imgbtn?: string;
@@ -12,7 +12,7 @@ export const ContentPagesButton = ({
 }: PropsContentPagesButton) => {
   return (
     <Pg.ContainerPagesButton>
-      <Pg.ButtonPagesImg img={imgbtn} title={titbtn} onClick={onClick} />
+      <Pg.ButtonPagesImg $img={imgbtn} title={titbtn} onClick={onClick} />
     </Pg.ContainerPagesButton>
   );
 };

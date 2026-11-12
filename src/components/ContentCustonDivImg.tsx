@@ -1,5 +1,5 @@
 
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCustonDivImg {
   status:  0 | 1 | 2;
@@ -17,8 +17,8 @@ export const ContentCustonDivImg = ({
 }: PropsContentCustonDivImg) => {
     
   return (
-    <Pg.ContainerDivCstImg status={status} pxheight={pxheight} >
-      <Pg.ContainerDivImgCst  pxh={pxh} pxw={pxw} img={img}/>
+    <Pg.ContainerDivCstImg $status={status} $pxheight={pxheight} >
+      <Pg.ContainerDivImgCst  $pxh={pxh} $pxw={pxw} $img={img}/>
     </Pg.ContainerDivCstImg>
   );
 };

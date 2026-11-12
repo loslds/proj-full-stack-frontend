@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentPageButtonDefImgEnabled {
   pxheight?: string;
@@ -15,8 +15,8 @@ export const ContentPageButtonDefImgEnabled = ({
   onclick
 }: PropsContentPageButtonDefImgEnabled) => {
   return (
-    <Pg.ContainerCustonBtnPage pxheight={pxheight}>
-      <Pg.ButtonDefImgEnabledPage img={img} title={titbtn} disabled={disabled} onClick={onclick} />
+    <Pg.ContainerCustonBtnPage $pxheight={pxheight}>
+      <Pg.ButtonDefImgEnabledPage $img={img} title={titbtn} disabled={disabled} onClick={onclick} />
     </Pg.ContainerCustonBtnPage>
   );
 };

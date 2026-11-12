@@ -3,8 +3,8 @@ import * as H from '../styledHeader';
 import Switch from 'react-switch';
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
-import { ContentHeaderButtonSys } from '../ContentHearderImgLogo';
-import { ContentHeaderTitle } from '../ContentHeaderTituloPg';
+import { ContentHearderImgLogo } from '../ContentHearderImgLogo';
+import { ContentHeaderTituloPg } from '../ContentHeaderTituloPg';
 import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
 import { ContentPagesButtonHelp } from '../../ContentPagesButtonHelp';
@@ -42,15 +42,15 @@ const HearderExpedicao = ({
     <ContentHearderMain>
       {/** imagem botão lado esquerdo : logo da pagina */}
       <ContentHearderItens>
-        <ContentHeaderButtonSys
-          imgsys={imgsys}
-          titlesys={titbtnsys}
-          onClicksys={onclicksys}
+        <ContentHearderImgLogo
+          $imgbtnlogo={imgsys}
+          titbtnlogo={titbtnsys}
+          onClickbtnlogo={onclicksys}
         />
       </ContentHearderItens>
       {/** Titulo da pagina */}
       <ContentHearderItens>
-        <ContentHeaderTitle title={titlepg} />
+        <ContentHeaderTituloPg titulo={titlepg} />
       </ContentHearderItens>
       {/** imagem botão lado direito*/}
       <ContentHearderRight>
@@ -68,7 +68,7 @@ const HearderExpedicao = ({
             onClick={onclickaborta}
           />
           {/** botão switch do Padrão fundo Preto ou Branco */}
-          <H.ContainerHeaderButton>
+          <H.ContainerHeaderImgSwitch>
             <Switch
               onChange={onchange}
               checked={ischeck === true ? false : true}
@@ -83,7 +83,7 @@ const HearderExpedicao = ({
               offColor="#b0b0b0"
               borderRadius={10}
             />
-          </H.ContainerHeaderButton>
+          </H.ContainerHeaderImgSwitch>
         </ContentHearderItensBar>
       </ContentHearderRight>
     </ContentHearderMain>

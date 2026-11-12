@@ -18,14 +18,14 @@ export const CardHlpConfigPage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'110px'}
-          img={imgcardpage}
+          $pminheight={'110px'}
+          $pwidth={'110px'}
+          $img={imgcardpage}
         />
       </CardModalAround>
       
       <CardModalTextoColumn>
-        <h2>Sintase do Sistema.</h2>
+        <h2>Sintase do Config.</h2>
         <p>
           &emsp;&emsp;&emsp; Estamos dentro do Acesso aos Cadastros das Tabela do Banco 
           de Dados que servem o Sistema.
@@ -88,7 +88,7 @@ export const CardHlpConfigPage = ({
         </p>
         <CardHlpFooter1
           label="PÁGINA-> CONFIG."
-          texto="Para entrar no Cadastro da Tabela desejada, ao sair poderá clicar na imagem de referida a Tabela para sua atividade e usufluir do Sistema."
+          texto="Trabalhos no Modulo Config."
           onclosesair={onclosesair}
         />
         <br />

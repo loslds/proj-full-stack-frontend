@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import * as Pg from '../stylePages';
+import * as Pg from '../styleComponents';
 
 
 interface PropsContentSideMsgPagePanelBotton {
@@ -15,7 +15,7 @@ export const ContentSideMsgPagePanelBotton = ({
   children
 }: PropsContentSideMsgPagePanelBotton) => {
   return (
-    <Pg.ContainerMsgSidePanelBottonText bordas={bordas} >
+    <Pg.ContainerMsgSidePanelBottonText $bordas={bordas} >
       <label>{label}</label>
       {msg ? <h3>{msg}</h3> : null}
       {children}

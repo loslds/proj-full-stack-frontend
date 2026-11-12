@@ -17,9 +17,9 @@ export const ContentModal = ({
 }: PropsContentModal) => {
   return (
     <M.ContainerModal
-      ptop={ptop}
-      pheight={pheight}
-      pwidth={pwidth}
+      $ptop={ptop}
+      $pheight={pheight}
+      $pwidth={pwidth}
       onClick={onClick}
     >
       {children}

@@ -498,6 +498,25 @@ export const ContainerHeaderItensBar = styled.div`
 
 
 
+// Conteiner de botões das paginas Header (Vis, Cont, Chk)
+export const ContainerHeaderButton = styled.div`
+  border: none;
+  border-color: ${props => props.theme.colors.textColor};
+  border-radius: 5px;
+  padding: 0px 0px 0px 0px;
+  margin: 2px 2px 2px 2px;
+  min-height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  color: ${props => props.theme.colors.textColor};
+  &:hover {
+    background-color: #e4e4e4;
+  }
+`;
+
 // Conteiner de botões das paginas Header Botão Logoff Master Right
 interface PropsContainerHeaderButtonLogin {
   logonoff?: boolean;
@@ -551,7 +570,7 @@ export const ButtonHeaderImg = styled.button<PropsButtonHeaderImg>`
 ///////////////////////
 interface PropsContainerHeaderCardIsmaster {
   mston?: boolean;
-  pxheight?: string;
+  $pxheight?: string;
 }
 export const ContainerHeaderCardIsmaster = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== "mston",
@@ -561,7 +580,7 @@ export const ContainerHeaderCardIsmaster = styled.div.withConfig({
   border-radius: 5px;
   padding: 0px;
   margin: 2px;
-  min-height: ${({ pxheight }) => pxheight || '40px'};
+  min-height: ${({ $pxheight }) => $pxheight || '40px'};
   
   display: ${({ mston }) => (mston ? "flex" : "none")};
 
@@ -573,7 +592,7 @@ export const ContainerHeaderCardIsmaster = styled.div.withConfig({
 `;
 
 interface PropsBullettIsmaster {
-  strcor?: string;
+  $strcor?: string;
 }
 export const BullettIsmaster = styled.div<PropsBullettIsmaster>`
   border: 3px;
@@ -581,7 +600,7 @@ export const BullettIsmaster = styled.div<PropsBullettIsmaster>`
   border-radius: 45px;
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  background: ${({ strcor }) => strcor || 'transparent'};
+  background: ${({ $strcor }) => $strcor || 'transparent'};
   height: 15px;
   width: 15px;
   display: flex;
@@ -616,7 +635,7 @@ export const ContainerPagesButton = styled.div`
    }
 `;
 
-export const ButtonPagesImg = styled.button<{ img?: string }>`
+export const ButtonPagesImg = styled.button<{ $img?: string }>`
   border: none;
   margin: 2px 5px 2px 5px;
   color: ${props => props.theme.colors.textColor};
@@ -624,7 +643,7 @@ export const ButtonPagesImg = styled.button<{ img?: string }>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

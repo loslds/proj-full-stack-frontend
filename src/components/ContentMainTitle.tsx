@@ -1,7 +1,7 @@
 
 //
 import { ReactNode } from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentMainTitle {
   children?: ReactNode;

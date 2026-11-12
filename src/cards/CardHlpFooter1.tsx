@@ -1,14 +1,16 @@
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
-import { ContentHeaderButtonHelp } from '../components/hearders/ContentHearderBtnImgHlpPg';
-import bt_abortar from '../assets/defaults/btn/btn_def_q_sair.svg';
+import { ContentHearderBtnImgHlpPg } from '../components/hearders/ContentHearderBtnImgHlpPg';
+import btn_def_q_sair  from '../assets/defaults/btn/btn_def_q_sair.svg';
+
 interface PropsCardHlpFooter1 {
-  imghlpsair?: string;
+  imgbtnhlppg?: string;
   label?: string;
   texto?: string;
   onclosesair?: () => void;
   children?: React.ReactNode;
 }
 export const CardHlpFooter1 = ({
+  imgbtnhlppg,
   label,
   texto,
   onclosesair,
@@ -25,10 +27,10 @@ export const CardHlpFooter1 = ({
         </a>
       </p>
       {children}
-      <ContentHeaderButtonHelp
-        $imgbtnhlp={bt_abortar}
-        $titbtnhlp={'Fechar...'}
-        onClickhlp={onclosesair}
+      <ContentHearderBtnImgHlpPg
+        imgbtnhlppg={imgbtnhlppg || btn_def_q_sair}
+        titbtnhlppg={'Fechar...'}
+        onClickbtnhlppg={onclosesair}
       />
     </CardModalTextoColumn>
   );

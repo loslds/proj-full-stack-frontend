@@ -2,12 +2,12 @@ import * as H from '../styledHeader';
 import Switch from 'react-switch';
 import { ContentHearderMain } from '../ContentHearderMain';
 import { ContentHearderItens } from '../ContentHearderItens';
-import { ContentHeaderButtonSys } from '../ContentHearderImgLogo';
-import { ContentHeaderTitle } from '../ContentHeaderTituloPg';
+import { ContentHearderImgLogo } from '../ContentHearderImgLogo';
+import { ContentHeaderTituloPg } from '../ContentHeaderTituloPg';
 import { ContentHearderRight } from '../ContentHearderRight';
 import { ContentHearderItensBar } from '../ContentHearderItensBar';
-import { ContentHeaderButtonHelp } from '../ContentHearderBtnImgHlpPg';
-import { ContentHeaderButtonAbortar } from '../ContentHeaderBtnImgSair';
+import { ContentHearderBtnImgHlpPg } from '../ContentHearderBtnImgHlpPg';
+import { ContentHeaderBtnImgSair } from '../ContentHeaderBtnImgSair';
 
 interface PropsHearderLogin {
   imgsys?: string;
@@ -52,31 +52,31 @@ const HearderLogin = ({
     <ContentHearderMain>
       {/** Panel da ESquerda com Imagem LOGO ->Emp/SYS da pagina */}
       <ContentHearderItens>
-        <ContentHeaderButtonSys
-          imgsys={imgsys}
-          titlesys={titbtnsys}
-          onClicksys={onclicksys}
+        <ContentHearderImgLogo
+          $imgbtnlogo={imgsys}
+          titbtnlogo={titbtnsys}
+          onClickbtnlogo={onclicksys}
         />
       </ContentHearderItens>
       {/** Painel Central com o Titulo da pagina */}
       <ContentHearderItens>
-        <ContentHeaderTitle titulo={titlepg} />
+        <ContentHeaderTituloPg titulo={titlepg} />
       </ContentHearderItens>
       {/** Panel da Direita com Botões de acesso e Switch da pagina */}
       <ContentHearderRight>
         <ContentHearderItensBar>
-          <ContentHeaderButtonHelp
-            imgbtnhlp={imgbtnhlppg}
-            titbtnhlp={titbtnhlppg}
-            onClickhlp={onclickhlppg}
+          <ContentHearderBtnImgHlpPg
+            imgbtnhlppg={imgbtnhlppg}
+            titbtnhlppg={titbtnhlppg}
+            onClickbtnhlppg={onclickhlppg}
           />
-          <ContentHeaderButtonAbortar
+          <ContentHeaderBtnImgSair
             imgbtnaborta={imgbtnaborta}
             titbtnaborta={titbtnaborta}
             onClickaborta={onclickaborta}
           />
           
-          <H.ContainerHeaderButton>
+          <H.ContainerHeaderImgSwitch>
             <Switch
               onChange={onchange}
               checked={ischeck === true ? false : true}
@@ -91,7 +91,7 @@ const HearderLogin = ({
               offColor="#b0b0b0"
               borderRadius={10}
             />
-          </H.ContainerHeaderButton>
+          </H.ContainerHeaderImgSwitch>
         </ContentHearderItensBar>
       </ContentHearderRight>
     </ContentHearderMain>

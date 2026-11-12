@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCardPageLabel {
   label?: string;

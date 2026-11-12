@@ -31,8 +31,8 @@ export const CardImgNegSys = ({
     <ContentModaErroSys ppwidth={ppwidth} bordas={bordas}>
       <ContentModalbetween>
         <MD.ContainerModalImg
-          pminheight={pminheight}
-          pwidth={pwidth}
+          $pminheight={pminheight}
+          $pwidth={pwidth}
           $img={imgcard}
           onClick={onclick}
         />

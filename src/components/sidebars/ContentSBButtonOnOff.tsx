@@ -14,7 +14,7 @@ export const ContentSBButtonOnOff = ({
 }: TypeContentSBButtonOnOff) => {
   return (
     <S.ContainerSideOnOffButton>
-      <S.ButtonOnOffImg img={img} title={titbtn} onClick={onClick}/>
+      <S.ButtonOnOffImg $img={img} title={titbtn} onClick={onClick}/>
     </S.ContainerSideOnOffButton>
   );
 };

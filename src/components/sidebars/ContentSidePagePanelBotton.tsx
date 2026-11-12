@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import * as Pg from '../stylePages';
+import * as Pg from '../styleComponents';
 
 interface PropsContentSidePagePanelBotton {
   bordas?: string;
@@ -17,8 +17,8 @@ export const ContentSidePagePanelBotton = ({
   children
 }: PropsContentSidePagePanelBotton) => {
   return (
-    <Pg.ContainerPanelPage open={open} pwidth={pwidth}>
-      <Pg.ContainerPanelPageFlex bordas={bordas}>
+    <Pg.ContainerPanelPage open={open} $pwidth={pwidth}>
+      <Pg.ContainerPanelPageFlex $bordas={bordas}>
         {children}
       </Pg.ContainerPanelPageFlex>
     </Pg.ContainerPanelPage>

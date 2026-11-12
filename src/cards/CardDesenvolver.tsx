@@ -15,9 +15,9 @@ export const CardDesenvolver = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'60px'}
-          pwidth={'80px'}
-          img={imgcarddes}
+          $pminheight={'60px'}
+          $pwidth={'80px'}
+          $img={imgcarddes}
         />
       </CardModalAround>
       <CardModalTextoColumn>

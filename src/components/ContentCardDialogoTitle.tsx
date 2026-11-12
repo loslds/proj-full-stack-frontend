@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCardDialogoTitle {
   children?: React.ReactNode ;

@@ -6,7 +6,7 @@ import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 
 export default tseslint.config([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', 'rascunhos', 'node_modules', '**/*.bck*', 'vite.config.js', 'vite.config.d.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
@@ -20,12 +20,25 @@ export default tseslint.config([
       globals: globals.browser,
       parserOptions: {
         ecmaVersion: 2020,
-        sourceType: "module",
+        sourceType: 'module',
         ecmaFeatures: {
-          jsx: true, // 👈 garante suporte a JSX
-        }
-      }
+          jsx: true,
+        },
+      },
+    },
+  },
+  {
+    // Utilitários puros (não são componentes): Fast Refresh não se aplica.
+    files: ['src/funcs/**/*.{ts,tsx}'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+  {
+    // Arquivos de configuração rodam no Node.
+    files: ['vite.config.ts'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ])
-

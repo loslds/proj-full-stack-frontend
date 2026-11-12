@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
+import btn_def_q_default from '../assets/defaults/btn/btn_def_q_default.svg'
 
 // export const ContainerCardPage = styled.div`
 //   border: none;
@@ -15,7 +15,7 @@ import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 //   background: ${props => props.theme.colors.backgroundColor};
 // `;
 // type ContainerCardMainFlexType = {
-//   pwidth? : string;
+//   $pwidth? : string;
 // };
 // export const ContainerCardPageFlex = styled.div<ContainerCardMainFlexType>`
 //   border: 3px double;
@@ -23,7 +23,7 @@ import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 //   border-color: ${props => props.theme.colors.textColor};
 //   padding: 0px 0px 0px 0px;
 //   margin: 5px 0px 5px 0px;
-//   width: ${({ pwidth }) => pwidth || '65%'};
+//   width: ${({ $pwidth }) => $pwidth || '65%'};
 //   display: flex;
 //   flex-flow: row;
 //   flex-wrap: wrap;
@@ -33,13 +33,13 @@ import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 
 
 // type TypeContainerCardMain = {
-//   pheight?: string;
+//   $pheight?: string;
 // };
 // export const ContainerCardMain = styled.div<TypeContainerCardMain>`
 //   border: none;
 //   padding: 0px 0px 0px 0px;
 //   margin: 5px 5px 5px 5px;
-//   min-height: ${({ pheight }) => pheight || '20px'};
+//   min-height: ${({ $pheight }) => $pheight || '20px'};
 //   width: 100%;
 //   display: flex;
 //   flex-wrap: wrap;
@@ -51,7 +51,7 @@ import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 
 
 // type TypeContainerCardCenter = {
-//   pwidth? : string;
+//   $pwidth? : string;
 //   open?: boolean;
 // }
 // export const ContainerCardCenter = styled.div<TypeContainerCardCenter>`
@@ -59,7 +59,7 @@ import btn_def_q_default from '../assets/defauts/btn/btn_def_q_defaut.svg'
 //   padding: 0px 0px 0px 0px;
 //   margin: 0px 0px 0px 0px;
 //   min-height: 50px;
-//   min-width: ${({ pwidth }) => pwidth || '32%'};
+//   min-width: ${({ $pwidth }) => $pwidth || '32%'};
 //   color:  ${props => props.theme.colors.textColor};
 //   background-color: ${props => props.theme.colors.backgroundColor};
 //   display: ${props => (props.open ? 'flex' : 'none')};
@@ -131,7 +131,7 @@ export const ContainerTitleLogin = styled.div`
 `;
 
 type ContainerMainLoginType = {
-  isopen?: boolean;
+  $isopen?: boolean;
 };
 export const ContainerMainLogin = styled.div<ContainerMainLoginType>`
   border: 1px solid red;
@@ -139,7 +139,7 @@ export const ContainerMainLogin = styled.div<ContainerMainLoginType>`
   margin: 5px 5px;
   width: 100%;
   min-height: 60px;
-  display: ${props => (props.isopen ? 'flex' : 'none')};
+  display: ${props => (props.$isopen ? 'flex' : 'none')};
   flex-wrap: wrap;
   flex-flow: row;
   justify-content: center;
@@ -148,8 +148,8 @@ export const ContainerMainLogin = styled.div<ContainerMainLoginType>`
 `;
 ////////////////////////////////////////
 type ContainerCollFormCenterType = {
-  pwidth? : string;
-  isopen?: boolean;
+  $pwidth? : string;
+  $isopen?: boolean;
 };
 export const ContainerCollFormCenter = styled.div<ContainerCollFormCenterType>`
   border: none;
@@ -157,8 +157,8 @@ export const ContainerCollFormCenter = styled.div<ContainerCollFormCenterType>`
   margin: 0px 0px 0px 0px;
   color:  ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
-  min-width: ${({ pwidth }) => pwidth || '200px'};
-  display: ${props => (props.isopen ? 'flex' : 'none')};
+  min-width: ${({ $pwidth }) => $pwidth || '200px'};
+  display: ${props => (props.$isopen ? 'flex' : 'none')};
   flex-flow: row;
   flex-wrap: wrap;
   //justify-content: left;
@@ -169,8 +169,8 @@ export const ContainerCollFormCenter = styled.div<ContainerCollFormCenterType>`
 //////////////////////////////////////
 
 type ContainerPainelCollunsOpcType = {
-  pheight?: string;
-  pwidth? : string;
+  $pheight?: string;
+  $pwidth? : string;
 };
 export const ContainerPainelCollunsOpc = styled.div<ContainerPainelCollunsOpcType>`
   border: 1px dashed yellow;
@@ -178,8 +178,8 @@ export const ContainerPainelCollunsOpc = styled.div<ContainerPainelCollunsOpcTyp
   margin: 0px 0px 0px 0px;
   color:  ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
-  width: ${({ pwidth }) => pwidth || '200px'};
-  min-height: ${({ pheight }) => pheight || '60px'};
+  width: ${({ $pwidth }) => $pwidth || '200px'};
+  min-height: ${({ $pheight }) => $pheight || '60px'};
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
@@ -200,7 +200,7 @@ export const DivisionPgHztal = styled.div`
 `;
 
 type DivisionPgHztalOnOffType ={
-  isopen?: boolean;
+  $isopen?: boolean;
 };
 export const DivisionPgHztalOnOff = styled.div<DivisionPgHztalOnOffType>`
   border: none;
@@ -208,7 +208,7 @@ export const DivisionPgHztalOnOff = styled.div<DivisionPgHztalOnOffType>`
   margin: 1px 0px 1px 0px;
   height: 3px;
   width: 100%;
-  display: ${props => (props.isopen ? 'flex' : 'none')};
+  display: ${props => (props.$isopen ? 'flex' : 'none')};
   background-color: #9c9c9c;
 `;
 //////////////////////////////////////
@@ -216,7 +216,7 @@ export const DivisionPgHztalOnOff = styled.div<DivisionPgHztalOnOffType>`
 ////////////////////////////////////
 // opções
 type ContainerLoginOpcType = {
-  pwidth? : string;
+  $pwidth? : string;
   open?: boolean;
 }
 export const ContainerLoginOpc = styled.div<ContainerLoginOpcType>`
@@ -224,7 +224,7 @@ export const ContainerLoginOpc = styled.div<ContainerLoginOpcType>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   min-height: 50px;
-  min-width: ${({ pwidth }) => pwidth || '32%'};
+  min-width: ${({ $pwidth }) => $pwidth || '32%'};
   color:  ${props => props.theme.colors.textColor};
   background-color: ${props => props.theme.colors.backgroundColor};
   display: ${props => (props.open ? 'flex' : 'none')};
@@ -298,13 +298,13 @@ export const InputPage = styled.input`
 /////////////////////////////////
 
 type ContainerMainButtonsLoginType = {
-  pwidth? : string;
+  $pwidth? : string;
 };
 export const ContainerMainButtonsLogin  = styled.div<ContainerMainButtonsLoginType>`
   border: none;
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
-  min-width: ${({ pwidth }) => pwidth || '32%'};
+  min-width: ${({ $pwidth }) => $pwidth || '32%'};
   min-height: 45px;
   color:  ${props => props.theme.colors.textColor};
   background: ${props => props.theme.colors.backgroundColor};
@@ -384,7 +384,7 @@ export const ContainerButtonOffImg = styled.div`
 `;
 
 type ButtonOnOffImgType = {
-  img?: string;
+  $img?: string;
 };
 export const ButtonOnOffImg = styled.button<ButtonOnOffImgType>`
   border: 2px; 
@@ -395,7 +395,7 @@ export const ButtonOnOffImg = styled.button<ButtonOnOffImgType>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || btn_def_q_default});
+  background-image: url(${({ $img }) => $img || btn_def_q_default});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -450,7 +450,7 @@ export const ContainerFormColl = styled.div`
 `;
 
 type ContainerFormCenterType = {
-  pwidth?: string;
+  $pwidth?: string;
 };
 export const ContainerFormCenter = styled.div<ContainerFormCenterType>`
   border: 3px double;
@@ -459,7 +459,7 @@ export const ContainerFormCenter = styled.div<ContainerFormCenterType>`
   //border-color: ${props => props.theme.colors.textColor};
   padding: 5px 5px 5px 5px;
   margin: 5px 5px 5px 5px;
-  width: ${({ pwidth }) => pwidth || '65%'};
+  width: ${({ $pwidth }) => $pwidth || '65%'};
   display: flex ;
   //justify-content: space-between;
   justify-content: center;

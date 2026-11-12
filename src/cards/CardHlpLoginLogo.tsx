@@ -16,9 +16,9 @@ export const CardHlpLoginLogo = ({
     <CardModalCenter>
       <CardModalAround>
       <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'220px'}
-          img={imgcardlogin}
+          $pminheight={'110px'}
+          $pwidth={'220px'}
+          $img={imgcardlogin}
         />
       </CardModalAround>
       <CardModalTextoColumn>

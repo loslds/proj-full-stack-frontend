@@ -13,7 +13,7 @@ export const ContentHeaderButtonCont = ({
   return (
     <H.ContainerHeaderButton>
       <H.ButtonHeaderImg
-        img={$imgbtncont}
+        $imgbtnbg={$imgbtncont}
         title={$titbtncont}
         onClick={onClickcont}
       />

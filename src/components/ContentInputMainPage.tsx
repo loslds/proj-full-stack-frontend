@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 type TypeContentInputMainPage = {
   children?: ReactNode ;

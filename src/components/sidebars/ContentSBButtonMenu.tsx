@@ -19,7 +19,7 @@ export const ContentSBButtonMenu = ({
   return (
     <S.ContainerSideButton>
       <S.ButtonSideBarImg 
-        img={img} 
+        $img={img} 
         title={titbtn} 
         onClick={onClick} 
         onMouseEnter={onMouseEnter}

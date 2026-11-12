@@ -1,7 +1,7 @@
 
 // C:\repository\proj-full-stack-frontend\src\cards\CardLogoffMaster.tsx
 import React from "react";
-import * as S from './stylesSystem';
+import * as S from './stylesSys';
 import { ContentLogoff } from "./ContentLogoff";
 import { ContentPanelImgBetween } from "./ContentPanelImgBetween";
 import { ContentLogoffMainCollum } from "./ContentLogoffMainCollum";
@@ -10,8 +10,8 @@ import { ContentLogoffMainButtons } from "./ContentLogoffMainButtons";
 import { ContentLogoffLabelButtom } from "./ContentLogoffLabelButtom";
 import { ContentLogoffButtons } from "./ContentLogoffButtons";
 
-import btn_def_q_voltar from "../../assets/defaults/btn/btn_def_q_voltar.svg"
-import btn_def_q_continuar from "../../assets/defaults/btn/btn_def_q_continuar.svg"
+import btn_def_q_voltar from "../assets/defaults/btn/btn_def_q_voltar.svg"
+import btn_def_q_continuar from "../assets/defaults/btn/btn_def_q_continuar.svg"
 
 interface PropsCardLogoff {
   // ContentLogoffMaster

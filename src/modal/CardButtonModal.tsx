@@ -12,5 +12,5 @@ export const CardButtonModal = ({
   titbm,
   onClick,
 }: PropsButtonModal) => {
-  return <M.ButtonImgModal img={imgbm} title={titbm} onClick={onClick} />;
+  return <M.ButtonImgModal $img={imgbm} title={titbm} onClick={onClick} />;
 };

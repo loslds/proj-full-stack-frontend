@@ -1,7 +1,7 @@
 
 // C:\repository\proj-full-stack-frontend\src\cards\CardCheckingSystema.tsx
 import React from "react";
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 import { ThemeProvider } from "styled-components";
 import light from "../themes/light"; // ajuste o caminho se necessário
 import { ContentSysMainItens } from "./ContentSysMainItens"

@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentPagesButtonOpen {
   imgbtnopen?: string;
@@ -13,7 +13,7 @@ export const ContentPagesButtonOpen = ({
   return (
     <Pg.ContainerPagesButton>
       <Pg.ButtonPagesImg
-        img={imgbtnopen}
+        $img={imgbtnopen}
         title={titbtnopen}
         onClick={onClickopen}
       />

@@ -8,11 +8,11 @@ import { ContentModal } from "../modal/ContentModal";
 import { CardModal } from "../modal/CardModal";
 import { TitleModal } from "../modal/TitleModal";
 import { CardButtonModal } from "../modal/CardButtonModal";
-import * as Sy from "./stylesSystem";
+import * as Sy from "./stylesSys";
 import { ContentSysMainItens } from "./ContentSysMainItens";
 import { CardHlpFooter1 } from "./CardHlpFooter1";
 
-import btn_def_q_close from "../assets/defauts/btn/btn_def_q_close.svg";
+import btn_def_q_close from "../assets/defaults/btn/btn_def_q_close.svg";
 
 interface PropsModalCardCheckingKey {
   ptop?: string;

@@ -1,6 +1,6 @@
 
 
-import * as Pg from '../stylePages';
+import * as Pg from '../styleComponents';
 
 interface PropsContentSidePageBottonButton {
   pxheight?: string;
@@ -19,8 +19,8 @@ export const ContentSidePageBottonButton = ({
   onMouseLeave
 }: PropsContentSidePageBottonButton) => {
   return (
-    <Pg.ContainerCustonBtnPage pxheight={pxheight}>
-      <Pg.ButtonDefaulImgPage img={img} title={titbtn} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}/>
+    <Pg.ContainerCustonBtnPage $pxheight={pxheight}>
+      <Pg.ButtonDefaulImgPage $img={img} title={titbtn} onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}/>
     </Pg.ContainerCustonBtnPage>
   );
 };

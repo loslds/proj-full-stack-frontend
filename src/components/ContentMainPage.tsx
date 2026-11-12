@@ -1,7 +1,7 @@
 
 //
 import React from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentMainPage {
   pborder?: string;
@@ -16,8 +16,8 @@ export const ContentMainPage = ( {
   children
 }: PropsContentMainPage ) => {
   return (
-    <Pg.ContainerMainPage open={open} pwidth={pwidth}>
-      <Pg.ContainerMainlPageFlex bordas={pborder} >
+    <Pg.ContainerMainPage open={open} $pwidth={pwidth}>
+      <Pg.ContainerMainlPageFlex $bordas={pborder} >
         {children}
       </Pg.ContainerMainlPageFlex>
     </Pg.ContainerMainPage>

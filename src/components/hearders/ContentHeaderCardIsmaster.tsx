@@ -14,7 +14,7 @@ export const ContentHeaderCardIsmaster = ({
 }: PropsContentHeaderCardIsmaster) => {
   return (
     <H.ContainerHeaderCardIsmaster mston={mston ?? false}>
-      <H.BullettIsmaster strcor ={strcor} />
+      <H.BullettIsmaster $strcor={strcor} />
     </H.ContainerHeaderCardIsmaster>
   );
 };

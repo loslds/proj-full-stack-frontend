@@ -1,6 +1,6 @@
 
 //
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 interface PropsContentHeaderFilter {
   subtitulo?: string;
   //children?: React.ReactNode;

@@ -1,5 +1,5 @@
 
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface ContentCustonImgPage {
   num?: number;
@@ -29,11 +29,11 @@ export const ContentCustonImgPage = ({
   if (!open) return null;
 
   return (
-    <Pg.ContainerCustonImgPage open={open} pxheight={pxheight}>
+    <Pg.ContainerCustonImgPage open={open} $pxheight={pxheight}>
       <Pg.ButtonCustonImg
-        pheight={pheight}
-        pwidth={pwidth}
-        img={imgbtn}
+        $pheight={pheight}
+        $pwidth={pwidth}
+        $img={imgbtn}
         onClick={() => onclick?.(num)} // Passando `num` ao clicar
         title={titlebtn}
         onMouseEnter={onMouseEnter}

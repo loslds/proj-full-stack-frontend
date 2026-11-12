@@ -21,7 +21,7 @@ export const ContentBarButtonGreenMenu = ({
   onClick,
 }: PropsContentBarButtonGreeMenu) => {
   return (
-    <S.ContainerButtonGreenMenu $open={$open} $width={$width} $isCor={$isCor}>
+    <S.ContainerButtonGreenMenu $open={$open} width={$width} $isCor={$isCor}>
       <S.ButtonDefaultMenu title={titbtn} onClick={onClick}>
         <label>{titulo}</label>
       </S.ButtonDefaultMenu>

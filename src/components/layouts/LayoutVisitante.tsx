@@ -1,5 +1,5 @@
 
-import * as Pg from '../stylePages';
+import * as Pg from '../styleComponents';
 
 import { ContentPages } from '../ContentPages';
 import HearderVisitante from '../hearders/headers/HearderVisitante';

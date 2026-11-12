@@ -3,9 +3,9 @@ import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 import { ContentModalbetween } from '@/modal/ContentModalbetween';
 import { ContentHeaderButtonVis } from '@/components/hearders/ContentHeaderButtonVis';
 import { ContentHeaderButtonCont } from '@/components/hearders/ContentHeaderButtonCont';
-import { ContentHeaderButtonHelp } from '../components/hearders/ContentHearderBtnImgHlpPg';
+import { ContentHearderBtnImgHlpPg } from '../components/hearders/ContentHearderBtnImgHlpPg';
 import bt_abortar from '../assets/defaults/btn/btn_def_q_sair.svg';
-import bt_visitar from '../assets/defaults/btn/btn_def_q_visitar.svg';
+import bt_visitar from '../assets/defaults/btn/btn_def_mod_q_visitantes.svg';
 import bt_continuar from '../assets/defaults/btn/btn_def_q_continuar.svg';
 
 interface PropsCardHlpFooterCall {
@@ -48,10 +48,10 @@ export const CardHlpFooterCall = ({
           onClickcont={onClickcont}
         />
          {/** envia de volta ou para a pagina de onde veio, fecha o modal */}
-        <ContentHeaderButtonHelp
-          $imgbtnhlp={bt_abortar}
-          $titbtnhlp={'Fechar...'}
-          onClickhlp={onClicksair}
+        <ContentHearderBtnImgHlpPg
+          imgbtnhlppg={bt_abortar}
+          titbtnhlppg={'Fechar...'}
+          onClickbtnhlppg={onClicksair}
         />
       </ContentModalbetween>      
       {children}

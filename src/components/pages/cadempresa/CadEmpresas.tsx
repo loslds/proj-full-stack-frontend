@@ -1,5 +1,5 @@
 import React from "react";
-import * as Pg from "../../stylePages";
+import * as Pg from "../../styleComponents";
 import { ThemeProvider } from "styled-components";
 import light from "@/themes/light";
 import dark from "@/themes/dark";
@@ -14,11 +14,11 @@ import bt_abortar from "@/assets/svgs/bt_abortar.svg";
 
 import { ContentCardPage } from "../../ContentCardPage";
 //import  BarMenuEmpresas  from "../../sidebar/BarMenuEmpresas";
-import  FormIncEmpresas from './FormIncEmpresas';
-import  FormAltEmpresas from './FormAltEmpresas';
-import  FormExcEmpresas from './FormExcEmpresas';
-import  FormListEmpresas from './FormListEmpresas';
-import  FormPesqEmpresas from './FormPesqEmpresas';
+//import  FormIncEmpresas from './FormIncEmpresas';
+//import  FormAltEmpresas from './FormAltEmpresas';
+//import  FormExcEmpresas from './FormExcEmpresas';
+//import  FormListEmpresas from './FormListEmpresas';
+//import  FormPesqEmpresas from './FormPesqEmpresas';
 
 
 const CadEmpresas: React.FC = () => {

@@ -18,9 +18,9 @@ export const CardHlpResgatePage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'80px'}
-          pwidth={'220px'}
-          img={imgcardresg}
+          $pminheight={'80px'}
+          $pwidth={'220px'}
+          $img={imgcardresg}
         />
       </CardModalAround>
 

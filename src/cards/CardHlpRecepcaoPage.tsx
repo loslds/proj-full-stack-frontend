@@ -18,9 +18,9 @@ export const CardHlpRecepcaoPage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'220px'}
-          img={imgcardpage}
+          $pminheight={'110px'}
+          $pwidth={'220px'}
+          $img={imgcardpage}
         />
       </CardModalAround>
       <CardModalTextoColumn>

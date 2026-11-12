@@ -1,5 +1,5 @@
 // import React from 'react';
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 interface PropsContentSysMain {
   pwidth?: string;
   children?: React.ReactNode;
@@ -7,7 +7,7 @@ interface PropsContentSysMain {
 export const ContentSysMain = ({ pwidth, children }: PropsContentSysMain) => {
   return (
     <Sy.ContainerMainSystem>
-      <Sy.ContainerMainSystemFlex pwidth={pwidth}>
+      <Sy.ContainerMainSystemFlex $pwidth={pwidth}>
         {children}
       </Sy.ContainerMainSystemFlex>
     </Sy.ContainerMainSystem>

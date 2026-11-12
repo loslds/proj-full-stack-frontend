@@ -18,9 +18,9 @@ export const CardHlpResgateLogo = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'80px'}
-          pwidth={'220px'}
-          img={imgcardlogo}
+          $pminheight={'80px'}
+          $pwidth={'220px'}
+          $img={imgcardlogo}
         />
       </CardModalAround>
       <CardModalTextoColumn>

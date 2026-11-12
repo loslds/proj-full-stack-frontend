@@ -20,8 +20,8 @@ export const CardHlpLoginPage = ({
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={pminheight}
-          pwidth={pwidth}
+          $pminheight={pminheight}
+          $pwidth={pwidth}
           $img={imgcardpage}
         />
       </CardModalAround>

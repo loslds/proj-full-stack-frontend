@@ -12,44 +12,71 @@ import dark from "../../../themes/dark";
 import LayoutConfig from "../../layouts/LayoutConfig";
 import { useAcessoContext } from "../../contexts/ContextAcesso";
 
+/** component ação para fazer o logoff em MODAL Login e Master  Atualizador do context*/  
+import { logoutMaster } from '../../contexts/helpers/logoutMaster';
+import { logoutLogin } from '../../contexts/helpers/logoutLogin';
+
 import { ContentCardPageMain } from "../../ContentCardPageMain";
-import {
-  BarMenuConfig,
-  type GridUtilityAction,
-  type GridViewMode,
-} from "../../sidebars/config/BarMenuConfig";
+import { BarMenuConfig, type GridUtilityAction, type GridViewMode } from "../../sidebars/config/BarMenuConfig";
 
 import GenericGrid from "../../grids/GenericGrid";
 
 import { ContentMainGrid } from "@/components/ContentMainGrid";
 import { ContentMainTitle } from "../../ContentMainTitle";
-import { DivisionPgHztal } from "../../stylePages";
+import { DivisionPgHztal } from "../../styleComponents";
 
 import { PageModal } from "../PageModal";
+import { AutoCloseTimer } from '../../AutoCloseTimer';
 import { ContentSidePagePanelBotton } from "../../sidebars/ContentSidePagePanelBotton";
 import { ContentSidePageBottonLabel } from "../../sidebars/ContentSidePageBottonLabel";
 import { ContentSidePageBottonButton } from "../../sidebars/ContentSidePageBottonButton";
 import { ContentSideMsgPagePanelBotton } from "../../sidebars/ContentSideMsgPagePanelBotton";
-
+//////////////////////////////////////////////////
+// Help MODAL após click em Botão
+// Ação do Click na Logo
+import { CardHlpConfigLogo } from "../../../cards/CardHlpConfigLogo";
+// Ação do Click Help Page
 import { CardHlpConfigPage } from "../../../cards/CardHlpConfigPage";
+// Ação do Click Login-Avatar
+import { CardHlpBtnLoginModPage } from '../../../cards/CardHlpBtnLoginModPage';
+// Ação do Click LOGO-OFF SENHA LOGIN
+import { CardLogoffLogin } from '../../../cards/CardLogoffLogin';
+// Ação do Click LOGO-OFF SENHA MASTER
 import { CardLogoffMaster } from "../../../cards/CardLogoffMaster";
-import { logoutMaster } from "../../contexts/helpers/logoutMaster";
-import { CardImgNeg } from "../../../cards/CardImgNeg";
-import { CardDesenvolver } from "../../../cards/CardDesenvolver";
-import CardFilterConfig from "../../../cards/CardFilterConfig";
-
+// Ação ao Click para filtrar dados na Grid
+import { CardFilterConfig } from "../../../cards/CardFilterConfig";
+// Ação ao Click para fechar o Modal
+import btn_def_q_close from "../../../assets/defaults/btn/btn_def_q_chvkey.svg";
+// Heard imagem da Logo da Pagina
 import lg_def_mod_config from "../../../assets/defaults/lg/lg_def_mod_config.svg";
-import pnl_def_mod_config from '../../../assets/defaults/pnl/pnl_def_mod_config.svg';
-import btn_def_q_help from "../../../assets/defaults/btn/btn_def_q_help.svg";
-import btn_def_q_sair from "../../../assets/defaults/btn/btn_def_q_sair.svg";
-import btn_def_q_chvkey from '../../../assets/defaults/btn/btn_def_q_chvkey.svg';
-import bnt_def_q_master from "../../../assets/defaults/btn/btn_def_q_master.svg";
+/**img da Pagina MODAL */ 
+/** component ação Botão Help Pagina  */ 
+import btn_def_q_help from "../../../assets/defaults/btn/btn_def_c_help.svg";
+/** Painel para component modal Acesso Negado*/
+import pnl_def_ope_negado from '../../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
+ //** component ação BOTÃO LOGIN */
+import btn_def_ope_q_login from "../../../assets/defaults/btn/btn_def_ope_q_login.svg";
+/** se tiver logado sem avatar*/
+import btn_def_q_avatar from "../../../assets/defaults/btn/btn_def_q_avatar.svg";
+/** component ação limpar Login (logoff modal) */ 
+import pnl_def_ope_login from '../../../assets/defaults/pnl/pnl_def_ope_login.svg';
+/** component ação limpar Master (logoff modal)*/ 
+import btn_def_q_master from    '../../../assets/defaults/btn/btn_def_q_master.svg';
+/** component ação imagem Master na pagina do Logoff modal */ 
 import pnl_def_ope_master from '../../../assets/defaults/pnl/pnl_def_ope_master.svg'
+/** component ação imagem Check Sistema */ 
+import btn_def_q_chvkey from '../../../assets/defaults/btn/btn_def_q_chvkey.svg'
+/** component ação botão Home  Pagina  */ 
+import btn_def_q_home from "../../../assets/defaults/btn/btn_def_q_home.png";
 
-//import pnl_def_ope_esclamacao from '../../../assets/defaults/pnl/pnl_def_ope_esclamacao.svg';
-import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
-import btn_def_q_close from "../../../assets/defaults/btn/btn_def_q_close.svg";
+// Ação do Click Acesso Negado
 import pnl_def_ope_negacao from "../../../assets/defaults/pnl/pnl_def_ope_negacao.svg";
+import { CardImgNeg } from "../../../cards/CardImgNeg";
+// Ação ao Click onde não tem Modal ainda sem ser feito
+import { CardDesenvolver } from "../../../cards/CardDesenvolver";
+
+import pnl_def_mod_config from '../../../assets/defaults/pnl/pnl_def_mod_config.svg';
+import btn_def_q_refrescar from '../../../assets/defaults/btn/btn_def_q_refrescar.svg';
 
 
 type GridRow = Record<string, unknown>;
@@ -100,28 +127,63 @@ async function fetchTableByName(tableName: string): Promise<LoadTableResult> {
 }
 
 const Config: React.FC = () => {
+  
   const { state, dispatch } = useAcessoContext();
 
   const [theme, setTheme] = React.useState(light);
+  // mudança em THEME
   const [ischeck, setIscheck] = React.useState(false);
+  // menssagem em heard do Panel Booton
+  const [msgpanelbottom, setMsgPanelBottom] = React.useState("Aguardando Seleção...");
+  // menssagem em Panel Booton
+  const [messagebottom, setMessageBottom] = React.useState("Aguardando Seleção...");
 
+  // SET PARA ABERTURA DE MODAL DA PAGINA
+  // Botão para Abrir Help Modal LOGO Page
+  const [cardlogo, setCardLogo] = React.useState(false);
+  // Botão para Abrir Help Modal da Pagina
+  const [cardhplpage, setCardHlpPage] = React.useState(false);
+  // Botão para Abrir Help Modal do Login na Pagina
+  const [cardhplbtnlogin, setCardHlpBtnLogin] = React.useState(false);
+  // Botão para LOGO-OFF do Login
+  const [ismsgchvLogin, setIsMsgChvLogin] = React.useState(false); //Set para modal Botão logoff-login
+  const [chavelogin, setChaveLogin ] = React.useState(false); // Abre Botão LOGOFF LOGIN
+  // Botão para LOGO-OFF da Master
+  const [ismsgchvkey, setIsMsgChvkey] = React.useState(false); //Set para modal Botão logoff  master
+  const [chavemst, setChaveMst ] = React.useState(false); //Abre Botão LOGOFF MASTER
+  // Botão para Abrir Check Sistema na Pagina
+  const [chksistema, setChkSistema] = React.useState(false);
+  
+  // Botão para Abrir não Operavel na Pagina
+  const [notOperation, setNotOperation] = React.useState(false);
+  // Botão para Abrir Help Acesso Negado na Pagina
+  const [cardnegadopage, setCardNegadoPage] = React.useState(false);
+ 
+  //** Abre ao clicar na E NÃO TEM aCESSO AO sistema */
+  // navegação da Paginas
   const navigate = useNavigate();
   const goto = React.useCallback((path: string) => navigate(path), [navigate]);
 
-  const [msgpanelbottom, setMsgPanelBottom] = React.useState(
-    "Aguardando Seleção..."
-  );
-  const [messagebottom, setMessageBottom] = React.useState(
-    "Aguardando Seleção..."
-  );
+  // Set para botão da mudança do Tema em pagina
+  const ToggleTheme = () => {
+    setTheme(theme.name === 'dark' ? light : dark);
+    setIscheck((prev) => !prev);
+  };
 
-  const [chksistema, setChkSistema] = React.useState(false);
-  const [cardhplpage, setCardHlpPage] = React.useState(false);
+  //** Abre/fecha ao clicar na Logo do Sistema ou Empresa */
+  const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
+  //** Abre/fecha ao clicar no botão help da Pagina */
+  const handlerCardHlpPage = React.useCallback(() => setCardHlpPage((old) => !old), []);
+  //** Abre/fecha ao clicar no botão Login */
+  const handlerCardHlpBtnLogin = React.useCallback(() => setCardHlpBtnLogin((old) => !old), []);
+  //** Abre/fecha ao clicar no botão Check Sistema */
+  const handlerCardChkSistema = React.useCallback(() => { setChkSistema((old) => !old); }, []);
+  /////////////////////////////////
+   
+    
 
-  const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);
-  const [chavemst, setChaveMst] = React.useState(false);
-  const [notOperation, setNotOperation] = React.useState(false);
 
+  /////////////////////////////////////////////////////////
   const [isgridtable, setIsGridTables] = React.useState(false);
   const [gridLoading, setGridLoading] = React.useState(false);
   const [gridError, setGridError] = React.useState<string | null>(null);
@@ -143,23 +205,6 @@ const Config: React.FC = () => {
   );
 
   const hasTableSelected = tableName.length > 0;
-
-  const toggleTheme = React.useCallback(() => {
-    setTheme((prev) => (prev.name === "dark" ? light : dark));
-    setIscheck((prev) => !prev);
-  }, []);
-
-  const handlerCardChkSistema = React.useCallback(() => {
-    setChkSistema((old) => !old);
-  }, []);
-
-  const handlerCardHlpPage = React.useCallback(() => {
-    setCardHlpPage((old) => !old);
-  }, []);
-
-  React.useEffect(() => {
-    setChaveMst(Boolean(state.chvkey));
-  }, [state.chvkey]);
 
   const currentFields = React.useMemo(() => {
     if (gridColumns && gridColumns.length > 0) {
@@ -419,42 +464,92 @@ const Config: React.FC = () => {
     </>
   );
 
+  /////////////////////////////////
+
+
+  React.useEffect(() => {
+    setChaveLogin(Boolean(state.logado));
+  }, [state.logado]);
+  
+  React.useEffect(() => {
+    setChaveMst(Boolean(state.chvkey));
+  }, [state.chvkey]);
+
+  // // apresentação de Imagens cobforme Login
+  // const imagemLogoEmpresa =
+  //   state.id_logo_emp > 0 && state.logo_svg_emp?.trim()
+  //   ? state.logo_svg_emp
+  //   : lg_def_ope_default;
+  
+  const imagemLogin =
+    !state.logado
+      ? btn_def_ope_q_login
+      : state.id_img_user > 0 && state.img_svg_user
+        ? state.img_svg_user
+        : btn_def_q_avatar;
+    
+
   return (
     <ThemeProvider theme={theme}>
       <LayoutConfig
-        //* Logo da pagina Visitantes do Sistema
-        imgsys={lg_def_mod_config}
-        titbtnsys="Modulo Config..."
-        onclicksys={() => {}}
-        //* Titulo da Pagina
-        titlepg="Config."
-        //* Botão Help da Pagina
+        //** Logo da Sistema/Empresa ou do Sistema
+        imgbtnlogo={lg_def_mod_config}
+        titbtnlogo="Quen Somos..."
+        onClickbtnlogo={handlerCardLogo}
+
+        /** Titulo da Pagina */
+        titulopg="Visitantes"
+
+        /** Botão Help da Pagina*/
         imgbtnhlppg={btn_def_q_help}
         titbtnhlppg="Help Page..."
-        onclickhlppg={handlerCardHlpPage}
-        // retornar para HOME
-        imgbtnaborta={btn_def_q_sair}
-        titbtnaborta="Fechar..."
-        onclickaborta={() => goto("/")}
-        //* Botão para Checar Sistema
-        imgbtnchk={btn_def_q_chvkey}
-        titbtnchk="Checar Systema..."
-        onclickchk={handlerCardChkSistema}
-        
-        // Desconectar o Master do Sistema
-        mstonoff={chavemst}
-        imgbtnmst={bnt_def_q_master}
-        titbtnmst="Segurança..."
-        onclickmst={() => {
+        onClickbtnhlppg={handlerCardHlpPage}
+
+        /** Botão Login da Pagina*/
+        imgbtnloginon={imagemLogin}
+        titbtnloginon={state.logado ? 'Dados Users...' : 'Sintese Login...'}
+        disabledloginon={ chavemst } /** se master estiver ativa o disabled  */
+        onClickbtnloginon={handlerCardHlpBtnLogin}
+
+        /** Botão Logo-off Senha Login  */
+        loginoff={chavelogin}
+        imgbtnloginoff={btn_def_ope_q_login}
+        titbtnloginoff={"Segurança..."}
+        onClickbtnloginoff={() => {
+          if (state.logado) {
+            setIsMsgChvLogin(true);
+          } else {
+            setCardNegadoPage(true);
+            setMsgPanelBottom('Operação Negada!');
+          }
+        }}
+
+        /* Botão para sair Modo Modo Master (chave de acesso)*/
+        masteroff={chavemst}
+        imgbtnmasteroff={btn_def_q_master}
+        titbtnmasteroff={"Segurança..."}
+        onClickbtnmasteroff={() => {
           if (state.chvkey) {
             setIsMsgChvkey(true);
           } else {
-            setNotOperation(true);
-            setMsgPanelBottom("Sistema Inoperante!");
+            setCardNegadoPage(true);
+            setMsgPanelBottom('Operação Negada!');
           }
         }}
-        // Botão para mudar o tema (dark/light)
-        onchange={toggleTheme}
+  
+        /* Botão para VOLTAR A HOME */
+        imgbtnhome={btn_def_q_home}
+        titbtnhome={"Inicio...HOME"}
+        onClickbtnhome={ () => goto('/')}
+
+        //* Botão para Checar Sistema
+        imgbtnchk={btn_def_q_chvkey}
+        titbtnchk="Checar Systema..."
+        onClickbtnchk={handlerCardChkSistema}
+
+
+        // Botão para mudar o tema (dark/light)  
+        onchange={ToggleTheme}
         ischeck={ischeck}
       >
         <ContentCardPageMain open={true}>
@@ -518,12 +613,157 @@ const Config: React.FC = () => {
                 }}
               />
             </ContentSidePageBottonLabel>
-
             <div>
               <label>{messagebottom}</label>
             </div>
           </ContentSidePagePanelBotton>
 
+          {/** Modal dos Botões Hearders da Pagina */ }
+          {/** Abre Modal help ao clicar na imagem LOGO da Pagina */ }
+          {cardlogo ? (
+            <PageModal
+              ptop={'1%'}
+              pwidth={'80%'}
+              pheight={'95%'}
+              imgbm={btn_def_q_close}
+              titbm="Fechar..."
+              titulo={'Config Sistema.'}
+              onclose={() => setCardLogo(false)}>
+              <CardHlpConfigLogo imghlplogo={lg_def_mod_config} onclosesair={() => setCardLogo(false)} /> 
+            </PageModal>
+            ) : null 
+          }
+
+          {/* Abre Modal help ao clicar no Botão Help da Pagina */ }
+          {cardhplpage ? (
+            <PageModal
+              ptop={'1%'}
+              pwidth={'80%'}
+              pheight={'95%'}
+              imgbm={btn_def_q_close}
+              titbm="Fechar..."
+              titulo={'Help Conteúdo Home.'}
+              onclose={() => setCardHlpPage(false)}>
+              <CardHlpConfigPage imgcardpage={lg_def_mod_config} onclosesair={() => setCardHlpPage(false)} />
+            </PageModal>
+            ) : null 
+          }
+
+          {/* Abre Modal ao clicar no Botão Login */ }
+          {cardhplbtnlogin ? (
+            <PageModal
+              ptop={'1%'}
+              pwidth={'80%'}
+              pheight={'95%'}
+              imgbm={btn_def_q_close}
+              titbm="Fechar..."
+              titulo={'Help Conteúdo Home.'}
+              onclose={() => setCardHlpBtnLogin(false)}>
+              <CardHlpBtnLoginModPage
+                pminheight="110px"
+                pwidth="130px"
+                imgcardpage={ imagemLogin }
+                onclosesair={() => setCardHlpBtnLogin(false)} 
+              />
+            </PageModal>
+            ) : null 
+          }
+          {/* Abre Modal da fazer o logo-off do Acesso Senha LOGIN */ }
+          { ismsgchvLogin ? (
+            <PageModal
+              ptop='330px'
+              pwidth={'400px'}
+              pheight={'44%'}
+              imgbm={btn_def_q_close}
+              titbm="Fechar..."
+              titulo={'Sistema Logado.'}
+              onclose={() => setIsMsgChvLogin(false)} >
+              <CardLogoffLogin
+                pptop="300px"
+                bordas="4px"
+                pxheight="57px"
+                pxwidth="65px"
+                imgpnl={pnl_def_ope_login}
+                onclickpnl={() => {}}
+                open={true}
+                titulo={"Acesso Logo-off."}
+                msg={"Confirme opção de Logoff."}
+                labelConfirm={"SIM para Logoff."}
+                labelCancel={"NÃO para Abortar."}
+                seconds={30}
+                resetKey={cardlogo ? 1 : 0} // reinicia ao abrir/fechar
+                onConfirm={() => {
+                  logoutLogin(dispatch);
+                  setChaveLogin(false);
+                }}
+                onCancel={() => setIsMsgChvLogin(false)}
+                onClose={() => setIsMsgChvLogin(false)}
+              />
+            </PageModal>
+            ): null
+          }
+
+          {/* Abre Modal da fazer o LOGO-OFF Acesso Senha MASTER */ }
+          { ismsgchvkey ? (
+            <PageModal
+              ptop={"330px"}
+              pwidth={"400px"}
+              pheight={"44%"}
+              imgbm={btn_def_q_close}
+              titbm="Fechar..."
+              titulo={"Abortar Master."}
+              onclose={() => setIsMsgChvkey(false)} > {/** devera ser setIsLogoff */} 
+              {/** deverrá ser conforme o solicitado de acordo com o setado do botão : setIsLogin ou setIsMaster */} 
+              <CardLogoffMaster 
+                pptop={"300px"}
+                bordas={"4px"}
+                pxheight={"57px"}
+                pxwidth={"65px"}
+                imgpnl={pnl_def_ope_master}
+                onclickpnl={() => {}}
+                open={true}
+                titulo={"Acesso Logo-off."}
+                msg={"Confirme opção de Logoff."}
+                labelConfirm={"SIM para Logoff."}
+                labelCancel={"NÃO para Abortar."}
+                width={"45px"}
+                height={"45px"}
+                seconds={30}
+                resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
+                onConfirm={() => {
+                  logoutMaster(dispatch);
+                  setIsMsgChvkey(false);
+                }}
+                onCancel={() => setIsMsgChvkey(false)}
+                onClose={() => setIsMsgChvkey(false)}
+              />
+            </PageModal>
+            ) : null 
+          }
+
+
+          {/* Abre Modal da anunciando "negado / não pode operar" o Sistema (fechável) */ }
+          {cardnegadopage ? (
+            <PageModal
+              ptop={'1%'}
+              pwidth={'30%'}
+              pheight={'35%'}
+              imgbm={btn_def_q_close}
+              titbm={"Fechar..."}
+              titulo={'Acesso Negado.'}
+              onclose={() => setCardNegadoPage(false)}>
+              <CardImgNeg
+                imgcard={pnl_def_ope_negado}
+                pminheight={'100px'}
+                pwidth={'100px'}
+                onclickimg={() => setCardNegadoPage(false)} 
+              />
+              <AutoCloseTimer onClose={() => setCardNegadoPage(false)} seconds={5} />
+            </PageModal>
+            ) : null 
+          }
+          
+          {/* Abre Modal da Do GRID */ }
           {isGridModalOpen ? (
             <PageModal
               ptop="1%"
@@ -536,8 +776,10 @@ const Config: React.FC = () => {
             >
               {renderGrid()}
             </PageModal>
-          ) : null}
+            ) : null
+          }
 
+          {/* Abre Modal da checagen do sistema */ }
           {chksistema ? (
             <PageModal
               ptop="1%"
@@ -551,23 +793,7 @@ const Config: React.FC = () => {
               <CardDesenvolver
                 imgcarddes={pnl_def_mod_config}
                 onclosesair={() => setChkSistema(false)}
-              />
-            </PageModal>
-          ) : null}
 
-          {cardhplpage ? (
-            <PageModal
-              ptop="1%"
-              pwidth="80%"
-              pheight="90%"
-              imgbm={btn_def_q_close}
-              titbm="Fechar..."
-              titulo="Help Conteúdo Config."
-              onclose={() => setCardHlpPage(false)}
-            >
-              <CardHlpConfigPage
-                imgcardpage={lg_def_mod_config}
-                onclosesair={() => setCardHlpPage(false)}
               />
             </PageModal>
           ) : null}
@@ -595,72 +821,6 @@ const Config: React.FC = () => {
                 <p>Entre em contato com suporte.</p>
               </form>
             </PageModal>
-          ) : null}
-
-          {ismsgchvkey ? (
-                     <PageModal
-            ptop='330px'
-            pwidth={'400px'}
-            pheight={'44%'}
-            imgbm={btn_def_q_close}
-            titbm="Fechar..."
-            titulo={'Abortar Master.'}
-            onclose={() => setIsMsgChvkey(false)}
-          >
-          <CardLogoffMaster
-            pptop="300px"
-            bordas="4px"
-            pxheight="57px"
-            pxwidth="65px"
-            imgpnl={pnl_def_ope_master}
-            onclickpnl={() => {}}
-            open={true}
-            titulo={"Acesso Logo-off."}
-            msg={"Confirme opção de Logoff."}
-            labelConfirm={"SIM para Logoff."}
-            labelCancel={"NÃO para Abortar."}
-            seconds={30}
-            resetKey={chavemst ? 1 : 0} // reinicia ao abrir/fechar
-            onConfirm={() => {
-              logoutMaster(dispatch);
-              setIsMsgChvkey(false);
-            }}
-            onCancel={() => setIsMsgChvkey(false)}
-            onClose={() => setIsMsgChvkey(false)}
-          />
-          </PageModal>
-
-            // <PageModal
-            //   ptop="330px"
-            //   pwidth="400px"
-            //   pheight="44%"
-            //   imgbm={btn_def_q_close}
-            //   titbm="Fechar..."
-            //   titulo="Abortar Master."
-            //   onclose={() => setIsMsgChvkey(false)}
-            // >
-            //   <CardLogoffMaster
-            //     pptop="300px"
-            //     bordas="4px"
-            //     pxheight="57px"
-            //     pxwidth="65px"
-            //     imgpnl={pnl_def_ope_esclamacao}
-            //     onclickpnl={() => {}}
-            //     open={true}
-            //     titulo="Acesso Logoff."
-            //     msg="Confirme opção de Logoff."
-            //     labelConfirm="SIM para Logoff."
-            //     labelCancel="NÃO para Abortar."
-            //     seconds={30}
-            //     resetKey={chavemst ? 1 : 0}
-            //     onConfirm={() => {
-            //       logoutMaster(dispatch);
-            //       setIsMsgChvkey(false);
-            //     }}
-            //     onCancel={() => setIsMsgChvkey(false)}
-            //     onClose={() => setIsMsgChvkey(false)}
-            //   />
-            // </PageModal>
           ) : null}
 
           {isFilterModalOpen ? (

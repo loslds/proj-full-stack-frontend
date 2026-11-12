@@ -1,7 +1,9 @@
  
 // C:\repository\proj-full-stack-frontend\src\components\pages\Home.tsx
-import React from 'react';
-import * as Pg from '../stylePages';
+
+import React from "react";
+
+import * as Pg from '../styleComponents';
 import { useNavigate } from 'react-router-dom';
 // theme
 import { ThemeProvider } from 'styled-components';
@@ -17,121 +19,96 @@ import { logoutMaster } from '../contexts/helpers/logoutMaster';
 import { logoutLogin } from '../contexts/helpers/logoutLogin';
 import { SystemHealthResult } from '../../types/SystemHealth';
 // main page
+//* import { ContentBodyPage } from '../ContentBodyPage';
 import { ContentItensBody } from '../ContentItensBody';
+//* import { ContentImgPnlPage } from '../ContentImgPnlPage';
 import { ContentCustonImgPage } from '../ContentCustonImgPage';
-// bottom page
-import { PageModal } from './PageModal';
-import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
-import { AutoCloseTimer } from '../AutoCloseTimer';
+
+// panel botton
 import { ContentSidePagePanelBotton } from '../sidebars/ContentSidePagePanelBotton';
 import { ContentSidePageBottonLabel } from '../sidebars/ContentSidePageBottonLabel';
 import { ContentSidePageBottonButton } from '../sidebars/ContentSidePageBottonButton';
 import { ContentSideMsgPagePanelBotton } from '../sidebars/ContentSideMsgPagePanelBotton';
 
-/**img da Pagina MODAL */ 
-/** component ação botão para fechar a pagina MODAL*/
-import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
-/** component imagem painel para acesso negado pagina MODAL*/
-import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
-
-// Heard
-import lg_def_ope_default from "../../assets/defaults/lg/lg_def_ope_default.svg";
-import { CardHlpHomeLogo } from '../../cards/CardHlpHomeLogo';
-import { CardHlpHomePage } from '../../cards/CardHlpHomePage';
-
-
-
-
-/** component ação botão help */
-import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
-import { CardImgNeg } from '../../cards/CardImgNeg';
-// Help Botão Login
+//import { ModalPage } from './ModalPage';
+import { PageModal } from './PageModal';
+import { ContentSysMainItens } from '../../cards/ContentSysMainItens';
+import { AutoCloseTimer } from '../AutoCloseTimer';
+// Help Aviso de não desenvolvido
+import { CardNotDevelopment } from '../../cards/CardNotDevelopment';
+import { CardHlpHomeEmpLogo } from '../../cards/CardHlpHomeEmpLogo';
+import { CardHlpHomePage } from "../../cards/CardHlpHomePage";
 import { CardHlpBtnLoginModPage } from '../../cards/CardHlpBtnLoginModPage';
-// Modal LOGO-OFF SENHA LOGIN
 import { CardLogoffLogin } from '../../cards/CardLogoffLogin';
-// Modal LOGO-OFF SENHA MASTER
 import { CardLogoffMaster } from '../../cards/CardLogoffMaster';
+import { CardCheckingSystema } from '../../cards/CardCheckingSystema';
+// Help Aviso de acesso Negado e Sistema INOPERANTE 
+import { CardImgNeg } from '../../cards/CardImgNeg';
 
-
-
-/** IMAGENS DOS BOTÔES PAGINA */
-/** component ação Botão Help Pagina  */ 
-import btn_def_q_help from "../../assets/defaults/btn/btn_def_c_help.svg";
-//** component ação BOTÃO LOGIN */
-import btn_def_ope_q_login from "../../assets/defaults/btn/btn_def_ope_q_login.svg";
-/** se tiver logado sem avatar*/
-import btn_def_q_avatar from "../../assets/defaults/btn/btn_def_q_avatar.svg";
-/** component ação limpar Login (logoff modal) */ 
+/**img da Pagina MODAL */ 
+/** Imagem de Painel em Pagina Hlp*/
+//import pnl_def_HlpLogo from '../../assets/defaults/pnl/pnl_def_HlpLogo.svg';
+/** Imagem de Logo em Pagina*/
+import lg_def_ope_sistema from "../../assets/defaults/lg/lg_def_ope_sistema.svg";
+//import lg_def_ope_default from "../../assets/defaults/lg/lg_def_ope_default.svg";
+/** Imagem de Painel em Pagina*/
+import pnl_def_ope_negado from '../../assets/defaults/pnl/pnl_def_ope_negacao.svg';
+import pnl_def_ope_desenvolver from '../../assets/defaults/pnl/pnl_def_ope_desenvolver.svg';
 import pnl_def_ope_login from '../../assets/defaults/pnl/pnl_def_ope_login.svg';
-/** component ação limpar Master (logoff modal)*/ 
-import btn_def_q_master from    '../../assets/defaults/btn/btn_def_q_master.svg';
-/** component ação imagem Master na pagina do Logoff modal */ 
 import pnl_def_ope_master from '../../assets/defaults/pnl/pnl_def_ope_master.svg'
-/** component ação botão para resgatar acesso */ 
-import btn_def_q_resgatar from '../../assets/defaults/btn/btn_def_q_resgatar.svg';
-
-/** img do main painel */ 
-/** component ação imagem Panel Visitante da pagina HOME */ 
 import pnl_def_mod_visitante from '../../assets/defaults/pnl/pnl_def_mod_visitantes.svg';
-/** component ação imagem Panel Recepção da pagina HOME */ 
 import pnl_def_mod_recepcao from '../../assets/defaults/pnl/pnl_def_mod_recepcao.svg';
-/** component ação imagem Panel Design da pagina HOME */ 
 import pnl_def_mod_design from '../../assets/defaults/pnl/pnl_def_mod_design.svg';
-/** component ação imagem Panel Produção da pagina HOME */ 
 import pnl_def_mod_producao from '../../assets/defaults/pnl/pnl_def_mod_producao.svg';
-/** component ação imagem Panel Acabamento da pagina HOME */ 
 import pnl_def_mod_acabamento from '../../assets/defaults/pnl/pnl_def_mod_acabamento.svg';
-/** component ação imagem Panel Expedição da pagina HOME */ 
 import pnl_def_mod_expedicao from '../../assets/defaults/pnl/pnl_def_mod_expedicao.svg';
-/** component ação imagem Panel Administração da pagina HOME */ 
 import pnl_def_mod_administracao from '../../assets/defaults/pnl/pnl_def_mod_administracao.svg';
-/** component ação imagem Panel Config da pagina HOME */ 
 import pnl_def_mod_config from '../../assets/defaults/pnl/pnl_def_mod_config.svg';
-
-/** img do painel Bottom */ 
-/** component ação botão para refrescar a pagina */
+/** Imasgem de BOTÕES em pagina*/
+import btn_def_q_close from '../../assets/defaults/btn/btn_def_q_close.svg';
+import btn_def_q_help from "../../assets/defaults/btn/btn_def_c_help.svg";
+import btn_def_ope_q_login from "../../assets/defaults/btn/btn_def_ope_q_login.svg";
+import btn_def_q_avatar from "../../assets/defaults/btn/btn_def_q_avatar.svg";
+import btn_def_q_master from    '../../assets/defaults/btn/btn_def_q_master.svg';
+import btn_def_q_resgatar from '../../assets/defaults/btn/btn_def_q_resgatar.svg';
 import btn_def_q_refrescar from '../../assets/defaults/btn/btn_def_q_refrescar.svg';
 
+/////////////////////////////////////////////////////////////////////////
 
 const Home: React.FC = () => {
+  // uso do context
   const { state, dispatch } = useAcessoContext();
-
+  // Set do THEME Pagiga
   const [theme, setTheme] = React.useState(light);
-  // mudança em THEME
+  // Chave da mudança em THEME
   const [ischeck, setIscheck] = React.useState(false);
   // menssagem em heard do Panel Booton
   const [msgpanelbottom, setMsgPanelBottom] = React.useState('');
   // menssagem em Panel Booton
   const [messagebottom, setMessageBottom] = React.useState('');
-
+  // Set para Abrir/Fechar Pagina Modal LOGO
   const [cardlogo, setCardLogo] = React.useState(false);
-
+  // Set para Abrir/Fechar Help da Pagina Modal local
   const [cardhplpage, setCardHlpPage] = React.useState(false);
-
+  // Set para Abrir/Fechar Help do Botão Login 
   const [cardhplbtnlogin, setCardHlpBtnLogin] = React.useState(false);
-
+  // Set para Abrir/Fechar Help do Acesso Negado 
   const [cardnegadopage, setCardNegadoPage] = React.useState(false);
-
-  // Botão para Modal Logado ou não, DATA CEnter ou não do Login
-  
+  // Set para Abrir/Fechar Help do Acesso ainda NÃO DESENVOLVIDO
+  const [cardnotdesenvolvido, setCardNotDesenvolvido ] = React.useState(false);
   // Help Botão Login
   //Set para modal botão Logof senha Login 
   const [ismsgchvLogin, setIsMsgChvLogin] = React.useState(false);//botão logoff  login
   const [chavelogin, setChaveLogin ] = React.useState(false); // abre botão logoff login
-
   //Set para modal botão Logof senha Master 
   const [ismsgchvkey, setIsMsgChvkey] = React.useState(false);//botão logoff  master
   const [chavemst, setChaveMst ] = React.useState(false); //abre botão master
-
   // Mantidos (você usa para sinalizar alguns fluxos), mas agora SEM travar Home
   const [showInitSystem, setInitShowSystem] = React.useState(false);
-
   // Modal de verificação do sistema (fechável)
   const [showsystemcheckmodal, setShowSystemCheckModal] = React.useState(false);
-
   const [systemMessages, setSystemMessages] = React.useState<string[]>(['Iniciando verificação do sistema...']);
   const [systemOk, setSystemOk] = React.useState<boolean | null>(null);
-
   const [notOperation, setNotOperation] = React.useState(false);
   
   // navegação
@@ -269,6 +246,8 @@ React.useEffect(() => {
   setChaveLogin(Boolean(state.logado));
 }, [state.logado]);
 /////////////////////////////////
+//** Abre/fecha ao clicar no botão help da Pagina */
+
 //** Abre/fecha ao clicar na Logo do Sistema ou Empresa */
 const handlerCardLogo = React.useCallback(() => setCardLogo((old) => !old), []);
 //** Abre/fecha ao clicar no botão help da Pagina */
@@ -306,7 +285,7 @@ const handlerClicEventNegadoPage = React.useCallback( (num: number) => {
 const imagemLogoEmpresa =
   state.id_logo_emp > 0 && state.logo_svg_emp?.trim()
   ? state.logo_svg_emp
-  : lg_def_ope_default;
+  : lg_def_ope_sistema;
 
  
 const imagemLogin =
@@ -617,7 +596,30 @@ return (
           </PageModal>
           ) : null 
         }
-        
+
+
+        {/** Abre Modal para Acesso Negado na pagina atual */ }
+        {cardnotdesenvolvido ? (
+          <PageModal
+            ptop={'1%'}
+            pwidth={'30%'}
+            pheight={'35%'}
+            imgbm={btn_def_q_close}
+            titbm={"Fechar..."}
+            titulo={'Acesso Negado.'}
+            onclose={() => setCardNotDesenvolvido(false)}>
+            <CardNotDevelopment
+              widthpnl={'30%'}
+              heightpnl={'35%'}
+              titlepnl={'Atenção! Módulo não desenvolvido.'}
+              imgpnl={pnl_def_ope_desenvolver}
+              onClickpnl={() => setCardNotDesenvolvido(false)}
+            />
+          </PageModal>
+          ) : null 
+        }
+
+
         {/** Modal dos Botões Hearders da Pagina */ }
         {/** Abre Modal help ao clicar na imagem LOGO da Pagina */ }
         {cardlogo ? (
@@ -629,7 +631,15 @@ return (
             titbm="Fechar..."
             titulo={'Home Sistema.'}
             onclose={() => setCardLogo(false)}>
-            <CardHlpHomeLogo imghlplogo={imagemLogoEmpresa} onclosesair={() => setCardLogo(false)} /> 
+            
+            <CardHlpHomeEmpLogo
+              heightlg={"62px"}
+              widthlg={" 130px"}
+              imglg={lg_def_ope_sistema}
+              titlelg={"Sistema de Gestão de Acesso."}
+              onClicklg={() => {}}
+              onclosesair={() => setCardLogo(false)} /> 
+              
           </PageModal>
           ) : null 
         }
@@ -643,8 +653,18 @@ return (
             imgbm={btn_def_q_close}
             titbm="Fechar..."
             titulo={'Help Conteúdo Home.'}
-            onclose={() => setCardHlpPage(false)}>
-            <CardHlpHomePage imgcardpage={lg_def_ope_default} onclosesair={() => setCardHlpPage(false)} />
+            onclose={() => setCardHlpPage(false)} >
+
+            <CardHlpHomePage
+              heightpnl="62px" 
+              widthpnl="130px"
+              imgpnl={lg_def_ope_sistema}
+              titlepnl={"Acesso ao Sistema de Gestão."}
+              onClickpnl={() => {}}
+              onclosesair={() => setCardLogo(false)} 
+            />
+              
+              
           </PageModal>
           ) : null 
         }
@@ -660,8 +680,8 @@ return (
             titulo={'Help Conteúdo Home.'}
             onclose={() => setCardHlpBtnLogin(false)}>
             <CardHlpBtnLoginModPage
-              pminheight="110px"
-              pwidth="130px"
+              pminheight="130px"
+              pwidth="150px"
               imgcardpage={ imagemLogin }
               onclosesair={() => setCardHlpBtnLogin(false)} 
             />
@@ -813,6 +833,7 @@ return (
             <AutoCloseTimer onClose={() => setNotOperation(false)} seconds={5} />
           </PageModal>
         ) : null}
+        
 
         <div>{ state.chvkey ? (<p>......ChvKey : true </p>) : (<p>.......ChvKey : false </p>)}</div>
         <div>{ state.logado ? (<p>......Logado : true </p>) : (<p>.......Logado : false </p>)}</div>

@@ -253,7 +253,12 @@ export const ContainerDropdownMenu = styled.div<{ $open: boolean, $width?: strin
 ////////////////////////////////
 //  ContainerButtonGreenMenu e ButtonDefaultMenu =>> ContentBarButtonGrenMenu  //
 // container Botão ativado Verde em menu. //
-export const ContainerButtonGreenMenu = styled.div<{ $open: boolean, $width?: string, $isCor: boolean }>`
+interface PropsContainerButtonGreenMenu {
+  $open?: boolean;
+  $isCor: boolean;
+  width?: string;
+}
+export const ContainerButtonGreenMenu = styled.div<PropsContainerButtonGreenMenu>`
   border: 3px;
   border-style: double;
   border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
@@ -262,7 +267,7 @@ export const ContainerButtonGreenMenu = styled.div<{ $open: boolean, $width?: st
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   min-height: 45px;
-  width: ${({ $width }) => $width || "fit-content"};
+  width: ${({ width }) => width || "fit-content"};
   max-width: 100%;
 
   font-size: 12px;
@@ -288,6 +293,7 @@ export const ContainerButtonGreenMenu = styled.div<{ $open: boolean, $width?: st
 //
 //  ContainerButtonRedFleschMenu e ButtonDefaultMenu =>> ContentBarButtonRedMenu  // 
 // container Botão ativado Verde em menu. //
+
 export const ContainerButtonRedFleschMenu = styled.div<{ $open: boolean, $width?: string }>`
   border: 3px;
   border-style: double;
@@ -322,7 +328,11 @@ export const ContainerButtonRedFleschMenu = styled.div<{ $open: boolean, $width?
 //  Inicio do =>> ContentBarButtonYelowMenu  //
 //  ContainerButtonYelowMenu e ButtonDefaultMenu =>> ContentBarButtonRedMenu  // 
 // container Botão ativado Verde em menu. //
-export const ContainerButtonYelowMenu = styled.div<{ $open: boolean, $width?: string }>`
+interface PropsContainerButtonYelowMenu {
+  $open?: boolean;
+  width?: string;
+}
+export const ContainerButtonYelowMenu = styled.div<PropsContainerButtonYelowMenu>`
   border: 3px;
   border-style: double;
   border-color: ${props => props?.theme?.colors?.textColor || 'inherit'};
@@ -331,7 +341,7 @@ export const ContainerButtonYelowMenu = styled.div<{ $open: boolean, $width?: st
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
   min-height: 45px;
-  width: ${({ $width }) => $width || "fit-content"};
+  width: ${({ width }) => width || "fit-content"};
   max-width: 100%;
 
   font-size: 12px;
@@ -362,7 +372,6 @@ export const ButtonDefaultMenu = styled.button`
   margin: 0px 0px 0px 0px;  
   width: fit-content;
   min-height: 30px;
-
   font-size: 12px;
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
@@ -609,7 +618,7 @@ export const ContainerSideButton = styled.div`
    }
 `;
 // Botão Menu Principal
-export const ButtonSideBarImg = styled.button<{ img?: string }>`
+export const ButtonSideBarImg = styled.button<{ $img?: string }>`
   border: none;
   margin: 5px 5px 5px 5px;
   color:  ${props => props.theme.colors.textColor};
@@ -617,7 +626,7 @@ export const ButtonSideBarImg = styled.button<{ img?: string }>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || semimg});
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -751,14 +760,14 @@ export const ButtonItemMn = styled.button`
 
 ////////////==================
 type TypeContainerSideButtonItem = {
-  isbrder?: boolean;
+  $isbrder?: boolean;
 };
 export const ContainerSideButtonItem = styled.div<TypeContainerSideButtonItem>`
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
   
   border: 1px;
-  border-style: ${props => (props.isbrder ? 'solid' : 'none')};
+  border-style: ${props => (props.$isbrder ? 'solid' : 'none')};
   border-radius: 10px;
   border-color: Red;
 
@@ -945,14 +954,14 @@ export const ContainerMainDropdownUl = styled.div<PropsContainerMainDropdownUl>`
   }
 `;
 interface PropsContainerButtonDropdown {
-  pxheight?: string;
+  height?: string;
 }
 export const ContainerButtonDropdown = styled.div<PropsContainerButtonDropdown>`
   border: none; //1px solid;
   border-radius: 10px;
   padding: 0px 0px 0px 0px;
   margin: 2px 2px 2px 2px;
-  min-height: ${({ pxheight }) => pxheight || '30px'};
+  min-height: ${({ height }) => height || '30px'};
   width: fit-content;;
   
   display: flex;
@@ -970,13 +979,16 @@ export const ContainerButtonDropdown = styled.div<PropsContainerButtonDropdown>`
   }
 `;
 
-export const ButtonDropdown = styled.button<{ $btnpxwidth: string; }>`
+interface PropsButtonDropdown {
+  width?: string;
+}
+export const ButtonDropdown = styled.button<PropsButtonDropdown>`
   border: none;
   border-radius: 5px;
   
   margin: 2px 5px 2px 5px;
   min-width: 30px;
-  width: ${({ $btnpxwidth }) => $btnpxwidth || "100%"};
+  width: ${({ width }) => width || "100%"};
   max-width: 100%;
 
   color: ${(props) => props.theme.colors.textColor};
@@ -1030,7 +1042,7 @@ export const ContainerMenuSB = styled.div<PropsMenuSB>`
 /////////////////////////////////////
 
 type PropsBtn = {
-  img?: string;
+  $img?: string;
   title?: string;
 }
 export const ButtonSItenModulo = styled.button<PropsBtn>`
@@ -1043,7 +1055,7 @@ export const ButtonSItenModulo = styled.button<PropsBtn>`
   font-family: 'Courier New', 'Courier', 'monospace';
   background: transparent;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1135,7 +1147,7 @@ export const ContainerSideOnOffButton = styled.div`
    }
 `;
 
-export const ButtonOnOffImg = styled.button<{ img?: string }>`
+export const ButtonOnOffImg = styled.button<{ $img?: string }>`
   border: 2px; 
   border-radius: 3px;
   margin: 2px 5px 2px 5px;
@@ -1144,7 +1156,7 @@ export const ButtonOnOffImg = styled.button<{ img?: string }>`
   font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
   background-color: transparent;
-  background-image: url(${({ img }) => img || semimg});
+  background-image: url(${({ $img }) => $img || semimg});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

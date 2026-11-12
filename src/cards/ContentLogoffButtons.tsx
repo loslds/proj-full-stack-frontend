@@ -1,7 +1,7 @@
 
 //C:\repository\proj-full-stack-frontend\src\cards\ContenteBottonsMaster.tsx
 import React from 'react';
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 
 interface PropsContentLogoffButtons {
   widthbtns? : string;
@@ -13,7 +13,7 @@ export const ContentLogoffButtons = ({
   heightbtns,
   children }: PropsContentLogoffButtons) => {
   return (
-    <Sy.ContainerLogoffButtons $height={widthbtn} $width={heightbtn}>
+    <Sy.ContainerLogoffButtons $height={heightbtns} $width={widthbtns}>
       {children}
     </Sy.ContainerLogoffButtons>
   )

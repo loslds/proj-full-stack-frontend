@@ -1,11 +1,11 @@
 
 import * as Sl from '../stylesSidebar';
 
-interface PropsContentSBMain {
+interface PropsContentBarMainMenuVisitante {
   width?: string
   children?: React.ReactNode;
 };
-export const ContentBarMainMenuSales: React.FC<PropsContentSBMain> = ({ width, children }) => {
+export const ContentBarMainMenuVisitante: React.FC<PropsContentBarMainMenuVisitante> = ({ width, children }) => {
   return (
     <Sl.ContainerBarMainMenu $width={width}>
       <Sl.ContainerBarMainFlex>

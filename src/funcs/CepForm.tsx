@@ -3,9 +3,16 @@
 import React, { useState } from "react";
 import { buscarCep } from "../api/cepServices";
 
+interface Endereco {
+  logradouro?: string;
+  bairro?: string;
+  localidade?: string;
+  uf?: string;
+}
+
 export function CepForm() {
   const [cep, setCep] = useState("");
-  const [endereco, setEndereco] = useState<any>(null);
+  const [endereco, setEndereco] = useState<Endereco | null>(null);
 
   const handleBuscar = async () => {
     if (!cep) return;

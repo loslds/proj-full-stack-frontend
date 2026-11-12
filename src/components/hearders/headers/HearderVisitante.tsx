@@ -100,7 +100,7 @@ const HearderVisitante = ({
       {/** imagem botão lado esquerdo : logo da pagina */}
       <ContentHearderItens>
           <ContentHearderImgLogo 
-            imgbtnlogo={imgbtnlogo}
+            $imgbtnlogo={imgbtnlogo}
             titbtnlogo={titbtnlogo}
             onClickbtnlogo={onClickbtnlogo}
           />

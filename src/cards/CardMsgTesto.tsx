@@ -14,9 +14,9 @@ export const CardCardMsgTesto = ({ imgcardmsg, titTxt,children, }: PropsCardMsgT
     <CardModalCenter>
       <CardModalAround>
         <M.ContainerModalImg
-          pminheight={'60px'}
-          pwidth={'80px'}
-          img={imgcardmsg}
+          $pminheight={'60px'}
+          $pwidth={'80px'}
+          $img={imgcardmsg}
         />
       </CardModalAround>
       <CardModalTextoColumn>

@@ -12,7 +12,7 @@ export interface DropdownOption {
   onClick?: () => void;
 }
 
-interface PropsDropdownVisitantes {
+interface PropsDropdownVisitante {
   $pxheight?: string;
   $pxwidth?: string;
   labelbtn?: string;
@@ -20,7 +20,7 @@ interface PropsDropdownVisitantes {
   onSelect: (value: string) => void;
 }
 
-export const DropdownVisitantes: React.FC<PropsDropdownVisitantes> = ({
+export const DropdownVisitante: React.FC<PropsDropdownVisitante> = ({
   $pxheight,
   $pxwidth,
   labelbtn,
@@ -122,10 +122,10 @@ export const DropdownVisitantes: React.FC<PropsDropdownVisitantes> = ({
   return (
     <ContentMainDropdownUl
       ref={rootRef}
-      $pxheight={$pxheight}
-      $pxwidth={$pxwidth}
+      height={$pxheight}
+      width={$pxwidth}
     >
-      <ButtonDropdown type="button" $btnpxwidth="170px" onClick={handleToggleRoot}>
+      <ButtonDropdown type="button" width="170px" onClick={handleToggleRoot}>
         {labelbtn}
       </ButtonDropdown>
 

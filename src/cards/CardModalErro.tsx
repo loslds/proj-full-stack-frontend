@@ -12,7 +12,7 @@ export const CardModalErro = ({
   children,
 }: PropsCardModalErro) => {
   return (
-    <MD.ContainerModalErro pminheight={pminheight} pwidth={pwidth}>
+    <MD.ContainerModalErro $pminheight={pminheight} $pwidth={pwidth}>
       {children}
     </MD.ContainerModalErro>
   );

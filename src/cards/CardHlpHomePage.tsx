@@ -1,29 +1,43 @@
-import * as M from '../modal/stylesModal';
+
 import { CardModalCenter } from '../modal/CardModalCenter';
 import { CardModalAround } from '../modal/CardModalAround';
+
+import { ContentCardImgPnl } from './ContentCardImgPnl';
+
 import { CardModalTextoColumn } from '../modal/CardModalTextoColumn';
 
 import { CardHlpFooter1 } from './CardHlpFooter1';
 
+
 interface PropsCardHlpHomePage {
-  imgcardpage?: string;
-  pminheight?: string;
-  pwidth?: string;
+  heightpnl?: string;
+  widthpnl?: string;
+  imgpnl?: string;
+  titlepnl?: string;
+  onClickpnl?: () => void;
   onclosesair?: () => void;
 }
+
 export const CardHlpHomePage = ({
-  imgcardpage,
+  heightpnl,
+  widthpnl,
+  imgpnl,
+  titlepnl,
+  onClickpnl,
   onclosesair,
 }: PropsCardHlpHomePage) => {
   return (
     <CardModalCenter>
       <CardModalAround>
-        <M.ContainerModalImg
-          pminheight={'110px'}
-          pwidth={'220px'}
-          img={imgcardpage}
+        <ContentCardImgPnl
+          heightpnl={heightpnl}
+          widthpnl={widthpnl}
+          imgpnl={imgpnl}
+          titlepnl={titlepnl}
+          onClickpnl={onClickpnl}
         />
       </CardModalAround>
+
       <CardModalTextoColumn>
         <form>
         <h2>Sintase do Sistema.</h2>
@@ -124,7 +138,8 @@ export const CardHlpHomePage = ({
           Assim que for aferidas as Informações de seu Login ou Resgate, o
           Sistema irá redirecionar você para Atividades do Sistema.
         </p>
-        <CardHlpFooter1
+        <br />
+        <CardHlpFooter1 
           label=" HELP PÁGINA -> HOME."
           texto="Assim que Logado for, Sistema retorna a Pagina HOME onde poderá clicar
           no painel com a imagem de sua atividade e usufluir do Sistema."

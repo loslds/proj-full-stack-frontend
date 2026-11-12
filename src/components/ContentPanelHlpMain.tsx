@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentPanelHlpMain {
   pwidth?: string;
@@ -16,8 +16,8 @@ export const ContentPanelHlpMain = ({
   children
 }: PropsContentPanelHlpMain) => {
   return (
-    <Pg.ContainerPanelHlp pwidth={pwidth}>
-      <Pg.ContainerPanelHlpFlex isborda= {isbodas}>
+    <Pg.ContainerPanelHlp $pwidth={pwidth}>
+      <Pg.ContainerPanelHlpFlex $isborda= {isbodas}>
         {children}
       </Pg.ContainerPanelHlpFlex>
     </Pg.ContainerPanelHlp>

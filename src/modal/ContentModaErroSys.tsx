@@ -8,8 +8,8 @@ interface PropsContentModaErroSys {
 }
 export const ContentModaErroSys = ({ppwidth, bordas,children }: PropsContentModaErroSys) => {
   return (
-    <MD.ContainerModalPanelErroPage ppwidth={ppwidth}>
-      <MD.ContainerModalPanelErroFlex bordas={bordas}>
+    <MD.ContainerModalPanelErroPage $ppwidth={ppwidth}>
+      <MD.ContainerModalPanelErroFlex $bordas={bordas}>
         {children}
       </MD.ContainerModalPanelErroFlex>
     </MD.ContainerModalPanelErroPage>

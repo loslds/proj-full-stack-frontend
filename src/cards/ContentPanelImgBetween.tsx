@@ -1,6 +1,6 @@
 //import React from 'react';
 
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 
 interface PropsContentPanelImgBetween {
   pxheight?: string;

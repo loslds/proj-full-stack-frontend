@@ -1,7 +1,7 @@
 
 //C:\repository\proj-full-stack-frontend\src\cards\ContenteBottonsMaster.tsx
 import React from 'react';
-import * as Sy from './stylesSystem';
+import * as Sy from './stylesSys';
 
 interface PropsContentButtonsMaster {
   children?: React.ReactNode;

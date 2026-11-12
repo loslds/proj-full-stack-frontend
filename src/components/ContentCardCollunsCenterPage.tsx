@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 type TypeCardCollunsCenterPage = {
   openccp?: boolean;
@@ -14,7 +14,7 @@ export const ContentCardCollunsCenterPage = ({
   children
 }: TypeCardCollunsCenterPage) => {
   return (
-    <Pg.ContainerCollunsCenterPage openccp={openccp} pheight={pheight} pwidth={pwidth}>
+    <Pg.ContainerCollunsCenterPage $openccp={openccp} $pheight={pheight} pwidth={pwidth}>
       {children}
     </Pg.ContainerCollunsCenterPage>
   );

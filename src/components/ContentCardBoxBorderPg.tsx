@@ -1,4 +1,4 @@
-import * as Pg from './stylePages';
+import * as Pg from './styleComponents';
 
 interface PropsContentCardBoxBorderPg {
   pwidth?: string;
@@ -10,7 +10,7 @@ export const ContentCardBoxBorderPg = ({
   children,
 }: PropsContentCardBoxBorderPg) => {
   return (
-    <Pg.ContainerCardBoxPg pwidth={pwidth}>
+    <Pg.ContainerCardBoxPg $pwidth={pwidth}>
       <Pg.ContainerCardBoxBorderPgFlex>
         {children}
       </Pg.ContainerCardBoxBorderPgFlex>

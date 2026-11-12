@@ -1,6 +1,6 @@
 import React from "react";
 
-import * as Pg from "../../stylePages";
+import * as Pg from "../../styleComponents";
 
 import { ThemeProvider } from "styled-components";
 import light from "../../../themes/light";

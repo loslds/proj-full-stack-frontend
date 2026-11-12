@@ -1,6 +1,6 @@
 
 import React from "react";
-import * as Pg from '../stylePages';
+import * as Pg from '../styleComponents';
 
 import { useAcessoContext } from '../contexts/ContextAcesso';
 
@@ -696,25 +696,25 @@ export default Login;
           //   </ContentBoxPageSelect>
 
           //     <ContentPanelMain open={true} pwidth="33%">
-          //      <Pg.ContainerDivMainChecing pxwidth="97%">
+          //      <Pg.ContainerDivMainChecing $pxwidth="97%">
           //         <form>
           //           <h3>Empresa ...: </h3>
           //           <span>{fantempresa} </span>
           //         </form>
           //       </Pg.ContainerDivMainChecing>  
-          //       <Pg.ContainerDivMainChecing pxwidth="97%">
+          //       <Pg.ContainerDivMainChecing $pxwidth="97%">
           //         <form>
           //           <h3>Setor ........:</h3>
           //           <span>{nmsetor}</span>
           //         </form>
           //       </Pg.ContainerDivMainChecing>
-          //       <Pg.ContainerDivMainChecing pxwidth="97%">
+          //       <Pg.ContainerDivMainChecing $pxwidth="97%">
           //         <form>
           //           <h3>Passaport .:</h3>
           //           <span>{nmpassaporte}</span>
           //         </form>
           //       </Pg.ContainerDivMainChecing>
-          //       <Pg.ContainerDivMainChecing pxwidth="97%">
+          //       <Pg.ContainerDivMainChecing $pxwidth="97%">
           //         <form>
           //           <h3>Acesso .....:</h3>
           //             <p><span>ID: {input1}</span></p>

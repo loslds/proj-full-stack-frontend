@@ -16,7 +16,7 @@ export const ContentHeaderButtonChk = ({
   return (
     <H.ContainerHeaderButton>
       <H.ButtonHeaderImg
-        img={imgbtnchk}
+        $imgbtnbg={imgbtnchk}
         title={titbtnchk}
         onClick={onClickchk}
       />
