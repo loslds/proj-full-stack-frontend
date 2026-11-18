@@ -47,8 +47,8 @@ export const CardHlpStateContextPage = ({
     
         <h3>States Modo e Format Processo.</h3>
 
-        <label>&emsp;&emsp; mdlogin___: {state.mdlogin}</label>
-        <label>&emsp;&emsp; nmlogin___: {state.nmlogin}</label>
+        <label>&emsp;&emsp; nrpg_____: {state.nrpg}</label>
+        <label>&emsp;&emsp; nmpg_____: {state.nmpg}</label>
         <label>&emsp;&emsp; nrcont ____: {state.nrcont}</label>
         <label>&emsp;&emsp; nmcont____: {state.nmcont}</label>
     

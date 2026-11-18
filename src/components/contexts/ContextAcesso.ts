@@ -13,8 +13,9 @@ export type StateAcesso = {
   tempo: string;
   dataini: string;
 
-  mdlogin: number;
-  nmlogin: string;
+  nrpg: number;
+  nmpg: string;
+  
   nrcont: number;
   nmcont: string;
 
@@ -116,8 +117,8 @@ export const initialData: StateAcesso = {
   tempo: "",
   dataini: "",
 
-  mdlogin: 0,
-  nmlogin: "",
+  nrpg: 0,
+  nmpg: "",
   nrcont: 0,
   nmcont: "",
 

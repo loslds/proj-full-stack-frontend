@@ -26,8 +26,8 @@ export const CardStateContext = () => {
         <label>tempo: {state.tempo}</label>
         <label>dataini: {state.dataini}</label>
     
-        <label>mdlogin: {state.mdlogin}</label>
-        <label>nmlogin: {state.nmlogin}</label>
+        <label>nrpg: {state.nrpg}</label>
+        <label>nmpg: {state.nmpg}</label>
         <label>nrcont: {state.nrcont}</label>
         <label>nmcont: {state.nmcont}</label>
     
