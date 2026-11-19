@@ -40,9 +40,9 @@ export const MenuGaveta: React.FC<PropsMenuGaveta> = ({
     const overflowAnterior = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 
-    // Leva o foco para o primeiro item do menu.
-    const primeiro = painelRef.current?.querySelector<HTMLElement>(FOCAVEIS);
-    primeiro?.focus();
+    // Leva o foco para o PAINEL (não para o botão de fechar): assim nenhum botão
+    // aparece com contorno ao abrir, e o primeiro Tab já cai no botão de fechar.
+    painelRef.current?.focus();
 
     // Esc fecha; Tab fica circulando só dentro do menu.
     const aoTeclar = (e: KeyboardEvent) => {
@@ -57,7 +57,8 @@ export const MenuGaveta: React.FC<PropsMenuGaveta> = ({
       const inicio = lista[0];
       const fim = lista[lista.length - 1];
 
-      if (e.shiftKey && document.activeElement === inicio) {
+      // Foco no próprio painel + Shift+Tab: vai para o último item (não escapa do menu).
+      if (e.shiftKey && (document.activeElement === inicio || document.activeElement === painelRef.current)) {
         e.preventDefault();
         fim.focus();
       } else if (!e.shiftKey && document.activeElement === fim) {
@@ -90,6 +91,7 @@ export const MenuGaveta: React.FC<PropsMenuGaveta> = ({
         role="dialog"
         aria-modal="true"
         aria-label={titulo}
+        tabIndex={-1}
       >
         <S.MenuTopo>
           <span>{titulo}</span>

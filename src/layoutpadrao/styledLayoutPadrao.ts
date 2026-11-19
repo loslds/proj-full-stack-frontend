@@ -117,6 +117,8 @@ export const BotaoImagem = styled.button`
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
+  /* O navegador não faz o botão herdar a cor do texto; sem isto o ✕ ficava preto no tema escuro. */
+  color: inherit;
   cursor: pointer;
 
   &:hover:not(:disabled) {
@@ -228,6 +230,8 @@ export const MenuPainel = styled.nav<{ $aberto: boolean }>`
   background: ${({ theme }) => theme.colors.backgroundColor};
   color: ${({ theme }) => theme.colors.textColor};
   border-right: 1px solid ${({ theme }) => theme.colors.borderColor};
+  /* O painel recebe o foco ao abrir (ver MenuGaveta); o contorno só atrapalharia. */
+  outline: none;
   transform: translateX(${({ $aberto }) => ($aberto ? '0' : '-100%')});
   transition: transform 0.2s ease;
   ${({ $aberto }) =>
