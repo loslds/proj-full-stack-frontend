@@ -13,6 +13,7 @@ declare module 'styled-components' {
       borderColor: string;
       hoverColor: string;
       headerBackground: string;
+      scrimColor: string; // fundo que cobre a página enquanto o menu lateral está aberto
     }
   } 
 }

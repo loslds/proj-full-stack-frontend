@@ -6,3 +6,4 @@ Neste projeto:
 
 - [principios-e-regras-de-ouro.md](principios-e-regras-de-ouro.md): regras de código do frontend (leitura obrigatória antes de alterar).
 - Documentação específica de telas (layouts, grids, modais) entra aqui, um arquivo por assunto, seguindo `padrao-de-documentacao.md` do backend.
+- [layout-padrao.md](layout-padrao.md): layout único da nova cara (branch `nova-ui`): estrutura da tela, arquivos, como criar uma página e pendências.

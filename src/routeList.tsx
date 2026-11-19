@@ -3,6 +3,7 @@
 import React from "react";
 
 import Home from "./components/pages/Home";
+import HomeNova from "./components/pages/HomeNova";
 //import Login from "./components/pages/Login";
 //import Resgate from "./components/pages/Resgate";
 import { ThemeProvider } from "styled-components";
@@ -25,6 +26,8 @@ export interface IRoute {
 
 export const RouteList: IRoute[] = [
   { path: "/", element: <Home /> },
+  // Home piloto da nova cara (branch nova-ui); a Home antiga segue em "/".
+  { path: "/nova-home", element: <HomeNova /> },
   //{ path: "/login", element: <Login /> },
   //{ path: "/resgate", element: <Resgate /> },
   // O card usa theme.colors.*; aberto direto pela rota precisa do ThemeProvider.

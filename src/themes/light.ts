@@ -15,6 +15,8 @@ const LightTheme = {
     hoverColor: '#e6e6e6',           // 👈 hover
 
     headerBackground: '#e6e6e6',
+
+    scrimColor: 'rgba(0, 0, 0, 0.5)', // camada sobre a página com o menu aberto
   }
 };
 

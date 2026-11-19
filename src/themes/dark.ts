@@ -16,6 +16,8 @@ const DarkTheme = {
     hoverColor: '#2a2a2a',           // 👈 hover
 
     headerBackground: '#7e7b7b',
+
+    scrimColor: 'rgba(0, 0, 0, 0.7)', // camada sobre a página com o menu aberto
   }
 };
 
